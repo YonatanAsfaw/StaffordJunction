@@ -1,0 +1,1247 @@
+[18-Nov-2024 18:21:37 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[18-Nov-2024 20:43:18 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[18-Nov-2024 20:50:21 America/New_York] PHP Warning:  foreach() argument must be of type array|object, null given in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 95
+[18-Nov-2024 20:57:16 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[18-Nov-2024 20:57:24 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbangelgiftform' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbAngelGiftForm.php:67
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbAngelGiftForm.php(67): mysqli_query(Object(mysqli), 'SELECT * FROM d...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/angelGiftForm.php(99): isAngelGiftFormComplete('1')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbAngelGiftForm.php on line 67
+[18-Nov-2024 20:58:37 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[18-Nov-2024 20:58:37 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[18-Nov-2024 20:58:37 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[18-Nov-2024 20:58:37 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[18-Nov-2024 20:58:44 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[18-Nov-2024 20:58:44 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[18-Nov-2024 20:58:44 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[18-Nov-2024 20:58:44 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[18-Nov-2024 20:58:48 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[18-Nov-2024 20:58:48 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[18-Nov-2024 20:58:48 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[18-Nov-2024 20:58:48 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[18-Nov-2024 21:44:41 America/New_York] PHP Warning:  foreach() argument must be of type array|object, null given in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 95
+[18-Nov-2024 21:44:51 America/New_York] PHP Warning:  Undefined variable $success in /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php on line 242
+[19-Nov-2024 16:30:46 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[19-Nov-2024 21:34:09 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayMealBagForm.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayMealBagForm.php on line 17
+[19-Nov-2024 21:34:12 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayMealBagForm.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayMealBagForm.php on line 17
+[19-Nov-2024 16:38:02 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[19-Nov-2024 16:39:50 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 16:39:50 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 16:39:50 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 16:39:50 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 16:40:02 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[19-Nov-2024 16:46:19 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[19-Nov-2024 16:50:04 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[19-Nov-2024 16:50:20 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 16:50:20 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 16:50:20 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 16:50:20 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 16:50:22 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 16:50:22 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 16:50:22 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 16:50:22 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 16:50:23 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 16:50:23 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 16:50:23 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 16:50:23 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 16:55:50 America/New_York] PHP Warning:  Undefined array key "f_name" in /home/customer/www/jenniferp129.sg-host.com/public_html/familyAccountDashboard.php on line 34
+[19-Nov-2024 16:58:35 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[19-Nov-2024 16:59:41 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[19-Nov-2024 17:05:27 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[19-Nov-2024 17:10:45 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[19-Nov-2024 17:48:19 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[19-Nov-2024 18:31:57 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 18:31:57 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 18:31:57 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 18:31:57 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 18:31:57 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[19-Nov-2024 18:31:57 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[19-Nov-2024 18:32:20 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 18:32:20 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 18:32:20 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 18:32:20 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 18:32:20 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[19-Nov-2024 18:32:20 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[19-Nov-2024 18:41:11 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 18:41:11 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 18:41:11 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 18:41:11 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 18:41:11 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[19-Nov-2024 18:41:11 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[19-Nov-2024 18:59:29 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[19-Nov-2024 19:04:33 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[19-Nov-2024 19:18:14 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[19-Nov-2024 19:19:02 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[19-Nov-2024 19:26:07 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[19-Nov-2024 19:26:13 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 19:26:13 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 19:26:13 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 19:26:13 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 19:26:13 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[19-Nov-2024 19:26:13 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[20-Nov-2024 03:35:00 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'dbassistance.id' in 'on clause' in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFamily.php:546
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFamily.php(546): mysqli_query(Object(mysqli), 'SELECT * FROM d...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/findFamily.php(73): find_families('', '', '', '', '', '', NULL, Array, 0)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFamily.php on line 546
+[19-Nov-2024 22:45:55 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[19-Nov-2024 22:48:18 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[19-Nov-2024 22:50:16 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[19-Nov-2024 22:51:28 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[19-Nov-2024 22:55:05 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 22:55:05 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 22:55:05 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 22:55:05 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 22:55:05 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[19-Nov-2024 22:55:05 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[19-Nov-2024 23:24:15 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 23:24:15 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[19-Nov-2024 23:24:15 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 23:24:15 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[19-Nov-2024 23:24:15 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[19-Nov-2024 23:24:15 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[19-Nov-2024 23:25:25 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 04:27:48 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFamily.php(303): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/editFamilyProfile.php(26): retrieve_family_by_id('4')
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:27:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFamily.php(303): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/editFamilyProfile.php(26): retrieve_family_by_id('4')
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:28:00 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFamily.php(303): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/editFamilyProfile.php(26): retrieve_family_by_id('4')
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:28:31 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:28:36 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:28:54 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:29:37 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:30:50 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:31:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:32:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:32:47 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:36:58 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:39:50 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:40:21 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:45:32 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:51:32 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:51:50 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 04:58:03 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 05:02:50 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 05:09:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 05:12:33 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 05:12:43 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 12:21:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 12:35:39 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 12:44:53 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 13:14:01 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'odhsmd'@'localhost' (using password: YES) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'odhsmd', Object(SensitiveParameterValue), 'odhsmd')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 13:20:58 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'u8sj1xg2scpnb'@'localhost' to database 'dbjyzu1z500h5e' in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'u8sj1xg2scpnb', Object(SensitiveParameterValue), 'dbjyzu1z500h5e')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 13:21:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'u8sj1xg2scpnb'@'localhost' to database 'dbjyzu1z500h5e' in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'u8sj1xg2scpnb', Object(SensitiveParameterValue), 'dbjyzu1z500h5e')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 13:21:19 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'u8sj1xg2scpnb'@'localhost' to database 'dbjyzu1z500h5e' in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php:32
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php(32): mysqli_connect('localhost', 'u8sj1xg2scpnb', Object(SensitiveParameterValue), 'dbjyzu1z500h5e')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/include/input-validation.php(48): connect()
+#2 /home/customer/www/jenniferp129.sg-host.com/public_html/login.php(32): sanitize(Array, Array)
+#3 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbinfo.php on line 32
+[20-Nov-2024 08:23:22 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[20-Nov-2024 08:23:22 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[20-Nov-2024 08:23:22 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[20-Nov-2024 08:23:22 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[20-Nov-2024 08:23:22 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[20-Nov-2024 08:23:22 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[20-Nov-2024 08:23:31 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[20-Nov-2024 08:23:31 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[20-Nov-2024 08:23:31 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[20-Nov-2024 08:23:31 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[20-Nov-2024 08:23:31 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[20-Nov-2024 08:23:31 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[20-Nov-2024 08:24:56 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[20-Nov-2024 08:24:56 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[20-Nov-2024 08:24:56 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[20-Nov-2024 08:24:56 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[20-Nov-2024 08:24:56 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[20-Nov-2024 08:24:56 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[20-Nov-2024 08:31:09 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[20-Nov-2024 08:31:09 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 73
+[20-Nov-2024 08:31:09 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[20-Nov-2024 08:31:09 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 76
+[20-Nov-2024 08:31:09 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[20-Nov-2024 08:31:09 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 79
+[20-Nov-2024 08:50:41 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 08:50:53 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 08:54:19 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 09:22:42 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 09:22:59 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 09:24:08 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 09:35:46 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 09:45:40 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 09:49:02 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 09:54:46 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 09:59:36 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 10:02:44 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 10:04:53 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 10:16:27 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 10:17:36 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 13:54:59 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 15:48:50 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 16:00:22 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[20-Nov-2024 22:55:06 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[21-Nov-2024 06:01:52 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[21-Nov-2024 21:18:51 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/angelGiftForm.php:29
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/angelGiftForm.php on line 29
+[21-Nov-2024 16:21:49 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[22-Nov-2024 15:44:02 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[22-Nov-2024 15:44:04 America/New_York] PHP Warning:  foreach() argument must be of type array|object, null given in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php on line 124
+[22-Nov-2024 15:44:30 America/New_York] PHP Warning:  foreach() argument must be of type array|object, null given in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php on line 124
+[22-Nov-2024 15:45:05 America/New_York] PHP Warning:  Undefined variable $success in /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php on line 242
+[22-Nov-2024 15:47:26 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[22-Nov-2024 15:47:41 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'child_id' in 'where clause' in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbHolidayPartyForm.php:41
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbHolidayPartyForm.php(41): mysqli_query(Object(mysqli), 'SELECT * FROM d...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php(127): isHolidayPartyFormComplete('12')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbHolidayPartyForm.php on line 41
+[22-Nov-2024 15:48:28 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'child_id' in 'where clause' in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbHolidayPartyForm.php:41
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbHolidayPartyForm.php(41): mysqli_query(Object(mysqli), 'SELECT * FROM d...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php(127): isHolidayPartyFormComplete('12')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbHolidayPartyForm.php on line 41
+[22-Nov-2024 15:49:26 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'child_id' in 'where clause' in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbHolidayPartyForm.php:41
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbHolidayPartyForm.php(41): mysqli_query(Object(mysqli), 'SELECT * FROM d...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php(127): isHolidayPartyFormComplete('12')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbHolidayPartyForm.php on line 41
+[22-Nov-2024 20:50:50 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(31): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[22-Nov-2024 20:51:07 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(31): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[22-Nov-2024 15:53:48 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[22-Nov-2024 15:55:18 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'child_id' in 'where clause' in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbHolidayPartyForm.php:41
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbHolidayPartyForm.php(41): mysqli_query(Object(mysqli), 'SELECT * FROM d...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php(127): isHolidayPartyFormComplete('12')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbHolidayPartyForm.php on line 41
+[22-Nov-2024 15:59:21 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'child_id' in 'where clause' in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbHolidayPartyForm.php:41
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbHolidayPartyForm.php(41): mysqli_query(Object(mysqli), 'SELECT * FROM d...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php(127): isHolidayPartyFormComplete('12')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbHolidayPartyForm.php on line 41
+[22-Nov-2024 16:04:37 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[22-Nov-2024 16:08:03 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[22-Nov-2024 16:38:33 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[22-Nov-2024 21:39:11 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(31): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[22-Nov-2024 16:43:16 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[22-Nov-2024 16:45:02 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[22-Nov-2024 16:46:20 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[22-Nov-2024 16:47:26 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[24-Nov-2024 02:49:55 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/angelGiftForm.php:29
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/angelGiftForm.php on line 29
+[24-Nov-2024 02:50:08 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[24-Nov-2024 14:25:29 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[24-Nov-2024 14:27:03 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[24-Nov-2024 14:27:22 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[24-Nov-2024 14:27:36 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php:117
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php on line 117
+[24-Nov-2024 14:28:22 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php:117
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php on line 117
+[24-Nov-2024 14:29:52 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[24-Nov-2024 14:30:00 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[24-Nov-2024 14:30:10 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 112
+[24-Nov-2024 14:31:09 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php:117
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php on line 117
+[24-Nov-2024 19:32:49 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[24-Nov-2024 14:33:04 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php:117
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php on line 117
+[24-Nov-2024 14:33:38 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php:117
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php on line 117
+[24-Nov-2024 14:33:52 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php:117
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php on line 117
+[24-Nov-2024 14:34:20 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php:117
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayPartyForm.php on line 117
+[24-Nov-2024 14:36:05 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[24-Nov-2024 14:37:08 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[24-Nov-2024 14:37:35 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[24-Nov-2024 14:39:23 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[24-Nov-2024 19:39:44 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[24-Nov-2024 19:40:17 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/angelGiftForm.php:29
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/angelGiftForm.php on line 29
+[24-Nov-2024 19:40:43 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/programInterestForm.php:45
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/programInterestForm.php on line 45
+[24-Nov-2024 19:40:53 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/childCareWaiverForm.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/childCareWaiverForm.php on line 19
+[24-Nov-2024 19:41:11 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/programInterestForm.php:45
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/programInterestForm.php on line 45
+[24-Nov-2024 14:51:24 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[24-Nov-2024 14:53:58 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[24-Nov-2024 14:54:27 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[24-Nov-2024 18:06:13 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[24-Nov-2024 18:06:42 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[24-Nov-2024 20:08:58 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[24-Nov-2024 20:09:04 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbSpringBreakCampForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php:9
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php(9): mysqli_query(Object(mysqli), 'SELECT * FROM d...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php(131): isSpringBreakCampFormComplete('14')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php on line 9
+[24-Nov-2024 20:09:34 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbSpringBreakCampForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php:9
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php(9): mysqli_query(Object(mysqli), 'SELECT * FROM d...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php(131): isSpringBreakCampFormComplete('14')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php on line 9
+[24-Nov-2024 20:09:41 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbSpringBreakCampForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php:9
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php(9): mysqli_query(Object(mysqli), 'SELECT * FROM d...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php(131): isSpringBreakCampFormComplete('14')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php on line 9
+[24-Nov-2024 20:09:55 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbSpringBreakCampForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php:9
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php(9): mysqli_query(Object(mysqli), 'SELECT * FROM d...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php(131): isSpringBreakCampFormComplete('14')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php on line 9
+[24-Nov-2024 20:11:36 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[24-Nov-2024 20:11:40 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbSpringBreakCampForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php:9
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php(9): mysqli_query(Object(mysqli), 'SELECT * FROM d...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php(131): isSpringBreakCampFormComplete('14')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php on line 9
+[24-Nov-2024 20:12:52 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[24-Nov-2024 20:12:54 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbSpringBreakCampForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php:9
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php(9): mysqli_query(Object(mysqli), 'SELECT * FROM d...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php(131): isSpringBreakCampFormComplete('14')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php on line 9
+[24-Nov-2024 20:28:40 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[24-Nov-2024 20:28:42 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbSpringBreakCampForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php:9
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php(9): mysqli_query(Object(mysqli), 'SELECT * FROM d...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php(131): isSpringBreakCampFormComplete('1')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbSpringBreakCampForm.php on line 9
+[25-Nov-2024 00:07:40 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[25-Nov-2024 00:08:23 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[25-Nov-2024 00:12:35 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[25-Nov-2024 00:18:11 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[25-Nov-2024 08:00:06 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[25-Nov-2024 13:25:30 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/customer/www/jenniferp129.sg-host.com/public_html/forgotPassword.php:33) in /home/customer/www/jenniferp129.sg-host.com/public_html/forgotPassword.php on line 37
+[25-Nov-2024 08:29:37 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[25-Nov-2024 08:33:33 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[25-Nov-2024 08:59:54 America/New_York] PHP Warning:  Undefined array key "access_level" in /home/customer/www/jenniferp129.sg-host.com/public_html/fillForm.php on line 98
+[25-Nov-2024 09:00:35 America/New_York] PHP Warning:  Undefined array key "access_level" in /home/customer/www/jenniferp129.sg-host.com/public_html/fillForm.php on line 98
+[25-Nov-2024 09:22:52 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[25-Nov-2024 09:24:30 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[25-Nov-2024 09:26:15 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[25-Nov-2024 09:51:45 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[25-Nov-2024 10:05:56 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[25-Nov-2024 10:06:01 America/New_York] PHP Warning:  foreach() argument must be of type array|object, null given in /home/customer/www/jenniferp129.sg-host.com/public_html/childCareWaiverForm.php on line 192
+[25-Nov-2024 10:06:09 America/New_York] PHP Warning:  Undefined variable $success in /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php on line 242
+[25-Nov-2024 15:06:43 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(31): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[25-Nov-2024 10:19:22 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[25-Nov-2024 11:51:33 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[25-Nov-2024 14:44:34 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[26-Nov-2024 09:51:44 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[26-Nov-2024 12:19:54 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[26-Nov-2024 17:59:00 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[26-Nov-2024 19:48:50 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 113
+[02-Dec-2024 09:08:24 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 77
+[02-Dec-2024 09:08:24 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 77
+[02-Dec-2024 09:08:24 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 80
+[02-Dec-2024 09:08:24 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 80
+[02-Dec-2024 09:08:24 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 83
+[02-Dec-2024 09:08:24 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 83
+[02-Dec-2024 14:11:11 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[02-Dec-2024 14:11:15 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php on line 30
+[02-Dec-2024 14:11:20 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php on line 30
+[02-Dec-2024 14:11:21 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[02-Dec-2024 14:11:22 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php on line 30
+[02-Dec-2024 14:11:24 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getAddress() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php on line 30
+[02-Dec-2024 14:11:34 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[02-Dec-2024 14:11:40 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php on line 30
+[02-Dec-2024 14:11:48 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getAddress() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php on line 30
+[02-Dec-2024 14:11:52 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[02-Dec-2024 14:12:46 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[02-Dec-2024 14:12:51 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[02-Dec-2024 14:12:52 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php on line 30
+[02-Dec-2024 09:22:21 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 107
+[02-Dec-2024 09:37:30 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 77
+[02-Dec-2024 09:37:30 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 77
+[02-Dec-2024 09:37:30 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 80
+[02-Dec-2024 09:37:30 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 80
+[02-Dec-2024 09:37:30 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 83
+[02-Dec-2024 09:37:30 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 83
+[02-Dec-2024 09:42:49 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 77
+[02-Dec-2024 09:42:49 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 77
+[02-Dec-2024 09:42:49 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 80
+[02-Dec-2024 09:42:49 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 80
+[02-Dec-2024 09:42:49 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 83
+[02-Dec-2024 09:42:49 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 83
+[02-Dec-2024 09:45:03 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 107
+[02-Dec-2024 09:45:09 America/New_York] PHP Warning:  Undefined variable $success in /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php on line 243
+[02-Dec-2024 09:45:31 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 77
+[02-Dec-2024 09:45:31 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 77
+[02-Dec-2024 09:45:31 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 80
+[02-Dec-2024 09:45:31 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 80
+[02-Dec-2024 09:45:31 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 83
+[02-Dec-2024 09:45:31 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 83
+[02-Dec-2024 15:16:28 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[02-Dec-2024 15:16:44 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php on line 30
+[02-Dec-2024 15:19:08 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[02-Dec-2024 15:19:10 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/springBreakForm.php on line 30
+[02-Dec-2024 15:23:11 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[02-Dec-2024 15:34:17 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayMealBagForm.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayMealBagForm.php on line 17
+[03-Dec-2024 15:41:26 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 108
+[03-Dec-2024 15:42:24 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 108
+[03-Dec-2024 15:42:33 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 77
+[03-Dec-2024 15:42:33 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 77
+[03-Dec-2024 15:42:33 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 80
+[03-Dec-2024 15:42:33 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 80
+[03-Dec-2024 15:42:33 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 83
+[03-Dec-2024 15:42:33 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 83
+[03-Dec-2024 15:53:06 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 108
+[03-Dec-2024 15:55:20 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbFieldTripWaiverForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php:99
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php(99): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php(161): isFieldTripWaiverFormComplete('8')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php on line 99
+[03-Dec-2024 15:55:39 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbFieldTripWaiverForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php:99
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php(99): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php(161): isFieldTripWaiverFormComplete('8')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php on line 99
+[03-Dec-2024 15:56:09 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbFieldTripWaiverForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php:99
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php(99): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php(161): isFieldTripWaiverFormComplete('9')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php on line 99
+[03-Dec-2024 15:57:52 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 108
+[03-Dec-2024 15:59:35 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbFieldTripWaiverForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php:99
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php(99): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php(161): isFieldTripWaiverFormComplete('1')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php on line 99
+[03-Dec-2024 15:59:56 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 108
+[03-Dec-2024 16:00:17 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbFieldTripWaiverForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php:99
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php(99): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php(161): isFieldTripWaiverFormComplete('1')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php on line 99
+[03-Dec-2024 21:00:33 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '1' for key 'dbUnallowedFoods.PRIMARY' in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildCareForm.php:131
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildCareForm.php(131): mysqli_query(Object(mysqli), '\n        INSERT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/childCareWaiverForm.php(140): createChildCareForm(Array)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildCareForm.php on line 131
+[03-Dec-2024 21:01:20 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/childCareWaiverForm.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/childCareWaiverForm.php on line 30
+[03-Dec-2024 16:01:59 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbFieldTripWaiverForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php:99
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php(99): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php(161): isFieldTripWaiverFormComplete('18')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php on line 99
+[03-Dec-2024 16:03:34 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbFieldTripWaiverForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php:99
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php(99): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php(161): isFieldTripWaiverFormComplete('1')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php on line 99
+[03-Dec-2024 16:03:41 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbFieldTripWaiverForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php:99
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php(99): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php(161): isFieldTripWaiverFormComplete('1')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php on line 99
+[03-Dec-2024 16:04:38 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbFieldTripWaiverForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php:99
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php(99): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php(161): isFieldTripWaiverFormComplete('1')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php on line 99
+[03-Dec-2024 16:04:52 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbFieldTripWaiverForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php:99
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php(99): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php(161): isFieldTripWaiverFormComplete('1')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php on line 99
+[03-Dec-2024 16:05:04 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbFieldTripWaiverForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php:99
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php(99): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php(161): isFieldTripWaiverFormComplete('1')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php on line 99
+[03-Dec-2024 16:07:28 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 108
+[03-Dec-2024 16:07:32 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbFieldTripWaiverForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php:99
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php(99): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php(161): isFieldTripWaiverFormComplete('1')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php on line 99
+[03-Dec-2024 16:07:36 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbFieldTripWaiverForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php:99
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php(99): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php(161): isFieldTripWaiverFormComplete('1')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php on line 99
+[03-Dec-2024 17:08:12 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbFieldTripWaiverForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php:99
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php(99): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php(161): isFieldTripWaiverFormComplete('1')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php on line 99
+[03-Dec-2024 17:17:45 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dbvswbwbmfnmrx.dbFieldTripWaiverForm' doesn't exist in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php:99
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php(99): mysqli_query(Object(mysqli), '\n        SELECT...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php(161): isFieldTripWaiverFormComplete('1')
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbFieldTripWaiverForm.php on line 99
+[03-Dec-2024 17:32:17 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 108
+[03-Dec-2024 17:32:41 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 108
+[03-Dec-2024 17:44:21 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 108
+[03-Dec-2024 19:07:03 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 108
+[03-Dec-2024 21:19:58 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[03-Dec-2024 23:32:42 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 08:00:27 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 08:02:16 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 08:04:28 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 08:08:48 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[04-Dec-2024 08:08:48 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[04-Dec-2024 08:08:48 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[04-Dec-2024 08:08:48 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[04-Dec-2024 08:08:48 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[04-Dec-2024 08:08:48 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[04-Dec-2024 09:14:27 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 09:18:12 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[04-Dec-2024 09:18:12 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[04-Dec-2024 09:18:12 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[04-Dec-2024 09:18:12 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[04-Dec-2024 09:18:12 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[04-Dec-2024 09:18:12 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[04-Dec-2024 09:20:47 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 09:21:01 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[04-Dec-2024 09:21:01 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[04-Dec-2024 09:21:01 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[04-Dec-2024 09:21:01 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[04-Dec-2024 09:21:01 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[04-Dec-2024 09:21:01 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[04-Dec-2024 09:22:43 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 09:34:55 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 09:41:08 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 09:49:35 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 09:50:36 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 09:50:57 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 09:53:16 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[04-Dec-2024 09:53:16 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[04-Dec-2024 09:53:16 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[04-Dec-2024 09:53:16 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[04-Dec-2024 09:53:16 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[04-Dec-2024 09:53:16 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[04-Dec-2024 10:01:02 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 10:05:45 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 10:06:58 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 10:07:25 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[04-Dec-2024 10:07:25 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[04-Dec-2024 10:07:25 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[04-Dec-2024 10:07:25 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[04-Dec-2024 10:07:25 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[04-Dec-2024 10:07:25 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[04-Dec-2024 15:08:23 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function sanitize() in /home/customer/www/jenniferp129.sg-host.com/public_html/busMonitorAttendanceForm.php:29
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/busMonitorAttendanceForm.php on line 29
+[04-Dec-2024 15:09:18 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[04-Dec-2024 15:09:24 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[04-Dec-2024 15:09:54 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[04-Dec-2024 15:11:07 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[04-Dec-2024 10:12:47 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 15:13:07 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[04-Dec-2024 10:13:24 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 15:14:15 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[04-Dec-2024 15:15:11 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[04-Dec-2024 10:15:39 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 15:18:24 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 28
+[04-Dec-2024 10:18:41 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 10:21:17 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 10:24:46 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 11:45:38 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 13:14:26 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 13:15:38 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 13:33:52 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[04-Dec-2024 13:35:44 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[04-Dec-2024 13:35:44 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[04-Dec-2024 13:35:44 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[04-Dec-2024 13:35:44 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[04-Dec-2024 13:35:44 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[04-Dec-2024 13:35:44 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[04-Dec-2024 13:35:58 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[04-Dec-2024 13:35:58 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[04-Dec-2024 13:35:58 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[04-Dec-2024 13:35:58 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[04-Dec-2024 13:35:58 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[04-Dec-2024 13:35:58 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[05-Dec-2024 07:17:01 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[05-Dec-2024 07:17:32 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[05-Dec-2024 07:17:32 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[05-Dec-2024 07:17:32 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[05-Dec-2024 07:17:32 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[05-Dec-2024 07:17:32 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[05-Dec-2024 07:17:32 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[05-Dec-2024 16:22:45 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[07-Dec-2024 10:59:35 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[07-Dec-2024 10:59:44 America/New_York] PHP Warning:  Undefined variable $success in /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php on line 243
+[07-Dec-2024 16:00:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(31): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[07-Dec-2024 11:02:38 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[07-Dec-2024 11:02:38 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[07-Dec-2024 11:02:38 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[07-Dec-2024 11:02:38 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[07-Dec-2024 11:02:38 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[07-Dec-2024 11:02:38 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[07-Dec-2024 11:09:50 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[07-Dec-2024 11:10:06 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[07-Dec-2024 11:10:06 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[07-Dec-2024 11:10:06 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[07-Dec-2024 11:10:06 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[07-Dec-2024 11:10:06 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[07-Dec-2024 11:10:06 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[07-Dec-2024 16:17:24 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getAddress() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php on line 30
+[07-Dec-2024 17:27:47 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[07-Dec-2024 17:43:08 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[07-Dec-2024 17:57:54 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[07-Dec-2024 18:08:45 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[08-Dec-2024 09:55:08 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[08-Dec-2024 11:00:47 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[08-Dec-2024 11:00:47 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[08-Dec-2024 11:00:47 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[08-Dec-2024 11:00:47 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[08-Dec-2024 11:00:47 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[08-Dec-2024 11:00:47 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[08-Dec-2024 11:37:41 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[08-Dec-2024 11:41:19 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[08-Dec-2024 14:29:29 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[08-Dec-2024 14:29:29 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[08-Dec-2024 14:29:29 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[08-Dec-2024 14:29:29 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[08-Dec-2024 14:29:29 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[08-Dec-2024 14:29:29 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[08-Dec-2024 14:34:31 America/New_York] PHP Warning:  Undefined variable $success in /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php on line 243
+[08-Dec-2024 17:28:15 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[08-Dec-2024 18:52:12 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[08-Dec-2024 18:53:27 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[08-Dec-2024 18:53:27 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 81
+[08-Dec-2024 18:53:27 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[08-Dec-2024 18:53:27 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 84
+[08-Dec-2024 18:53:27 America/New_York] PHP Warning:  Undefined global variable $_SESSION in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[08-Dec-2024 18:53:27 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/customer/www/jenniferp129.sg-host.com/public_html/childAccount.php on line 87
+[08-Dec-2024 21:22:06 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[09-Dec-2024 05:57:17 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[09-Dec-2024 10:58:57 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(32): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[09-Dec-2024 11:00:12 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(32): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[09-Dec-2024 13:42:38 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(32): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[09-Dec-2024 13:45:40 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(32): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[09-Dec-2024 10:13:38 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[09-Dec-2024 15:15:56 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(32): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[09-Dec-2024 11:48:42 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 109
+[09-Dec-2024 17:15:33 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(32): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[09-Dec-2024 17:16:14 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(32): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[10-Dec-2024 14:07:15 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 14:07:18 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 14:08:11 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 14:09:05 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 14:09:22 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 15:03:16 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 15:07:19 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 20:15:10 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(32): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[10-Dec-2024 20:44:44 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/jenniferp129.sg-host.com/public_html/programInterestForm.php:55
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/programInterestForm.php on line 55
+[10-Dec-2024 15:44:45 America/New_York] PHP Warning:  foreach() argument must be of type array|object, null given in /home/customer/www/jenniferp129.sg-host.com/public_html/fieldTripWaiver.php on line 159
+[10-Dec-2024 20:44:48 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayMealBagForm.php:22
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayMealBagForm.php on line 22
+[10-Dec-2024 15:44:50 America/New_York] PHP Warning:  foreach() argument must be of type array|object, null given in /home/customer/www/jenniferp129.sg-host.com/public_html/schoolSuppliesForm.php on line 87
+[10-Dec-2024 15:45:01 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 15:45:27 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 15:45:56 America/New_York] PHP Warning:  Undefined variable $submissions in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 70
+[10-Dec-2024 15:45:56 America/New_York] PHP Warning:  Undefined variable $columnNames in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 71
+[10-Dec-2024 15:46:48 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 15:47:16 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 15:47:34 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 15:58:03 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 16:00:00 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 16:00:01 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 16:00:11 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 16:06:37 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 17:11:06 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 22:32:32 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:80
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(80): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(32): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 80
+[10-Dec-2024 22:35:54 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:80
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(80): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(31): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 80
+[10-Dec-2024 22:36:04 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:80
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(80): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(31): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 80
+[10-Dec-2024 22:36:26 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:80
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(80): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(32): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 80
+[10-Dec-2024 22:39:14 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:80
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(80): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(32): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 80
+[10-Dec-2024 19:54:10 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[11-Dec-2024 01:01:25 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:80
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(80): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(32): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 80
+[10-Dec-2024 20:02:03 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 20:03:01 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 20:03:30 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 20:03:37 America/New_York] PHP Warning:  Undefined variable $submissions in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 70
+[10-Dec-2024 20:03:37 America/New_York] PHP Warning:  Undefined variable $columnNames in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 71
+[10-Dec-2024 20:03:44 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 20:05:16 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 20:12:40 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 20:12:46 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 20:14:12 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 20:17:16 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 20:20:49 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 20:28:36 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 20:29:30 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 20:38:04 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 20:50:34 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 20:53:17 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 21:09:12 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 21:09:44 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 21:10:26 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 21:12:52 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 21:20:19 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 21:25:47 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 22:13:28 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 22:27:48 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[10-Dec-2024 22:27:49 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[10-Dec-2024 22:48:04 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 111
+[11-Dec-2024 04:57:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(32): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[11-Dec-2024 04:57:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(32): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[11-Dec-2024 04:57:47 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(32): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[11-Dec-2024 04:57:55 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`dbvswbwbmfnmrx`.`dbChildren`, CONSTRAINT `dbChildren_family_id_FK` FOREIGN KEY (`family_id`) REFERENCES `dbFamily` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php:79
+Stack trace:
+#0 /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php(79): mysqli_query(Object(mysqli), 'INSERT INTO dbC...')
+#1 /home/customer/www/jenniferp129.sg-host.com/public_html/addChild.php(33): add_child(Object(Child), NULL)
+#2 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/database/dbChildren.php on line 79
+[11-Dec-2024 00:07:57 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 00:24:51 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 07:45:18 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 07:46:43 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 07:46:45 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[11-Dec-2024 12:46:52 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php:41
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 41
+[11-Dec-2024 12:47:02 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php:41
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 41
+[11-Dec-2024 07:47:21 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[11-Dec-2024 07:47:37 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[11-Dec-2024 07:47:42 America/New_York] PHP Warning:  Undefined variable $submissions in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 70
+[11-Dec-2024 07:47:42 America/New_York] PHP Warning:  Undefined variable $columnNames in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 71
+[11-Dec-2024 07:47:50 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[11-Dec-2024 07:47:56 America/New_York] PHP Warning:  Undefined variable $submissions in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 70
+[11-Dec-2024 07:47:56 America/New_York] PHP Warning:  Undefined variable $columnNames in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 71
+[11-Dec-2024 07:48:01 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[11-Dec-2024 07:48:06 America/New_York] PHP Warning:  Undefined variable $submissions in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 70
+[11-Dec-2024 07:48:06 America/New_York] PHP Warning:  Undefined variable $columnNames in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 71
+[11-Dec-2024 07:48:12 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[11-Dec-2024 07:48:27 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[11-Dec-2024 08:02:44 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 08:11:48 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 08:30:45 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 08:58:38 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 09:01:46 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 09:10:17 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[11-Dec-2024 09:10:23 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[11-Dec-2024 10:28:03 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[11-Dec-2024 10:28:14 America/New_York] PHP Warning:  Undefined variable $submissions in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 70
+[11-Dec-2024 10:28:14 America/New_York] PHP Warning:  Undefined variable $columnNames in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 71
+[11-Dec-2024 10:29:15 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 10:31:12 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 10:32:23 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 10:33:21 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 10:35:26 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 10:38:48 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 10:38:50 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[11-Dec-2024 11:13:00 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 11:13:28 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[11-Dec-2024 11:13:30 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[11-Dec-2024 11:20:26 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 11:21:57 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 11:22:13 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 11:31:48 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 11:32:08 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[11-Dec-2024 11:53:51 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 22:00:38 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[11-Dec-2024 22:11:36 America/New_York] PHP Warning:  Undefined array key "f_name" in /home/customer/www/jenniferp129.sg-host.com/public_html/familyAccountDashboard.php on line 45
+[11-Dec-2024 22:11:36 America/New_York] PHP Deprecated:  ucfirst(): Passing null to parameter #1 ($string) of type string is deprecated in /home/customer/www/jenniferp129.sg-host.com/public_html/familyAccountDashboard.php on line 45
+[11-Dec-2024 22:11:58 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[12-Dec-2024 03:16:18 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayMealBagForm.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayMealBagForm.php on line 16
+[12-Dec-2024 03:16:19 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayMealBagForm.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayMealBagForm.php on line 16
+[12-Dec-2024 03:16:23 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getEmail() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayMealBagForm.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/holidayMealBagForm.php on line 16
+[12-Dec-2024 03:23:34 UTC] No data to insert.
+[13-Jan-2025 08:42:22 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[13-Jan-2025 13:42:49 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php:41
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 41
+[13-Jan-2025 11:51:05 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[13-Jan-2025 11:51:32 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[17-Jan-2025 12:45:18 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[17-Jan-2025 13:03:22 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[17-Jan-2025 15:40:04 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[17-Jan-2025 20:40:18 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php:41
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 41
+[17-Jan-2025 15:43:02 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[17-Jan-2025 15:43:08 America/New_York] PHP Warning:  Undefined variable $family in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 65
+[17-Jan-2025 15:43:08 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function getFirstName() on null in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php:65
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 65
+[17-Jan-2025 15:43:11 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[17-Jan-2025 15:43:59 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[17-Jan-2025 15:44:06 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[17-Jan-2025 20:44:11 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php:41
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 41
+[17-Jan-2025 15:48:51 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[17-Jan-2025 15:52:40 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[18-Jan-2025 11:53:11 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[18-Jan-2025 11:53:38 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[18-Jan-2025 11:53:41 America/New_York] PHP Warning:  Undefined variable $submissions in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 70
+[18-Jan-2025 11:53:41 America/New_York] PHP Warning:  Undefined variable $columnNames in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 71
+[22-Jan-2025 11:57:54 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[22-Jan-2025 11:58:03 America/New_York] PHP Warning:  Undefined variable $submissions in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 70
+[22-Jan-2025 11:58:03 America/New_York] PHP Warning:  Undefined variable $columnNames in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearchResult.php on line 71
+[22-Jan-2025 11:58:15 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[22-Jan-2025 11:59:10 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[29-Jan-2025 11:22:10 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[29-Jan-2025 12:38:00 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[30-Jan-2025 09:15:41 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110
+[30-Jan-2025 09:16:04 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[30-Jan-2025 12:07:54 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[30-Jan-2025 13:55:00 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[02-Feb-2025 16:36:25 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[05-Feb-2025 17:05:00 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[05-Feb-2025 17:05:27 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[05-Feb-2025 22:07:42 UTC] Batch Insert Successful: 2 records inserted.
+[05-Feb-2025 17:07:55 America/New_York] PHP Warning:  Undefined variable $selectedFormName in /home/customer/www/jenniferp129.sg-host.com/public_html/formSearch.php on line 43
+[05-Feb-2025 17:09:43 America/New_York] PHP Warning:  Undefined array key "login.php" in /home/customer/www/jenniferp129.sg-host.com/public_html/header.php on line 110

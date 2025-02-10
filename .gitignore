@@ -1,0 +1,5 @@
+.idea
+deploy/bin
+venv
+.env
+*.ppk
