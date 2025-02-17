@@ -42,12 +42,11 @@ table, td, tr, th, form, fieldset, em, button, a {
 }
 
 :root {
-    /* CSS variables that will be used across the page */
-    --page-background-color: #ffffff;
-    --page-font-color: #333333;
-    --inactive-font-color: #d0d0d0;
-    --inactive-background-color: #f0f0f0;
-    --standout-background: #fafafa;
+    --page-background-color: #ffe6eb;  /* Soft pastel pink */
+    --page-font-color: #663347;  /* Deep mauve for contrast */
+    --inactive-font-color: #c99aa5;  /* Muted pink for inactive text */
+    --inactive-background-color: #f8d7da;  /* Light blush for inactive backgrounds */
+    --standout-background: #ffd3dc;  /* Slightly brighter pastel pink */
 
     --happy-toast-background-color: #1a7024;
     --happy-toast-font-color: white;
