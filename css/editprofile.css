@@ -43,10 +43,10 @@ table, td, tr, th, form, fieldset, em, button, a {
 
 :root {
     --page-background-color: #ffe6eb;  /* Soft pastel pink */
-    --page-font-color: #663347;  /* Deep mauve for contrast */
+    --page-font-color: #663347; 
     --inactive-font-color: #c99aa5;  /* Muted pink for inactive text */
-    --inactive-background-color: #f8d7da;  /* Light blush for inactive backgrounds */
-    --standout-background: #ffd3dc;  /* Slightly brighter pastel pink */
+    --inactive-background-color: #f8d7da;
+    --standout-background: #ffd3dc;  
 
     --happy-toast-background-color: #1a7024;
     --happy-toast-font-color: white;
