@@ -50,7 +50,7 @@
                 $acct = 'Admin';
             }
         ?>
-        <h1>Stafford Junction <?php echo $acct ?> Dashboard</h1>
+        <h1>Stafford Junctions <?php echo $acct ?> Dashboard</h1>
         <main class='dashboard'>
             <?php if (isset($_GET['addStaffSuccess'])): ?>
                 <?php echo '<div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Staff account created!</div>';?>
