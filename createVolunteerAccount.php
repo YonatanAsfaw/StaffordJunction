@@ -25,8 +25,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     require_once("database/dbVolunteer.php");
 
     $args = sanitize($_POST, null);
-    $volunteer = make_staff_from_signup($args);
-    $success = add_staff($volunteer);
+    $volunteer = make_volunteer_from_signup($args);
+    $success = add_volunteer($volunteer);
 }
 
 ?>
@@ -44,7 +44,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     </head>
     <body>
         <?php require_once("header.php");?>
-        <h1>Create Staff Account</h1>
+        <h1>Create Volunteer Account</h1>
 
         <main class="signup-form">
             <form class="signup-form" method="POST">
