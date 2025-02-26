@@ -101,6 +101,7 @@
         $permission_array['familysignupstaff.php'] = 2;
         //pages only admin can view
         $permission_array['createstaffaccount.php'] = 3;
+        $permission_array['removestaffaccount.php'] = 3;
 
 
         //Check if they're at a valid page for their access level.
