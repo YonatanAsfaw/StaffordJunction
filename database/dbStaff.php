@@ -133,3 +133,14 @@ function retrieve_staff_by_first_name($firstName) {
     }
 }
 
+function remove_staff_by_first_name($first_name) {
+    $conn = connect();
+    $query = "DELETE FROM dbStaff WHERE firstName = '" . mysqli_real_escape_string($conn, $first_name) . "';";
+    $res = mysqli_query($conn, $query);
+
+    mysqli_close($conn);
+    return $res;
+}
+
+
+
