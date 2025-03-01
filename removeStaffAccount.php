@@ -32,12 +32,13 @@ $deleteSuccess = false;
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $args = sanitize($_POST, null);
-    if (isset($args['first-name'])) {
+    if (isset($args['first-name']) && isset($args['last-name'])) {
         $first_name = $args['first-name'];
-        $staff = retrieve_staff_by_first_name($first_name);
+        $last_name = $args['last-name'];
+        $staff = retrieve_staff_by_name($first_name, $last_name);
     }
     if (isset($args['delete']) && $staff) {
-        $deleteSuccess = remove_staff_by_first_name($staff->getFirstName());
+        $deleteSuccess = remove_staff_by_name($staff->getFirstName(), $staff->getLastName());
         $staff = null; // Clear staff data after deletion
     }
 }
@@ -64,13 +65,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <h1>Search Staff Account</h1>
 
         <form id="search_form" method="POST">
-            <label>Enter first name to search for staff account to remove</label>
+            <label>Enter first and last name to search for staff account to remove</label>
             <div class="search-container">
                 <div class="search-label">
                     <label>First Name:</label>
                 </div>
                 <div>
                     <input type="text" id="first-name" name='first-name'>
+                </div>
+                <div class="search-label">
+                    <label>Last Name:</label>
+                </div>
+                <div>
+                    <input type="text" id="last-name" name='last-name' required>
                 </div>
                 <button type="submit" class="button_style">Search</button>
             </div>
@@ -99,10 +106,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </div>
             <form method="POST" onsubmit="return confirm('Are you sure you want to remove this staff member?');">
                 <input type="hidden" name="first-name" value="<?php echo htmlspecialchars($staff->getFirstName()); ?>">
+                <input type="hidden" name="last-name" value="<?php echo htmlspecialchars($staff->getLastName()); ?>">
                 <button type="submit" name="delete" class="button_style">Remove Account</button>
             </form>
         <?php elseif ($_SERVER['REQUEST_METHOD'] == "POST" && !$deleteSuccess): ?>
-            <p style="color: red;">No staff member found with that first name.</p>
+            <p style="color: red;">No staff member found with that name.</p>
         <?php elseif ($deleteSuccess): ?>
             <p style="color: green;">Staff member successfully removed.</p>
         <?php endif; ?>

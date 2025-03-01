@@ -150,6 +150,8 @@
                     echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Staff</a>');
                     echo('<div class="dropdown-menu" aria-labelledby="navbarDropdown">');
                     echo('<a class="dropdown-item" href="' . $path . 'createStaffAccount.php">Create Staff Account</a>');
+                    echo('<a class="dropdown-item" href="' . $path . 'removeStaffAccount.php">Remove Staff Account</a>');
+                    //echo('<a class="dropdown-item" href="' . $path . 'testrma.php">Remove Staff Account</a>');
                 }
                 echo('</div>');
                 echo('</li>');
