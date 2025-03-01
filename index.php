@@ -112,6 +112,12 @@
                     <span>Create Staff Account</span>
                 </div>
                 <?php endif ?>
+                <?php if($_SESSION['account_type'] == 'admin'): ?>
+                <div class="dashboard-item" data-link="removeStaffAccount.php">
+                    <img src="images/staffUsers.svg">
+                    <span>Remove Staff Account</span>
+                </div>
+                <?php endif ?>
 
                 <?php if($_SESSION['access_level'] >= 2): ?>
                 <div class="dashboard-item" data-link="familySignUpStaff.php">

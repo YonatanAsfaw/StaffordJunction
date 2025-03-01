@@ -56,7 +56,7 @@ function add_staff($staff){
 
     if(mysqli_num_rows($res) < 1 || $res == null){
         mysqli_query($conn,'INSERT INTO dbStaff (firstName, lastName, birthdate, address, email,
-        phone, econtactName, econtactPhone, jobTitle, password, securityQuestion, securityAnswer) VALUES(" ' .
+        phone, econtactName, econtactPhone, jobTitle, password, securityQuestion, securityAnswer) VALUES("' .
         $staff->getFirstName() . '","' .
         $staff->getLastName() . '","' .
         $staff->getBirthdate() . '","' .
@@ -115,3 +115,32 @@ function change_staff_password($id, $newPass) {
     mysqli_close($con);
     return $result;
 }
+
+// Function that retrieves staff member from dbStaff by first name
+function retrieve_staff_by_first_name($firstName) {
+    $conn = connect();
+    $query = "SELECT * FROM dbStaff WHERE firstName = '" . $firstName . "';";
+    $res = mysqli_query($conn, $query);
+
+    if (mysqli_num_rows($res) < 1 || $res == null) {
+        mysqli_close($conn);
+        return null;
+    } else {
+        $row = mysqli_fetch_assoc($res);
+        $staff = make_staff_from_db($row);
+        mysqli_close($conn);
+        return $staff;
+    }
+}
+
+function remove_staff_by_first_name($first_name) {
+    $conn = connect();
+    $query = "DELETE FROM dbStaff WHERE firstName = '" . mysqli_real_escape_string($conn, $first_name) . "';";
+    $res = mysqli_query($conn, $query);
+
+    mysqli_close($conn);
+    return $res;
+}
+
+
+

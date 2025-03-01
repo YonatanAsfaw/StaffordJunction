@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 /*
  * Copyright 2013 by Jerrick Hoang, Ivy Xing, Sam Roberts, James Cook,
  * Johnny Coster, Judy Yang, Jackson Moniaga, Oliver Radwan,
@@ -10,7 +10,7 @@
  *
  */
 ?>
-<?php
+<!-- <?php -->
 /*
  * Created on Mar 28, 2008
  * @author Oliver Radwan <oradwan@bowdoin.edu>
@@ -82,4 +82,4 @@ $loggedIn = false;
                 ?>
         </main>
     </body>
-</html>
+</html> -->
