@@ -56,7 +56,7 @@ function add_staff($staff){
 
     if(mysqli_num_rows($res) < 1 || $res == null){
         mysqli_query($conn,'INSERT INTO dbStaff (firstName, lastName, birthdate, address, email,
-        phone, econtactName, econtactPhone, jobTitle, password, securityQuestion, securityAnswer) VALUES(" ' .
+        phone, econtactName, econtactPhone, jobTitle, password, securityQuestion, securityAnswer) VALUES("' .
         $staff->getFirstName() . '","' .
         $staff->getLastName() . '","' .
         $staff->getBirthdate() . '","' .
