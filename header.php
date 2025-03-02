@@ -101,6 +101,8 @@
         $permission_array['familysignupstaff.php'] = 2;
         //pages only admin can view
         $permission_array['createstaffaccount.php'] = 3;
+        $permission_array['removestaffaccount.php'] = 3;
+
 
 
         //Check if they're at a valid page for their access level.
@@ -149,6 +151,11 @@
                     echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Staff</a>');
                     echo('<div class="dropdown-menu" aria-labelledby="navbarDropdown">');
                     echo('<a class="dropdown-item" href="' . $path . 'createStaffAccount.php">Create Staff Account</a>');
+<<<<<<< HEAD
+=======
+                    echo('<a class="dropdown-item" href="' . $path . 'removeStaffAccount.php">Remove Staff Account</a>');
+                    //echo('<a class="dropdown-item" href="' . $path . 'testrma.php">Remove Staff Account</a>');
+>>>>>>> e9991523d125e3f429247f822060311a1257785d
                 }
                 echo('</div>');
                 echo('</li>');

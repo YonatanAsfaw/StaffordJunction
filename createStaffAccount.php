@@ -38,6 +38,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Create Staff Account</title>
+<<<<<<< HEAD
+=======
+        
+>>>>>>> e9991523d125e3f429247f822060311a1257785d
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?php require_once("universal.inc");?>

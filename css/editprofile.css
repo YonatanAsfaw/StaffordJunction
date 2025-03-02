@@ -42,12 +42,20 @@ table, td, tr, th, form, fieldset, em, button, a {
 }
 
 :root {
+<<<<<<< HEAD
     /* CSS variables that will be used across the page */
     --page-background-color: #ffffff;
     --page-font-color: #333333;
     --inactive-font-color: #d0d0d0;
     --inactive-background-color: #f0f0f0;
     --standout-background: #fafafa;
+=======
+    --page-background-color: #ffe6eb;  /* Soft pastel pink */
+    --page-font-color: #663347; 
+    --inactive-font-color: #c99aa5;  /* Muted pink for inactive text */
+    --inactive-background-color: #f8d7da;
+    --standout-background: #ffd3dc;  
+>>>>>>> e9991523d125e3f429247f822060311a1257785d
 
     --happy-toast-background-color: #1a7024;
     --happy-toast-font-color: white;
@@ -814,4 +822,8 @@ table.general th, table.general td {
     main.general, form.general {
         margin: 0rem 8rem 4rem 8rem;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e9991523d125e3f429247f822060311a1257785d
