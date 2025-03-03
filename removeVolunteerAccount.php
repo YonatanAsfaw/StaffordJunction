@@ -27,7 +27,7 @@ if ($accessLevel < 2) {
     die();
 }
 
-$staff = null;
+$volunteer = null;
 $deleteSuccess = false;
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -35,11 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($args['first-name']) && isset($args['last-name'])) {
         $first_name = $args['first-name'];
         $last_name = $args['last-name'];
-        $staff = retrieve_volunteer_by_name($first_name, $last_name);
+        $volunteer = retrieve_volunteer_by_name($first_name, $last_name);
     }
-    if (isset($args['delete']) && $staff) {
-        $deleteSuccess = remove_volunteer_by_name($staff->getFirstName(), $staff->getLastName());
-        $staff = null; // Clear staff data after deletion
+    if (isset($args['delete']) && $volunteer) {
+        $deleteSuccess = remove_volunteer_by_name($volunteer->getFirstName(), $volunteer->getLastName());
+        $volunteer = null; // Clear volunteer data after deletion
     }
 }
 ?>
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <?php require_once('universal.inc') ?>
-        <title>Search Staff Account</title>
+        <title>Search Volunteer Account</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/base.css">
@@ -62,10 +62,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1>Search Staff Account</h1>
+        <h1>Search Volunteer Account</h1>
 
         <form id="search_form" method="POST">
-            <label>Enter first and last name to search for staff account to remove</label>
+            <label>Enter first and last name to search for volunteer account to remove</label>
             <div class="search-container">
                 <div class="search-label">
                     <label>First Name:</label>
@@ -83,30 +83,30 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </div>
         </form>
         
-        <?php if ($staff): ?>
-            <h3>Staff Account Information</h3>
-            <div id="view-staff" style="margin-left: 20px; margin-right: 20px">
+        <?php if ($volunteer): ?>
+            <h3>Volunteer Account Information</h3>
+            <div id="view-volunteer" style="margin-left: 20px; margin-right: 20px">
                 <main class="general">
                     <fieldset>
                         <legend>General Information</legend>
                         <label>Name</label>
-                        <p><?php echo $staff->getFirstName() . " " . $staff->getLastName(); ?></p>
+                        <p><?php echo $volunteer->getFirstName() . " " . $volunteer->getLastName(); ?></p>
                         <label>Date of Birth</label>
-                        <p><?php echo $staff->getBirthdate(); ?></p>
+                        <p><?php echo $volunteer->getBirthdate(); ?></p>
                         <label>Address</label>
-                        <p><?php echo $staff->getAddress(); ?></p>
+                        <p><?php echo $volunteer->getAddress(); ?></p>
                         <label>Cell</label>
-                        <p><?php echo $staff->getCellPhone(); ?></p>
+                        <p><?php echo $volunteer->getCellPhone(); ?></p>
                         <label>Email</label>
-                        <p><?php echo $staff->getEmail(); ?></p>
+                        <p><?php echo $volunteer->getEmail(); ?></p>
                         <label>Age</label>
-                        <p><?php echo $staff->getAge(); ?></p>
+                        <p><?php echo $volunteer->getAge(); ?></p>
                     </fieldset>
                 </main>
             </div>
             <form method="POST" onsubmit="return confirm('Are you sure you want to remove this volunteer?');">
-                <input type="hidden" name="first-name" value="<?php echo htmlspecialchars($staff->getFirstName()); ?>">
-                <input type="hidden" name="last-name" value="<?php echo htmlspecialchars($staff->getLastName()); ?>">
+                <input type="hidden" name="first-name" value="<?php echo htmlspecialchars($volunteer->getFirstName()); ?>">
+                <input type="hidden" name="last-name" value="<?php echo htmlspecialchars($volunteer->getLastName()); ?>">
                 <button type="submit" name="delete" class="button_style">Remove Account</button>
             </form>
         <?php elseif ($_SERVER['REQUEST_METHOD'] == "POST" && !$deleteSuccess): ?>
