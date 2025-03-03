@@ -66,7 +66,7 @@
             <?php elseif (isset($_GET['updateSuccess'])): ?>
                 <div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Family Profile Updated!</div>
             <?php elseif (isset($_GET['addVolunteerSuccess'])): ?>
-                <div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Volunteer Account successfully created!</div>
+                <?php echo '<div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Volunteer account created!</div>';?>
             <?php elseif (isset($_GET['failedAccountCreate'])): ?>
                 <div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">
                     Unable to create account, account already in system!

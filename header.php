@@ -103,6 +103,7 @@
         $permission_array['createstaffaccount.php'] = 3;
         $permission_array['removestaffaccount.php'] = 3;
         $permission_array['createvolunteeraccount.php'] = 3;
+        $permission_array['removevolunteeraccount.php'] = 3;
 
 
 
@@ -162,8 +163,9 @@
                 echo('<li class="nav-item dropdown">');
                 echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Volunteers</a>');
                 echo('<div class="dropdown-menu">');
-                echo('<a class="dropdown-item" href="' . $path . '#">Search</a>
-                    <a class="dropdown-item" href="#">Add</a>');
+                //echo('<a class="dropdown-item" href="' . $path . '#">Search</a>');
+                echo('<a class="dropdown-item" href="createVolunteerAccount.php">Create Volunteer Account</a>');
+                echo('<a class="dropdown-item" href="' . $path . 'removeVolunteerAccount.php">Remove Volunteer Account</a>');
                 echo('</div>');
                 echo('</li>');
 
