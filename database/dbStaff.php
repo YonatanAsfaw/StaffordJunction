@@ -116,30 +116,6 @@ function change_staff_password($id, $newPass) {
     return $result;
 }
 
-//function that removes a staff member from dbStaff by first and last name
-function remove_staff_by_name($firstName, $lastName) {
-    $conn = connect();
-
-    //sanitize inputs
-    $firstName = mysqli_real_escape_string($conn, $firstName);
-    $lastName = mysqli_real_escape_string($conn, $lastName);
-
-    //ensure the staff member exists before attempting to delete
-    $query_check = "SELECT * FROM dbStaff WHERE firstName = '$firstName' AND lastName = '$lastName'";
-    $res_check = mysqli_query($conn, $query_check);
-
-    if (!$res_check || mysqli_num_rows($res_check) < 1) {
-        mysqli_close($conn);
-        return false;
-    }
-
-    $query_delete = "DELETE FROM dbStaff WHERE firstName = '$firstName' AND lastName = '$lastName'";
-    $res_delete = mysqli_query($conn, $query_delete);
-
-    mysqli_close($conn);
-    return $res_delete; // Returns true if successful, false otherwise
-}
-
 
 //function that retrieves staff member from dbStaff by full name
 function retrieve_staff_by_name($firstName, $lastName) {
@@ -161,3 +137,39 @@ function retrieve_staff_by_name($firstName, $lastName) {
         return $staff;
     }
 }
+
+//function that removes a staff member from dbStaff by first and last name
+function remove_staff_by_name($firstName, $lastName) {
+    $conn = connect();
+    
+    //sanitize inputs
+    $firstName = mysqli_real_escape_string($conn, $firstName);
+    $lastName = mysqli_real_escape_string($conn, $lastName);
+
+    //ensure the staff member exists before attempting to delete
+    $query_check = "SELECT * FROM dbStaff WHERE firstName = '$firstName' AND lastName = '$lastName'";
+    $res_check = mysqli_query($conn, $query_check);
+
+    if (!$res_check || mysqli_num_rows($res_check) < 1) {
+        mysqli_close($conn);
+        return false;
+    }
+
+    $query_delete = "DELETE FROM dbStaff WHERE firstName = '$firstName' AND lastName = '$lastName'";
+    $res_delete = mysqli_query($conn, $query_delete);
+
+    mysqli_close($conn);
+    return $res_delete; // Returns true if successful, false otherwise
+}
+
+
+
+
+
+
+
+
+
+
+
+
