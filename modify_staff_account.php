@@ -11,8 +11,8 @@ $success = false;
 
 if (isset($_SESSION['_id'])) {
     
-    require_once(dirname(__FILE__) . '/../include/input-validation.php');
-    require_once(dirname(__FILE__) . '/dbStaff.php');
+    require_once('include/input-validation.php');
+    require_once('database/dbStaff.php');
     $loggedIn = true;
     $accessLevel = $_SESSION['access_level'];
     $userID = $_SESSION['_id'];
@@ -35,7 +35,7 @@ $updateError = "";
 
 // Handle Search
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['search'])) {
-    require_once(dirname(__FILE__) . '/../database/dbStaff.php');  // Ensure it's included
+    require_once('database/dbStaff.php');  // Ensure it's included
 
     // Use PHP trim() to remove extra spaces
     $first_name = trim($_POST['first-name']);
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['search'])) {
 }
 // Handle Update
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['update']) && isset($_POST['staff_id'])) {
-    require_once(dirname(__FILE__) . '/../database/dbStaff.php');  // Ensure dbStaff.php is included
+    require_once('database/dbStaff.php');  // Ensure dbStaff.php is included
 
     $staff = retrieve_staff_by_id($_POST['staff_id']);  // Fetch staff by ID
 
@@ -187,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['update']) && isset($_P
             <p class="alert alert-success mt-3">Staff member information successfully updated.</p>
         <?php endif; ?>
 
-        <a class="btn btn-secondary mt-4" href="../index.php">Return to Dashboard</a>
+        <a class="button cancel button_style" href="index.php">Return to Dashboard</a>
     </div>
 </body>
 </html>

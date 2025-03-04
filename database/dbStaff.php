@@ -2,7 +2,7 @@
 
 include_once('dbinfo.php');
 include_once(dirname(__FILE__).'/../domain/Staff.php');
-require_once(dirname(__FILE__) . '/../database/dbStaff.php');  // Adjust if needed
+
 //Function that creates a new staff object from staff sign up form
 function make_staff_from_signup($result_row){
     $staff = new Staff(
@@ -23,26 +23,26 @@ function make_staff_from_signup($result_row){
 
     return $staff;
 }
-function make_staff_from_db($result_row){
-    if (!$result_row || empty($result_row)) {
-        die("Error: Staff data is missing or incorrect.");
-    }
 
-    return new Staff(
-        $result_row['id'] ?? null,
-        $result_row['firstName'] ?? "Unknown",
-        $result_row['lastName'] ?? "Unknown",
-        $result_row['birthdate'] ?? null,
-        $result_row['address'] ?? null,
-        $result_row['email'] ?? null,
-        $result_row['phone'] ?? null,
-        $result_row['econtactName'] ?? null,
-        $result_row['econtactPhone'] ?? null,
-        $result_row['jobTitle'] ?? null,
-        $result_row['password'] ?? null,
-        $result_row['securityQuestion'] ?? null,
-        $result_row['securityAnswer'] ?? null
+//Function that gets all the info of a staff user from dbStaff and constructs a staff object from that data
+function make_staff_from_db($result_row){
+    $staff = new Staff(
+        $result_row['id'],
+        $result_row['firstName'],
+        $result_row['lastName'],
+        $result_row['birthdate'],
+        $result_row['address'],
+        $result_row['email'],
+        $result_row['phone'],
+        $result_row['econtactName'],
+        $result_row['econtactPhone'],
+        $result_row['jobTitle'],
+        $result_row['password'],
+        $result_row['securityQuestion'],
+        $result_row['securityAnswer']
     );
+
+    return $staff;
 }
 
 //function that inserts staff into dbStaff
@@ -61,19 +61,19 @@ function add_staff($staff){
         $staff->getLastName() . '","' .
         $staff->getBirthdate() . '","' .
         $staff->getAddress() . '","' .
-        $staff->getEmail() . '","' . 
+        $staff->getEmail() . '","' .
         $staff->getPhone() . '","' .
         $staff->getEContactName() . '","' .
         $staff->getEContactPhone() . '","' .
-        $staff->getJobTitle() . '","' . 
+        $staff->getJobTitle() . '","' .
         $staff->getPassword() . '","' .
-        $staff->getSecurityQuestion() . '","' . 
+        $staff->getSecurityQuestion() . '","' .
         $staff->getSecurityAnswer() . '");'
-    );						
+    );
         mysqli_close($conn);
         return true;
     }
-    
+
 }
 
 //Function that retrieves staff member from dbStaff by email
@@ -116,75 +116,10 @@ function change_staff_password($id, $newPass) {
     return $result;
 }
 
-function update_staff($staff) {
-    if (!$staff instanceof Staff) {
-        die("Update staff mismatch");
-    }
-    $conn = connect();
-    
-    $query = "UPDATE dbStaff SET 
-        firstName = '" . $staff->getFirstName() . "',
-        lastName = '" . $staff->getLastName() . "',
-        birthdate = '" . $staff->getBirthdate() . "',
-        address = '" . $staff->getAddress() . "',
-        email = '" . $staff->getEmail() . "',
-        phone = '" . $staff->getPhone() . "',
-        econtactName = '" . $staff->getEContactName() . "',
-        econtactPhone = '" . $staff->getEContactPhone() . "',
-        jobTitle = '" . $staff->getJobTitle() . "'
-        WHERE id = '" . $staff->getId() . "'";
-
-    $result = mysqli_query($conn, $query);
-    mysqli_close($conn);
-    return $result;
-}
-
-function retrieve_staff_by_name($first_name, $last_name){
-    $conn = connect(); // Ensure this function is defined in dbinfo.php
-
-    $query = "SELECT * FROM dbStaff WHERE firstName LIKE ? AND lastName LIKE ?";
-    $stmt = mysqli_prepare($conn, $query);
-
-    if (!$stmt) {
-        die("SQL Prepare Error: " . mysqli_error($conn));
-    }
-
-    // Add wildcard search for flexibility
-    $first_name = "%".$first_name."%";
-    $last_name = "%".$last_name."%";
-
-    mysqli_stmt_bind_param($stmt, "ss", $first_name, $last_name);
-    mysqli_stmt_execute($stmt);
-    $res = mysqli_stmt_get_result($stmt);
-
-    if (!$res) {
-        die("Query execution failed: " . mysqli_error($conn));
-    }
-
-    $num_rows = mysqli_num_rows($res);
-   
-
-    if ($num_rows < 1) {
-        mysqli_close($conn);
-        return null;
-    } else {
-        $row = mysqli_fetch_assoc($res);
-
-        // Check if fetch_assoc() worked
-        if (!$row) {
-            die("Error: Unable to fetch staff details.");
-        }
-
-        $staff = make_staff_from_db($row);
-        mysqli_close($conn);
-        return $staff;
-    }
-}
-
 //function that removes a staff member from dbStaff by first and last name
 function remove_staff_by_name($firstName, $lastName) {
     $conn = connect();
-    
+
     //sanitize inputs
     $firstName = mysqli_real_escape_string($conn, $firstName);
     $lastName = mysqli_real_escape_string($conn, $lastName);
@@ -205,30 +140,47 @@ function remove_staff_by_name($firstName, $lastName) {
     return $res_delete; // Returns true if successful, false otherwise
 }
 
-function retrieve_all_staff_paginated($sortColumn = 'lastName', $sortOrder = 'ASC', $limit = 10, $offset = 0) {
+
+//function that retrieves staff member from dbStaff by full name
+function retrieve_staff_by_name($firstName, $lastName) {
     $conn = connect();
 
-    // Ensure sort column and order are safe
-    $allowedColumns = ['firstName', 'lastName', 'email', 'phone', 'jobTitle'];
-    if (!in_array($sortColumn, $allowedColumns)) {
-        $sortColumn = 'lastName'; // Default to last name if invalid column provided
+     $firstName = mysqli_real_escape_string($conn, $firstName);
+     $lastName = mysqli_real_escape_string($conn, $lastName);
+
+     $query = "SELECT * FROM dbStaff WHERE firstName = '$firstName' AND lastName = '$lastName';";
+     $res = mysqli_query($conn, $query);
+
+    if (mysqli_num_rows($res) < 1 || $res == null) {
+        mysqli_close($conn);
+        return null;
+    } else {
+        $row = mysqli_fetch_assoc($res);
+        $staff = make_staff_from_db($row);
+        mysqli_close($conn);
+        return $staff;
     }
-    
-    $sortOrder = strtoupper($sortOrder) === 'DESC' ? 'DESC' : 'ASC'; // Only allow ASC or DESC
+}
 
-    // SQL Query: Fetch paginated results
-    $query = "SELECT * FROM dbStaff ORDER BY $sortColumn $sortOrder LIMIT ? OFFSET ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("ii", $limit, $offset);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $staffList = [];
-    while ($row = $result->fetch_assoc()) {
-        $staffList[] = make_staff_from_db($row);
+function update_staff($staff) {
+    if (!$staff instanceof Staff) {
+        die("Update staff mismatch");
     }
+    $conn = connect();
 
-    $stmt->close();
+    $query = "UPDATE dbStaff SET
+        firstName = '" . $staff->getFirstName() . "',
+        lastName = '" . $staff->getLastName() . "',
+        birthdate = '" . $staff->getBirthdate() . "',
+        address = '" . $staff->getAddress() . "',
+        email = '" . $staff->getEmail() . "',
+        phone = '" . $staff->getPhone() . "',
+        econtactName = '" . $staff->getEContactName() . "',
+        econtactPhone = '" . $staff->getEContactPhone() . "',
+        jobTitle = '" . $staff->getJobTitle() . "'
+        WHERE id = '" . $staff->getId() . "'";
+
+    $result = mysqli_query($conn, $query);
     mysqli_close($conn);
-    return $staffList;
+    return $result;
 }
