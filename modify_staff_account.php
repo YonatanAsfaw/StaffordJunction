@@ -187,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['update']) && isset($_P
             <p class="alert alert-success mt-3">Staff member information successfully updated.</p>
         <?php endif; ?>
 
-        <a class="btn btn-secondary mt-4" href="../index.php">Return to Dashboard</a>
+        <a class="button cancel button_style" href="index.php">Return to Dashboard</a>
     </div>
 </body>
 </html>
