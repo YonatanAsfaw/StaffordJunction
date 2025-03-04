@@ -2,12 +2,7 @@
 //everything commented out is a relic of the bus volunteer thing I was copying from
 
 //todo:
-//this needs to be able to get family ID from just the last name
 //make it so this webpage actually talks to dbProgramReviewForm
-//make dbProgramReviewForm
-//make it so that dbProgramReviewForm actually talks to the database
-//make a database for the program reviews
-
 
 session_cache_expire(30);
 session_start();
@@ -33,6 +28,8 @@ if (isset($_SESSION['_id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['programReviewForm'])) {
     // Retrieve data from the form
+    $family = $_POST['family'];
+    $reviewText = $_POST['reviewText'];
     //$route_direction = $_POST['route_direction']; // e.g., "South"
     //$neighborhood = $_POST['neighborhood'];       // e.g., "Meadows"
     //$volunteer_id = intval($_POST['volunteer_id']); // Volunteer ID (from the dropdown)
@@ -41,33 +38,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['programReviewForm']))
     $connection = connect(); 
 
     // Fetch route_id based on route_direction and neighborhood
+    $query = "SELECT id FROM dbFamily WHERE lastName = ? OR lastName2 = ?";
+    $stmt = $connection->prepare($query);
+    $stmt->bind_param("ss", $family, $family);
+    $stmt->execute();
+    $result = $stmt->get_result();
     //$query = "SELECT route_id FROM dbRoute WHERE route_direction = ? AND route_name = ?";
     //$stmt = $connection->prepare($query);
     //$stmt->bind_param("ss", $route_direction, $neighborhood);
     //$stmt->execute();
     //$result = $stmt->get_result();
 
-    /*if ($result->num_rows === 0) {
-        // No matching route found
+    if ($result->num_rows === 0) {
+        // No families with the last name found
         $stmt->close();
         $connection->close();
-        die("Error: No matching route found for the selected direction and neighborhood.");
-    }*/
+        die("Error: No family with that name. Please make a family account with us before proceeding.");
+    }
 
+    //get the family id
+    $row = $result->fetch_assoc();
+    $family_id = $row['id'];
+    $stmt->close();
     // Get the route_id
     //$row = $result->fetch_assoc();
     //$route_id = $row['route_id'];
     //$stmt->close();
 
+    //insert into dbProgramReviewForm
+    $insertQuery = "INSERT INTO dbProgramReviewForm (family_id, reviewText) VALUES (?, ?)";
+    $stmt = $connection->prepare($insertQuery);
+    $stmt->bind_param("is", $family_id, $reviewText);
+    
     // Insert into dbRouteVolunteers
     //$insertQuery = "INSERT INTO dbRouteVolunteers (route_id, volunteer_id) VALUES (?, ?)";
     //$stmt = $connection->prepare($insertQuery);
     //$stmt->bind_param("ii", $route_id, $volunteer_id);
-
-    // Insert into dbProgramReviewForm
-    $insertQuery = "INSERT INTO dbProgramReviewForm (family_id, feedback) VALUES (?, ?)";
-    $stmt = $connection->prepare($insertQuery);
-    $stmt->bind_param("ii", $family_id, $feedback);
 
     // Fetch the volunteer's full name from the array or database
     //$volunteers = getVolunteers(); // Fetch all volunteers
@@ -85,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['programReviewForm']))
         // Success
         $stmt->close();
         $connection->close();
-        //header("Location: editBusMonitorData.php?message=" . urlencode("$volunteer_name was successfully assigned to the route $neighborhood!"));
+        header("Location: editBusMonitorData.php?message=" . urlencode("feedback was successfully provided!"));
         exit();
     } else {
         // Error
@@ -116,9 +122,9 @@ require_once('database/dbProgramReviewForm.php');
 <body>
     <h1>Program Review Form</h1>
     <div id="formatted_form">
-        <!-- Form to Assign Volunteer to Route -->
+        <!--last name field -->
         <form action="" method="post">
-            <label for="family_id">Last Name:</label>
+            <label for="family">Last Name:</label>
             <!--<select name="volunteer_id" id="volunteer_id" required>-->
             <input type="text" id="family" name="family">
                 <?php
@@ -128,7 +134,7 @@ require_once('database/dbProgramReviewForm.php');
         //    echo "<option value='{$volunteer['id']}'>{$volunteer['fullName']}</option>";
         //}
         ?>
-            </select>
+            <!--</select>-->
             <br><br>
             <label for="reviewText">Comments:</label>
             <textarea id="reviewText" name="reviewText" rows="6" cols="80">Type feedback here.</textarea>
@@ -172,10 +178,10 @@ require_once('database/dbProgramReviewForm.php');
             }*/
             </script>
             <br><br>
-            <button type="submit" name="submitFeedback">Submit Feedback</button>
+            <button type="submit" name="programReviewForm">Submit Feedback</button>
         </form>
         <br>
-        <a href="index.php" style="text-decoration: none;">
+        <a href="editBusMonitor.php" style="text-decoration: none;">
         <button style="padding: 10px 20px; font-size: 16px;">Cancel</button>
     </a>
 </body>
