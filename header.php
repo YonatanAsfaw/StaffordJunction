@@ -156,7 +156,7 @@
                     echo('<a class="dropdown-item" href="' . $path . 'createStaffAccount.php">Create Staff Account</a>');
                     echo('<a class="dropdown-item" href="' . $path . 'removeStaffAccount.php">Remove Staff Account</a>');
                     //echo('<a class="dropdown-item" href="' . $path . 'testrma.php">Remove Staff Account</a>');
-                    <li><a class="dropdown-item" href="<?php echo $path; ?>removeStaffAccount.php">Remove Staff Account</a></li>
+                    echo('<a class="dropdown-item" href="<?php echo $path; ?>modify_staff_account.php">Modify Staff Account</a>');
                 }
                 echo('</div>');
                 echo('</li>');
