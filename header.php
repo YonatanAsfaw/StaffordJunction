@@ -156,7 +156,7 @@
                     echo('<a class="dropdown-item" href="' . $path . 'createStaffAccount.php">Create Staff Account</a>');
                     echo('<a class="dropdown-item" href="' . $path . 'removeStaffAccount.php">Remove Staff Account</a>');
                     //echo('<a class="dropdown-item" href="' . $path . 'testrma.php">Remove Staff Account</a>');
-                    echo('<a class="dropdown-item" href="<?php echo $path; ?>modify_staff_account.php">Modify Staff Account</a>');
+                    echo('<a class="dropdown-item" href="' . $path . 'modify_staff_account.php">Modify Staff Account</a>');
                 }
                 echo('</div>');
                 echo('</li>');
@@ -167,6 +167,7 @@
                 echo('<div class="dropdown-menu">');
                 //echo('<a class="dropdown-item" href="' . $path . '#">Search</a>');
                 echo('<a class="dropdown-item" href="createVolunteerAccount.php">Create Volunteer Account</a>');
+                echo('<a class="dropdown-item" href="removeVolunteerAccount.php">Remove Volunteer Account</a>');
                 echo('<a class="dropdown-item" href="' . $path . 'modify_staff_account.php">Modify Volunteer Account</a>');
                 echo('</div>');
                 echo('</li>');
