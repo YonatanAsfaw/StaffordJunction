@@ -45,8 +45,6 @@ function make_staff_from_db($result_row){
     );
 }
 
-
-
 //function that inserts staff into dbStaff
 function add_staff($staff){
     if(!$staff instanceof Staff){
@@ -140,6 +138,7 @@ function update_staff($staff) {
     mysqli_close($conn);
     return $result;
 }
+
 function retrieve_staff_by_name($first_name, $last_name){
     $conn = connect(); // Ensure this function is defined in dbinfo.php
 
@@ -180,4 +179,56 @@ function retrieve_staff_by_name($first_name, $last_name){
         mysqli_close($conn);
         return $staff;
     }
+}
+
+//function that removes a staff member from dbStaff by first and last name
+function remove_staff_by_name($firstName, $lastName) {
+    $conn = connect();
+    
+    //sanitize inputs
+    $firstName = mysqli_real_escape_string($conn, $firstName);
+    $lastName = mysqli_real_escape_string($conn, $lastName);
+
+    //ensure the staff member exists before attempting to delete
+    $query_check = "SELECT * FROM dbStaff WHERE firstName = '$firstName' AND lastName = '$lastName'";
+    $res_check = mysqli_query($conn, $query_check);
+
+    if (!$res_check || mysqli_num_rows($res_check) < 1) {
+        mysqli_close($conn);
+        return false;
+    }
+
+    $query_delete = "DELETE FROM dbStaff WHERE firstName = '$firstName' AND lastName = '$lastName'";
+    $res_delete = mysqli_query($conn, $query_delete);
+
+    mysqli_close($conn);
+    return $res_delete; // Returns true if successful, false otherwise
+}
+
+function retrieve_all_staff_paginated($sortColumn = 'lastName', $sortOrder = 'ASC', $limit = 10, $offset = 0) {
+    $conn = connect();
+
+    // Ensure sort column and order are safe
+    $allowedColumns = ['firstName', 'lastName', 'email', 'phone', 'jobTitle'];
+    if (!in_array($sortColumn, $allowedColumns)) {
+        $sortColumn = 'lastName'; // Default to last name if invalid column provided
+    }
+    
+    $sortOrder = strtoupper($sortOrder) === 'DESC' ? 'DESC' : 'ASC'; // Only allow ASC or DESC
+
+    // SQL Query: Fetch paginated results
+    $query = "SELECT * FROM dbStaff ORDER BY $sortColumn $sortOrder LIMIT ? OFFSET ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ii", $limit, $offset);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $staffList = [];
+    while ($row = $result->fetch_assoc()) {
+        $staffList[] = make_staff_from_db($row);
+    }
+
+    $stmt->close();
+    mysqli_close($conn);
+    return $staffList;
 }
