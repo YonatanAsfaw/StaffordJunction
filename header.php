@@ -1,155 +1,228 @@
 <?php
-
-
-// Start session only if not already active
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-// Redirect unauthorized users
-if (!isset($_SESSION['logged_in'])) {
-    header('Location: login.php');
-    die();
-}
-
-// Define permission levels
-$permission_array = [
-    'index.php' => 0, 'about.php' => 0, 'apply.php' => 0, 'logout.php' => 0, 'register.php' => 0,
-    'help.php' => 1, 'dashboard.php' => 1, 'calendar.php' => 1, 'eventsearch.php' => 1,
-    'changepassword.php' => 1, 'editprofile.php' => 1, 'inbox.php' => 1, 'date.php' => 1,
-    'event.php' => 1, 'viewprofile.php' => 1, 'viewnotification.php' => 1, 'volunteerreport.php' => 1,
-    'fillform.php' => 1, 'familyaccountdashboard.php' => 1, 'familyview.php' => 1,
-    'childrenview.php' => 1, 'childreninaccount.php' => 1, 'childaccount.php' => 1,
-    'completedforms.php' => 1, 'holidaymealbagcomplete.php' => 1, 'addchild.php' => 1,
-    'forgotpassword.php' => 1, 'personsearch.php' => 2, 'viewschedule.php' => 2,
-    'log.php' => 2, 'reports.php' => 2, 'eventedit.php' => 2, 'modifyuserrole.php' => 2,
-    'addevent.php' => 2, 'editevent.php' => 2, 'roster.php' => 2, 'report.php' => 2,
-    'reportspage.php' => 2, 'resetpassword.php' => 2, 'addappointment.php' => 2,
-    'addlocation.php' => 2, 'viewservice.php' => 2, 'viewlocation.php' => 2,
-    'findfamily.php' => 2, 'findchildren.php' => 2, 'formsearch.php' => 2,
-    'formsearchresult.php' => 2, 'fillformstaff.php' => 2, 'familysignupstaff.php' => 2,
-    'modify_staff_account.php' => 2, 'createstaffaccount.php' => 3, 'removestaffaccount.php' => 3,
-    'createvolunteeraccount.php' => 3
-];
-
-// Get current page
-$current_page = strtolower(basename($_SERVER['PHP_SELF']));
-
-// Restrict access if needed
-if (isset($permission_array[$current_page]) && $permission_array[$current_page] > $_SESSION['access_level']) {
-    header("Location: index.php");
-    die();
-}
-
-// Define path for asset links
-$path = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
+/*
+ * Copyright 2013 by Allen Tucker. 
+ * This program is part of RMHP-Homebase, which is free software.  It comes with 
+ * absolutely no warranty. You can redistribute and/or modify it under the terms 
+ * of the GNU General Public License as published by the Free Software Foundation
+ * (see <http://www.gnu.org/licenses/ for more information).
+ * 
+ */
 ?>
-<!DOCTYPE html>
-<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
-    <!-- jQuery and Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <title>Stafford Junction</title>
-
-    <style>
-
-        h1{
-            color:white !important;
-        }
-        .navbar {
-            background-color: white !important;
-            padding: 10px 0;
-        }
-        .navbar-brand img {
-            height: 50px;
-            margin-right: 20px;
-        }
-        .navbar-nav .nav-item {
-             margin-right: 20px;
-             white-space: nowrap;
-        }
-        .navbar-nav .nav-link {
-            font-size: 18px;
-            font-weight: bold;
-            color: red !important;
-        }
-        .navbar-nav .nav-link:hover {
-            text-decoration: underline;
-        }
-        .dropdown-menu {
-           background-color: white;
-           border: none;
-           box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .dropdown-item:hover {
-            background-color: #8f9fa;
-        }
-        .logout-btn {
-            white-space: nowrap;
-        }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <div class="container">
-        <a class="navbar-brand" href="<?php echo $path; ?>index.php">
-            <img src="<?php echo $path; ?>images/staffordjunction.png" alt="Stafford Junction">
-        </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<header>
 
-        <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link text-danger" href="<?php echo $path; ?>index.php">Home</a></li>
-
-                <!-- Families Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-danger" href="#" id="familiesDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Families</a>
-                    <ul class="dropdown-menu" aria-labelledby="familiesDropdown">
-                        <li><a class="dropdown-item" href="<?php echo $path; ?>findFamily.php">Find Family</a></li>
-                        <li><a class="dropdown-item" href="<?php echo $path; ?>familySignUpStaff.php">Add Family Account</a></li>
-                        <li><a class="dropdown-item" href="<?php echo $path; ?>formSearch.php">Reports</a></li>
-                    </ul>
-                </li>
-
-                <!-- Staff Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-danger" href="#" id="staffDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Staff</a>
-                    <ul class="dropdown-menu" aria-labelledby="staffDropdown">
-                        <li><a class="dropdown-item" href="<?php echo $path; ?>createStaffAccount.php">Create Staff Account</a></li>
-                        <li><a class="dropdown-item" href="<?php echo $path; ?>removeStaffAccount.php">Remove Staff Account</a></li>
-                        <li><a class="dropdown-item" href="/StaffordJunction/database/modify_staff_account.php">Modify Staff Account</a></li>
-                    </ul>
-                </li>
-
-                <!-- Volunteers Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-danger" href="#" id="volunteersDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Volunteers</a>
-                    <ul class="dropdown-menu" aria-labelledby="volunteersDropdown">
-                        <li><a class="dropdown-item" href="<?php echo $path; ?>createVolunteerAccount.php">Create Volunteer Account</a></li>
-                        <li><a class="dropdown-item" href="<?php echo $path; ?>formSearch.php">View Volunteer Reports</a></li>
-                    </ul>
-                </li>
-
-                <li class="nav-item"><a class="nav-link text-danger" href="<?php echo $path; ?>changePassword.php">Change Password</a></li>
-                <li class="nav-item"><a class="nav-link text-danger font-weight-bold" href="<?php echo $path; ?>logout.php">Log out</a></li>
+    <?PHP
+    //Log-in security
+    //If they aren't logged in, display our log-in form.
+    $showing_login = false;
+    if (!isset($_SESSION['logged_in'])) {
+        echo '
+        <nav>
+            <span id="nav-top">
+                <span class="logo">
+                    <img src="images/staffordjunction.png">
+                    <span id="vms-logo">  </span>
+                </span>
+                <img id="menu-toggle" src="images/menu.png">
+            </span>
+            <ul>
+                <li><a href="login.php">Log in</a></li>
             </ul>
-        </div>
-    </div>
-</nav>
-</body>
-</html>
+        </nav>';
+        //      <li><a href="register.php">Register</a></li>     was at line 35
+    } else if ($_SESSION['logged_in']) {
+
+        /*         * Set our permission array.
+         * anything a guest can do, a volunteer and manager can also do
+         * anything a volunteer can do, a manager can do.
+         *
+         * If a page is not specified in the permission array, anyone logged into the system
+         * can view it. If someone logged into the system attempts to access a page above their
+         * permission level, they will be sent back to the home page.
+         */
+        //pages guests are allowed to view
+        $permission_array['index.php'] = 0;
+        $permission_array['about.php'] = 0;
+        $permission_array['apply.php'] = 0;
+        $permission_array['logout.php'] = 0;
+        $permission_array['register.php'] = 0;
+        //pages family can view
+        $permission_array['help.php'] = 1;
+        $permission_array['dashboard.php'] = 1;
+        $permission_array['calendar.php'] = 1;
+        $permission_array['eventsearch.php'] = 1;
+        $permission_array['changepassword.php'] = 1;
+        $permission_array['editprofile.php'] = 1;
+        $permission_array['inbox.php'] = 1;
+        $permission_array['date.php'] = 1;
+        $permission_array['event.php'] = 1;
+        $permission_array['viewprofile.php'] = 1;
+        $permission_array['viewnotification.php'] = 1;
+        $permission_array['volunteerreport.php'] = 1;
+        $permission_array['fillform.php'] = 1;
+        $permission_array['familyaccountdashboard.php'] = 1;
+        $permission_array['familyview.php'] = 1;
+        $permission_array['childrenview.php'] = 1;
+        $permission_array['childreninaccount.php'] = 1;
+        $permission_array['childaccount.php'] = 1;
+        $permission_array['completedforms.php'] = 1;
+        $permission_array['holidaymealbagcomplete.php'] = 1;
+        $permission_array['addchild.php'] = 1;
+        $permission_array['forgotpassword.php'] = 1;
+        //pages only staff can view
+        $permission_array['personsearch.php'] = 2;
+        $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
+        $permission_array['viewschedule.php'] = 2;
+        $permission_array['addweek.php'] = 2;
+        $permission_array['log.php'] = 2;
+        $permission_array['reports.php'] = 2;
+        $permission_array['eventedit.php'] = 2;
+        $permission_array['modifyuserrole.php'] = 2;
+        $permission_array['addevent.php'] = 2;
+        $permission_array['editevent.php'] = 2;
+        $permission_array['roster.php'] = 2;
+        $permission_array['report.php'] = 2;
+        $permission_array['reportspage.php'] = 2;
+        $permission_array['resetpassword.php'] = 2;
+        $permission_array['addappointment.php'] = 2;
+        $permission_array['addlocation.php'] = 2;
+        $permission_array['viewservice.php'] = 2;
+        $permission_array['viewlocation.php'] = 2;
+        $permission_array['findfamily.php'] = 2;
+        $permission_array['findchildren.php'] = 2;
+        $permission_array['formsearch.php'] = 2;
+        $permission_array['formsearchresult.php'] = 2;
+        $permission_array['fillformstaff.php'] = 2;
+        $permission_array['familysignupstaff.php'] = 2;
+        $permission_array['modify_staff_account.php'] = 2;
+        //pages only admin can view
+        $permission_array['createstaffaccount.php'] = 3;
+        $permission_array['removestaffaccount.php'] = 3;
+        $permission_array['createvolunteeraccount.php'] = 3;
+        $permission_array['removevolunteeraccount.php'] = 3;
+
+
+
+        //Check if they're at a valid page for their access level.
+        $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));
+        $current_page = substr($current_page, strpos($current_page,"/"));
+        
+        if($permission_array[$current_page]>$_SESSION['access_level']){
+            //in this case, the user doesn't have permission to view this page.
+            //we redirect them to the index page.
+            echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
+            //note: if javascript is disabled for a user's browser, it would still show the page.
+            //so we die().
+            die();
+        }
+        //This line gives us the path to the html pages in question, useful if the server isn't installed @ root.
+        //$path = /stafford-junction/
+        $path = strrev(substr(strrev($_SERVER['SCRIPT_NAME']), strpos(strrev($_SERVER['SCRIPT_NAME']), '/')));
+		$venues = array("portland"=>"RMH Portland");
+        
+        //they're logged in and session variables are set.
+        if ($_SESSION['venue'] =="") { 
+        	//echo(' <a href="' . $path . 'personEdit.php?id=' . 'new' . '">Apply</a>');
+        	echo(' | <a href="' . $path . 'logout.php">Logout</a><br>');
+        }
+        else {
+            //if the access level is superadmin, show the following navbar
+            if($_SESSION['account_type'] == 'admin' || $_SESSION['account_type'] == 'staff'){
+                echo('<nav>');
+                echo('<span id="nav-top"><span class="logo"><a class="navbar-brand" href="' . $path . 'index.php"><img src="images/staffordjunction.png"></a>');
+                echo('<a class="navbar-brand" id="vms-logo"></a></span><img id="menu-toggle" src="images/menu.png"></span>');
+                echo('<ul>');
+                //echo " <br><b>"."Gwyneth's Gift Homebase"."</b>|"; //changed: 'Homebase' to 'Gwyneth's Gift Homebase'
+
+                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'index.php">Home</a></li>');
+                //echo('<span class="nav-divider">|</span>');
+
+                echo('<li class="nav-item dropdown">');
+                echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Families</a>');
+                echo('<div class="dropdown-menu">');
+                echo('<a class="dropdown-item" href="' . $path . 'findFamily.php">Search Family</a>');
+                echo('<a class="dropdown-item" href="' . $path . 'familySignUpStaff.php">Add Family Account</a>');
+                echo('<a class="dropdown-item" href="' . $path . 'formSearch.php">Reports</a>');
+
+                if($_SESSION['access_level'] > 2){
+                    echo('<li class="nav-item dropdown">');
+                    echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Staff</a>');
+                    echo('<div class="dropdown-menu" aria-labelledby="navbarDropdown">');
+                    echo('<a class="dropdown-item" href="' . $path . 'createStaffAccount.php">Create Staff Account</a>');
+                    echo('<a class="dropdown-item" href="' . $path . 'removeStaffAccount.php">Remove Staff Account</a>');
+                    //echo('<a class="dropdown-item" href="' . $path . 'testrma.php">Remove Staff Account</a>');
+                    <li><a class="dropdown-item" href="<?php echo $path; ?>removeStaffAccount.php">Remove Staff Account</a></li>
+                }
+                echo('</div>');
+                echo('</li>');
+
+                //echo('<span class="nav-divider">|</span>');
+                echo('<li class="nav-item dropdown">');
+                echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Volunteers</a>');
+                echo('<div class="dropdown-menu">');
+                //echo('<a class="dropdown-item" href="' . $path . '#">Search</a>');
+                echo('<a class="dropdown-item" href="createVolunteerAccount.php">Create Volunteer Account</a>');
+                echo('<a class="dropdown-item" href="' . $path . 'modify_staff_account.php">Modify Volunteer Account</a>');
+                echo('</div>');
+                echo('</li>');
+
+                echo('</div>');
+                echo('</li>');
+
+                //echo('<span class="nav-divider">|</span>');
+                echo('<li class="nav-item dropdown">');
+                echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Others</a>');
+                echo('<div class="dropdown-menu">');
+                echo('<a class="dropdown-item" href="' . $path . 'changePassword.php">Change Password</a>');
+
+                echo('</div>');
+                echo('</li>');
+                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Log out</a></li>');
+                echo '</ul></nav>';
+            //if the account type is a family account, show the following navbar
+            }else if($_SESSION['account_type'] == 'family'){
+                echo('<nav>');
+                echo('<span id="nav-top"><span class="logo"><a class="navbar-brand" href="' . $path . 'familyAccountDashboard.php"><img src="images/staffordjunction.png"></a>');
+                echo('<a class="navbar-brand" id="vms-logo"></a></span><img id="menu-toggle" src="images/menu.png"></span>');
+
+                echo('<ul>');
+                //Home page nav item
+                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'familyAccountDashboard.php">Home</a></li>');
+
+                //view account
+                echo('<li><a class="nav-link" aria-current="page" href="' . $path . 'familyView.php">View Account</a></li>');
+
+                //view and add children to account
+                echo('<li class="nav-item dropdown">');
+                echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Children</a>');
+                echo('<div class="dropdown-menu" aria-labelledby="navbarDropdown">');
+                    echo('<a class="dropdown-item" href="' . $path . 'childrenInAccount.php">View Children</a>');
+                    echo('<a class="dropdown-item" href="' . $path . 'addChild.php">Add Child</a>');
+                echo('</div>');
+
+                //enroll in program
+                echo('<li class="nav-item dropdown">');
+                echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Forms</a>');
+                echo('<div class="dropdown-menu" aria-labelledby="navbarDropdown">');
+                    echo('<a class="dropdown-item" href="' . $path . 'completedForms.php">View Completed Forms</a>');
+                    echo('<a class="dropdown-item" href="' . $path . 'fillForm.php">Enroll In Program</a>');
+                    //echo('<a class="dropdown-item" href="' . $path . '#">Fill Out waiver</a>');
+                echo('</div>');
+                echo('</li>');
+
+
+                //logout
+                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Log out</a></li>');
+                echo '</ul></nav>';
+
+            }
+        }
+        
+    }
+    ?>
+</header>
