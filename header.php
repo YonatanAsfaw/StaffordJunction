@@ -1,4 +1,6 @@
 <?php
+
+
 // Start session only if not already active
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -47,55 +49,51 @@ $path = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
     <!-- jQuery and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <title>Stafford Junction</title>
 
     <style>
+
+        h1{
+            color:white !important;
+        }
         .navbar {
-            background-color: white !important; /* Match with index.php */
+            background-color: white !important;
             padding: 10px 0;
         }
         .navbar-brand img {
             height: 50px;
-            margin-right:20px;
+            margin-right: 20px;
         }
-
         .navbar-nav .nav-item {
              margin-right: 20px;
              white-space: nowrap;
         }
-
-
         .navbar-nav .nav-link {
-            font-size:18px;
-            font-weight:bold;
-            color:red !important;
+            font-size: 18px;
+            font-weight: bold;
+            color: red !important;
         }
         .navbar-nav .nav-link:hover {
             text-decoration: underline;
         }
-
         .dropdown-menu {
            background-color: white;
            border: none;
+           box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
         .dropdown-item:hover {
-            background-color: #f8f9fa;
+            background-color: #8f9fa;
         }
-        .dropdown-item:hover {
-            background-color: #f8f9fa;
-        }
-
-
         .logout-btn {
-            white-space: nowrap; /* Prevent breaking into two lines */
+            white-space: nowrap;
         }
     </style>
 </head>
@@ -106,7 +104,7 @@ $path = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
             <img src="<?php echo $path; ?>images/staffordjunction.png" alt="Stafford Junction">
         </a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -118,35 +116,33 @@ $path = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
                 <!-- Families Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-danger" href="#" id="familiesDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Families</a>
-                    <div class="dropdown-menu" aria-labelledby="familiesDropdown">
-                        <a class="dropdown-item" href="<?php echo $path; ?>findFamily.php">Find Family</a>
-                        <a class="dropdown-item" href="<?php echo $path; ?>familySignUpStaff.php">Add Family Account</a>
-                        <a class="dropdown-item" href="<?php echo $path; ?>formSearch.php">Reports</a>
-                    </div>
+                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Families</a>
+                    <ul class="dropdown-menu" aria-labelledby="familiesDropdown">
+                        <li><a class="dropdown-item" href="<?php echo $path; ?>findFamily.php">Find Family</a></li>
+                        <li><a class="dropdown-item" href="<?php echo $path; ?>familySignUpStaff.php">Add Family Account</a></li>
+                        <li><a class="dropdown-item" href="<?php echo $path; ?>formSearch.php">Reports</a></li>
+                    </ul>
                 </li>
 
                 <!-- Staff Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-danger" href="#" id="staffDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Staff</a>
-                    <div class="dropdown-menu" aria-labelledby="staffDropdown">
-                        <a class="dropdown-item" href="<?php echo $path; ?>createStaffAccount.php">Create Staff Account</a>
-                        
-                        <a class="dropdown-item" href="<?php echo $path; ?>removeStaffAccount.php">Remove Staff Account</a>
-                        <a class="dropdown-item" href="/StaffordJunction/database/modify_staff_account.php">Modify Staff Account</a>
-
-                    </div>
+                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Staff</a>
+                    <ul class="dropdown-menu" aria-labelledby="staffDropdown">
+                        <li><a class="dropdown-item" href="<?php echo $path; ?>createStaffAccount.php">Create Staff Account</a></li>
+                        <li><a class="dropdown-item" href="<?php echo $path; ?>removeStaffAccount.php">Remove Staff Account</a></li>
+                        <li><a class="dropdown-item" href="/StaffordJunction/database/modify_staff_account.php">Modify Staff Account</a></li>
+                    </ul>
                 </li>
 
                 <!-- Volunteers Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-danger" href="#" id="volunteersDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Volunteers</a>
-                    <div class="dropdown-menu" aria-labelledby="volunteersDropdown">
-                        <a class="dropdown-item" href="<?php echo $path; ?>createVolunteerAccount.php">Create Volunteer Account</a>
-                        <a class="dropdown-item" href="<?php echo $path; ?>formSearch.php">View Volunteer Reports</a>
-                    </div>
+                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Volunteers</a>
+                    <ul class="dropdown-menu" aria-labelledby="volunteersDropdown">
+                        <li><a class="dropdown-item" href="<?php echo $path; ?>createVolunteerAccount.php">Create Volunteer Account</a></li>
+                        <li><a class="dropdown-item" href="<?php echo $path; ?>formSearch.php">View Volunteer Reports</a></li>
+                    </ul>
                 </li>
 
                 <li class="nav-item"><a class="nav-link text-danger" href="<?php echo $path; ?>changePassword.php">Change Password</a></li>
@@ -155,6 +151,5 @@ $path = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
         </div>
     </div>
 </nav>
-
 </body>
 </html>
