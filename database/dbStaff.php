@@ -140,26 +140,34 @@ function remove_staff_by_name($firstName, $lastName) {
     return $res_delete; // Returns true if successful, false otherwise
 }
 
-
-//function that retrieves staff member from dbStaff by full name
 function retrieve_staff_by_name($firstName, $lastName) {
     $conn = connect();
 
-     $firstName = mysqli_real_escape_string($conn, $firstName);
-     $lastName = mysqli_real_escape_string($conn, $lastName);
+    // Ensure inputs are strings and not arrays
+    $firstName = is_array($firstName) ? '' : trim($firstName);
+    $lastName = is_array($lastName) ? '' : trim($lastName);
 
-     $query = "SELECT * FROM dbStaff WHERE firstName = '$firstName' AND lastName = '$lastName';";
-     $res = mysqli_query($conn, $query);
+    // Escape inputs to prevent SQL injection
+    $firstName = mysqli_real_escape_string($conn, $firstName);
+    $lastName = mysqli_real_escape_string($conn, $lastName);
 
-    if (mysqli_num_rows($res) < 1 || $res == null) {
+    // Query to find the staff member
+    $query = "SELECT * FROM dbStaff WHERE firstName = '$firstName' AND lastName = '$lastName';";
+
+    $res = mysqli_query($conn, $query);
+
+    // Handle cases where no results are found
+    if (!$res || mysqli_num_rows($res) < 1) {
         mysqli_close($conn);
         return null;
-    } else {
-        $row = mysqli_fetch_assoc($res);
-        $staff = make_staff_from_db($row);
-        mysqli_close($conn);
-        return $staff;
     }
+
+    // Fetch result and create staff object
+    $row = mysqli_fetch_assoc($res);
+    $staff = make_staff_from_db($row);
+
+    mysqli_close($conn);
+    return $staff;
 }
 
 function update_staff($staff) {
@@ -185,30 +193,46 @@ function update_staff($staff) {
     return $result;
 }
 
-function retrieve_all_staff_paginated($sortColumn = 'lastName', $sortOrder = 'ASC', $limit = 10, $offset = 0) {
+function retrieve_all_staff_paginated($sortColumn, $sortOrder, $limit, $offset, $searchFilters = []) {
     $conn = connect();
+    $query = "SELECT * FROM dbStaff WHERE 1=1";
 
-    // Ensure sort column and order are safe
-    $allowedColumns = ['firstName', 'lastName', 'email', 'phone', 'jobTitle'];
-    if (!in_array($sortColumn, $allowedColumns)) {
-        $sortColumn = 'lastName'; // Default to last name if invalid column provided
+    if (!empty($searchFilters['first_name'])) {
+        $query .= " AND firstName LIKE '%" . mysqli_real_escape_string($conn, $searchFilters['first_name']) . "%'";
+    }
+    if (!empty($searchFilters['last_name'])) {
+        $query .= " AND lastName LIKE '%" . mysqli_real_escape_string($conn, $searchFilters['last_name']) . "%'";
     }
 
-    $sortOrder = strtoupper($sortOrder) === 'DESC' ? 'DESC' : 'ASC'; // Only allow ASC or DESC
-
-    // SQL Query: Fetch paginated results
-    $query = "SELECT * FROM dbStaff ORDER BY $sortColumn $sortOrder LIMIT ? OFFSET ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("ii", $limit, $offset);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $query .= " ORDER BY $sortColumn $sortOrder LIMIT $limit OFFSET $offset";
+    $res = mysqli_query($conn, $query);
 
     $staffList = [];
-    while ($row = $result->fetch_assoc()) {
+    while ($row = mysqli_fetch_assoc($res)) {
         $staffList[] = make_staff_from_db($row);
     }
 
-    $stmt->close();
     mysqli_close($conn);
     return $staffList;
+}
+
+function count_all_staff($filters = []) {
+    $conn = connect();
+    $whereClauses = [];
+
+    if (!empty($filters['first_name'])) {
+        $whereClauses[] = "firstName LIKE '%" . mysqli_real_escape_string($conn, $filters['first_name']) . "%'";
+    }
+    if (!empty($filters['last_name'])) {
+        $whereClauses[] = "lastName LIKE '%" . mysqli_real_escape_string($conn, $filters['last_name']) . "%'";
+    }
+
+    $whereSQL = !empty($whereClauses) ? "WHERE " . implode(" AND ", $whereClauses) : "";
+
+    $query = "SELECT COUNT(*) as total FROM dbStaff $whereSQL";
+    $res = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($res);
+
+    mysqli_close($conn);
+    return $row['total'] ?? 0;
 }
