@@ -16,10 +16,13 @@ The Gwyneth's Gifts VMS code was modified in the Fall of 2023, revamping the cod
 
 The ODHS Medicine Tracker code underwent further updates and refinements to rebase the software into a client management system. The team responsible for these recent changes consisted of Selby Heyman, Ian MacLeod, Maria Peralta, Brandon Rogers, Anna Swann, Josh Williams, and Nathan Wong.
 
+<<<<<<< HEAD
+=======
 Spring 2025:
 
   Authors: Carlos Ortega, Kelsey Payne, Matthew Shinko, Nathan Fimbres, Zachary Dutke, Yonatan Asfaw
 
+>>>>>>> e9991523d125e3f429247f822060311a1257785d
 ## User Types
 
 There are four types of users (also referred to as 'roles') within Stafford Junction.

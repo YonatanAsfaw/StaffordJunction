@@ -99,9 +99,13 @@
         $permission_array['formsearchresult.php'] = 2;
         $permission_array['fillformstaff.php'] = 2;
         $permission_array['familysignupstaff.php'] = 2;
+        $permission_array['modify_staff_account.php'] = 2;
         //pages only admin can view
         $permission_array['createstaffaccount.php'] = 3;
         $permission_array['removestaffaccount.php'] = 3;
+        $permission_array['createvolunteeraccount.php'] = 3;
+        $permission_array['removevolunteeraccount.php'] = 3;
+
 
 
         //Check if they're at a valid page for their access level.
@@ -152,6 +156,7 @@
                     echo('<a class="dropdown-item" href="' . $path . 'createStaffAccount.php">Create Staff Account</a>');
                     echo('<a class="dropdown-item" href="' . $path . 'removeStaffAccount.php">Remove Staff Account</a>');
                     //echo('<a class="dropdown-item" href="' . $path . 'testrma.php">Remove Staff Account</a>');
+                    echo('<a class="dropdown-item" href="' . $path . 'modify_staff_account.php">Modify Staff Account</a>');
                 }
                 echo('</div>');
                 echo('</li>');
@@ -160,8 +165,10 @@
                 echo('<li class="nav-item dropdown">');
                 echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Volunteers</a>');
                 echo('<div class="dropdown-menu">');
-                echo('<a class="dropdown-item" href="' . $path . '#">Search</a>
-                    <a class="dropdown-item" href="#">Add</a>');
+                //echo('<a class="dropdown-item" href="' . $path . '#">Search</a>');
+                echo('<a class="dropdown-item" href="createVolunteerAccount.php">Create Volunteer Account</a>');
+                echo('<a class="dropdown-item" href="removeVolunteerAccount.php">Remove Volunteer Account</a>');
+                //echo('<a class="dropdown-item" href="' . $path . 'modify_staff_account.php">Modify Volunteer Account</a>');
                 echo('</div>');
                 echo('</li>');
 

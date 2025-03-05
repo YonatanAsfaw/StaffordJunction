@@ -29,6 +29,18 @@ if ($accessLevel < 2) {
 
 $staff = null;
 $deleteSuccess = false;
+$staffList = [];
+
+$itemsPerPage = 10;
+$page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+$offset = ($page - 1) * $itemsPerPage;
+
+// Sorting setup
+$sortColumn = $_GET['sort'] ?? 'lastName';
+$sortOrder = $_GET['order'] ?? 'asc';
+
+// Fetch all staff sorted by last name, paginated
+$staffList = retrieve_all_staff_paginated($sortColumn, $sortOrder, $itemsPerPage, $offset);
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $args = sanitize($_POST, null);
@@ -39,13 +51,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     if (isset($args['delete']) && $staff) {
         $deleteSuccess = remove_staff_by_name($staff->getFirstName(), $staff->getLastName());
-        $staff = null; // Clear staff data after deletion
+        if ($deleteSuccess) {
+            header("Location: removeStaffAccount.php?deleteSuccess=1");
+            exit();
+        }
     }
-}
+} 
+
 ?>
 
 <!DOCTYPE html>
 <html>
+    <?php if (isset($_GET['deleteSuccess'])): ?>
+        <p style="color: green;">Staff member successfully removed.</p>
+    <?php endif; ?>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -65,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <h1>Search Staff Account</h1>
 
         <form id="search_form" method="POST">
-            <label>Enter first and last name to search for staff account to remove</label>
+            <label>Enter first and last name to directly search for staff account:</label>
             <div class="search-container">
                 <div class="search-label">
                     <label>First Name:</label>
@@ -82,7 +101,46 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <button type="submit" class="button_style">Search</button>
             </div>
         </form>
-        
+
+        <!-- Account Summary List -->
+        <h3>Account Summary</h3>
+        <div class="table-wrapper">
+            <table class="general">
+                <thead>
+                    <tr>
+                        <th><a href="?sort=firstName&order=<?= ($sortColumn === 'firstName' && $sortOrder === 'asc') ? 'desc' : 'asc' ?>">Name</a></th>
+                        <th>Date of Birth</th>
+                        <th><a href="?sort=jobTitle&order=<?= ($sortColumn === 'jobTitle' && $sortOrder === 'asc') ? 'desc' : 'asc' ?>">Job Title</a></th>
+                        <th><a href="?sort=email&order=<?= ($sortColumn === 'email' && $sortOrder === 'asc') ? 'desc' : 'asc' ?>">Email</a></th>
+                        <th><a href="?sort=phone&order=<?= ($sortColumn === 'phone' && $sortOrder === 'asc') ? 'desc' : 'asc' ?>">Phone</a></th>
+                    </tr>
+                </thead>
+                <tbody class="standout">
+                    <?php foreach ($staffList as $s): ?>
+                        <tr onclick="window.location.href='removeStaffAccount.php?first-name=<?= urlencode($s->getFirstName()) ?>&last-name=<?= urlencode($s->getLastName()) ?>'" style="cursor: pointer;">
+                            <td><?= htmlspecialchars($s->getFirstName() . " " . $s->getLastName()) ?></td>
+                            <td><?= htmlspecialchars($s->getBirthdate()) ?></td>
+                            <td><?= htmlspecialchars($s->getJobTitle()) ?></td>
+                            <td><?= htmlspecialchars($s->getEmail()) ?></td>
+                            <td><?= htmlspecialchars($s->getPhone()) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            <?php if ($page > 1): ?>
+                <a href="?page=<?= $page - 1 ?>&sort=<?= $sortColumn ?>&order=<?= $sortOrder ?>" class="button_style">Previous</a>
+            <?php endif; ?>
+            <span>Page <?= $page ?></span>
+            <?php if (count($staffList) === $itemsPerPage): ?>
+                <a href="?page=<?= $page + 1 ?>&sort=<?= $sortColumn ?>&order=<?= $sortOrder ?>" class="button_style">Next</a>
+            <?php endif; ?>
+        </div>
+
+        <!-- Selected Staff Member for Deletion -->
         <?php if ($staff): ?>
             <h3>Staff Account Information</h3>
             <div id="view-staff" style="margin-left: 20px; margin-right: 20px">
@@ -90,23 +148,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <fieldset>
                         <legend>General Information</legend>
                         <label>Name</label>
-                        <p><?php echo $staff->getFirstName() . " " . $staff->getLastName(); ?></p>
+                        <p><?= htmlspecialchars($staff->getFirstName() . " " . $staff->getLastName()) ?></p>
                         <label>Date of Birth</label>
-                        <p><?php echo $staff->getBirthdate(); ?></p>
+                        <p><?= htmlspecialchars($staff->getBirthdate()) ?></p>
                         <label>Address</label>
-                        <p><?php echo $staff->getAddress(); ?></p>
+                        <p><?= htmlspecialchars($staff->getAddress()) ?></p>
                         <label>Phone</label>
-                        <p><?php echo $staff->getPhone(); ?></p>
+                        <p><?= htmlspecialchars($staff->getPhone()) ?></p>
                         <label>Email</label>
-                        <p><?php echo $staff->getEmail(); ?></p>
+                        <p><?= htmlspecialchars($staff->getEmail()) ?></p>
                         <label>Job Title</label>
-                        <p><?php echo $staff->getJobTitle(); ?></p>
+                        <p><?= htmlspecialchars($staff->getJobTitle()) ?></p>
                     </fieldset>
                 </main>
             </div>
             <form method="POST" onsubmit="return confirm('Are you sure you want to remove this staff member?');">
-                <input type="hidden" name="first-name" value="<?php echo htmlspecialchars($staff->getFirstName()); ?>">
-                <input type="hidden" name="last-name" value="<?php echo htmlspecialchars($staff->getLastName()); ?>">
+                <input type="hidden" name="first-name" value="<?= htmlspecialchars($staff->getFirstName()) ?>">
+                <input type="hidden" name="last-name" value="<?= htmlspecialchars($staff->getLastName()) ?>">
                 <button type="submit" name="delete" class="button_style">Remove Account</button>
             </form>
         <?php elseif ($_SERVER['REQUEST_METHOD'] == "POST" && !$deleteSuccess): ?>
@@ -114,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <?php elseif ($deleteSuccess): ?>
             <p style="color: green;">Staff member successfully removed.</p>
         <?php endif; ?>
-        
+
         <a class="button cancel button_style" href="index.php">Return to Dashboard</a>
     </body>
 </html>

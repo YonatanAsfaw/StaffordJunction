@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+<?php
+=======
 <!-- <?php
+>>>>>>> e9991523d125e3f429247f822060311a1257785d
 /*
  * Copyright 2013 by Jerrick Hoang, Ivy Xing, Sam Roberts, James Cook,
  * Johnny Coster, Judy Yang, Jackson Moniaga, Oliver Radwan,
@@ -10,7 +14,11 @@
  *
  */
 ?>
+<<<<<<< HEAD
+<?php
+=======
 <!-- <?php -->
+>>>>>>> e9991523d125e3f429247f822060311a1257785d
 /*
  * Created on Mar 28, 2008
  * @author Oliver Radwan <oradwan@bowdoin.edu>
@@ -82,4 +90,5 @@ $loggedIn = false;
                 ?>
         </main>
     </body>
-</html> -->
+<<<<<<< HEAD
+</html>

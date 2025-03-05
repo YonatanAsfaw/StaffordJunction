@@ -1,1 +1,10 @@
+<<<<<<< HEAD
+.idea
+deploy/bin
+venv
+.env
+*.ppk
+=======
+.DS_Store
+>>>>>>> e9991523d125e3f429247f822060311a1257785d
 .DS_Store

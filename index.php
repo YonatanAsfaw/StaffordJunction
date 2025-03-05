@@ -12,7 +12,8 @@
         }
         die();
     }
-        
+    include_once('database/dbVolunteers.php');
+    include_once('domain/Volunteer.php');
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
     include_once('domain/Staff.php');
@@ -50,7 +51,7 @@
                 $acct = 'Admin';
             }
         ?>
-        <h1>Stafford Junctions <?php echo $acct ?> Dashboard</h1>
+        <h1>Stafford Junction <?php echo $acct ?> Dashboard</h1>
         <main class='dashboard'>
             <?php if (isset($_GET['addStaffSuccess'])): ?>
                 <?php echo '<div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Staff account created!</div>';?>
@@ -64,6 +65,8 @@
                 <div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Family Account Registration Successful!</div>
             <?php elseif (isset($_GET['updateSuccess'])): ?>
                 <div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Family Profile Updated!</div>
+            <?php elseif (isset($_GET['addVolunteerSuccess'])): ?>
+                <?php echo '<div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Volunteer account created!</div>';?>
             <?php elseif (isset($_GET['failedAccountCreate'])): ?>
                 <div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">
                     Unable to create account, account already in system!
@@ -83,7 +86,7 @@
                     <span>Find Family Account</span>
                 </div>
                 <?php endif ?>
-
+                
                 <?php if($_SESSION['access_level'] >= 2): ?>
                 <div class="dashboard-item" data-link="findChildren.php">
                     <img src="images/person-search.svg">
@@ -119,7 +122,12 @@
                     <span>Create Family Account</span>
                 </div>
                 <?php endif ?>
-
+                <?php if ($_SESSION['account_type'] == 'admin'): ?>
+                <div class="dashboard-item" data-link="createVolunteerAccount.php">
+                    <img src="images/staffUsers.svg">
+                    <span>Create Volunteer Account</span>
+                 </div>
+                <?php endif ?>
                 <div class="dashboard-item" data-link="changePassword.php">
                     <img src="images/change-password.svg">
                     <span>Change Password</span>
