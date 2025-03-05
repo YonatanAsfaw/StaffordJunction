@@ -184,3 +184,31 @@ function update_staff($staff) {
     mysqli_close($conn);
     return $result;
 }
+
+function retrieve_all_staff_paginated($sortColumn = 'lastName', $sortOrder = 'ASC', $limit = 10, $offset = 0) {
+    $conn = connect();
+
+    // Ensure sort column and order are safe
+    $allowedColumns = ['firstName', 'lastName', 'email', 'phone', 'jobTitle'];
+    if (!in_array($sortColumn, $allowedColumns)) {
+        $sortColumn = 'lastName'; // Default to last name if invalid column provided
+    }
+
+    $sortOrder = strtoupper($sortOrder) === 'DESC' ? 'DESC' : 'ASC'; // Only allow ASC or DESC
+
+    // SQL Query: Fetch paginated results
+    $query = "SELECT * FROM dbStaff ORDER BY $sortColumn $sortOrder LIMIT ? OFFSET ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ii", $limit, $offset);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $staffList = [];
+    while ($row = $result->fetch_assoc()) {
+        $staffList[] = make_staff_from_db($row);
+    }
+
+    $stmt->close();
+    mysqli_close($conn);
+    return $staffList;
+}
