@@ -163,13 +163,3 @@ function remove_staff_by_name($firstName, $lastName) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
