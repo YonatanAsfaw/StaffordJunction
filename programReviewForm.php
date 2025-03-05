@@ -91,7 +91,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['programReviewForm']))
         // Success
         $stmt->close();
         $connection->close();
-        header("Location: editBusMonitorData.php?message=" . urlencode("feedback was successfully provided!"));
+        //header("Location: editBusMonitorData.php?message=" . urlencode("feedback was successfully provided!"));
+        
+        header("Location: fillForm.php");
         exit();
     } else {
         // Error
@@ -176,12 +178,28 @@ require_once('database/dbProgramReviewForm.php');
                     neighborhoodSelect.innerHTML = `<option value="" disabled selected>Select a Neighborhood</option>`;
                 }
             }*/
+
+            <?php //If the user is an admin or staff, the message should appear at index.php
+                if($_SERVER['REQUEST_METHOD'] == "POST" && $success){
+                    if (isset($_GET['id'])) {
+                        echo '<script>document.location = "fillForm.php?formSubmitSuccess&id=' . $_GET['id'] . '";</script>';
+                    } else {
+                        echo '<script>document.location = "fillForm.php?formSubmitSuccess";</script>';
+                    }
+                } else if ($_SERVER['REQUEST_METHOD'] == "POST" && !$success) {
+                    if (isset($_GET['id'])) {
+                        echo '<script>document.location = "fillForm.php?formSubmitFail&id=' . $_GET['id'] . '";</script>';
+                    } else {
+                        echo '<script>document.location = "fillForm.php?formSubmitFail";</script>';
+                    }  
+                }
+            ?>
             </script>
             <br><br>
             <button type="submit" name="programReviewForm">Submit Feedback</button>
         </form>
         <br>
-        <a href="editBusMonitor.php" style="text-decoration: none;">
+        <a href="fillForm.php" style="text-decoration: none;">
         <button style="padding: 10px 20px; font-size: 16px;">Cancel</button>
     </a>
 </body>

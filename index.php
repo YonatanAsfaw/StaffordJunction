@@ -128,6 +128,10 @@
                     <img src="images/logout.svg">
                     <span>Log out</span>
                 </div>
+                <div class="dashboard-item" data-link="fillForm.php">
+                    <img src="images/form-dropdown-svgrepo-com.svg">
+                    <span>Family Forms</span>
+                </div>
             </div>
         </main>
     </body>
