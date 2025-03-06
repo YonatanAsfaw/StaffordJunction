@@ -27,6 +27,7 @@
             $notRoot = $person->get_id() != 'vmsroot'; //gets set to true if the user didn't log in as vmsroot
         }else if($_SESSION['account_type'] == 'Family'){ //if the account is a family account, simply redirect to the familyAccount dashboard page
             header("Location: familyAccountDashboard.php");
+        } else if ($_SESSION['account_type'] == 'volunteer'){
         }else if($_SESSION['account_type'] == 'staff'){
             //staff login
             $staff = retrieve_staff_by_id($_SESSION['_id']);
@@ -45,9 +46,11 @@
     <body>
         <?php require('header.php'); ?>
         <?php $acct = '';
-            if($_SESSION['account_type'] == 'staff'){
+            if ($_SESSION['account_type'] == 'staff') {
                 $acct = 'Staff';
-            }else {
+            } else if ($_SESSION['account_type'] == 'volunteer') {
+                $acct = 'Volunteer';
+            } else {
                 $acct = 'Admin';
             }
         ?>

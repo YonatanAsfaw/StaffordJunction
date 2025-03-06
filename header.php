@@ -74,6 +74,7 @@
         $permission_array['holidaymealbagcomplete.php'] = 1;
         $permission_array['addchild.php'] = 1;
         $permission_array['forgotpassword.php'] = 1;
+        $permission_array['createvolunteeraccount'] = 1;
         //pages only staff can view
         $permission_array['personsearch.php'] = 2;
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
@@ -106,7 +107,7 @@
         $permission_array['createvolunteeraccount.php'] = 3;
         $permission_array['removevolunteeraccount.php'] = 3;
         $permission_array['staffaccount.php'] = 3;
-
+      
 
 
         //Check if they're at a valid page for their access level.
@@ -222,6 +223,21 @@
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Log out</a></li>');
                 echo '</ul></nav>';
 
+            }
+            else if ($_SESSION['account_type'] == 'volunteer') {
+                echo('<nav>');
+                echo('<span id="nav-top"><span class="logo"><a class="navbar-brand" href="' . $path . 'index.php"><img src="images/staffordjunction.png"></a>');
+                echo('<a class="navbar-brand" id="vms-logo"></a></span><img id="menu-toggle" src="images/menu.png"></span>');
+                echo('<ul>');
+                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'index.php">Home</a></li>');
+                echo('<li class="nav-item dropdown">');
+                echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tasks</a>');
+                echo('<div class="dropdown-menu" aria-labelledby="navbarDropdown">');
+                echo('<a class="dropdown-item" href="' . $path . 'volunteerTask.php">View Volunteer Tasks</a>');
+                echo('</div></li>');
+                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'changePassword.php">Change Password</a></li>');
+                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Log out</a></li>');
+                echo('</ul></nav>');
             }
         }
         
