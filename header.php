@@ -106,6 +106,7 @@
 	$permission_array['staffaccount.php'] = 3;
         $permission_array['createvolunteeraccount.php'] = 3;
         $permission_array['removevolunteeraccount.php'] = 3;
+        $permission_array['staffaccount.php'] = 3;
 
 
 
