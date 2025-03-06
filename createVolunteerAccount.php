@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         echo "<p class='error'>Passwords do not match!</p>";
         exit;
     }
+    $args['password'] = password_hash($args['password'], PASSWORD_DEFAULT);
     // Calculate age from birthDate
     $birthDate = new DateTime($args['birthDate']);
     $today = new DateTime();

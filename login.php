@@ -127,22 +127,32 @@
                 }else {
                     $badLogin = true;
                 }
-            }else if($args['account'] == 'volunteer'){ //if the account is a staff account
-                $user = retrieve_volunteer_by_email($username); //grab staff user
-                if(!$user){
+            } else if ($args['account'] == 'volunteer') {
+                echo "Attempting volunteer login for: $username<br>";
+                $user = retrieve_volunteer_by_email($username);
+                if (!$user) {
+                    echo "Volunteer not found<br>";
                     $badLogin = true;
-                }else if(password_verify($password, $user->getPassword())) {
-                    $_SESSION['logged_in'] = true;
-                    $_SESSION['access_level'] = 3; //access level for volunteers == 3
-                    $_SESSION['_id'] = $user->getId();
-                    $_SESSION['f_name'] = $user->getFirstName();
-                    $_SESSION['l_name'] = $user->getLastName();
-                    $_SESSION['account_type'] = "volunteer";
-                    $_SESSION['venue'] = "-"; //this session variable needs to be set to anything other than "", or else the header.php file won't run
-
-                    header('Location: index.php');
+                } else {
+                    echo "Volunteer found, stored password: " . $user->getPassword() . "<br>";
+                    echo "Input password: " . $password . "<br>";
+                    if (password_verify($password, $user->getPassword())) {
+                        echo "Password verified, logging in<br>";
+                        $_SESSION['logged_in'] = true;
+                        $_SESSION['access_level'] = 1; // Already set to 1
+                        $_SESSION['_id'] = $user->getId();
+                        $_SESSION['f_name'] = $user->getFirstName();
+                        $_SESSION['l_name'] = $user->getLastName();
+                        $_SESSION['account_type'] = "volunteer"; // Critical
+                        $_SESSION['venue'] = "-";
+                        header('Location: index.php');
+                        die();
+                    } else {
+                        echo "Password verification failed<br>";
+                        $badLogin = true;
+                    }
                 }
-            } 
+            }
             
         }
     }
