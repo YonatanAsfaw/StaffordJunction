@@ -103,7 +103,8 @@
         $permission_array['modify_staff_account.php'] = 2;
         //pages only admin can view
         $permission_array['createstaffaccount.php'] = 3;
-        $permission_array['removestaffaccount.php'] = 3;
+	$permission_array['removestaffaccount.php'] = 3;
+	$permission_array['staffaccount.php'] = 3;
         $permission_array['createvolunteeraccount.php'] = 3;
         $permission_array['removevolunteeraccount.php'] = 3;
         $permission_array['staffaccount.php'] = 3;
