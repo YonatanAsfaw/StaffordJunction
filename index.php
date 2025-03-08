@@ -33,7 +33,6 @@
             $staff = retrieve_staff_by_id($_SESSION['_id']);
         }
     }
-
     
 
 ?>
