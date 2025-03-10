@@ -12,7 +12,8 @@
         }
         die();
     }
-        
+    include_once('database/dbVolunteers.php');
+    include_once('domain/Volunteer.php');
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
     include_once('domain/Staff.php');
@@ -26,6 +27,7 @@
             $notRoot = $person->get_id() != 'vmsroot'; //gets set to true if the user didn't log in as vmsroot
         }else if($_SESSION['account_type'] == 'Family'){ //if the account is a family account, simply redirect to the familyAccount dashboard page
             header("Location: familyAccountDashboard.php");
+        } else if ($_SESSION['account_type'] == 'volunteer'){
         }else if($_SESSION['account_type'] == 'staff'){
             //staff login
             $staff = retrieve_staff_by_id($_SESSION['_id']);
@@ -43,9 +45,11 @@
     <body>
         <?php require('header.php'); ?>
         <?php $acct = '';
-            if($_SESSION['account_type'] == 'staff'){
+            if ($_SESSION['account_type'] == 'staff') {
                 $acct = 'Staff';
-            }else {
+            } else if ($_SESSION['account_type'] == 'volunteer') {
+                $acct = 'Volunteer';
+            } else {
                 $acct = 'Admin';
             }
         ?>
@@ -63,6 +67,8 @@
                 <div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Family Account Registration Successful!</div>
             <?php elseif (isset($_GET['updateSuccess'])): ?>
                 <div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Family Profile Updated!</div>
+            <?php elseif (isset($_GET['addVolunteerSuccess'])): ?>
+                <?php echo '<div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Volunteer account created!</div>';?>
             <?php elseif (isset($_GET['failedAccountCreate'])): ?>
                 <div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">
                     Unable to create account, account already in system!
@@ -82,7 +88,7 @@
                     <span>Find Family Account</span>
                 </div>
                 <?php endif ?>
-
+                
                 <?php if($_SESSION['access_level'] >= 2): ?>
                 <div class="dashboard-item" data-link="findChildren.php">
                     <img src="images/person-search.svg">
@@ -119,13 +125,21 @@
                 </div>
                 <?php endif ?>
 
+
                 <?php if($_SESSION['account_type'] == 'volunteer'): ?>
                 <div class="dashboard-item" data-link="volunteerReportForm.php">
                     <img src="images/form-dropdown-svgrepo-com.svg">
                     <span>Log Volunteer Hours</span>
                 </div>
                 <?php endif ?>
-
+          
+                <?php if ($_SESSION['account_type'] == 'admin'): ?>
+                <div class="dashboard-item" data-link="createVolunteerAccount.php">
+                    <img src="images/staffUsers.svg">
+                    <span>Create Volunteer Account</span>
+                 </div>
+                <?php endif ?>
+              
                 <div class="dashboard-item" data-link="changePassword.php">
                     <img src="images/change-password.svg">
                     <span>Change Password</span>
@@ -133,6 +147,10 @@
                 <div class="dashboard-item" data-link="logout.php">
                     <img src="images/logout.svg">
                     <span>Log out</span>
+                </div>
+                <div class="dashboard-item" data-link="fillForm.php">
+                    <img src="images/form-dropdown-svgrepo-com.svg">
+                    <span>Family Forms</span>
                 </div>
             </div>
         </main>

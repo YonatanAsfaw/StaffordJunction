@@ -85,7 +85,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
             .general a {
+<<<<<<< HEAD
                 color: #fcdd2b;
+=======
+                color: cyan;
+>>>>>>> e9991523d125e3f429247f822060311a1257785d
                 text-decoration: none;
             }
             .general tbody tr:hover {
@@ -241,4 +245,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
      
         <a class="button cancel button_style"  href="index.php">Return to Dashboard</a>      
     </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> e9991523d125e3f429247f822060311a1257785d
