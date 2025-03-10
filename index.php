@@ -119,6 +119,13 @@
                 </div>
                 <?php endif ?>
 
+                <?php if($_SESSION['account_type'] == 'volunteer'): ?>
+                <div class="dashboard-item" data-link="volunteerReportForm.php">
+                    <img src="images/form-dropdown-svgrepo-com.svg">
+                    <span>Log Volunteer Hours</span>
+                </div>
+                <?php endif ?>
+
                 <div class="dashboard-item" data-link="changePassword.php">
                     <img src="images/change-password.svg">
                     <span>Change Password</span>
