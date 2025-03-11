@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <input type="tel" id="econtactPhone" name="econtactPhone" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
             <!-- Allergies -->
             <label for="allergies">Allergies *</label>
-            <select name="allergies" required>
+            <select name="allergies">
                 <option value="Nut Allergy">Nut Allergy</option>
                 <option value="Soy Allergy">Soy Allergy</option>
                 <option value="Egg Allergy">Egg Allergy</option>
@@ -133,6 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <option value="Spices Allergy">Spices Allergy</option>
                 <option value="Gluten Allergy">Gluten Allergy</option>
                 <option value="Latex Allergy">Latex Allergy</option>
+                <option value="None">None</option>
             </select>
             <!-- Login Credentials -->
             <h3>Login Credentials</h3>
