@@ -267,3 +267,53 @@ function retrieve_volunteer_by_name($firstName, $lastName) {
         return $staff;
     }
 }
+
+function retrieve_all_volunteers_paginated($sortColumn, $sortOrder, $limit, $offset, $searchFilters = []) {
+    $conn = connect();
+    $query = "SELECT * FROM dbVolunteers WHERE 1=1";
+
+    if (!empty($searchFilters['first_name'])) {
+        $query .= " AND firstName LIKE '%" . mysqli_real_escape_string($conn, $searchFilters['first_name']) . "%'";
+    }
+    if (!empty($searchFilters['last_name'])) {
+        $query .= " AND lastName LIKE '%" . mysqli_real_escape_string($conn, $searchFilters['last_name']) . "%'";
+    }
+    if (!empty($searchFilters['email'])) {
+        $query .= " AND email LIKE '%" . mysqli_real_escape_string($conn, $searchFilters['email']) . "%'";
+    }
+
+    $query .= " ORDER BY $sortColumn $sortOrder LIMIT $limit OFFSET $offset";
+    $res = mysqli_query($conn, $query);
+
+    $volunteerList = [];
+    while ($row = mysqli_fetch_assoc($res)) {
+        $volunteerList[] = create_volunteer_from_db($row);
+    }
+
+    mysqli_close($conn);
+    return $volunteerList;
+}
+
+function count_all_volunteers($filters = []) {
+    $conn = connect();
+    $whereClauses = [];
+
+    if (!empty($filters['first_name'])) {
+        $whereClauses[] = "firstName LIKE '%" . mysqli_real_escape_string($conn, $filters['first_name']) . "%'";
+    }
+    if (!empty($filters['last_name'])) {
+        $whereClauses[] = "lastName LIKE '%" . mysqli_real_escape_string($conn, $filters['last_name']) . "%'";
+    }
+    if (!empty($filters['email'])) {
+        $whereClauses[] = "email LIKE '%" . mysqli_real_escape_string($conn, $filters['email']) . "%'";
+    }
+
+    $whereSQL = !empty($whereClauses) ? "WHERE " . implode(" AND ", $whereClauses) : "";
+
+    $query = "SELECT COUNT(*) as total FROM dbVolunteers $whereSQL";
+    $res = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($res);
+
+    mysqli_close($conn);
+    return $row['total'] ?? 0;
+}
