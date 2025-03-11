@@ -29,7 +29,7 @@
                     <span id="vms-logo">  </span>
                 </span>
                 <img id="menu-toggle" src="images/menu.png">
-            </span>
+	    </span>
             <ul>
                 <li><a href="login.php">Log in</a></li>
             </ul>
