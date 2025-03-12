@@ -139,7 +139,7 @@
                     if (password_verify($password, $user->getPassword())) {
                         echo "Password verified, logging in<br>";
                         $_SESSION['logged_in'] = true;
-                        $_SESSION['access_level'] = 1; // Already set to 1
+                        $_SESSION['access_level'] = 4; // Already set to 1
                         $_SESSION['_id'] = $user->getId();
                         $_SESSION['f_name'] = $user->getFirstName();
                         $_SESSION['l_name'] = $user->getLastName();

@@ -82,28 +82,28 @@
            
             <div id="dashboard">
                 <!--New Dashboard items-->
-                <?php if($_SESSION['access_level'] >= 2): ?>
+                <?php if($_SESSION['access_level'] >= 2  && $_SESSION['access_level'] < 4): ?>
                 <div class="dashboard-item" data-link="findFamily.php">
                     <img src="images/person-search.svg">
                     <span>Find Family Account</span>
                 </div>
                 <?php endif ?>
                 
-                <?php if($_SESSION['access_level'] >= 2): ?>
+                <?php if($_SESSION['access_level'] >= 2 && $_SESSION['access_level'] < 4): ?>
                 <div class="dashboard-item" data-link="findChildren.php">
                     <img src="images/person-search.svg">
                     <span>Find Children</span>
                 </div>
                 <?php endif ?>
 
-                <?php if($_SESSION['access_level'] >= 2 || $_SESSION['account_type'] == 'admin'): ?>
+                <?php if($_SESSION['access_level'] >= 2 && $_SESSION['access_level'] < 4): ?>
                 <div class="dashboard-item" data-link="formSearch.php">
                     <img src="images/form-dropdown-svgrepo-com.svg">
                     <span>View Form Submissions</span>
                 </div>
                 <?php endif ?>
               
-                <?php if($_SESSION['access_level'] >= 2): ?>
+                <?php if($_SESSION['access_level'] >= 2 && $_SESSION['access_level'] < 4): ?>
                 <div class="dashboard-item" data-link="fillFormStaff.php">
                     <img src="images/form-dropdown-svgrepo-com.svg">
                     <span>Fill Out Attendance Forms</span>
@@ -118,7 +118,7 @@
                 </div>
                 <?php endif ?>
 
-                <?php if($_SESSION['access_level'] >= 2): ?>
+                <?php if($_SESSION['access_level'] >= 2 && $_SESSION['access_level'] < 4): ?>
                 <div class="dashboard-item" data-link="familySignUpStaff.php">
                     <img src="images/family-svgrepo-com.svg">
                     <span>Create Family Account</span>
@@ -148,10 +148,12 @@
                     <img src="images/logout.svg">
                     <span>Log out</span>
                 </div>
+                <?php if ($_SESSION['account_type'] == 'family' || $_SESSION['account_type'] == 'admin'): ?>
                 <div class="dashboard-item" data-link="fillForm.php">
                     <img src="images/form-dropdown-svgrepo-com.svg">
                     <span>Family Forms</span>
                 </div>
+                <?php endif ?>
             </div>
         </main>
     </body>

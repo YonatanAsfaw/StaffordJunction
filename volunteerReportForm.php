@@ -21,6 +21,7 @@ if(isset($_SESSION['_id'])){
 
 require_once('database/dbVolunteerReportForm.php');
 require_once('include/input-validation.php');
+$activities = getAvailableActivities();
 
 if($_SERVER['REQUEST_METHOD'] == "POST") {
     $args = sanitize($_POST, null);

@@ -29,10 +29,9 @@
                     <span id="vms-logo">  </span>
                 </span>
                 <img id="menu-toggle" src="images/menu.png">
-            </span>
-            <ul>
-                <li><a href="login.php">Log in</a></li>
-            </ul>
+	    </span>
+
+
         </nav>';
         //      <li><a href="register.php">Register</a></li>     was at line 35
     } else if ($_SESSION['logged_in']) {
@@ -103,12 +102,14 @@
         $permission_array['modify_staff_account.php'] = 2;
         //pages only admin can view
         $permission_array['createstaffaccount.php'] = 3;
-	$permission_array['removestaffaccount.php'] = 3;
-	$permission_array['staffaccount.php'] = 3;
+	    $permission_array['removestaffaccount.php'] = 3;
+	    $permission_array['staffaccount.php'] = 3;
         $permission_array['createvolunteeraccount.php'] = 3;
         $permission_array['removevolunteeraccount.php'] = 3;
         $permission_array['staffaccount.php'] = 3;
-      
+        $permission_array['volunteeraccount.php'] = 3;
+
+        $permission_array['volunteerReportForm.php'] = 4;
 
 
         //Check if they're at a valid page for their access level.
