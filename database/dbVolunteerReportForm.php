@@ -56,4 +56,31 @@ function getAvailableActivities() {
     mysqli_close($connection);
     return [];
 }
+
+//function that inserts staff into dbStaff
+function add_hour_log($volunteerID, $form) {
+    $conn = connect();
+    $activityID = (int) $form["activity_id"];
+    $date = $form["date"];
+    $hours = (float) $form["hours"];
+    $description = mysqli_real_escape_string($conn, $form["description"]);
+
+    $query = "
+        INSERT INTO dbVolunteerReport (volunteer_id, activity_id, date, hours, description)
+        VALUES (?, ?, ?, ?, ?)
+    ";
+
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "iisis", $volunteerID, $activityID, $date, $hours, $description);
+    $result = mysqli_stmt_execute($stmt);
+
+    if (!$result) {
+        error_log("Error inserting log: " . mysqli_error($conn));
+        mysqli_close($conn);
+        return false;
+    }
+
+    mysqli_close($conn);
+    return true;
+}
 ?>

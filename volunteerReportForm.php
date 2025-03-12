@@ -28,7 +28,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     $required = ["activity_id", "date", "hours", "description"];
     
     // Insert volunteer log
-    $logID = logVolunteerHours($volunteerID, $args);
+    $success = add_hour_log($volunteerID, $args);
+
+    if ($success) {
+        echo '<script>document.location = "volunteerReportForm.php?formSubmitSuccess";</script>';
+    } else {
+        echo '<script>document.location = "volunteerReportForm.php?formSubmitFail";</script>';
+    }
 }
 
 ?>
@@ -82,14 +88,5 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
             <a class="button cancel" href="index.php" style="width: 150px">Cancel</a><br><br>
         </form>
         </div>
-        <?php
-            // if submission successful, create pop up notification and direct user back to fill form page
-            // if fail, notify user on program interest form page
-            if ($_SERVER['REQUEST_METHOD'] == "POST" && !empty($volunteerID)){
-                echo '<script>document.location = "volunteerReportForm.php?formSubmitSuccess";</script>';
-            } else if ($_SERVER['REQUEST_METHOD'] == "POST" && empty($volunteerID)) {
-                echo '<script>document.location = "volunteerReportForm.php?formSubmitFail";</script>';
-            }
-        ?>
     </body>
 </html>
