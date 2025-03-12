@@ -57,9 +57,10 @@ function getAvailableActivities() {
     return [];
 }
 
-//function that inserts staff into dbStaff
+// Function that inserts volunteer hours into dbVolunteerReport
 function add_hour_log($volunteerID, $form) {
     $conn = connect();
+    
     $activityID = (int) $form["activity_id"];
     $date = $form["date"];
     $hours = (float) $form["hours"];
