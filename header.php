@@ -29,10 +29,9 @@
                     <span id="vms-logo">  </span>
                 </span>
                 <img id="menu-toggle" src="images/menu.png">
-            </span>
-            <ul>
-                <li><a href="login.php">Log in</a></li>
-            </ul>
+	    </span>
+
+
         </nav>';
         //      <li><a href="register.php">Register</a></li>     was at line 35
     } else if ($_SESSION['logged_in']) {
