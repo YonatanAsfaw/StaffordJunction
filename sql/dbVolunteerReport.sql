@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 10, 2025 at 04:53 PM
+-- Generation Time: Mar 12, 2025 at 05:30 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -47,6 +47,16 @@ ALTER TABLE `dbVolunteerReport`
   ADD PRIMARY KEY (`report_id`),
   ADD KEY `volunteer_id` (`volunteer_id`),
   ADD KEY `activity_id` (`activity_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `dbVolunteerReport`
+--
+ALTER TABLE `dbVolunteerReport`
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
