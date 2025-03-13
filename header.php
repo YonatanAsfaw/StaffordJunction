@@ -152,7 +152,7 @@
                 echo('<a class="dropdown-item" href="' . $path . 'findFamily.php">Search Family</a>');
                 echo('<a class="dropdown-item" href="' . $path . 'familySignUpStaff.php">Add Family Account</a>');
                 echo('<a class="dropdown-item" href="' . $path . 'formSearch.php">Reports</a>');
-
+                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'calendar.php">Calendar</a></li>');
                 if($_SESSION['access_level'] > 2){
                     echo('<li class="nav-item dropdown">');
                     echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Staff</a>');
