@@ -58,6 +58,11 @@ ALTER TABLE `dbVolunteerReport`
 ALTER TABLE `dbVolunteerReport`
   MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
+
+ALTER TABLE `dbVolunteerReport`
+  MODIFY COLUMN `hours` DECIMAL(5,2) NOT NULL;
+
+
 --
 -- Constraints for dumped tables
 --
