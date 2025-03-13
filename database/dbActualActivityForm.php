@@ -175,31 +175,50 @@ function get_attendance_statistics() {
 /**
  * Function to get total volunteer hours per event.
  */
-function get_volunteer_hours_per_event() {
+function get_volunteer_details_per_event() {
     $connection = connect();
     
     $query = "
-        SELECT a.id AS activity_id, a.activity, SUM(v.hours) AS total_hours
+        SELECT 
+            a.id AS activity_id, 
+            a.activity, 
+            v.volunteer_id, 
+            u.firstName AS volunteer_name, 
+            v.hours
         FROM dbActualActivityForm a
         LEFT JOIN dbVolunteerReport v ON a.id = v.activity_id
-        GROUP BY a.id, a.activity
+        LEFT JOIN dbVolunteers u ON v.volunteer_id = u.id
+        ORDER BY a.date DESC, a.activity;
     ";
 
     $result = mysqli_query($connection, $query);
 
     if (!$result) {
-        error_log("Error fetching volunteer hours: " . mysqli_error($connection));
+        error_log("Error fetching volunteer details: " . mysqli_error($connection));
         mysqli_close($connection);
         return [];
     }
 
-    $hoursData = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $volunteerData = [];
+    $totalHoursPerEvent = []; // Track total hours per event
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $activityID = $row['activity_id'];
+        
+        // Store individual volunteer hours
+        $volunteerData[$activityID][] = [
+            'volunteer_name' => $row['volunteer_name'] ?? 'Unknown',
+            'hours' => $row['hours'] ?? 0.00
+        ];
+
+        // Sum total hours per event
+        if (!isset($totalHoursPerEvent[$activityID])) {
+            $totalHoursPerEvent[$activityID] = 0;
+        }
+        $totalHoursPerEvent[$activityID] += (float) $row['hours'];
+    }
+
     mysqli_close($connection);
-    
-    return $hoursData;
+
+    return ['volunteers' => $volunteerData, 'totals' => $totalHoursPerEvent];
 }
-
-
-
-
-

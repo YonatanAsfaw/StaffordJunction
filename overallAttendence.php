@@ -23,7 +23,10 @@ require_once("database/dbActualActivityForm.php");
 
 $attendanceTrends = get_attendance_trends(); // Fetch attendance trends from the function
 $attendanceStats = get_attendance_statistics(); // Fetch attendance statistics
-$volunteerHours = get_volunteer_hours_per_event();
+$volunteerData = get_volunteer_details_per_event();
+$volunteerDetails = $volunteerData['volunteers'];
+$totalHoursPerEvent = $volunteerData['totals'];
+
 ?>
 
 <!DOCTYPE html>
@@ -90,21 +93,45 @@ $volunteerHours = get_volunteer_hours_per_event();
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($attendanceTrends as $trend): ?>
+    <?php foreach ($attendanceTrends as $trend): ?>
+        <tr>
+            <td><?php echo htmlspecialchars($trend['date']); ?></td>
+            <td><?php echo htmlspecialchars($trend['activity']); ?></td>
+            <td><?php echo htmlspecialchars($trend['total_attendance']); ?></td>
+            <td><strong><?php 
+                $totalHours = isset($totalHoursPerEvent[$trend['activity_id']]) 
+                    ? number_format($totalHoursPerEvent[$trend['activity_id']], 2) 
+                    : '0.00';
+                echo $totalHours;
+            ?></strong></td>
+        </tr>
+
+        <?php if (isset($volunteerDetails[$trend['activity_id']])): ?>
             <tr>
-                <td><?php echo htmlspecialchars($trend['date']); ?></td>
-                <td><?php echo htmlspecialchars($trend['activity']); ?></td>
-                <td><?php echo htmlspecialchars($trend['total_attendance']); ?></td>
-                <td>
-                    <?php 
-                        $activityID = $trend['activity_id'];
-                        $hours = array_column($volunteerHours, 'total_hours', 'activity_id')[$activityID] ?? 0;
-                        echo number_format($hours, 2);
-                    ?>
+                <td colspan="4">
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 5px;">
+                        <thead>
+                            <tr style="background-color: #f2f2f2;">
+                                <th style="text-align: left; padding: 5px;">Volunteer Name</th>
+                                <th style="text-align: left; padding: 5px;">Hours</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($volunteerDetails[$trend['activity_id']] as $volunteer): ?>
+                                <tr>
+                                    <td style="padding: 5px;"><?php echo htmlspecialchars($volunteer['volunteer_name']); ?></td>
+                                    <td style="padding: 5px;"><?php echo number_format($volunteer['hours'], 2); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </td>
             </tr>
-        <?php endforeach; ?>
-    </tbody>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</tbody>
+
+
 </table>
 
 </body>

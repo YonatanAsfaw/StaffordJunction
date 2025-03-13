@@ -19,7 +19,7 @@ function logVolunteerHours($volunteerID, $form) {
         ";
 
         $stmt = mysqli_prepare($connection, $query);
-        mysqli_stmt_bind_param($stmt, "iisis", $volunteerID, $activityID, $date, $hours, $description);
+        mysqli_stmt_bind_param($stmt, "iisds", $volunteerID, $activityID, $date, $hours, $description);
         $result = mysqli_stmt_execute($stmt);
 
         if (!$result) {
@@ -72,7 +72,7 @@ function add_hour_log($volunteerID, $form) {
     ";
 
     $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "iisis", $volunteerID, $activityID, $date, $hours, $description);
+    mysqli_stmt_bind_param($stmt, "iisds", $volunteerID, $activityID, $date, $hours, $description);
     $result = mysqli_stmt_execute($stmt);
 
     if (!$result) {
