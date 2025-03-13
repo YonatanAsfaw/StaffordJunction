@@ -20,7 +20,6 @@ if (isset($_SESSION['_id'])) {
 
 // Include necessary database functions
 require_once("database/dbActualActivityForm.php");
-require_once("database/dbVolunteerReportForm.php");
 
 $attendanceTrends = get_attendance_trends(); // Fetch attendance trends from the function
 $attendanceStats = get_attendance_statistics(); // Fetch attendance statistics
