@@ -128,3 +128,78 @@ function getActualActivitySubmissions() {
     }
     return [];
 }
+
+function get_attendance_trends() {
+    $connection = connect();
+    
+    $query = "
+        SELECT id AS activity_id, date, activity, SUM(attend_num) AS total_attendance
+        FROM dbActualActivityForm
+        GROUP BY id, date, activity
+        ORDER BY date DESC;
+    ";
+    
+    $result = mysqli_query($connection, $query);
+    
+    $attendance_data = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $attendance_data[] = $row;
+    }
+    
+    mysqli_close($connection);
+    
+    return $attendance_data;
+}
+
+function get_attendance_statistics() {
+    $connection = connect();
+
+    $query = "
+        SELECT 
+            COUNT(id) AS total_events,
+            SUM(attend_num) AS total_attendance,
+            AVG(attend_num) AS avg_attendance,
+            MAX(attend_num) AS max_attendance,
+            (SELECT activity FROM dbActualActivityForm ORDER BY attend_num DESC LIMIT 1) AS most_attended_event
+        FROM dbActualActivityForm;
+    ";
+    
+    $result = mysqli_query($connection, $query);
+    $stats = mysqli_fetch_assoc($result);
+    
+    mysqli_close($connection);
+    
+    return $stats; // Returns an associative array with statistics
+}
+
+/**
+ * Function to get total volunteer hours per event.
+ */
+function get_volunteer_hours_per_event() {
+    $connection = connect();
+    
+    $query = "
+        SELECT a.id AS activity_id, a.activity, SUM(v.hours) AS total_hours
+        FROM dbActualActivityForm a
+        LEFT JOIN dbVolunteerReport v ON a.id = v.activity_id
+        GROUP BY a.id, a.activity
+    ";
+
+    $result = mysqli_query($connection, $query);
+
+    if (!$result) {
+        error_log("Error fetching volunteer hours: " . mysqli_error($connection));
+        mysqli_close($connection);
+        return [];
+    }
+
+    $hoursData = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    mysqli_close($connection);
+    
+    return $hoursData;
+}
+
+
+
+
+

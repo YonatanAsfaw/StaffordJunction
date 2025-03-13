@@ -108,6 +108,7 @@
         $permission_array['removevolunteeraccount.php'] = 3;
         $permission_array['staffaccount.php'] = 3;
         $permission_array['volunteeraccount.php'] = 3;
+        $permission_array['overallattendence.php'] = 3;
 
         $permission_array['volunteerReportForm.php'] = 4;
 
@@ -183,6 +184,7 @@
                 echo('<li class="nav-item dropdown">');
                 echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Others</a>');
                 echo('<div class="dropdown-menu">');
+                echo('<a class="dropdown-item" href="' . $path . 'overallAttendence.php">View Overall Attendence</a>');
                 echo('<a class="dropdown-item" href="' . $path . 'changePassword.php">Change Password</a>');
 
                 echo('</div>');
