@@ -38,6 +38,9 @@
             $familyId = $_GET['familyAccount'];
         }
         $submissions = getFormSubmissions($_GET['formName'], $familyId);
+
+        error_log("Final submissions in formSearchResult.php: " . json_encode($submissions));
+
         $noResults = count($submissions) == 0;
         if(!$noResults){
             $columnNames = array_keys($submissions[0]);

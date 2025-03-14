@@ -12,7 +12,7 @@ function getFormSubmissions($formName, $familyId){
     case "Holiday Meal Bag":
         require_once("dbHolidayMealBag.php");
         if ($familyId){
-            return getHolidayMealBagSubmissionsById($familyId);
+            return getHolidayMealBagFormBySubmissionId($familyId);
         }
         return getHolidayMealBagSubmissions();
     case "School Supplies":

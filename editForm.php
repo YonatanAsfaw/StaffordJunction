@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 require_once("database/dbHolidayMealBag.php");
 require_once("database/dbForms.php");
@@ -18,7 +21,7 @@ $submissionId = $_GET['id'];
 $formName = $_GET['formName'];
 
 // Get existing data
-$formData = getHolidayMealBagSubmissionsById($submissionId);
+$formData = getHolidayMealBagFormBySubmissionId($submissionId);
 
 if (!$formData) {
     die("Form data not found.");
