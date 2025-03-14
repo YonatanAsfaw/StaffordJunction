@@ -42,9 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'] ?? "";
     $householdSize = (int)($_POST['household'] ?? 0);
     $mealBag = $_POST['meal_bag'] ?? ""; // Ensure meal_bag is correctly retrieved
-    $name = $_POST['name'] ?? "";
-    $address = $_POST['address'] ?? "";
-    $phone = $_POST['phone'] ?? "";
+    $name = !empty($_POST['name']) ? $_POST['name'] : "Unknown";
+    $address = !empty($_POST['address']) ? $_POST['address'] : "N/A";
+    $phone = !empty($_POST['phone']) ? $_POST['phone'] : "0000000000";    
     $photoRelease = isset($_POST['photo_release']) ? (int)$_POST['photo_release'] : 0; // Defaults to 0 if empty
 
 

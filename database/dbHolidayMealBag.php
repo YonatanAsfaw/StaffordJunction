@@ -146,4 +146,54 @@ function updateHolidayMealBagForm($submissionId, $updatedData) {
     return $result;
 }
 
+function insertHolidayMealBagForm($familyID, $email, $householdSize, $mealBag, $name, $address, $phone, $photoRelease) {
+    global $conn; // Ensure we're using the global database connection
+
+    if (!$conn) {
+        die("ERROR: Database connection is NULL in insertHolidayMealBagForm.");
+    }
+
+    // ✅ Correct SQL Query (Ensure it matches the number of bind variables)
+    $query = "INSERT INTO dbHolidayMealBagForm (family_id, email, household_size, meal_bag, name, address, phone, photo_release) 
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($query);
+    
+    if (!$stmt) {
+        die("Database prepare() failed: " . $conn->error);
+    }
+
+    // ✅ Assign variables before binding
+    $familyID = (int)$familyID;
+    $email = (string)$email;
+    $householdSize = (int)$householdSize;
+    $mealBag = (string)$mealBag;
+    $name = isset($name) ? (string)$name : "";
+    $address = isset($address) ? (string)$address : "";
+    $phone = isset($phone) ? (string)$phone : "";
+    $photoRelease = isset($photoRelease) ? (int)$photoRelease : 0;
+
+    // ✅ Correct `bind_param()` (Ensure the number of variables matches)
+    $stmt->bind_param(
+        "isissssi", // 8 parameters: (int, string, int, string, string, string, string, int)
+        $familyID,
+        $email,
+        $householdSize,
+        $mealBag,
+        $name,
+        $address,
+        $phone,
+        $photoRelease
+    );
+    
+    $result = $stmt->execute();
+    
+    if (!$result) {
+        die("Execution failed: " . $stmt->error);
+    }
+    
+    $stmt->close();
+    return $result;
+}
+
 ?>
