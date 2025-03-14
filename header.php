@@ -109,8 +109,9 @@
         $permission_array['staffaccount.php'] = 3;
         $permission_array['volunteeraccount.php'] = 3;
         $permission_array['overallattendence.php'] = 3;
-
         $permission_array['volunteerReportForm.php'] = 4;
+        
+        $permission_array['manageformpublications.php'] = 2;
 
 
         //Check if they're at a valid page for their access level.
