@@ -5,6 +5,11 @@ session_start();
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
+require_once("database/dbForms.php");  // Include database functions
+
+// Fetch published forms
+$publishedForms = getPublishedForms();
+
 ?>
 
 <!DOCTYPE html>
@@ -32,17 +37,18 @@ error_reporting(E_ALL);
             }
         ?>
 
+
         <main class='dashboard'>
             <div id="dashboard">
                 <!-- Holiday Meal Bag Form -->
-                <div class="dashboard-item" data-link="<?php 
-                    echo ($_SESSION['access_level'] > 1) 
-                    ? 'selectFamily.php?redirect=holidayMealBagForm.php' 
-                    : 'holidayMealBagForm.php'; 
-                ?>">
-                    <img src="images/holdiayMealBagIcon.svg">
-                    <span>Holiday Meal Bag Form</span>
-                </div>
+                <?php if (in_array("Holiday Meal Bag", $publishedForms)): ?>
+                <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
+                ? 'selectFamily.php?redirect=holidayMealBagForm.php' 
+                : 'holidayMealBagForm.php'; ?>">
+                <img src="images/holdiayMealBagIcon.svg">
+                <span>Holiday Meal Bag Form</span>
+            </div>
+            <?php endif; ?>
 
                 <!-- School Supplies Form -->
                 <div class="dashboard-item" data-link="<?php echo isset($_GET['id']) ? "schoolSuppliesForm.php?id=" . $_GET['id'] : "schoolSuppliesForm.php"; ?>">
@@ -111,6 +117,9 @@ error_reporting(E_ALL);
             <?php if($_SESSION['access_level'] > 1): ?>
                 <a class="button cancel" href="index.php" style="margin-top: 3rem;">Return to Dashboard</a>
             <?php endif ?>
+            <?php if ($_SESSION['access_level'] > 1): ?>
+                 <a class="button" href="manageFormPublications.php" style="margin-top: 3rem;">Manage Form Publications</a>
+            <?php endif; ?>
         </main>
     </body>
 </html>
