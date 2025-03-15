@@ -174,7 +174,7 @@
                 //echo('<a class="dropdown-item" href="' . $path . '#">Search</a>');
                 echo('<a class="dropdown-item" href="createVolunteerAccount.php">Create Volunteer Account</a>');
                 echo('<a class="dropdown-item" href="removeVolunteerAccount.php">Remove Volunteer Account</a>');
-                //echo('<a class="dropdown-item" href="' . $path . 'modify_staff_account.php">Modify Volunteer Account</a>');
+                echo('<a class="dropdown-item" href="' . $path . 'modifyVolunteerAccount.php">Modify Volunteer Account</a>');
                 echo('</div>');
                 echo('</li>');
 
