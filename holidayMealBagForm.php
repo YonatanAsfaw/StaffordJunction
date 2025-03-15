@@ -150,7 +150,28 @@ $forms = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
         th {
             background-color: #800020;
             color: white;
-        }
+            
+        } 
+        .dashboard-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #800020; /* Burgundy */
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+}
+
+        .dashboard-btn:hover {
+            background-color: #5a0014; /* Darker Burgundy */
+}
+
     </style>
 </head>
 <body>
@@ -195,6 +216,9 @@ $forms = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
         </label>
 
         <button type="submit">Submit Form</button>
+        <div style="text-align: center; margin-top: 15px;">
+        <a href="index.php" class="dashboard-btn">Return to Dashboard</a>
+    </div>
     </form>
 </div>
 
