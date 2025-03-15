@@ -108,8 +108,10 @@
         $permission_array['removevolunteeraccount.php'] = 3;
         $permission_array['staffaccount.php'] = 3;
         $permission_array['volunteeraccount.php'] = 3;
-
+        $permission_array['overallattendence.php'] = 3;
         $permission_array['volunteerReportForm.php'] = 4;
+        
+        $permission_array['manageformpublications.php'] = 2;
 
 
         //Check if they're at a valid page for their access level.
@@ -152,7 +154,7 @@
                 echo('<a class="dropdown-item" href="' . $path . 'findFamily.php">Search Family</a>');
                 echo('<a class="dropdown-item" href="' . $path . 'familySignUpStaff.php">Add Family Account</a>');
                 echo('<a class="dropdown-item" href="' . $path . 'formSearch.php">Reports</a>');
-
+                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'calendar.php">Calendar</a></li>');
                 if($_SESSION['access_level'] > 2){
                     echo('<li class="nav-item dropdown">');
                     echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Staff</a>');
@@ -183,6 +185,7 @@
                 echo('<li class="nav-item dropdown">');
                 echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Others</a>');
                 echo('<div class="dropdown-menu">');
+                echo('<a class="dropdown-item" href="' . $path . 'overallAttendence.php">View Overall Attendence</a>');
                 echo('<a class="dropdown-item" href="' . $path . 'changePassword.php">Change Password</a>');
 
                 echo('</div>');

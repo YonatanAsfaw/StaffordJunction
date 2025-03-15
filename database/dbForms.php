@@ -1,4 +1,6 @@
 <?php
+//need to connect
+include_once('dbinfo.php');
 
 // constant of all form names
 const SEARCHABLE_FORMS = array("Holiday Meal Bag", "School Supplies", "Spring Break", 
@@ -12,7 +14,7 @@ function getFormSubmissions($formName, $familyId){
     case "Holiday Meal Bag":
         require_once("dbHolidayMealBag.php");
         if ($familyId){
-            return getHolidayMealBagSubmissionsById($familyId);
+            return getHolidayMealBagFormBySubmissionId($familyId);
         }
         return getHolidayMealBagSubmissions();
     case "School Supplies":
@@ -88,3 +90,40 @@ function getFormsByFamily($familyId){
     return $completedFormNames;
 }
 
+function getPublishedForms() {
+    $conn = connect();
+    $query = "SELECT form_name FROM dbFormStatus WHERE is_published = 1";
+    $result = mysqli_query($conn, $query);
+
+    $publishedForms = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $publishedForms[] = $row['form_name'];
+    }
+
+    mysqli_close($conn);
+    return $publishedForms;
+}
+
+function getAllFormStatuses() {
+    $conn = connect();
+    $query = "SELECT form_name, is_published FROM dbFormStatus";
+    $result = mysqli_query($conn, $query);
+
+    $formStatuses = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $formStatuses[] = $row;
+    }
+
+    mysqli_close($conn);
+    return $formStatuses;
+}
+
+function toggleFormPublication($formName) {
+    $conn = connect();
+    $query = "UPDATE dbFormStatus SET is_published = NOT is_published WHERE form_name = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "s", $formName);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+}

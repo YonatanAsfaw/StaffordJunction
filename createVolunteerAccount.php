@@ -33,13 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $today = new DateTime();
     $args['age'] = $today->diff($birthDate)->y;
     // Map form fields to expected keys
-    $args['homePhone'] = $args['phone'];
+    $args['homePhone'] = '';
     $args['emergencyContact1Name'] = $args['econtactName'];
     $args['emergencyContact1Relation'] = $args['econtactRelationship'];
     $args['emergencyContact1Phone'] = $args['econtactPhone'];
     // Set defaults for missing fields
     $args['id'] = null; // Auto-incremented in DB
-    $args['cellPhone'] = '';
+    $args['cellPhone'] = $args['phone'];
     $args['hasDriversLicense'] = 0;
     $args['transportation'] = '';
     $args['emergencyContact2Name'] = '';

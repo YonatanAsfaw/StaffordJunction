@@ -23,14 +23,28 @@
         die();
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        echo "Raw POST data:<br>";
+        var_dump($_POST);
         require_once('include/input-validation.php');
         require_once('database/dbEvents.php');
         $args = sanitize($_POST, null);
+        echo "Sanitized args:<br>";
+        var_dump($args);
         $required = array(
             "name", "abbrev-name", "date", "start-time", "description", "location", "service", "animal"
         );
         if (!wereRequiredFieldsSubmitted($args, $required)) {
-            echo 'bad form data';
+            $missing = [];
+            foreach ($required as $field) {
+                if ($field === "service") {
+                    if (!isset($args[$field]) || !is_array($args[$field]) || empty($args[$field])) {
+                        $missing[] = $field;
+                    }
+                } elseif (!isset($args[$field]) || trim($args[$field]) === '') {
+                    $missing[] = $field;
+                }
+            }
+            echo "Bad form data: Missing or invalid fields - " . implode(", ", $missing);
             die();
         } else {
             $validated = validate12hTimeRangeAndConvertTo24h($args["start-time"], "11:59 PM");
@@ -121,40 +135,33 @@
                         echo '</ul>';
                     ?>
                 </fieldset> 
-                <label for="name">* Location </label>
-                <select for="name" id="location" name="location" required>
-                    <option value="">--</option>
-                    <?php 
-                        // fetch data from the $all_locations variable
-                        // and individually display as an option
-                        while ($location = mysqli_fetch_array(
-                                $all_locations, MYSQLI_ASSOC)):; 
+                <label for="location">* Location</label>
+                <select id="location" name="location" required>
+                    <option value="" disabled selected>Select a location</option>
+                    <?php
+                        mysqli_data_seek($all_locations, 0); // Reset pointer
+                        while ($location = mysqli_fetch_array($all_locations, MYSQLI_ASSOC)) {
+                            echo '<option value="' . htmlspecialchars($location['id']) . '">' . htmlspecialchars($location['name']) . '</option>';
+                        }
+                        if (mysqli_num_rows($all_locations) == 0) {
+                            echo '<option value="" disabled>No locations available</option>';
+                        }
                     ?>
-                    <option value="<?php echo $location['id'];?>">
-                        <?php echo $location['name'];?>
-                    </option>
-                    <?php 
-                        endwhile; 
-                        // terminate while loop
-                    ?>
-                </select><p></p>
+                </select>
   
-                <label for="name">* Animal</label>
-                <select for="name" id="animal" name="animal" required>
-                    <?php 
-                        // fetch data from the $all_animals variable
-                        // and individually display as an option
-                        while ($animal = mysqli_fetch_array(
-                                $all_animals, MYSQLI_ASSOC)):; 
+                <label for="animal">* Animal</label>
+                <select id="animal" name="animal" required>
+                    <option value="" disabled selected>Select an Animal</option>
+                    <?php
+                        mysqli_data_seek($all_animals, 0); // Reset pointer
+                        while ($animal = mysqli_fetch_array($all_animals, MYSQLI_ASSOC)) {
+                            echo '<option value="' . htmlspecialchars($animal['id']) . '">' . htmlspecialchars($animal['name']) . '</option>';
+                        }
+                        if (mysqli_num_rows($all_animals) == 0) {
+                            echo '<option value="" disabled>No locations available</option>';
+                        }
                     ?>
-                    <option value="<?php echo $animal['id'];?>">
-                        <?php echo $animal['name'];?>
-                    </option>
-                    <?php 
-                        endwhile; 
-                        // terminate while loop
-                    ?>
-                </select><br/>
+                </select>
                 <p></p>
                 <input type="submit" value="Create Event">
             </form>

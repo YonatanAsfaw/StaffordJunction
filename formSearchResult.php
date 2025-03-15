@@ -38,6 +38,9 @@
             $familyId = $_GET['familyAccount'];
         }
         $submissions = getFormSubmissions($_GET['formName'], $familyId);
+
+        error_log("Final submissions in formSearchResult.php: " . json_encode($submissions));
+
         $noResults = count($submissions) == 0;
         if(!$noResults){
             $columnNames = array_keys($submissions[0]);
@@ -62,7 +65,20 @@
             <?php if(!$noResults && $searchingByForm): ?>
                 <button class="button" id="downloadButton">Download Results (.csv)</button>
             <?php endif; ?>
-            <span style="margin-left: 10px;">Viewing results for: <?php echo ($searchingByForm) ? $_GET['formName'] . ' Form' : $family->getFirstName() . " " . $family->getLastName(); ?> </span>
+            <span style="margin-left: 10px;">Viewing results for: 
+    <?php 
+        if ($searchingByForm) {
+            echo htmlspecialchars($_GET['formName']) . ' Form';
+        } else {
+            if (!empty($family)) { // Check if $family is set before using it
+                echo htmlspecialchars($family->getFirstName() . " " . $family->getLastName());
+            } else {
+                echo "Unknown Family"; // Default message if family is not found
+            }
+        }
+    ?>
+</span>
+
         </form>
         <?php if(!$noResults): ?>
             <script>
@@ -107,9 +123,11 @@
                                 echo '<tr>';
                                 foreach($submission as $columnName => $column){
                                     if(!in_array($columnName, $excludedColumns)){
-                                        echo "<td>" . $column . "</td>";
+                                        echo "<td>" . htmlspecialchars($column) . "</td>";
                                     }
                                 }
+                                // Add Edit button with submission ID
+                                echo '<td><a href="editForm.php?formName='.$_GET['formName'].'&id='.$submission['id'].'" class="button">Edit</a></td>';
                                 echo '<tr>';
                             }
                         ?>

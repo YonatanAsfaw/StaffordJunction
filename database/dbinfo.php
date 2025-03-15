@@ -15,11 +15,12 @@
  * @version updated 2/12/08
  */
 
-function connect() {
+ function connect() {
     $host = "localhost"; 
     $database = "stafforddb";
     $user = "stafforddb";
     $pass = "stafforddb";
+
     if ($_SERVER['SERVER_NAME'] == 'jenniferp129.sg-host.com') {
         $user = 'u8sj1xg2scpnb';
         $database = 'dbvswbwbmfnmrx';
@@ -29,12 +30,19 @@ function connect() {
         $pass = "f11kwvhy4yic";
         $database = "dbwgyuabseaoih";
     }
-    $con = mysqli_connect($host,$user,$pass,$database);
-    if (!$con) { echo "not connected to server"; return mysqli_error($con);}
-    $selected = mysqli_select_db($con,$database);
-    if (!$selected) { echo "database not selected"; return mysqli_error($con); }
-    else return $con;
-    
+
+    // ✅ Create a proper connection
+    $con = new mysqli($host, $user, $pass, $database);
+
+
+    // ✅ Check if the connection failed
+    if ($con->connect_error) {
+        die("Database connection failed: " . $con->connect_error);
+    }
+
+    return $con;
 }
+
+$conn = connect();
 
 ?>
