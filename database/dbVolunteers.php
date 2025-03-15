@@ -268,6 +268,61 @@ function retrieve_volunteer_by_name($firstName, $lastName) {
     }
 }
 
+function update_volunteer($volunteer) {
+    if (!$volunteer instanceof Volunteer) {
+        die("Update volunteer mismatch");
+    }
+    $conn = connect();
+
+    $query = "UPDATE dbVolunteers SET
+        email = '" . $volunteer->getEmail() . "',
+        password = '" . $volunteer->getPassword() . "',
+        securityQuestion = '" . $volunteer->getSecurityQuestion() . "',
+        securityAnswer = '" . $volunteer->getSecurityAnswer() . "',
+        firstName = '" . $volunteer->getFirstName() . "',
+        middleInitial = '" . $volunteer->getMiddleInitial() . "',
+        lastName = '" . $volunteer->getLastName() . "',
+        address = '" . $volunteer->getAddress() . "',
+        city = '" . $volunteer->getCity() . "',
+        state = '" . $volunteer->getState() . "',
+        zip = '" . $volunteer->getZip() . "',
+        homePhone = '" . $volunteer->getHomePhone() . "',
+        cellPhone = '" . $volunteer->getCellPhone() . "',
+        age = '" . $volunteer->getAge() . "',
+        birthDate = '" . $volunteer->getBirthDate() . "',
+        hasDriversLicense = '" . $volunteer->getHasDriversLicense() . "',
+        transportation = '" . $volunteer->getTransportation() . "',
+        emergencyContact1Name = '" . $volunteer->getEmergencyContact1Name() . "',
+        emergencyContact1Relation = '" . $volunteer->getEmergencyContact1Relation() . "',
+        emergencyContact1Phone = '" . $volunteer->getEmergencyContact1Phone() . "',
+        emergencyContact2Name = '" . $volunteer->getEmergencyContact2Name() . "',
+        emergencyContact2Relation = '" . $volunteer->getEmergencyContact2Relation() . "',
+        emergencyContact2Phone = '" . $volunteer->getEmergencyContact2Phone() . "',
+        allergies = '" . $volunteer->getAllergies() . "',
+        sunStart = '" . $volunteer->getSunStart() . "',
+        sunEnd = '" . $volunteer->getSunEnd() . "',
+        monStart = '" . $volunteer->getMonStart() . "',
+        monEnd = '" . $volunteer->getMonEnd() . "',
+        tueStart = '" . $volunteer->getTueStart() . "',
+        tueEnd = '" . $volunteer->getTueEnd() . "',
+        wedStart = '" . $volunteer->getWedStart() . "',
+        wedEnd = '" . $volunteer->getWedEnd() . "',
+        thurStart = '" . $volunteer->getThuStart() . "',
+        thurEnd = '" . $volunteer->getThuEnd() . "',
+        friStart = '" . $volunteer->getFriStart() . "',
+        friEnd = '" . $volunteer->getFriEnd() . "',
+        satStart = '" . $volunteer->getSatStart() . "',
+        satEnd = '" . $volunteer->getSatEnd() . "',
+        dateAvailable = '" . $volunteer->getDateAvailable() . "',
+        minHours = '" . $volunteer->getMinHours() . "',
+        maxHours = '" . $volunteer->getMaxHours() . "'
+        WHERE id = '" . $volunteer->getId() . "'";
+
+    $result = mysqli_query($conn, $query);
+    mysqli_close($conn);
+    return $result;
+}
+
 function retrieve_all_volunteers_paginated($sortColumn, $sortOrder, $limit, $offset, $searchFilters = []) {
     $conn = connect();
     $query = "SELECT * FROM dbVolunteers WHERE 1=1";
