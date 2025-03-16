@@ -5,9 +5,9 @@ include_once('dbinfo.php');
 // constant of all form names
 const SEARCHABLE_FORMS = array("Holiday Meal Bag", "School Supplies", "Spring Break", 
         "Angel Gifts Wish List", "Child Care Waiver", "Field Trip Waiver",
-        "Program Interest", "Brain Builders Student Registration", "Brain Builders Holiday Party",
+        "Program Interest", "Program Review", "Brain Builders Student Registration", "Brain Builders Holiday Party",
         "Summer Junction Registration", "Bus Monitor Attendance", "Actual Activity"
-    );
+     );
 
 function getFormSubmissions($formName, $familyId){
     switch ($formName) {
@@ -53,7 +53,7 @@ function getFormSubmissions($formName, $familyId){
             return getProgramInterestSubmissionsFromFamily($familyId);
         }
         return getProgramInterestSubmissions();
-    
+
     // These need completed backends first
     // case "Brain Builders Student Registration":
     //     require_once(".php");
@@ -67,9 +67,15 @@ function getFormSubmissions($formName, $familyId){
     // case "Bus Monitor Attendance":
     //     require_once(".php");
     //     return getSubmissions();
-        // case "Actual Activity":
-        //     require_once("dbActualActivityForm.php");
-        //     return getActualActivitySubmissions();
+    // case "Actual Activity":
+    //     require_once("dbActualActivityForm.php");
+    //     return getActualActivitySubmissions();
+    //case "Program Review":
+    //    require_once("dbProgramReviewForm.php");
+    //    if ($familyId) {
+    //        return getProgramReviewSubmissionsFromFamily($familyId);
+    //    }
+    //    return getProgramReviewSubmissions();
     default:
     }
 }
