@@ -52,8 +52,8 @@ $formStatuses = getAllFormStatuses();
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </form>
-
-    <a class="button cancel" href="index.php">Return to Dashboard</a>
+    </form>    
+    <a class="button" href="fillForm.php" style="margin-top: 3rem;">Return to Form Page</a>
+    <a class="button cancel" href="index.php" style="margin-top: 1rem;">Return to Dashboard</a>
 </body>
 </html>
