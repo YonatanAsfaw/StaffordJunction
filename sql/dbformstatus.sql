@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2025 at 08:42 PM
+-- Generation Time: Mar 16, 2025 at 03:06 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,13 +38,18 @@ CREATE TABLE `dbformstatus` (
 --
 
 INSERT INTO `dbformstatus` (`id`, `form_name`, `is_published`) VALUES
-(1, 'Holiday Meal Bag', 0),
+(1, 'Holiday Meal Bag', 1),
 (2, 'School Supplies Form', 1),
 (3, 'Spring Break', 1),
 (4, 'Angel Gifts Wish List', 1),
 (5, 'Child Care Waiver', 1),
 (6, 'Field Trip Waiver', 1),
-(7, 'Program Interest', 1);
+(7, 'Program Interest', 1),
+(8, 'Brain Builders Student Registration', 1),
+(9, 'Brain Builders Holiday Party', 1),
+(10, 'Summer Junction Registration', 1),
+(12, 'Actual Activity', 1),
+(13, 'Program Review', 1);
 
 --
 -- Indexes for dumped tables
@@ -65,7 +70,7 @@ ALTER TABLE `dbformstatus`
 -- AUTO_INCREMENT for table `dbformstatus`
 --
 ALTER TABLE `dbformstatus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
