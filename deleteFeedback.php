@@ -2,6 +2,9 @@
 
 session_cache_expire(30);
 session_start();
+ini_set("display_errors", 1);
+error_reporting(E_ALL);
+require_once('database/dbProgramReviewForm.php');
 
 $loggedIn = false;
 $accessLevel = 0;
@@ -39,19 +42,22 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 }
 
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['deleteFeedback'])){
-    deleteFeedback();
+    $id = $_POST['id'];
+    deleteFeedback($id);
 }
 
-function deleteFeedback(){
-    $connection = connect();
+function deleteFeedback($id){
+    $connection = mysqli_connect("localhost", "stafforddb", "stafforddb", "stafforddb");
+    var_dump($id);
     $query = "DELETE FROM dbProgramReviewForm WHERE id=?";
+    var_dump($query);
     $stmt = $connection->prepare($query);
-    $stmt->bind_param("i", $id);
+    $stmt->bind_param("s", $id);
         if ($stmt->execute()) {
             // Success
             $stmt->close();
             $connection->close();        
-            header("Location: index.php");
+            //header("Location: index.php");
             exit();
         } else {
             // Error
@@ -92,8 +98,9 @@ function deleteFeedback(){
             echo '<p>' . $feedback . '</p>';
         
 
-            echo '<form action="deleteFeedback.php?id=' . $id . '" method="post">';
+            echo '<form action="deleteFeedback.php" method="post">';
             //echo '<!--' . $id . '-->';
+            echo '<input type="hidden" name="id" value="' . $id . '" />';
             echo '<input type="submit" name="deleteFeedback" value="delete" />';
             //echo '<button type="submit" name="delete">Delete Feedback</button>';
             echo '</form>'
