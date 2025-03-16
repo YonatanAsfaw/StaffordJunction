@@ -27,7 +27,7 @@ $family = null;
 $feedback = null;
 $id = null;
 
-if($_SERVER['REQUEST_METHOD'] == "GET"){
+/*if($_SERVER['REQUEST_METHOD'] == "GET"){
     require_once("include/input-validation.php");
     $args = sanitize($_GET, null);
     if(isset($args['family'])){
@@ -39,6 +39,12 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     if(isset($args['id'])){
         $id = $args['id'];
     }
+}*/
+
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+    $family = $_POST['family'];
+    $feedback = $_POST['feedback'];
+    $id = $_POST['id'];
 }
 
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['deleteFeedback'])){
@@ -47,17 +53,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['deleteFeedback'])){
 }
 
 function deleteFeedback($id){
-    $connection = mysqli_connect("localhost", "stafforddb", "stafforddb", "stafforddb");
-    var_dump($id);
+    $connection = mysqli_connect("localhost", "stafforddb", "stafforddb", "stafforddb"); //this will break if you abbreviate it to connect() and I don't know why
+    //var_dump($id);
     $query = "DELETE FROM dbProgramReviewForm WHERE id=?";
-    var_dump($query);
+    //var_dump($query);
     $stmt = $connection->prepare($query);
     $stmt->bind_param("s", $id);
         if ($stmt->execute()) {
             // Success
             $stmt->close();
             $connection->close();        
-            //header("Location: index.php");
+            header("Location: index.php");
             exit();
         } else {
             // Error

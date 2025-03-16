@@ -38,6 +38,10 @@ if ($accessLevel < 2) {
     die();
 }
 
+/*if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['notification'])){
+    header('Location: deleteFeedback.php');
+    die();
+}*/
 /*if($_SERVER['REQUEST_METHOD'] == "POST"){
     require_once("include/input-validation.php");
     $args = sanitize($_POST, null);
@@ -235,7 +239,14 @@ if ($accessLevel < 2) {
                         echo '<tr>';
                         echo '<td>' . $msg->getFamily() . '</td>';
                         echo '<td>' . $msg->getFeedback() . '</td>';
-                        echo "<td><a href='deleteFeedback.php?family=" . $msg->getFamily() . "&feedback=" . $msg->getFeedback() . "&id=" . $id . "'>delete</a></td>";
+                        echo '<td><form action="deleteFeedback.php" method="post">';
+                        echo '<input type="hidden" name="family" value=' . $msg->getFamily() . '" />';
+                        echo '<input type="hidden" name="feedback" value="' . $msg->getFeedback() . '" />';
+                        echo '<input type="hidden" name="id" value="' . $id . '" />';
+                        echo '<button type="submit" name="notification">Delete</button>';
+                        //echo '<input type="submit" value="delete" />';
+                        echo '</form></td>';
+                        //echo "<td><a href='deleteFeedback.php?family=" . $msg->getFamily() . "&feedback=" . $msg->getFeedback() . "&id=" . $id . "'>delete</a></td>";
                         echo '</tr>';
                     /*echo '<td>' . $acct->getFirstName() . " " . $acct->getLastName() . '</td>';
                     echo '<td>' . $acct->getBirthDate() . '</td>';
