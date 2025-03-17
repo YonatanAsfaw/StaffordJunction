@@ -241,6 +241,7 @@
                 echo('</div></li>');
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'changePassword.php">Change Password</a></li>');
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Log out</a></li>');
+                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'calendar.php">Calendar</a></li>');
 		echo('</div></li>');
 
 		echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'volunteerReportForm.php">Log Hours</a></li>');
