@@ -39,7 +39,7 @@
     if ($con->connect_error) {
         die("Database connection failed: " . $con->connect_error);
     }
-
+    mysqli_autocommit($con, TRUE);
     return $con;
 }
 

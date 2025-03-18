@@ -48,30 +48,41 @@ function make_a_child_from_database($result_row){
     return $child;
 }
 
-function retrieve_children_by_family_id($id){
-    $conn = connect();
-    $query = "SELECT dbChildren.* FROM dbChildren INNER JOIN dbFamily ON dbChildren.family_id = dbFamily.id WHERE dbFamily.id = '" . $id . "';";
-    $result = mysqli_query($conn, $query);
 
-    if(mysqli_num_rows($result) < 1 || $result == null){
-        echo "User not found";
-        return null;
-    } else {
-        $children = [];
-        $row = mysqli_fetch_assoc($result);
-        while ($row != null) {
-            $acct = make_a_child_from_database($row);
-            array_push($children, $acct);
-            $row = mysqli_fetch_assoc($result);
-        }
-        //var_dump($children);
-        mysqli_close($conn);
-        return $children;
+function retrieve_children_by_family_id($family_id) {
+    $conn = connect();
+
+    if (!$family_id) {
+        error_log("ERROR: Missing family_id in retrieve_children_by_family_id()");
+        return [];
     }
 
-    return null;
-    
+    $query = "SELECT * FROM dbChildren WHERE family_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $family_id); // Use "i" for integer type
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $children = [];
+    while ($row = $result->fetch_assoc()) {
+        $children[] = $row;
+    }
+
+    if (empty($children)) {
+        error_log("DEBUG: No children found for family ID: " . $family_id);
+    } else {
+        error_log("DEBUG: Retrieved children: " . json_encode($children));
+    }
+
+    $stmt->close();
+    $conn->close();
+
+    return $children;
 }
+
+
+
+
 
 //add child to database
 function add_child($child, $fam_id){
@@ -140,6 +151,24 @@ function retrieve_children_by_email($email){
     return null;
     
 }
+function retrieve_children_by_last_name($last_name) {
+    $connection = connect();
+    $query = "SELECT * FROM dbChildren WHERE last_name = ?";
+    
+    $stmt = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($stmt, "s", $last_name);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    $children = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $children[] = $row;
+    }
+
+    mysqli_close($connection);
+    return $children;
+}
+
   
 /**
  * Function that makes a child from the sign up page
