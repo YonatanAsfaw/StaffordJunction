@@ -123,7 +123,7 @@ function make_an_event($result_row) {
                     $result_row['event_id'],
                     $result_row['location'],
                     $result_row['service'],
-                    $result_row['animal']); 
+                    $result_row['volunteer']); 
     return $theEvent;
 }
 
@@ -207,27 +207,70 @@ function fetch_event_by_id($id) {
 
 function create_event($event) {
     $connection = connect();
-    $name = $event["name"];
-    $abbrevName = $event["abbrev-name"];
+
+    // Sanitize inputs
+    $name = mysqli_real_escape_string($connection, $event["name"]);
+    $abbrevName = mysqli_real_escape_string($connection, $event["abbrev-name"]);
     $date = $event["date"];
     $startTime = $event["start-time"];
-    $endTime = "23:59";
-    $description = $event["description"];
-    $location = $event["location"];
+    $description = mysqli_real_escape_string($connection, $event["description"]);
+    $location = intval($event["location"]);
     $services = $event["service"];
-
-    $animal = $event["animal"];
+    $volunteer = isset($event["volunteer"]) && !empty($event["volunteer"]) ? intval($event["volunteer"]) : NULL;
     $completed = "no";
-    $query = "
-        insert into dbEvents (name, abbrevName, date, startTime, endTime, description, locationID, capacity, animalID, completed)
-        values ('$name', '$abbrevName', '$date', '$startTime', '$endTime', '$description', '$location', '0', '$animal', '$completed')
-    ";
-    $result = mysqli_query($connection, $query);
-    if (!$result) {
-        return null;
+    $endTime = "23:59"; // Default end time
+
+    // Validate locationID
+    if ($location <= 0) {
+        mysqli_close($connection);
+        die("Invalid location ID");
     }
+
+    // Validate volunteerID if provided
+    if ($volunteer !== NULL) {
+        $checkSql = "SELECT COUNT(*) FROM dbVolunteers WHERE id = ?";
+        $stmt = mysqli_prepare($connection, $checkSql);
+        mysqli_stmt_bind_param($stmt, "i", $volunteer);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $count = mysqli_fetch_array($result)[0];
+        if ($count == 0) {
+            mysqli_close($connection);
+            die("Invalid volunteer ID");
+        }
+    }
+
+    // Prepare the INSERT query with endTime
+    $query = "
+        INSERT INTO dbEvents (name, abbrevName, date, startTime, endTime, description, locationID, capacity, volunteerID, completed)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ";
+    $stmt = mysqli_prepare($connection, $query);
+    if (!$stmt) {
+        mysqli_close($connection);
+        die("Prepare failed: " . mysqli_error($connection));
+    }
+
+    // Bind parameters with correct type string (10 parameters)
+    $capacity = 0; // Default capacity
+    mysqli_stmt_bind_param($stmt, "ssssssiiss", $name, $abbrevName, $date, $startTime, $endTime, $description, $location, $capacity, $volunteer, $completed);
+
+    // Execute the query
+    $result = mysqli_stmt_execute($stmt);
+    if (!$result) {
+        $error = mysqli_stmt_error($stmt);
+        mysqli_stmt_close($stmt);
+        mysqli_close($connection);
+        die("Insert failed: " . $error);
+    }
+
+    // Get the inserted event ID
     $id = mysqli_insert_id($connection);
+    mysqli_stmt_close($stmt);
+
+    // Add services to the event
     add_services_to_event($id, $services);
+
     mysqli_commit($connection);
     mysqli_close($connection);
     return $id;
@@ -279,10 +322,10 @@ function update_event2($eventID, $eventDetails) {
     $description = $eventDetails["description"];
     $location = $eventDetails["locationID"];
     $capacity = $eventDetails["capacity"];
-    $animalID = $eventDetails["animalID"];
+    $volunteerID = $eventDetails["volunteerID"];
     $completed = $eventDetails["completed"];
     $query = "
-        update dbEvents set name='$name', abbrevName='$abbrevName', date='$date', startTime='$startTime', endTime='$endTime', description='$description', locationID='$location', capacity='$capacity', animalId='$animalID', completed='$completed'
+        update dbEvents set name='$name', abbrevName='$abbrevName', date='$date', startTime='$startTime', endTime='$endTime', description='$description', locationID='$location', capacity='$capacity', volunteerId='$volunteerID', completed='$completed'
         where id='$eventID'
     ";
     $result = mysqli_query($connection, $query);
@@ -350,17 +393,17 @@ function fetch_events_in_date_range_as_array($start_date, $end_date) {
     return $events;
 }
 
-function get_animal($id) {
+function get_volunteer($id) {
     $connection = connect();
-    $query = "select * from dbAnimals
+    $query = "select * from dbvolunteers
               where id='$id'";
     $result = mysqli_query($connection, $query);
     if (!$result) {
         return [];
     }
-    $animal = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $volunteer = mysqli_fetch_all($result, MYSQLI_ASSOC);
     mysqli_close($connection);
-    return $animal;
+    return $volunteer;
 }
 
 function get_location($id) {
@@ -453,7 +496,7 @@ function delete_event($id) {
 
 function complete_event($id) {
     $event = retrieve_event2($id);
-    $animal = get_animal($event["animalID"])[0];
+    $volunteer = get_volunteer($event["volunteerID"])[0];
     $date = $event["date"];
     $event["completed"] = "yes";
 
@@ -464,100 +507,100 @@ function complete_event($id) {
         $check = $services[$i]['name'];
         $dur = $services[$i]['duration_years'];
         if(stripos($check, "spay") !== false || stripos($check, "neuter") !== false){
-            $animal["spay_neuter_done"] = "yes";
-            $animal["spay_neuter_date"] = $date;
+            $volunteer["spay_neuter_done"] = "yes";
+            $volunteer["spay_neuter_date"] = $date;
         }
         else if(stripos($check, "rabie") !== false){
-            $animal["rabies_given_date"] = $date;
-            $animal["rabies_due_date"] = date('Y-m-d', strtotime($date."+".$dur." years"));
+            $volunteer["rabies_given_date"] = $date;
+            $volunteer["rabies_due_date"] = date('Y-m-d', strtotime($date."+".$dur." years"));
         }
         else if(stripos($check, "heartworm") !== false){
-            $animal["heartworm_given_date"] = $date;
-            $animal["heartworm_due_date"] = date('Y-m-d', strtotime($date."+".$dur." years"));
+            $volunteer["heartworm_given_date"] = $date;
+            $volunteer["heartworm_due_date"] = date('Y-m-d', strtotime($date."+".$dur." years"));
         }
         else if(stripos($check, "distemper 1") !== false){
-            $animal["distemper1_given_date"] = $date;
-            $animal["distemper1_due_date"] = date('Y-m-d', strtotime($date."+".$dur." years"));
+            $volunteer["distemper1_given_date"] = $date;
+            $volunteer["distemper1_due_date"] = date('Y-m-d', strtotime($date."+".$dur." years"));
         }
         else if(stripos($check, "distemper 2") !== false){
-            $animal["distemper2_given_date"] = $date;
-            $animal["distemper2_due_date"] = date('Y-m-d', strtotime($date."+".$dur." years"));
+            $volunteer["distemper2_given_date"] = $date;
+            $volunteer["distemper2_due_date"] = date('Y-m-d', strtotime($date."+".$dur." years"));
         }
         else if(stripos($check, "distemper 3") !== false){
-            $animal["distemper3_given_date"] = $date;
-            $animal["distemper3_due_date"] = date('Y-m-d', strtotime($date."+".$dur." years"));
+            $volunteer["distemper3_given_date"] = $date;
+            $volunteer["distemper3_due_date"] = date('Y-m-d', strtotime($date."+".$dur." years"));
         }
         else if(stripos($check, "microchip") !== false){
-            $animal["microchip_done"] = "yes";
+            $volunteer["microchip_done"] = "yes";
         }
         else{
-            $animal["notes"] = $animal["notes"]." | ".$check.": ".$date;
+            $volunteer["notes"] = $volunteer["notes"]." | ".$check.": ".$date;
         }
     
     }
 //    var_dump($event);
-    $result = update_animal2($animal);
+    $result = update_volunteer2($volunteer);
     $result = update_event2($event["id"], $event);
     return $result;
 }
 
-function update_animal2($animal) {
+function update_volunteer2($volunteer) {
     $connection = connect();
-    $id = $animal['id'];
-	$odhsid = $animal["odhs_id"];
-    $name = $animal["name"];
-	$breed = $animal["breed"];
-    $age = $animal["age"];
-    $gender = $animal["gender"];
-    $notes = $animal["notes"];
-    $spay_neuter_done = $animal["spay_neuter_done"];
-	$spay_neuter_date = $animal["spay_neuter_date"];
-    if (empty($animal["spay_neuter_date"])) {
+    $id = $volunteer['id'];
+	$odhsid = $volunteer["odhs_id"];
+    $name = $volunteer["name"];
+	$breed = $volunteer["breed"];
+    $age = $volunteer["age"];
+    $gender = $volunteer["gender"];
+    $notes = $volunteer["notes"];
+    $spay_neuter_done = $volunteer["spay_neuter_done"];
+	$spay_neuter_date = $volunteer["spay_neuter_date"];
+    if (empty($volunteer["spay_neuter_date"])) {
         $spay_neuter_date = '0000-00-00';
     }
-    $rabies_given_date = $animal["rabies_given_date"];
-    if (empty($animal["rabies_given_date"])) {
+    $rabies_given_date = $volunteer["rabies_given_date"];
+    if (empty($volunteer["rabies_given_date"])) {
         $rabies_given_date = '0000-00-00';
     }
-	$rabies_due_date = $animal["rabies_due_date"];
-    if (empty($animal["rabies_due_date"])) {
+	$rabies_due_date = $volunteer["rabies_due_date"];
+    if (empty($volunteer["rabies_due_date"])) {
         $rabies_due_date = '0000-00-00';
     }
-    $heartworm_given_date = $animal["heartworm_given_date"];
-    if (empty($animal["heartworm_given_date"])) {
+    $heartworm_given_date = $volunteer["heartworm_given_date"];
+    if (empty($volunteer["heartworm_given_date"])) {
         $heartworm_given_date = '0000-00-00';
     }
-	$heartworm_due_date = $animal["heartworm_due_date"];
-    if (empty($animal["heartworm_due_date"])) {
+	$heartworm_due_date = $volunteer["heartworm_due_date"];
+    if (empty($volunteer["heartworm_due_date"])) {
         $heartworm_due_date = '0000-00-00';
     }
-	$distemper1_given_date = $animal["distemper1_given_date"];
-    if (empty($animal["distemper1_given_date"])) {
+	$distemper1_given_date = $volunteer["distemper1_given_date"];
+    if (empty($volunteer["distemper1_given_date"])) {
         $distemper1_given_date = '0000-00-00';
     }
-	$distemper1_due_date = $animal["distemper1_due_date"];
-    if (empty($animal["distemper1_due_date"])) {
+	$distemper1_due_date = $volunteer["distemper1_due_date"];
+    if (empty($volunteer["distemper1_due_date"])) {
         $distemper1_due_date = '0000-00-00';
     }
-	$distemper2_given_date = $animal["distemper2_given_date"];
-    if (empty($animal["distemper2_given_date"])) {
+	$distemper2_given_date = $volunteer["distemper2_given_date"];
+    if (empty($volunteer["distemper2_given_date"])) {
         $distemper2_given_date = '0000-00-00';
     }
-	$distemper2_due_date = $animal["distemper2_due_date"];
-    if (empty($animal["distemper2_due_date"])) {
+	$distemper2_due_date = $volunteer["distemper2_due_date"];
+    if (empty($volunteer["distemper2_due_date"])) {
         $distemper2_due_date = '0000-00-00';
     }
-	$distemper3_given_date = $animal["distemper3_given_date"];
-    if (empty($animal["distemper3_given_date"])) {
+	$distemper3_given_date = $volunteer["distemper3_given_date"];
+    if (empty($volunteer["distemper3_given_date"])) {
         $distemper3_given_date = '0000-00-00';
     }
-	$distemper3_due_date = $animal["distemper3_due_date"];
-    if (empty($animal["distemper3_due_date"])) {
+	$distemper3_due_date = $volunteer["distemper3_due_date"];
+    if (empty($volunteer["distemper3_due_date"])) {
         $distemper3_due_date = '0000-00-00';
     }
-	$microchip_done = $animal["microchip_done"];
+	$microchip_done = $volunteer["microchip_done"];
     $query = "
-        UPDATE dbAnimals set odhs_id='$odhsid', name='$name', breed='$breed', age='$age', gender='$gender', notes='$notes', spay_neuter_done='$spay_neuter_done', spay_neuter_date='$spay_neuter_date', rabies_given_date='$rabies_given_date', rabies_due_date='$rabies_due_date', heartworm_given_date='$heartworm_given_date', heartworm_due_date='$heartworm_due_date', distemper1_given_date='$distemper1_given_date', distemper1_due_date='$distemper1_due_date', distemper2_given_date='$distemper2_given_date', distemper2_due_date='$distemper2_due_date', distemper3_given_date='$distemper3_given_date', distemper3_due_date='$distemper3_due_date', microchip_done='$microchip_done'
+        UPDATE dbvolunteers set odhs_id='$odhsid', name='$name', breed='$breed', age='$age', gender='$gender', notes='$notes', spay_neuter_done='$spay_neuter_done', spay_neuter_date='$spay_neuter_date', rabies_given_date='$rabies_given_date', rabies_due_date='$rabies_due_date', heartworm_given_date='$heartworm_given_date', heartworm_due_date='$heartworm_due_date', distemper1_given_date='$distemper1_given_date', distemper1_due_date='$distemper1_due_date', distemper2_given_date='$distemper2_given_date', distemper2_due_date='$distemper2_due_date', distemper3_given_date='$distemper3_given_date', distemper3_due_date='$distemper3_due_date', microchip_done='$microchip_done'
         where id='$id'
         ";
     $result = mysqli_query($connection, $query);

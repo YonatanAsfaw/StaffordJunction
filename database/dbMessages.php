@@ -187,98 +187,103 @@ function delete_message($id) {
     return $result;
 }
 
-function dateChecker(){
-    $query = "select * from dbAnimals";
+function dateChecker() {
     $connection = connect();
-    $result = mysqli_query($connection, $query);
     $twoWeeksAhead = date('Y-m-d', strtotime('+2 weeks'));
     $fivedaysAhead = date('Y-m-d', strtotime('+5 days'));
     $currentDate = date('Y-m-d');
-    if($result){
-        while($row = mysqli_fetch_assoc($result)){
-            $rabies_due = $row['rabies_due_date'];
-            $name = $row['name'];
-            $heartworm_due = $row['heartworm_due_date'];
-            $distemper1_due = $row['distemper1_due_date'];
-            $distemper2_due = $row['distemper2_due_date'];
-            $distemper3_due = $row['distemper3_due_date'];
-            //The Logic for Two Weeks Out
-            if($rabies_due >= $currentDate && $rabies_due <= $twoWeeksAhead){
-                $title = $name . " Rabies shot is coming up in two weeks";
-                $body = $name . " Rabies shot is due on " . $rabies_due;
-                message_all_users_prio('vmsroot', $title, $body ,'1'); 
+
+    // Query dbVolunteers with corrected columns
+    $query = "SELECT id, odhs_id, rabies_due_date, heartworm_due_date, distemper1_due_date, distemper2_due_date, distemper3_due_date FROM dbVolunteers";
+    $result = mysqli_query($connection, $query);
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $identifier = $row['odhs_id'] ?? 'Volunteer ID: ' . $row['id'];
+            $rabies_due = $row['rabies_due_date'] ?? '0000-00-00';
+            $heartworm_due = $row['heartworm_due_date'] ?? '0000-00-00';
+            $distemper1_due = $row['distemper1_due_date'] ?? '0000-00-00';
+            $distemper2_due = $row['distemper2_due_date'] ?? '0000-00-00';
+            $distemper3_due = $row['distemper3_due_date'] ?? '0000-00-00';
+
+            // The Logic for Two Weeks Out
+            if ($rabies_due >= $currentDate && $rabies_due <= $twoWeeksAhead) {
+                $title = $identifier . " Rabies shot is coming up in two weeks";
+                $body = $identifier . " Rabies shot is due on " . $rabies_due;
+                message_all_users_prio('vmsroot', $title, $body, '1'); 
             }
-            if($heartworm_due >= $currentDate && $heartworm_due <= $twoWeeksAhead){
-                $title = $name . " Heartworm shot is coming up in two weeks";
-                $body = $name . " Heartworm shot is due on " . $heartworm_due ;
-                message_all_users_prio('vmsroot', $title, $body ,'1');  
+            if ($heartworm_due >= $currentDate && $heartworm_due <= $twoWeeksAhead) {
+                $title = $identifier . " Heartworm shot is coming up in two weeks";
+                $body = $identifier . " Heartworm shot is due on " . $heartworm_due;
+                message_all_users_prio('vmsroot', $title, $body, '1');  
             }
-            if($distemper1_due >= $currentDate && $distemper1_due <= $twoWeeksAhead){
-                $title = $name . " Distemper 1 shot is coming up in two weeks";
-                $body = $name . " Distemper 1 shot is due on " . $distemper1_due ;
-                message_all_users_prio('vmsroot', $title, $body ,'1');  
+            if ($distemper1_due >= $currentDate && $distemper1_due <= $twoWeeksAhead) {
+                $title = $identifier . " Distemper 1 shot is coming up in two weeks";
+                $body = $identifier . " Distemper 1 shot is due on " . $distemper1_due;
+                message_all_users_prio('vmsroot', $title, $body, '1');  
             }
-            if($distemper2_due >= $currentDate && $distemper2_due <= $twoWeeksAhead){
-                $title = $name . " Distemper 2 shot is coming up in two weeks";
-                $body = $name . " Distemper 2 shot is due on " . $distemper2_due ;
-                message_all_users_prio('vmsroot', $title, $body ,'1');   
+            if ($distemper2_due >= $currentDate && $distemper2_due <= $twoWeeksAhead) {
+                $title = $identifier . " Distemper 2 shot is coming up in two weeks";
+                $body = $identifier . " Distemper 2 shot is due on " . $distemper2_due;
+                message_all_users_prio('vmsroot', $title, $body, '1');   
             }
-            if($distemper3_due >= $currentDate && $distemper3_due <= $twoWeeksAhead){
-                $title = $name . " Distemper 3 shot is coming up in two weeks";
-                $body = $name . " Distemper 3 shot is due on " . $distemper3_due ;
-                message_all_users_prio('vmsroot', $title, $body ,'1');   
+            if ($distemper3_due >= $currentDate && $distemper3_due <= $twoWeeksAhead) {
+                $title = $identifier . " Distemper 3 shot is coming up in two weeks";
+                $body = $identifier . " Distemper 3 shot is due on " . $distemper3_due;
+                message_all_users_prio('vmsroot', $title, $body, '1');   
             }
-            //The Logic for 5 Days Out
-            if($rabies_due >= $currentDate && $rabies_due <= $fivedaysAhead){
-                $title = $name . " Rabies shot is coming up in 5 days";
-                $body = $name . " Rabies shot is due on " . $rabies_due;
-                message_all_users_prio('vmsroot', $title, $body ,'2');  
+
+            // The Logic for 5 Days Out
+            if ($rabies_due >= $currentDate && $rabies_due <= $fivedaysAhead) {
+                $title = $identifier . " Rabies shot is coming up in 5 days";
+                $body = $identifier . " Rabies shot is due on " . $rabies_due;
+                message_all_users_prio('vmsroot', $title, $body, '2');  
             }
-            if($heartworm_due >= $currentDate && $heartworm_due <= $fivedaysAhead){
-                $title = $name . " Heartworm shot is coming up in 5 days";
-                $body = $name . " Heartworm shot is due on " . $heartworm_due ;
-                message_all_users_prio('vmsroot', $title, $body ,'2');  
+            if ($heartworm_due >= $currentDate && $heartworm_due <= $fivedaysAhead) {
+                $title = $identifier . " Heartworm shot is coming up in 5 days";
+                $body = $identifier . " Heartworm shot is due on " . $heartworm_due;
+                message_all_users_prio('vmsroot', $title, $body, '2');  
             }
-            if($distemper1_due >= $currentDate && $distemper1_due <= $fivedaysAhead){
-                $title = $name . " Distemper 1 shot is coming up in 5 days";
-                $body = $name . " Distemper 1 shot is due on " . $distemper1_due ;
-                message_all_users_prio('vmsroot', $title, $body ,'2'); 
+            if ($distemper1_due >= $currentDate && $distemper1_due <= $fivedaysAhead) {
+                $title = $identifier . " Distemper 1 shot is coming up in 5 days";
+                $body = $identifier . " Distemper 1 shot is due on " . $distemper1_due;
+                message_all_users_prio('vmsroot', $title, $body, '2'); 
             }
-            if($distemper2_due >= $currentDate && $distemper2_due <= $fivedaysAhead){
-                $title = $name . " Distemper 2 shot is coming up in 5 days";
-                $body = $name . " Distemper 2 shot is due on " . $distemper1_due ;
-                message_all_users_prio('vmsroot', $title, $body ,'2'); 
+            if ($distemper2_due >= $currentDate && $distemper2_due <= $fivedaysAhead) {
+                $title = $identifier . " Distemper 2 shot is coming up in 5 days";
+                $body = $identifier . " Distemper 2 shot is due on " . $distemper2_due;
+                message_all_users_prio('vmsroot', $title, $body, '2'); 
             }
-            if($distemper3_due >= $currentDate && $distemper3_due <= $fivedaysAhead){
-                $title = $name . " Distemper 3 shot is coming up in 5 days";
-                $body = $name . " Distemper 3 shot is due on " . $distemper1_due ;
-                message_all_users_prio('vmsroot', $title, $body ,'2');  
+            if ($distemper3_due >= $currentDate && $distemper3_due <= $fivedaysAhead) {
+                $title = $identifier . " Distemper 3 shot is coming up in 5 days";
+                $body = $identifier . " Distemper 3 shot is due on " . $distemper3_due;
+                message_all_users_prio('vmsroot', $title, $body, '2');  
             }
-            //The Logic for It Being Late
-            if($rabies_due <= $currentDate){
-                $title = $name . " Rabies shot is LATE";
-                $body = $name . " Rabies shot was due on " . $rabies_due;
-                message_all_users_prio('vmsroot', $title, $body ,'3');  
+
+            // The Logic for It Being Late
+            if ($rabies_due <= $currentDate) {
+                $title = $identifier . " Rabies shot is LATE";
+                $body = $identifier . " Rabies shot was due on " . $rabies_due;
+                message_all_users_prio('vmsroot', $title, $body, '3');  
             }
-            if($heartworm_due  <= $currentDate){
-                $title = $name . " Heartworm shot is LATE";
-                $body = $name . " Heartworm shot was due on " . $heartworm_due ;
-                message_all_users_prio('vmsroot', $title, $body ,'3');  
+            if ($heartworm_due <= $currentDate) {
+                $title = $identifier . " Heartworm shot is LATE";
+                $body = $identifier . " Heartworm shot was due on " . $heartworm_due;
+                message_all_users_prio('vmsroot', $title, $body, '3');  
             }
-            if($distemper1_due  <= $currentDate){
-                $title = $name . " Distemper 1 shot is LATE";
-                $body = $name . " Distemper 1 shot was due on " . $distemper1_due ;
-                message_all_users_prio('vmsroot', $title, $body ,'3');  
+            if ($distemper1_due <= $currentDate) {
+                $title = $identifier . " Distemper 1 shot is LATE";
+                $body = $identifier . " Distemper 1 shot was due on " . $distemper1_due;
+                message_all_users_prio('vmsroot', $title, $body, '3');  
             }
-            if($distemper2_due  <= $currentDate){
-                $title = $name . " Distemper 2 shot is LATE";
-                $body = $name . " Distemper 2 shot was due on " . $distemper1_due ;
-                message_all_users_prio('vmsroot', $title, $body ,'3');   
+            if ($distemper2_due <= $currentDate) {
+                $title = $identifier . " Distemper 2 shot is LATE";
+                $body = $identifier . " Distemper 2 shot was due on " . $distemper2_due;
+                message_all_users_prio('vmsroot', $title, $body, '3');   
             }
-            if($distemper3_due  <= $currentDate){
-                $title = $name . " Distemper 3 shot is LATE";
-                $body = $name . " Distemper 3 shot was due on " . $distemper1_due ;
-                message_all_users_prio('vmsroot', $title, $body ,'3');   
+            if ($distemper3_due <= $currentDate) {
+                $title = $identifier . " Distemper 3 shot is LATE";
+                $body = $identifier . " Distemper 3 shot was due on " . $distemper3_due;
+                message_all_users_prio('vmsroot', $title, $body, '3');   
             }
         }
     }

@@ -49,7 +49,7 @@
             require_once("domain/Volunteer.php");
             require_once("database/dbVolunteers.php");
 
-            dateChecker();
+            
             $username = strtolower($args['username']);
             $password = $args['password'];
             //If the user is admin; original login code contained in this block
