@@ -109,8 +109,10 @@
         $permission_array['staffaccount.php'] = 3;
         $permission_array['volunteeraccount.php'] = 3;
         $permission_array['overallattendence.php'] = 3;
-
         $permission_array['volunteerReportForm.php'] = 4;
+        $permission_array['overallAttendence.php'] = 4;
+        
+        $permission_array['manageformpublications.php'] = 2;
 
 
         //Check if they're at a valid page for their access level.
@@ -173,7 +175,7 @@
                 //echo('<a class="dropdown-item" href="' . $path . '#">Search</a>');
                 echo('<a class="dropdown-item" href="createVolunteerAccount.php">Create Volunteer Account</a>');
                 echo('<a class="dropdown-item" href="removeVolunteerAccount.php">Remove Volunteer Account</a>');
-                //echo('<a class="dropdown-item" href="' . $path . 'modify_staff_account.php">Modify Volunteer Account</a>');
+                echo('<a class="dropdown-item" href="' . $path . 'modifyVolunteerAccount.php">Modify Volunteer Account</a>');
                 echo('</div>');
                 echo('</li>');
 
@@ -242,6 +244,9 @@
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'changePassword.php">Change Password</a></li>');
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Log out</a></li>');
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'calendar.php">Calendar</a></li>');
+
+                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'overallAttendence.php">View Overall Attendance</a></li>');
+
 		echo('</div></li>');
 
 		echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'volunteerReportForm.php">Log Hours</a></li>');

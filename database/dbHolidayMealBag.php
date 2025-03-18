@@ -50,46 +50,42 @@ function getHolidayMealBagSubmissions() {
 
     $query = "SELECT hmb.*, CONCAT(f.firstName, ' ', f.lastName) AS family_name 
               FROM dbHolidayMealBagForm hmb
-              INNER JOIN dbFamily f ON f.id = hmb.family_id";
+              LEFT JOIN dbFamily f ON f.id = hmb.family_id";
               
     $result = $conn->query($query);
 
-    if (!$result || $result->num_rows == 0) {
+    if (!$result) {
+        error_log("Query Error: " . $conn->error);
         return [];
     }
 
+    error_log("Number of records retrieved: " . $result->num_rows);
     $submissions = $result->fetch_all(MYSQLI_ASSOC);
+
+    error_log("Fetched Submissions: " . json_encode($submissions));
     return $submissions;
 }
+
 
 // Retrieve all submissions for a specific family ID
-function getHolidayMealBagSubmissionsById($familyId) {
-    global $conn;
 
-    $query = "SELECT hmb.*, CONCAT(f.firstName, ' ', f.lastName) AS family_name 
-          FROM dbHolidayMealBagForm hmb
-          INNER JOIN dbFamily f ON f.id = hmb.family_id
-          WHERE hmb.family_id=?";
+function getHolidayMealBagFormBySubmissionId($submissionId) {
+    global $conn; // Ensure this is your database connection
 
+    $query = "SELECT * FROM dbHolidayMealBagForm WHERE id = ?";
     $stmt = $conn->prepare($query);
-    if (!$stmt) {
-        die("Database error: " . $conn->error);
-    }
-
-    $stmt->bind_param("i", $familyId);
+    $stmt->bind_param("i", $submissionId);
     $stmt->execute();
-
     $result = $stmt->get_result();
+    $data = $result->fetch_all(MYSQLI_ASSOC);
 
-    if ($result->num_rows == 0) {
-        $stmt->close();
-        return [];
+    if (empty($data)) {
+        error_log("No data found for submission ID: " . $submissionId);
     }
 
-    $submissions = $result->fetch_all(MYSQLI_ASSOC);
-    $stmt->close();
-    return $submissions;
+    return $data;
 }
+
 
 // Update a Holiday Meal Bag form submission
 function updateHolidayMealBagForm($submissionId, $updatedData) {
@@ -99,6 +95,7 @@ function updateHolidayMealBagForm($submissionId, $updatedData) {
         die("ERROR: Database connection is NULL in updateHolidayMealBagForm.");
     }
 
+    error_log("updateHolidayMealBagForm called for ID: " . $submissionId . " with data: " . json_encode($updatedData));
     // ✅ Correct SQL Query (Ensure it matches the number of bind variables)
     $query = "UPDATE dbHolidayMealBagForm SET 
                 household_size = ?, 
@@ -185,11 +182,18 @@ function insertHolidayMealBagForm($familyID, $email, $householdSize, $mealBag, $
         $phone,
         $photoRelease
     );
+
+    error_log("Attempting to insert: " . json_encode([$familyID, $email, $householdSize, $mealBag, $name, $address, $phone, $photoRelease]));
+
     
     $result = $stmt->execute();
     
     if (!$result) {
+        error_log("Insert failed: " . $stmt->error);
         die("Execution failed: " . $stmt->error);
+    }else{
+        error_log("Insert successful for Family ID: " . $familyID);
+
     }
     
     $stmt->close();

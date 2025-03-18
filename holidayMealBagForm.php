@@ -37,22 +37,13 @@ $errors = [];
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    
     $email = $_POST['email'] ?? "";
-    $householdSize = (int)($_POST['household'] ?? 0);
-    $mealBag = $_POST['meal_bag'] ?? ""; // Ensure meal_bag is correctly retrieved
+    $householdSize = (int)($_POST['household_size'] ?? 1);
+    $mealBag = $_POST['meal_bag'] ?? "";
     $name = !empty($_POST['name']) ? $_POST['name'] : "Unknown";
-    $address = !empty($_POST['address']) ? $_POST['address'] : "N/A";
+    $address = !empty($_POST['address']) ? $_POST['address'] : "Not Provided";
     $phone = !empty($_POST['phone']) ? $_POST['phone'] : "0000000000";    
     $photoRelease = isset($_POST['photo_release']) ? (int)$_POST['photo_release'] : 0; // Defaults to 0 if empty
-
-
-    // ✅ Debug: Check if `meal_bag` is empty
-    if (empty($mealBag)) {
-        echo "ERROR: meal_bag is empty!";
-        exit(); // Stop execution to debug
-    }
 
     // Validate input
     if (empty($email) || empty($householdSize) || empty($mealBag)) {
@@ -80,7 +71,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
+// Fetch Last 10 Submitted Forms for Display
+$query = "SELECT hmb.*, CONCAT(f.firstName, ' ', f.lastName) AS family_name 
+          FROM dbHolidayMealBagForm hmb
+          INNER JOIN dbFamily f ON f.id = hmb.family_id
+          ORDER BY hmb.id DESC LIMIT 10";
+$result = $conn->query($query);
+$forms = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,142 +89,159 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Holiday Meal Bag Form</title>
     <style>
         body {
+            background-color: #800020; /* Burgundy */
+            color: white;
             font-family: Arial, sans-serif;
-            background-color: #f8f3f0; /* Light background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            width: 450px;
             text-align: center;
-            border-top: 5px solid #7b1416; /* Burgundy Top Border */
-        }
-        h1 {
-            color: #7b1416; /* Burgundy */
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        label {
-            font-weight: bold;
-            display: block;
-            text-align: left;
-            margin: 10px 0 5px;
-            color: #333;
-        }
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
         }
 
-        /* New Button-Based Selection */
-        .choice-group {
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            color: black;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        form {
             display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
+            flex-direction: column;
+            gap: 10px;
         }
-        .choice-group button {
-            background-color: lightgray;
-            border: 2px solid #7b1416; /* Burgundy border */
-            padding: 10px 15px;
-            font-size: 16px;
-            cursor: pointer;
+
+        label {
+            font-weight: bold;
+            text-align: left;
+            display: block;
+        }
+
+        input, select, button {
+            padding: 10px;
             border-radius: 5px;
-            transition: all 0.3s ease;
-            color: #333;
-        }
-        .choice-group button:hover {
-            background-color: #e0e0e0; /* Slightly darker on hover */
-        }
-        .choice-group button.active {
-            background-color: #7b1416; /* Burgundy when selected */
-            color: white;
+            border: 1px solid #800020;
+            width: 100%;
         }
 
         button {
-            background-color: #7b1416; /* Burgundy */
+            background-color: #800020;
             color: white;
-            border: none;
-            padding: 12px;
-            width: 100%;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-        button:hover {
-            background-color: #580f11; /* Darker Burgundy */
-        }
-        .cancel {
-            display: block;
-            margin-top: 15px;
-            text-decoration: none;
-            color: #7b1416; /* Burgundy */
             font-weight: bold;
+            cursor: pointer;
         }
-        .cancel:hover {
-            text-decoration: underline;
+
+        button:hover {
+            background-color: #5a0014;
         }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        th {
+            background-color: #800020;
+            color: white;
+            
+        } 
+        .dashboard-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #800020; /* Burgundy */
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+}
+
+        .dashboard-btn:hover {
+            background-color: #5a0014; /* Darker Burgundy */
+}
+
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Holiday Meal Bag Form</h1>
+<div class="container">
+    <h2>Create a New Holiday Meal Bag Form</h2>
 
-        <?php if (!empty($errors)): ?>
-            <h3 style="color: red;">Please correct the following errors:</h3>
-            <ul>
-                <?php foreach ($errors as $error): ?>
-                    <li><?php echo htmlspecialchars($error); ?></li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
+    <?php if (!empty($errors)): ?>
+        <p class="error"><?= htmlspecialchars(implode(", ", $errors)); ?></p>
+    <?php endif; ?>
 
-        <?php if ($successMessage): ?>
-            <h3 style="color: green;"><?php echo htmlspecialchars($successMessage); ?></h3>
-        <?php endif; ?>
+    <?php if ($successMessage): ?>
+        <p class="success"><?= htmlspecialchars($successMessage); ?></p>
+    <?php endif; ?>
 
-        <form method="POST">
-            <label for="email">Email *</label>
-            <input type="email" id="email" name="email" required value="<?php echo htmlspecialchars($data['email'] ?? $family->getEmail()); ?>">
+    <form method="POST">
+        <label>Email:</label>
+        <input type="email" name="email" required value="<?= htmlspecialchars($data['email'] ?? ""); ?>">
 
-            <label for="household">Household Size *</label>
-            <input type="number" id="household" name="household" required value="<?php echo htmlspecialchars($data['household_size'] ?? 1); ?>">
+        <label>Household Size:</label>
+        <input type="number" name="household_size" required value="<?= htmlspecialchars($data['household_size'] ?? 1); ?>">
 
-            <!-- New Selection Buttons -->
-            <label>Would you like a Holiday Meal Bag? *</label>
-            <div class="choice-group">
-                <button type="button" onclick="selectMeal('Thanksgiving')" id="btn-thanksgiving">Thanksgiving</button>
-                <button type="button" onclick="selectMeal('Christmas')" id="btn-christmas">Christmas</button>
-                <button type="button" onclick="selectMeal('Both')" id="btn-both">Both</button>
-            </div>
-            <input type="hidden" id="meal_bag" name="meal_bag" value="">
+        <label>Meal Bag Type:</label>
+        <select name="meal_bag" required>
+            <option value="standard">Standard</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="halal">Halal</option>
+        </select>
 
-            <button type="submit">Submit</button>
-            <a class="cancel" href="<?php echo $isAdmin ? 'index.php' : 'familyAccountDashboard.php'; ?>">Return to Dashboard</a>
-        </form>
+        <label>Contact Name:</label>
+        <input type="text" name="name" required value="<?= htmlspecialchars($data['name'] ?? ""); ?>">
+
+        <label>Address:</label>
+        <input type="text" name="address" required value="<?= htmlspecialchars($data['address'] ?? "Not Provided"); ?>">
+
+        <label>Phone:</label>
+        <input type="tel" name="phone" required value="<?= htmlspecialchars($data['phone'] ?? ""); ?>">
+
+        <label>
+            <input type="checkbox" name="photo_release">
+            Photo Release Permission
+        </label>
+
+        <button type="submit">Submit Form</button>
+        <div style="text-align: center; margin-top: 15px;">
+        <a href="index.php" class="dashboard-btn">Return to Dashboard</a>
     </div>
+    </form>
+</div>
 
-    <script>
-        function selectMeal(choice) {
-            document.getElementById("meal_bag").value = choice;
+<!-- Display last 10 submitted forms -->
+<div class="container">
+    <h3>Last 10 Submitted Forms</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Family Name</th>
+            <th>Email</th>
+            <th>Household Size</th>
+        </tr>
+        <?php foreach ($forms as $form): ?>
+            <tr>
+                <td><?= htmlspecialchars($form["id"]); ?></td>
+                <td><?= htmlspecialchars($form["family_name"]); ?></td>
+                <td><?= htmlspecialchars($form["email"]); ?></td>
+                <td><?= htmlspecialchars($form["household_size"]); ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
 
-            document.getElementById("btn-thanksgiving").classList.remove("active");
-            document.getElementById("btn-christmas").classList.remove("active");
-            document.getElementById("btn-both").classList.remove("active");
-
-            document.getElementById("btn-" + choice.toLowerCase()).classList.add("active");
-        }
-    </script>
 </body>
 </html>

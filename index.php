@@ -69,6 +69,8 @@
                 <div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Family Profile Updated!</div>
             <?php elseif (isset($_GET['addVolunteerSuccess'])): ?>
                 <?php echo '<div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Volunteer account created!</div>';?>
+            <?php elseif (isset($_GET['modifyVolunteerSuccess'])): ?>
+                <?php echo '<div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Volunteer account modified!</div>';?>
             <?php elseif (isset($_GET['failedAccountCreate'])): ?>
                 <div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">
                     Unable to create account, account already in system!
@@ -137,6 +139,13 @@
                 <div class="dashboard-item" data-link="createVolunteerAccount.php">
                     <img src="images/staffUsers.svg">
                     <span>Create Volunteer Account</span>
+                 </div>
+                <?php endif ?>
+
+                <?php if ($_SESSION['account_type'] == 'admin' || $_SESSION['account_type'] == 'staff'): ?>
+                <div class="dashboard-item" data-link="modifyVolunteerAccount.php">
+                    <img src="images/staffUsers.svg">
+                    <span>Modify Volunteer Account</span>
                  </div>
                 <?php endif ?>
               
