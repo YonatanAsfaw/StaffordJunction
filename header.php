@@ -99,6 +99,8 @@
         $permission_array['formsearchresult.php'] = 2;
         $permission_array['fillformstaff.php'] = 2;
         $permission_array['familysignupstaff.php'] = 2;
+        $permission_array['viewfeedback.php'] = 2;
+        $perission_array['deletefeedback.php'] = 2;
         $permission_array['modify_staff_account.php'] = 2;
         //pages only admin can view
         $permission_array['createstaffaccount.php'] = 3;
