@@ -157,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                     ?>
                 </select>
-                <?php echo "Submit button rendered<br>"; ?> <!-- Temporary debug -->
+                <!--<?php echo "Submit button rendered<br>"; ?>-->
                 <input type="submit" value="Create Event">
             </form>
             <?php if ($date): ?>

@@ -242,7 +242,7 @@ function create_event($event) {
 
     // Prepare the INSERT query with endTime
     $query = "
-        INSERT INTO dbEvents (name, abbrevName, date, startTime, endTime, description, locationID, capacity, volunteerID, completed)
+        INSERT INTO dbEvents (name, abbrevName, date, startTime, endTime, description, locationID, capacity, animalID, completed)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ";
     $stmt = mysqli_prepare($connection, $query);

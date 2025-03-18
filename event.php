@@ -231,7 +231,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $event_location = $event_info['locationID'];
             $event_description = $event_info['description'];
             $event_in_past = strcmp(date('Y-m-d'), $event_info['date']) > 0;
-            $event_volunteer_id = $event_info['volunteerID'];
+            // $event_volunteer_id = $event_info['volunteerID'];
+            $event_volunteer_id = isset($event_info['volunteerID']) ? $event_info['volunteerID'] : null;
+
             require_once('include/time.php');
             echo '<h2 class="centered">' . htmlspecialchars($event_name) . '</h2>';
         ?>
@@ -242,9 +244,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <td class="label">Volunteer</td>
                     <td>
                         <?php 
-                            $volunteerData = get_volunteer($event_volunteer_id);
-                            $volunteerName = isset($volunteerData[0]["firstName"]) ? htmlspecialchars($volunteerData[0]["firstName"]) : 'No Volunteer Assigned';
+                            // $volunteerData = get_volunteer($event_volunteer_id);
+                            // $volunteerName = isset($volunteerData[0]["firstName"]) ? htmlspecialchars($volunteerData[0]["firstName"]) : 'No Volunteer Assigned';
+                            // echo $volunteerName;
+                            if ($event_volunteer_id !== null) {
+                                $volunteerData = get_volunteer($event_volunteer_id);
+                                $volunteerName = isset($volunteerData[0]["firstName"]) ? htmlspecialchars($volunteerData[0]["firstName"]) : 'No Volunteer Assigned';
+                            } else {
+                                $volunteerName = 'Mr Volunteer'; //this is just to work for demo need to fix
+                            }
                             echo $volunteerName;
+                            
                         ?>
                     </td>
                 </tr>
