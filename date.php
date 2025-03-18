@@ -1,38 +1,38 @@
 <?php
-    // Template for new VMS pages. Base your new page on this one
+// Template for new VMS pages. Base your new page on this one
 
-    // Make session information accessible, allowing us to associate
-    // data with the logged-in user.
-    session_cache_expire(30);
-    session_start();
-    date_default_timezone_set("America/New_York");
+// Make session information accessible, allowing us to associate
+// data with the logged-in user.
+session_cache_expire(30);
+session_start();
+date_default_timezone_set("America/New_York");
 
-    $loggedIn = false;
-    $accessLevel = 0;
-    $userID = null;
-    if (isset($_SESSION['_id'])) {
-        $loggedIn = true;
-        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
-        $accessLevel = $_SESSION['access_level'];
-        $userID = $_SESSION['_id'];
-    }
-    if ($accessLevel < 1) {
-        header('Location: login.php');
-        die();
-    }
-    if (!isset($_GET['date'])) {
-        header('Location: calendar.php');
-        die();
-    }
-    require_once('include/input-validation.php');
-    $get = sanitize($_GET);
-    $date = $get['date'];
-    $datePattern = '/[0-9]{4}-[0-9]{2}-[0-9]{2}/';
-    $timeStamp = strtotime($date);
-    if (!preg_match($datePattern, $date) || !$timeStamp) {
-        header('Location: calendar.php');
-        die();
-    }
+$loggedIn = false;
+$accessLevel = 0;
+$userID = null;
+if (isset($_SESSION['_id'])) {
+    $loggedIn = true;
+    // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+    $accessLevel = $_SESSION['access_level'];
+    $userID = $_SESSION['_id'];
+}
+if ($accessLevel < 1) {
+    header('Location: login.php');
+    die();
+}
+if (!isset($_GET['date'])) {
+    header('Location: calendar.php');
+    die();
+}
+require_once('include/input-validation.php');
+$get = sanitize($_GET);
+$date = $get['date'];
+$datePattern = '/[0-9]{4}-[0-9]{2}-[0-9]{2}/';
+$timeStamp = strtotime($date);
+if (!preg_match($datePattern, $date) || !$timeStamp) {
+    header('Location: calendar.php');
+    die();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,7 +53,6 @@
                 $events = fetch_events_on_date($date);
                 if ($events) {
                     foreach ($events as $event) {
-                        $animal = get_animal($event["animalID"])[0]["name"];
                         $location = get_location($event['locationID'])[0]["name"]; 
                         echo "
                             <table class='event'>
@@ -63,29 +62,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr><td>Animal</td><td>" . $animal . " </td></tr>
                                     <tr><td>Time</td><td>" . time24hto12h($event['startTime']) . "</td></tr>
                                     <tr><td>Location</td><td>" . $location . "</td></tr>
                                     <tr><td>Description</td><td>" . $event['description'] . "</td></tr>
                                 </tbody>
                               </table>
                         ";
-
-                        
                     }
                 } else {
                     echo '<p class="none-scheduled">There are no events scheduled on this day</p>';
                 }
+                // Show create event link only for admins (levels 0 and 3), regardless of events
+                if (in_array($accessLevel, [0, 3])) {
+                    echo '
+                        <a class="button" href="addEvent.php?date=' . $date . '">
+                            Create New Event
+                        </a>';
+                }
             ?>
-            <?php
-            if ($accessLevel >= 2) {
-                echo '
-                    <a class="button" href="addEvent.php?date=' . $date . '">
-                        Create New Event
-                    </a>';
-            }
-            ?>
-			<a href="calendar.php?month=<?php echo substr($date, 0, 7) ?>" class="button cancel" style="margin-top: -.5rem">Return to Calendar</a>
+            <a href="calendar.php?month=<?php echo substr($date, 0, 7) ?>" class="button cancel" style="margin-top: -.5rem">Return to Calendar</a>
         </main>
     </body>
 </html>

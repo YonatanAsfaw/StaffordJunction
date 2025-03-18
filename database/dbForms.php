@@ -1,18 +1,21 @@
 <?php
+//need to connect
+include_once('dbinfo.php');
+
 
 // constant of all form names
 const SEARCHABLE_FORMS = array("Holiday Meal Bag", "School Supplies", "Spring Break", 
         "Angel Gifts Wish List", "Child Care Waiver", "Field Trip Waiver",
-        "Program Interest", "Brain Builders Student Registration", "Brain Builders Holiday Party",
+        "Program Interest", "Program Review", "Brain Builders Student Registration", "Brain Builders Holiday Party",
         "Summer Junction Registration", "Bus Monitor Attendance", "Actual Activity"
-    );
+     );
 
 function getFormSubmissions($formName, $familyId){
     switch ($formName) {
     case "Holiday Meal Bag":
         require_once("dbHolidayMealBag.php");
         if ($familyId){
-            return getHolidayMealBagSubmissionsById($familyId);
+            return getHolidayMealBagFormBySubmissionId($familyId);
         }
         return getHolidayMealBagSubmissions();
     case "School Supplies":
@@ -51,7 +54,7 @@ function getFormSubmissions($formName, $familyId){
             return getProgramInterestSubmissionsFromFamily($familyId);
         }
         return getProgramInterestSubmissions();
-    
+
     // These need completed backends first
     // case "Brain Builders Student Registration":
     //     require_once(".php");
@@ -65,9 +68,15 @@ function getFormSubmissions($formName, $familyId){
     // case "Bus Monitor Attendance":
     //     require_once(".php");
     //     return getSubmissions();
-        // case "Actual Activity":
-        //     require_once("dbActualActivityForm.php");
-        //     return getActualActivitySubmissions();
+    // case "Actual Activity":
+    //     require_once("dbActualActivityForm.php");
+    //     return getActualActivitySubmissions();
+    //case "Program Review":
+    //    require_once("dbProgramReviewForm.php");
+    //    if ($familyId) {
+    //        return getProgramReviewSubmissionsFromFamily($familyId);
+    //    }
+    //    return getProgramReviewSubmissions();
     default:
     }
 }
@@ -88,3 +97,40 @@ function getFormsByFamily($familyId){
     return $completedFormNames;
 }
 
+function getPublishedForms() {
+    $conn = connect();
+    $query = "SELECT form_name FROM dbFormStatus WHERE is_published = 1";
+    $result = mysqli_query($conn, $query);
+
+    $publishedForms = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $publishedForms[] = $row['form_name'];
+    }
+
+    mysqli_close($conn);
+    return $publishedForms;
+}
+
+function getAllFormStatuses() {
+    $conn = connect();
+    $query = "SELECT form_name, is_published FROM dbFormStatus";
+    $result = mysqli_query($conn, $query);
+
+    $formStatuses = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $formStatuses[] = $row;
+    }
+
+    mysqli_close($conn);
+    return $formStatuses;
+}
+
+function toggleFormPublication($formName) {
+    $conn = connect();
+    $query = "UPDATE dbFormStatus SET is_published = NOT is_published WHERE form_name = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "s", $formName);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+}

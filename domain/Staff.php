@@ -84,5 +84,16 @@ class Staff {
     public function getSecurityAnswer(){
         return $this->securityAnswer;
     }
-
+//setters
+    public function setFirstName($firstName) { $this->firstName = $firstName; }
+    public function setLastName($lastName) { $this->lastName = $lastName; }
+    public function setBirthdate($birthdate) { $this->birthdate = $birthdate; }
+    public function setAddress($address) { $this->address = $address; }
+    public function setEmail($email) { $this->email = $email; }
+    public function setPhone($phone) { $this->phone = $phone; }
+    public function setEContactName($econtactName) { $this->econtactName = $econtactName; }
+    public function setEContactPhone($econtactPhone) { $this->econtactPhone = $econtactPhone; }
+    public function setJobTitle($jobTitle) { $this->jobTitle = $jobTitle; }
 }
+
+
