@@ -91,7 +91,7 @@ class Family {
         $this->isArchived = $isArchived;
     }
 
-    /** 
+    /* 
     public function getID(){
         return $this->id;
     }
