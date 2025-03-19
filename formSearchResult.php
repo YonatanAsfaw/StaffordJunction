@@ -1,154 +1,110 @@
 <?php
-    // Template for new VMS pages. Base your new page on this one
+session_cache_expire(30);
+session_start();
+ini_set("display_errors",1);
+error_reporting(E_ALL);
 
-    session_cache_expire(30);
-    session_start();
-    ini_set("display_errors",1);
-    error_reporting(E_ALL);
+if (!isset($_SESSION['_id'])) {
+    header('Location: login.php');
+    die();
+}
 
-    if (!isset($_SESSION['_id'])) {
-        header('Location: login.php');
-        die();
+require_once("database/dbForms.php");
+require_once("database/dbChildCareWaiverForm.php");
+require_once("database/dbFamily.php");
+require_once("domain/Family.php");
+
+$families = find_all_families();
+$excludedColumns = array("id", "family_id", "securityQuestion", "securityAnswer", "password", "child_id", "form_id");
+
+$hasSearched = isset($_GET['searchByForm']) || isset($_GET['searchByFamily']);
+$selectedFormName = $hasSearched ? ($_GET['formName'] ?? '') : '';
+$familyId = $_GET['familyAccount'] ?? null;
+$noResults = true;
+$searchingByForm = false;
+$submissions = [];
+$columnNames = [];
+
+// Check if searching by form
+if (isset($_GET['searchByForm'])) {
+    $searchingByForm = true;
+    $childName = isset($_GET['childName']) ? trim($_GET['childName']) : '';
+
+    if ($selectedFormName === "Child Care Waiver" && !empty($childName)) {
+        // Search for Child Care Waiver forms using Child Name
+        $submissions = getChildCareWaiverByChildName($childName);
+    } else {
+        // Default form search (by form name & optional family ID)
+        sleep(1); // Small delay to allow database update to process
+        clearstatcache(); // Clears any cached results
+        $submissions = getFormSubmissions($selectedFormName, $familyId);
     }
 
-    $accessLevel = $_SESSION['access_level'];
-    $userID = $_SESSION['_id'];
+    error_log("Fetching form: " . $selectedFormName . " | Family ID: " . $familyId);
+    error_log("Database Query Result: " . json_encode($submissions));
 
-    require_once("database/dbFamily.php");
-    require_once("domain/Family.php");
-    require_once 'database/dbForms.php';
-
-    $families = find_all_families();
-
-    // Columns we won't show in the table/exported CSV
-    $excludedColumns = array("id", "family_id", "securityQuestion", "securityAnswer", "password", "child_id", "form_id");
-
-    $hasSearched = isset($_GET['searchByForm']);
-    $selectedFormName = $hasSearched ? $_GET['formName'] : "";
-
-    $noResults = true;
-    $searchingByForm = false;
-    
-    if(isset($_GET['searchByForm'])){
-
-        $searchingByForm = true;
-        $familyId = isset($_GET['familyAccount']) ? $_GET['familyAccount'] : null;
-       
-        $submissions = getFormSubmissions($_GET['formName'], $familyId);
-        
-        
-
-        error_log("Final submissions in formSearchResult.php: " . json_encode($submissions));
-
-        $noResults = empty($submissions);
-        $columnNames = !$noResults ? array_keys($submissions[0]) : [];
-    } elseif(isset($_GET['searchByFamily'])){
-        $familyId = $_GET['familyAccount']? intval($_GET['familyAccount']) : null;
-        error_log("DEBUG: Using Family ID: " . ($familyId ?: "NULL"));
-        $family = retrieve_family_by_id($familyId);
-        $formNames = getFormsByFamily($familyId);
-        $noResults = empty($formNames);
-    }
+    $noResults = empty($submissions);
+    $columnNames = !$noResults ? array_keys($submissions[0]) : [];
+} elseif (isset($_GET['searchByFamily'])) {
+    $familyId = intval($_GET['familyAccount'] ?? 0);
+    error_log("DEBUG: Using Family ID: " . ($familyId ?: "NULL"));
+    $family = retrieve_family_by_id($familyId);
+    $formNames = getFormsByFamily($familyId);
+    $noResults = empty($formNames);
+}
 ?>
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <?php require_once('universal.inc') ?>
-        <title>Stafford Junction | View Form Submissions</title>
-    </head>
-    <body>
-        <?php require_once('header.php') ?>
-        <form class="form-search-result-subheader" method="post">
-            <a class="button cancel" href="formSearch.php">Back to Search</a>
-            <?php if(!$noResults && $searchingByForm): ?>
-                <button class="button" id="downloadButton">Download Results (.csv)</button>
-            <?php endif; ?>
-            <span style="margin-left: 10px;">Viewing results for: 
-            <?php 
-                if ($searchingByForm) {
-                    echo htmlspecialchars($_GET['formName'] ?? '', ENT_QUOTES, 'UTF-8') . ' Form';
-                } else {
-                    echo !empty($family) 
-                        ? htmlspecialchars($family->getFirstName() . " " . $family->getLastName(), ENT_QUOTES, 'UTF-8') 
-                        : "Unknown Family";
-                }
-            ?>
-            </span>
-        </form>
-
-        <?php if(!$noResults): ?>
-            <script>
-                const resultsData = <?php echo json_encode($submissions); ?>;
-                const columns = <?php echo json_encode($columnNames); ?>;
-                const excludedColumns = <?php echo json_encode($excludedColumns); ?>;
-                
-                const csvHeaderRow = columns.filter(col => !excludedColumns.includes(col));
-                const rows = [csvHeaderRow];
-
-                resultsData.forEach(result => {
-                    excludedColumns.forEach(col => delete result[col]);
-                    rows.push(Object.values(result));
-                });
-
-                document.getElementById("downloadButton").addEventListener("click", (e) => {
-                    let csvContent = "data:text/csv;charset=utf-8,";
-                    rows.forEach(row => csvContent += row.join(",") + "\r\n");
-                    window.open(encodeURI(csvContent));
-                });
-            </script>
+<head>
+    <?php require_once('universal.inc') ?>
+    <title>Stafford Junction | View Form Submissions</title>
+</head>
+<body>
+    <?php require_once('header.php') ?>
+    <form class="form-search-result-subheader" method="post">
+        <a class="button cancel" href="formSearch.php">Back to Search</a>
+        <?php if (!$noResults && $searchingByForm): ?>
+            <button class="button" id="downloadButton">Download Results (.csv)</button>
         <?php endif; ?>
+        <span style="margin-left: 10px;">Viewing results for: 
+        <?php 
+            echo htmlspecialchars($selectedFormName ?? '', ENT_QUOTES, 'UTF-8');
+        ?>
+        </span>
+    </form>
 
-        <div class="form-search-results">
-            <?php if(!$noResults): ?>
-                <table class="general form-search-results-table">
-                <?php if($searchingByForm): ?>
-                    <thead>
-                        <tr>
-                            <?php
-                                foreach($columnNames as $columnName){
-                                    if(!in_array($columnName, $excludedColumns)){
-                                        echo '<th>' . htmlspecialchars($columnName ?? '', ENT_QUOTES, 'UTF-8') . '</th>';
-                                    }
-                                }
-                            ?>
-                        </tr>
-                    </thead>
-                    <tbody class="standout">
+    <div class="form-search-results">
+        <?php if (!$noResults): ?>
+            <table class="general form-search-results-table">
+                <thead>
+                    <tr>
                         <?php
-                            foreach($submissions as $submission){
-                                echo '<tr>';
-                                foreach($submission as $columnName => $column){
-                                    if(!in_array($columnName, $excludedColumns)){
-                                        echo "<td>" . htmlspecialchars($column ?? '', ENT_QUOTES, 'UTF-8') . "</td>";
-                                    }
+                            foreach ($columnNames as $columnName) {
+                                if (!in_array($columnName, $excludedColumns)) {
+                                    echo '<th>' . htmlspecialchars($columnName ?? '', ENT_QUOTES, 'UTF-8') . '</th>';
                                 }
-                                echo '<td><a href="editForm.php?formName='.htmlspecialchars($_GET['formName'] ?? '', ENT_QUOTES, 'UTF-8').'&id='.htmlspecialchars($submission['id'] ?? '', ENT_QUOTES, 'UTF-8').'" class="button">Edit</a></td>';
-                                echo '</tr>';
                             }
                         ?>
-                    </tbody>
-                <?php else: ?>
-                    <thead>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($submissions as $submission): ?>
                         <tr>
-                            <th>Form Name</th>
-                            <th>Actions</th>
+                            <?php foreach ($submission as $columnName => $column): ?>
+                                <?php if (!in_array($columnName, $excludedColumns)): ?>
+                                    <td><?php echo htmlspecialchars($column ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            <td><a href="editForm.php?formName=<?php echo urlencode($selectedFormName); ?>&id=<?php echo htmlspecialchars($submission['id'], ENT_QUOTES, 'UTF-8'); ?>&familyAccount=<?php echo htmlspecialchars($familyId, ENT_QUOTES, 'UTF-8'); ?>" class="button">Edit</a></td>
                         </tr>
-                    </thead>
-                    <tbody class="standout">
-                        <?php
-                            foreach($formNames as $formName){
-                                echo '<tr>';
-                                echo "<td>" . htmlspecialchars($formName ?? '', ENT_QUOTES, 'UTF-8') . "</td>";
-                                echo "<td><a href='./formSearchResult.php?searchByForm=searchByForm&formName=" . urlencode($formName) . "&familyAccount=" . urlencode($familyId) . "'>View Submissions</a></td>"; 
-                                echo '</tr>';
-                            }
-                        ?>
-                    </tbody>
-                <?php endif; ?>
-                </table>
-            <?php else: ?>
-                <p style="text-align: center;">No results found.</p>
-            <?php endif; ?>
-        </div>
-    </body>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p style="text-align: center;">No results found.</p>
+        <?php endif; ?>
+    </div>
+</body>
 </html>

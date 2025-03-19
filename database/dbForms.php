@@ -2,7 +2,6 @@
 //need to connect
 include_once('dbinfo.php');
 
-
 // constant of all form names
 const SEARCHABLE_FORMS = array("Holiday Meal Bag", "School Supplies", "Spring Break", 
         "Angel Gifts Wish List", "Child Care Waiver", "Field Trip Waiver",
@@ -36,8 +35,8 @@ function getFormSubmissions($formName, $familyId){
             return getAngelGiftSubmissionsFromFamily($familyId);
         }
         return getAngelGiftSubmissions();
-    case "Child Care Waiver":
-        require_once("dbChildCareForm.php");
+    case "Child Care Waiver Form":
+        require_once("dbChildCareWaiverForm.php");
         if ($familyId) {
             return getChildCareWaiverSubmissionsFromFamily($familyId);
         }
@@ -96,7 +95,6 @@ function getFormsByFamily($familyId){
     }
     return $completedFormNames;
 }
-
 function getPublishedForms() {
     $conn = connect();
     $query = "SELECT form_name FROM dbFormStatus WHERE is_published = 1";
@@ -104,12 +102,14 @@ function getPublishedForms() {
 
     $publishedForms = [];
     while ($row = mysqli_fetch_assoc($result)) {
-        $publishedForms[] = $row['form_name'];
+        $publishedForms[] = trim($row['form_name']); // Trim removes extra spaces
     }
 
     mysqli_close($conn);
     return $publishedForms;
 }
+
+
 
 function getAllFormStatuses() {
     $conn = connect();
@@ -125,12 +125,40 @@ function getAllFormStatuses() {
     return $formStatuses;
 }
 
+
 function toggleFormPublication($formName) {
     $conn = connect();
-    $query = "UPDATE dbFormStatus SET is_published = NOT is_published WHERE form_name = ?";
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "s", $formName);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
+
+    // Check if the form exists before updating
+    $checkQuery = "SELECT is_published FROM dbFormStatus WHERE form_name = ?";
+    $stmtCheck = mysqli_prepare($conn, $checkQuery);
+    mysqli_stmt_bind_param($stmtCheck, "s", $formName);
+    mysqli_stmt_execute($stmtCheck);
+    $result = mysqli_stmt_get_result($stmtCheck);
+    
+    if ($row = mysqli_fetch_assoc($result)) {
+        // Toggle publication status
+        $newStatus = $row['is_published'] == 1 ? 0 : 1;
+        $updateQuery = "UPDATE dbFormStatus SET is_published = ? WHERE form_name = ?";
+        
+        $stmtUpdate = mysqli_prepare($conn, $updateQuery);
+        mysqli_stmt_bind_param($stmtUpdate, "is", $newStatus, $formName);
+        $success = mysqli_stmt_execute($stmtUpdate);
+
+        if (!$success) {
+            error_log("ERROR: Could not toggle form publication - " . mysqli_error($conn));
+        }
+
+        mysqli_stmt_close($stmtUpdate);
+    } else {
+        // If form doesn't exist, insert it with default status
+        $insertQuery = "INSERT INTO dbFormStatus (form_name, is_published) VALUES (?, 1)";
+        $stmtInsert = mysqli_prepare($conn, $insertQuery);
+        mysqli_stmt_bind_param($stmtInsert, "s", $formName);
+        mysqli_stmt_execute($stmtInsert);
+        mysqli_stmt_close($stmtInsert);
+    }
+
+    mysqli_stmt_close($stmtCheck);
     mysqli_close($conn);
 }

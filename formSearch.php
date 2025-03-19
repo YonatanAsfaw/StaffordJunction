@@ -36,20 +36,23 @@
         <div class="formSearch">
             <p>Search for a specific form, a specific family, or both</p>
             <form id="formSearch" method="get" action="formSearchResult.php">
-                <label for="searchByForm"><input type="checkbox" autocomplete="off" id="searchByForm" name="searchByForm" value="searchByForm"> Form Name</label>
+                <label for="searchByForm">
+                    <input type="checkbox" autocomplete="off" id="searchByForm" name="searchByForm" value="searchByForm"> Form Name
+                </label>
                 <select id="formName" name="formName" disabled>
+                    <option value="">Select a form</option>
                     <?php
                         foreach(SEARCHABLE_FORMS as $form){
-                            if($selectedFormName == $form){
-                                echo '<option value="'.$form.'" selected>'.$form.'</option>';
-                            }else{
-                                echo '<option value="'.$form.'">'.$form.'</option>';
-                            }
+                            echo '<option value="'.$form.'">'.$form.'</option>';
                         }
                     ?>
                 </select>
-                <label for="searchByFamily"><input type="checkbox" autocomplete="off" id="searchByFamily" name="searchByFamily" value="searchByFamily"> Family Account</label>
+
+                <label for="searchByFamily">
+                    <input type="checkbox" autocomplete="off" id="searchByFamily" name="searchByFamily" value="searchByFamily"> Family Account
+                </label>
                 <select id="familyAccount" name="familyAccount" disabled>
+                    <option value="">Select a family</option>
                     <?php
                         foreach($families as $fam){
                             $name = $fam->getFirstName() . " " . $fam->getLastName();
@@ -57,29 +60,41 @@
                         }
                     ?>
                 </select>
-                <p id="password-match-error" class="error hidden">Passwords must match!</p>
+
+                <!-- Child Name Search Field (Hidden by Default) -->
+                <div id="childNameWrapper" style="display: none;">
+                    <label for="childName">Child Name</label>
+                    <input type="text" id="childName" name="childName" placeholder="Enter child's name">
+                </div>
+
                 <input type="submit" value="Search">
                 <a class="button cancel" href="index.php">Return to Dashboard</a>
             </form>
+
             <script>
                 document.getElementById("searchByForm").addEventListener("change", (e) => {
                     const selectBox = document.getElementById("formName");
-                    if (e.currentTarget.checked){
-                        selectBox.removeAttribute("disabled");
-                    }else{
+                    selectBox.disabled = !e.currentTarget.checked;
+                    if (!e.currentTarget.checked) {
                         selectBox.selectedIndex = 0;
-                        selectBox.setAttribute("disabled", "disabled");
+                        document.getElementById("childNameWrapper").style.display = "none";
                     }
-                })
+                });
+
+                document.getElementById("formName").addEventListener("change", (e) => {
+                    const childNameWrapper = document.getElementById("childNameWrapper");
+                    if (e.target.value === "Child Care Waiver") {
+                        childNameWrapper.style.display = "block";
+                    } else {
+                        childNameWrapper.style.display = "none";
+                    }
+                });
+
                 document.getElementById("searchByFamily").addEventListener("change", (e) => {
                     const selectBox = document.getElementById("familyAccount");
-                    if (e.currentTarget.checked){
-                        selectBox.removeAttribute("disabled")
-                    }else{
-                        selectBox.selectedIndex = 0;
-                        selectBox.setAttribute("disabled", "disabled");
-                    }
-                })
+                    selectBox.disabled = !e.currentTarget.checked;
+                    if (!e.currentTarget.checked) selectBox.selectedIndex = 0;
+                });
             </script>
         </div>
     </body>

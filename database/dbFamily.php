@@ -109,7 +109,6 @@ function make_a_family2($result_row) {
         $result_row['isArchived']
     );
 }
-
 /**
  * Retrieves family data by ID
  */
@@ -145,6 +144,11 @@ function retrieve_family_by_id($id) {
 
     return make_a_family2($row);
 }
+
+
+
+
+
 
 /**
  * Retrieves family by email
