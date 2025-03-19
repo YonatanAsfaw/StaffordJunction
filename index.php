@@ -162,7 +162,13 @@
                     <img src="images/form-dropdown-svgrepo-com.svg">
                     <span>Family Forms</span>
                 </div>
+                <div class="dashboard-item" data-link="viewFeedback.php">
+                    <img src="images/search.svg">
+                    <span>View Feedback</span>
+                </div>
+
                 <?php endif ?>
+
             </div>
         </main>
     </body>

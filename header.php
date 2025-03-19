@@ -99,6 +99,8 @@
         $permission_array['formsearchresult.php'] = 2;
         $permission_array['fillformstaff.php'] = 2;
         $permission_array['familysignupstaff.php'] = 2;
+        $permission_array['viewfeedback.php'] = 2;
+        $perission_array['deletefeedback.php'] = 2;
         $permission_array['modify_staff_account.php'] = 2;
         //pages only admin can view
         $permission_array['createstaffaccount.php'] = 3;
@@ -110,6 +112,7 @@
         $permission_array['volunteeraccount.php'] = 3;
         $permission_array['overallattendence.php'] = 3;
         $permission_array['volunteerReportForm.php'] = 4;
+        $permission_array['overallAttendence.php'] = 4;
         
         $permission_array['manageformpublications.php'] = 2;
 
@@ -242,6 +245,10 @@
                 echo('</div></li>');
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'changePassword.php">Change Password</a></li>');
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Log out</a></li>');
+                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'calendar.php">Calendar</a></li>');
+
+                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'overallAttendence.php">View Overall Attendance</a></li>');
+
 		echo('</div></li>');
 
 		echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'volunteerReportForm.php">Log Hours</a></li>');
