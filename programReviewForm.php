@@ -22,6 +22,10 @@ if (isset($_SESSION['_id'])) {
     die();
 }
 
+if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($args['id'])){
+    $family = $args['id'];
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['programReviewForm'])) {
     // Retrieve data from the form
     $family = $_POST['family'];
@@ -89,10 +93,14 @@ require_once('database/dbProgramReviewForm.php');
 <body>
     <h1>Program Review Form</h1>
     <div id="formatted_form">
-        <!--last name field -->
+        <!--last name field
         <form action="" method="post">
             <label for="family">Last Name:</label>
             <input type="text" id="family" name="family">
+            <br><br>-->
+            <!--program name field-->
+            <label for="programName">Program Name:</label>
+            <input type="text" id="programName" name="programName">
             <br><br>
             <!--feedback field-->
             <label for="reviewText">Comments:</label>
@@ -101,6 +109,8 @@ require_once('database/dbProgramReviewForm.php');
             <script>
 
             <?php //If the user is an admin or staff, the message should appear at index.php
+                echo '<input type="hidden" id="family" name="family" value="' . $family . '">';
+
                 if($_SERVER['REQUEST_METHOD'] == "POST" && $success){
                     if (isset($_GET['id'])) {
                         echo '<script>document.location = "fillForm.php?formSubmitSuccess&id=' . $_GET['id'] . '";</script>';
