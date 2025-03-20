@@ -6,10 +6,12 @@ class Review {
     private $id;
     private $family_id;
     private $feedback;
+    private $program;
 
-    public function __construct($id, $family_id, $feedback){
+    public function __construct($id, $family_id, $program, $feedback){
         $this->id = $id;
         $this->family_id = $family_id;
+        $this->program = $program;
         $this->feedback = $feedback;
     }
 
@@ -18,6 +20,9 @@ class Review {
     }
     public function getFamily(){
         return $this->family_id;
+    }
+    public function getProgram(){
+        return $this->program;
     }
     public function getFeedback(){
         return $this->feedback;
@@ -28,6 +33,7 @@ function make_a_review($result_row){
     $review = new Review(
         $result_row['id'],
         $result_row['family_id'],
+        $result_row['event_name'],
         $result_row['reviewText']
     );
     return $review;

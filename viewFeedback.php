@@ -105,9 +105,9 @@ if ($accessLevel < 2) {
         <?php require_once('header.php') ?>
         <h1>View Feedback</h1>
 
-        <form id="formatted_form" method="POST">
+        <!--<form id="formatted_form" method="POST">
         <label>Select any criteria to search for feedback</label>
-            <!-- Search Criteria Fields -->
+             Search Criteria Fields -->
             <!--<div class="search-container">
                 <div class="search-label">
                 <label>Last Name:</label>
@@ -211,6 +211,7 @@ if ($accessLevel < 2) {
                         <thead>
                             <tr>
                                 <th>Family ID</th>
+                                <th>Program</th>
                                 <th>Feedback</th>
                                 <th>Delete</th>
                             </tr>
@@ -238,10 +239,12 @@ if ($accessLevel < 2) {
                         //echo "<tr onclick=\"window.location.href='familyView.php?id=$id'\" style='cursor: pointer;'>";
                         echo '<tr>';
                         echo '<td>' . $msg->getFamily() . '</td>';
+                        echo '<td>' . $msg->getProgram() . '</td>';
                         echo '<td>' . $msg->getFeedback() . '</td>';
                         echo '<td><form action="deleteFeedback.php" method="post">';
-                        echo '<input type="hidden" name="family" value=' . $msg->getFamily() . '" />';
+                        echo '<input type="hidden" name="family" value=' . $msg->getFamily() . ' />';
                         echo '<input type="hidden" name="feedback" value="' . $msg->getFeedback() . '" />';
+                        echo '<input type="hidden" name="program" value="' . $msg->getProgram() . '" />';
                         echo '<input type="hidden" name="id" value="' . $id . '" />';
                         echo '<button type="submit" name="notification">Delete</button>';
                         //echo '<input type="submit" value="delete" />';
@@ -264,7 +267,7 @@ if ($accessLevel < 2) {
                 </div>';
             //}
             ?>
-        </form>
+        <!--</form>-->
      
         <a class="button cancel button_style"  href="index.php"">Return to Dashboard</a>
      

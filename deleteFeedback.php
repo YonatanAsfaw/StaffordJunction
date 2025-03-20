@@ -43,6 +43,7 @@ $id = null;
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
     $family = $_POST['family'];
+    $program = $_POST['program'];
     $feedback = $_POST['feedback'];
     $id = $_POST['id'];
 }
@@ -99,13 +100,27 @@ function deleteFeedback($id){
         <?php //require_once('header.php') ?>
         <h1>View Feedback</h1>
         <h3>Are you sure you want to delete this feedback?</h3>
+        <br/>
         <?php
-            echo '<p>' . $family . '</p>';
-            echo '<p>' . $feedback . '</p>';
+            echo '
+            <div class="table-wrapper">
+                <table class = "general">
+                    <thead>
+                        <tr>
+                            <th>Family ID</th>
+                            <th>Program</th>
+                            <th>Feedback</th>
+                        </tr>
+                    </thead>
+            <tbody class="standout">';
+            echo '<tr><td>' . $family . '</td>';
+            echo '<td>' . $program . '</td>';
+            echo '<td>' . $feedback . '</td></tr>';
+            echo '</table></div>';
+            echo '<br>';
         
-
-            echo '<form action="deleteFeedback.php" method="post">';
             //echo '<!--' . $id . '-->';
+            echo '<form action="deleteFeedback.php" method="post">';
             echo '<input type="hidden" name="id" value="' . $id . '" />';
             echo '<input type="submit" name="deleteFeedback" value="delete" />';
             //echo '<button type="submit" name="delete">Delete Feedback</button>';
