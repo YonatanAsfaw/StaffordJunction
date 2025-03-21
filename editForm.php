@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $formData[$key] = $value ?? '';
         }
     } else {
-        echo "<p>Error updating form. Please try again.</p>";
+        // echo "<p>Error updating form. Please try again.</p>";
     }
 }
 
@@ -68,6 +68,9 @@ function getFormSubmissionById($formName, $submissionId) {
         case "Angel Gifts Wish List":
             require_once("database/dbAngelGiftForm.php");
             return getAngelGiftById($submissionId);
+        case "Summer Junction":
+            require_once("database/dbSummerJunctionForm.php");
+            return getSummerJunctionById($submissionId);
         default:
             return null;
     }
@@ -87,6 +90,9 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
         case "Angel Gifts Wish List":
             require_once("database/dbAngelGiftForm.php");
             return updateAngelGiftForm($submissionId, $updatedData);
+        case "Summer Junction":
+            require_once("database/dbSummerJunctionForm.php");
+            return updateSummerJunctionRegistrationForm($submissionId, $updatedData);
         default:
             return false;
     }
@@ -100,26 +106,28 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Form - <?php echo htmlspecialchars($formName); ?></title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f3f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            flex-direction: column;
-        }
-        .container {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            width: 450px;
-            text-align: center;
-            border-top: 5px solid #7b1416;
-            position: relative;
-        }
+ body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f3f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto; /* Change this from 100vh to auto */
+    margin: 0;
+    flex-direction: column;
+    overflow: auto; /* Allow scrolling if needed */
+}
+
+.container {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 450px;
+    text-align: center;
+    border-top: 5px solid #7b1416;
+    position: relative;
+}
         h2 {
             color: #7b1416;
             font-size: 24px;
