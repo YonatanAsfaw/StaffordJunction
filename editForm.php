@@ -150,7 +150,7 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
         }
         button, .dashboard {
             display: block;
-            width: 100%;
+            width: 90%;
             padding: 12px;
             border-radius: 5px;
             font-size: 16px;
