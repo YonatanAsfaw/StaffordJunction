@@ -15,7 +15,7 @@ require_once("database/dbFamily.php");
 require_once("domain/Family.php");
 
 $families = find_all_families();
-$excludedColumns = array("id", "family_id", "securityQuestion", "securityAnswer", "password", "child_id", "form_id");
+$excludedColumns = array("", "family_id", "securityQuestion", "securityAnswer", "password", "child_id", "form_id");
 
 $hasSearched = isset($_GET['searchByForm']) || isset($_GET['searchByFamily']);
 $selectedFormName = $hasSearched ? ($_GET['formName'] ?? '') : '';

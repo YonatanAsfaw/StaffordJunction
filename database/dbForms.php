@@ -6,7 +6,7 @@ include_once('dbinfo.php');
 const SEARCHABLE_FORMS = array("Holiday Meal Bag", "School Supplies", "Spring Break", 
         "Angel Gifts Wish List", "Child Care Waiver", "Field Trip Waiver",
         "Program Interest", "Program Review", "Brain Builders Student Registration", "Brain Builders Holiday Party",
-        "Summer Junction Registration", "Bus Monitor Attendance", "Actual Activity"
+        "Summer Junction", "Bus Monitor Attendance", "Actual Activity"
      );
 
 function getFormSubmissions($formName, $familyId){
@@ -53,6 +53,14 @@ function getFormSubmissions($formName, $familyId){
             return getProgramInterestSubmissionsFromFamily($familyId);
         }
         return getProgramInterestSubmissions();
+
+    case "Summer Junction":
+        require_once("dbSummerJunctionForm.php");
+        if ($familyId) {
+            return getSummerJunctionSubmissionsFromFamily($familyId);
+        }
+        return getSummerJunctionSubmissions();
+    
 
     // These need completed backends first
     // case "Brain Builders Student Registration":
