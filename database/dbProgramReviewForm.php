@@ -40,11 +40,24 @@ function make_a_review($result_row){
 }
 
 function find_reviews($last_name, $email){
+    include_once(dirname(__FILE__).'/../domain/Family.php');
     // Build query
     $where = 'WHERE ';
     $joins = '';
     $first = true;
-    $query = "SELECT * FROM dbProgramReviewForm ORDER BY family_id";
+    if($last_name == null && $email == null){
+        $query = "SELECT * FROM dbProgramReviewForm ORDER BY family_id";
+    }
+    else if($email == null){
+        $target = retrieve_family_by_lastName($last_name);
+        $i = $target[0]->getID();
+        $query = "SELECT * FROM dbProgramReviewForm WHERE family_id=$i";
+    }
+    else{
+        $target = retrieve_family_by_email($email);
+        $i = $target->getID();
+        $query = "SELECT * FROM dbProgramReviewForm WHERE family_id=$i";
+    }
     $connection = connect();
     $result = mysqli_query($connection, $query);
     if(!$result){

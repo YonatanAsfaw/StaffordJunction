@@ -49,6 +49,10 @@
         $formNames = getFormsByFamily($familyId);
         $noResults = empty($formNames);
     }
+
+    if($_GET['formName'] == "Program Review"){
+        header('location: viewFeedback.php');
+    }
 ?>
 <!DOCTYPE html>
 <html>
