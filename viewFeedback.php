@@ -12,6 +12,7 @@ $userID = null;
 // Search criteria variables
 $last_name = null;
 $email = null;
+$event = null;
 //$neighborhood = null;
 //$address = null;
 //$city = null;
@@ -52,6 +53,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     if (isset($args['email'])) {
         $email = $args['email'];
     }
+    if(isset($args['event'])){
+        $event = $args['event'];
+    }
     /*if (isset($args['neighborhood'])) {
         $neighborhood = $args['neighborhood'];
     }
@@ -78,7 +82,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     // Find families based on set criteria
     $family = find_families($last_name, $email, $neighborhood, $address, $city, $zip, $income, $assistance, $is_archived);*/
 }
-$review = find_reviews($last_name, $email);
+$review = find_reviews($last_name, $email, $event);
 
 ?>
 
@@ -123,6 +127,14 @@ $review = find_reviews($last_name, $email);
                 </div>
                 <div>
                 <input type="text" id="email" name='email'>
+                </div>
+            </div>
+            <div class="search-container">
+                <div class="search-label">
+                    <label>Event:</label>
+                </div>
+                <div>
+                    <input type="text" id="event" name='event'>
                 </div>
             </div>
             <!--<div class="search-container">
