@@ -64,23 +64,34 @@ function getSpringBreakCampSubmissions() {
 function getSpringBreakCampSubmissionsFromFamily($familyId) {
     require_once("dbChildren.php");
     $children = retrieve_children_by_family_id($familyId);
-    if (!$children){
+    if (!$children) {
         return [];
     }
-    $childrenIds = array_map(function($child) {
-        return $child->getId();
-    }, $children);
-    $joinedIds = join(",",$childrenIds);
 
+    $childrenIds = array_map(function ($child) {
+        // Check if $child is an object and has a getId method
+        if (is_object($child) && method_exists($child, 'getId')) {
+            return $child->getId();
+        }
+        // Otherwise, assume $child is an associative array
+        return $child['id'];
+    }, $children);
+
+    if (empty($childrenIds)) {
+        return [];
+    }
+
+    $joinedIds = implode(",", $childrenIds);
     $conn = connect();
     $query = "SELECT * FROM dbSpringBreakCampForm INNER JOIN dbChildren ON dbSpringBreakCampForm.child_id = dbChildren.id WHERE dbSpringBreakCampForm.child_id IN ($joinedIds);";
     $result = mysqli_query($conn, $query);
 
-    if(mysqli_num_rows($result) > 0){
+    if (mysqli_num_rows($result) > 0) {
         $submissions = mysqli_fetch_all($result, MYSQLI_ASSOC);
         mysqli_close($conn);
         return $submissions;
     }
+    mysqli_close($conn);
     return [];
 }
 ?>
