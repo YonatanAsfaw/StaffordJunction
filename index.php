@@ -100,7 +100,7 @@
 
                 <?php if($_SESSION['access_level'] >= 2 && $_SESSION['access_level'] < 4): ?>
                 <div class="dashboard-item" data-link="formSearch.php">
-                    <img src="images/form-dropdown-svgrepo-com.svg">
+                    <img src="images/study-1-svgrepo-com.svg">
                     <span>View Form Submissions</span>
                 </div>
                 <?php endif ?>
@@ -144,7 +144,7 @@
 
                 <?php if ($_SESSION['account_type'] == 'admin' || $_SESSION['account_type'] == 'staff'): ?>
                 <div class="dashboard-item" data-link="modifyVolunteerAccount.php">
-                    <img src="images/staffUsers.svg">
+                    <img src="images/thinker-svgrepo-com.svg">
                     <span>Modify Volunteer Account</span>
                  </div>
                 <?php endif ?>
