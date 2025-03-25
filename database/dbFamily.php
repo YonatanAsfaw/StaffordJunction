@@ -3,6 +3,52 @@
 include_once('dbinfo.php');
 include_once(dirname(__FILE__).'/../domain/Family.php');
 include_once('dbChildren.php');
+include_once(dirname(__FILE__) . '/../domain/Children.php');
+
+/**
+ * Retrieve children by family ID
+ */
+function retrieve_children_by_family_id($family_id) {
+    $conn = connect();
+
+    if (!$family_id || !is_numeric($family_id)) {
+        error_log("ERROR: Invalid family_id in retrieve_children_by_family_id() - received: " . $family_id);
+        return [];
+    }
+
+    $query = "SELECT * FROM dbChildren WHERE family_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $family_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $children = [];
+    while ($row = $result->fetch_assoc()) {
+        $children[] = $row;
+    }
+
+    if (empty($children)) {
+        error_log("DEBUG: No children found for family ID: " . $family_id);
+    }
+
+    $stmt->close();
+    $conn->close();
+
+    return $children;
+}
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_cache_expire(30);
+    session_start();
+}
+
+ini_set("display_errors", 1);
+error_reporting(E_ALL);
+
+$loggedIn = false;
+$accessLevel = 0;
+$userID = null;
+$success = null;
 
 /**
  * Simply prints var_dump results in a more readable fashion
@@ -145,10 +191,90 @@ function retrieve_family_by_id($id) {
     return make_a_family2($row);
 }
 
+/**
+ * Inserts a Family object into the database
+ */
+function add_family($family) {
+    $conn = connect();
 
+    $query = "INSERT INTO dbFamily (firstName, lastName, birthdate, address, neighborhood, city, state, zip, email, phone, phoneType, secondaryPhone, secondaryPhoneType, isHispanic, race, income, firstName2, lastName2, birthdate2, address2, neighborhood2, city2, state2, zip2, email2, phone2, phoneType2, secondaryPhone2, secondaryPhoneType2, isHispanic2, race2, econtactFirstName, econtactLastName, econtactPhone, econtactRelation, password, securityQuestion, securityAnswer, isArchived) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
 
+    $stmt = $conn->prepare($query);
 
+    if (!$stmt) {
+        die("ERROR: Query preparation failed - " . $conn->error);
+    }
 
+    $stmt->bind_param(
+        "ssssssssssssssssssssssssssssssssssss",
+        $family->getFirstName(),
+        $family->getLastName(),
+        $family->getBirthdate(),
+        $family->getAddress(),
+        $family->getNeighborhood(),
+        $family->getCity(),
+        $family->getState(),
+        $family->getZip(),
+        $family->getEmail(),
+        $family->getPhone(),
+        $family->getPhoneType(),
+        $family->getSecondaryPhone(),
+        $family->getSecondaryPhoneType(),
+        $family->getIsHispanic(),
+        $family->getRace(),
+        $family->getIncome(),
+        $family->getFirstName2(),
+        $family->getLastName2(),
+        $family->getBirthdate2(),
+        $family->getAddress2(),
+        $family->getNeighborhood2(),
+        $family->getCity2(),
+        $family->getState2(),
+        $family->getZip2(),
+        $family->getEmail2(),
+        $family->getPhone2(),
+        $family->getPhoneType2(),
+        $family->getSecondaryPhone2(),
+        $family->getSecondaryPhoneType2(),
+        $family->getIsHispanic2(),
+        $family->getRace2(),
+        $family->getEcontactFirstName(),
+        $family->getEcontactLastName(),
+        $family->getEcontactPhone(),
+        $family->getEcontactRelation(),
+        $family->getPassword(),
+        $family->getSecurityQuestion(),
+        $family->getSecurityAnswer()
+    );
+
+    $result = $stmt->execute();
+
+    $stmt->close();
+    $conn->close();
+
+    return $result;
+}
+
+function retrieve_family($args) {
+    $conn = connect();
+    $query = "SELECT * FROM dbFamily WHERE firstName = ? AND lastName = ? AND email = ?";
+    
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("sss", $args['firstName'], $args['lastName'], $args['email']);
+    $stmt->execute();
+    
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows < 1) {
+        return null;
+    }
+
+    $row = $result->fetch_assoc();
+    $stmt->close();
+    $conn->close();
+
+    return make_a_family2($row);
+}
 
 /**
  * Retrieves family by email
@@ -258,4 +384,188 @@ function unarchive_family($id) {
     return $result;
 }
 
+/**
+ * Inserts family languages into the database
+ */
+function insert_family_languages($languages, $familyId) {
+    $conn = connect();
+    $query = "INSERT INTO dbFamilyLanguages (familyId, language) VALUES (?, ?)";
+
+    $stmt = $conn->prepare($query);
+
+    foreach ($languages as $language) {
+        $stmt->bind_param("is", $familyId, $language);
+        $stmt->execute();
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+
+/**
+ * Inserts family assistance into the database
+ */
+function insert_family_assistance($assistance, $familyId) {
+    $conn = connect();
+    $query = "INSERT INTO dbFamilyAssistance (familyId, assistanceType) VALUES (?, ?)";
+
+    $stmt = $conn->prepare($query);
+
+    foreach ($assistance as $type) {
+        $stmt->bind_param("is", $familyId, $type);
+        $stmt->execute();
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+
+/**
+ * Finds families based on various criteria
+ */
+function find_families($last_name, $email, $neighborhood, $address, $city, $zip, $income, $assistance, $is_archived) {
+    $conn = connect();
+    $query = "SELECT * FROM dbFamily WHERE 1=1";
+    $params = [];
+    $types = "";
+
+    if ($last_name) {
+        $query .= " AND lastName LIKE ?";
+        $params[] = "%" . $last_name . "%";
+        $types .= "s";
+    }
+    if ($email) {
+        $query .= " AND email LIKE ?";
+        $params[] = "%" . $email . "%";
+        $types .= "s";
+    }
+    if ($neighborhood) {
+        $query .= " AND neighborhood LIKE ?";
+        $params[] = "%" . $neighborhood . "%";
+        $types .= "s";
+    }
+    if ($address) {
+        $query .= " AND address LIKE ?";
+        $params[] = "%" . $address . "%";
+        $types .= "s";
+    }
+    if ($city) {
+        $query .= " AND city LIKE ?";
+        $params[] = "%" . $city . "%";
+        $types .= "s";
+    }
+    if ($zip) {
+        $query .= " AND zip LIKE ?";
+        $params[] = "%" . $zip . "%";
+        $types .= "s";
+    }
+    if ($income) {
+        $query .= " AND income = ?";
+        $params[] = $income;
+        $types .= "s";
+    }
+    if ($assistance) {
+        $query .= " AND id IN (SELECT familyId FROM dbFamilyAssistance WHERE assistanceType LIKE ?)";
+        $params[] = "%" . $assistance . "%";
+        $types .= "s";
+    }
+    if ($is_archived !== null) {
+        $query .= " AND isArchived = ?";
+        $params[] = $is_archived;
+        $types .= "i";
+    }
+
+    $stmt = $conn->prepare($query);
+    if ($types) {
+        $stmt->bind_param($types, ...$params);
+    }
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $families = [];
+    while ($row = $result->fetch_assoc()) {
+        $families[] = make_a_family2($row);
+    }
+
+    $stmt->close();
+    $conn->close();
+
+    return $families;
+}
+
+/**
+ * Retrieves children associated with a family ID
+ */
+function getChildren($familyId) {
+    $conn = connect();
+    $query = "SELECT * FROM dbChildren WHERE family_id = ?";
+    
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $familyId);
+    $stmt->execute();
+    
+    $result = $stmt->get_result();
+    $children = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $children[] = make_a_child_from_database($row);
+    }
+
+    $stmt->close();
+    $conn->close();
+
+    return $children;
+}
+
+if(isset($_GET['id'])){
+    require_once("database/dbFamily.php");
+    require_once("database/dbChildren.php");
+    require_once('database/dbBrainBuildersRegistration.php');
+    $loggedIn = true;
+    $accessLevel = $_SESSION['access_level'];
+    $userID = $_GET['id'];
+    $family = retrieve_family_by_id($userID);
+    $children = retrieve_children_by_family_id($userID);
+    // Debugging: Check if children data is fetched correctly
+    error_log("DEBUG: Children data: " . print_r($children, true));
+    $address = $family->getAddress();
+    $city = $family->getCity();
+    $phone = $family->getPhone();
+    $zip = $family->getZip();
+    $email = $family->getEmail();
+    $emergency_contact_name = $family->getEContactFirstName() . " " . $family->getEContactLastName();
+    $econtactRelation = $family->getEContactRelation();
+    $econtactPhone = $family->getEContactPhone();
+    
+    $parent2Name = null;
+}
+
+// include the header .php files
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    require_once('include/input-validation.php');
+    require_once('database/dbChildren.php');
+    require_once('database/dbBrainBuildersRegistration.php');
+    $args = sanitize($_POST, null);
+
+    if (isset($args['name'])) {
+        $n = explode(" ", $args['name']);
+        $firstName = $n[0] ?? null;
+        $lastName = $n[1] ?? null;
+
+        if ($firstName && $lastName && isset($_GET['id'])) {
+            $childToRegister = retrieve_child_by_firstName_lastName_famID($firstName, $lastName, $_GET['id']);
+            $childId = $childToRegister['id'] ?? null;
+
+            if ($childId) {
+                $success = register($args, $childId);
+            } else {
+                error_log("ERROR: Child ID not found.");
+            }
+        } else {
+            error_log("ERROR: Invalid name or family ID.");
+        }
+    } else {
+        error_log("ERROR: Name not provided.");
+    }
+}
 ?>

@@ -2,6 +2,7 @@
 
 include_once('dbinfo.php');
 include_once(dirname(__FILE__) . '/../domain/Children.php');
+include_once(dirname(__FILE__) . '/../database/dbFamily.php'); // Ensure this file is included only once
 
 /**
  * Function to create a child object from a database row
@@ -26,38 +27,6 @@ function make_a_child_from_database($result_row) {
         $result_row['notes']
     );
     return $child;
-}
-
-/**
- * Retrieve children by family ID
- */
-function retrieve_children_by_family_id($family_id) {
-    $conn = connect();
-
-    if (!$family_id || !is_numeric($family_id)) {
-        error_log("ERROR: Invalid family_id in retrieve_children_by_family_id() - received: " . $family_id);
-        return [];
-    }
-
-    $query = "SELECT * FROM dbChildren WHERE family_id = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $family_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $children = [];
-    while ($row = $result->fetch_assoc()) {
-        $children[] = $row;
-    }
-
-    if (empty($children)) {
-        error_log("DEBUG: No children found for family ID: " . $family_id);
-    }
-
-    $stmt->close();
-    $conn->close();
-
-    return $children;
 }
 
 /**
@@ -212,4 +181,90 @@ function retrieve_child_by_firstName_lastName_famID($fn, $ln, $famID) {
 
     return $row;
 }
-?>
+
+/**
+ * Constructs a Child object from the sign-up form data
+ */
+function make_a_child_from_sign_up($childData) {
+    return new Child(
+        null,
+        $childData['first_name'],
+        $childData['last_name'],
+        $childData['dob'],
+        $childData['address'],
+        $childData['neighborhood'],
+        $childData['city'],
+        $childData['state'],
+        $childData['zip'],
+        $childData['gender'],
+        $childData['school'],
+        $childData['grade'],
+        $childData['is_hispanic'],
+        $childData['race'],
+        $childData['medical_notes'],
+        $childData['notes']
+    );
+}
+
+/**
+ * Finds children based on various criteria
+ */
+function find_children($first_name, $last_name, $gender, $school, $grade, $is_hispanic, $race) {
+    $conn = connect();
+    $query = "SELECT * FROM dbChildren WHERE 1=1";
+    $params = [];
+    $types = "";
+
+    if ($first_name) {
+        $query .= " AND first_name LIKE ?";
+        $params[] = "%" . $first_name . "%";
+        $types .= "s";
+    }
+    if ($last_name) {
+        $query .= " AND last_name LIKE ?";
+        $params[] = "%" . $last_name . "%";
+        $types .= "s";
+    }
+    if ($gender) {
+        $query .= " AND gender = ?";
+        $params[] = $gender;
+        $types .= "s";
+    }
+    if ($school) {
+        $query .= " AND school LIKE ?";
+        $params[] = "%" . $school . "%";
+        $types .= "s";
+    }
+    if ($grade) {
+        $query .= " AND grade = ?";
+        $params[] = $grade;
+        $types .= "s";
+    }
+    if ($is_hispanic !== null) {
+        $query .= " AND is_hispanic = ?";
+        $params[] = $is_hispanic;
+        $types .= "i";
+    }
+    if ($race) {
+        $query .= " AND race LIKE ?";
+        $params[] = "%" . $race . "%";
+        $types .= "s";
+    }
+
+    $stmt = $conn->prepare($query);
+    if ($types) {
+        $stmt->bind_param($types, ...$params);
+    }
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $children = [];
+    while ($row = $result->fetch_assoc()) {
+        $children[] = make_a_child_from_database($row);
+    }
+
+    $stmt->close();
+    $conn->close();
+
+    return $children;
+}

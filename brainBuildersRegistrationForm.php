@@ -26,6 +26,7 @@ if(isset($_SESSION['_id'])){
     $userID = $_SESSION['_id'];
     $family = retrieve_family_by_id($_GET['id'] ?? $userID);
     $children = retrieve_children_by_family_id($_GET['id'] ?? $userID);
+    // Debugging: Check if children data is fetched correctly
     //data_dump($children);
     $address = $family->getAddress();
     $city = $family->getCity();
@@ -67,6 +68,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
             <h2>Student Information</h2><br>
             <form id="brainBuildersStudentRegistrationForm" action="" method="post">             
+                
                 <!--Child First Name-->
                 <!--
                 <label for="child-first-name">Child First Name *</label><br><br>
@@ -78,21 +80,20 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 <input type="text" name="child-last-name" id="child-last-name" required placeholder="Child Last Name" required><br><br>
                 -->
 
+                
                 <!-- Child Name -->
                 <label for="name">Child Name / Nombre del Hijo*</label><br><br>
-                <select name="name" id="name" required>
+                <select name="name" id="name" required onchange="populateChildInfo(this.value)">
+                    <option value="" disabled selected>Select Child</option>
                 <?php
                 foreach ($children as $c){ //cycle through each child of family account user
                     $id = $c->getID();
                     // Check if form was already completed for the child
-                    if (!isBrainBuildersRegistrationComplete($id)) {
-                        $name = $c->getFirstName() . " " . $c->getLastName(); //display name if they don't have a form filled out for them
-                        //$value = $id . "_" . $name;
-                        echo "<option>$name</option>";
-                    }
+                    $name = $c->getFirstName() . " " . $c->getLastName(); //display name if they don't have a form filled out for them
+                    echo "<option value=\"$id\">$name</option>";
                 }
                 ?>
-                </select>
+                </select><br><br>
 
 
                 <!--Gender-->
