@@ -22,7 +22,7 @@ $is_archived = 0;
 require_once("database/dbFamily.php");
 require_once("domain/Family.php");
 // Get all families if no criteria inputted in search
-$family = find_families($last_name, $email, $neighborhood, $address, $city, $zip, $income, $assistance, $is_archived);
+$family = find_all_families($last_name, $email, $neighborhood, $address, $city, $zip, $income, $assistance, $is_archived);
 
 if (isset($_SESSION['_id'])) {
     $loggedIn = true;
@@ -70,7 +70,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $is_archived = $args['is-archived'];
     }
     // Find families based on set criteria
-    $family = find_families($last_name, $email, $neighborhood, $address, $city, $zip, $income, $assistance, $is_archived);
+    $family = find_all_families($last_name, $email, $neighborhood, $address, $city, $zip, $income, $assistance, $is_archived);
 }
 
 ?>

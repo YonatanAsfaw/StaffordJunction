@@ -122,19 +122,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             <!-- Question 2: Name input field (required) -->
             <label for="child_name">2. Registered Brain Builder Student Name - Nombre del estudiante *</label><br><br>
             <select name="child_name" id="child_name" required>
-                    <?php
-                        require_once('domain/Children.php');
-                        foreach ($children as $c){
-                            $id = $c->getID();
-                            // Check if form was already completed for the child
-                            if (!isSpringBreakCampFormComplete($id)) {
-                                $name = $c->getFirstName() . " " . $c->getLastName();
-                                $value = $id . "_" . $name;
-                                echo "<option value='$value'>$name</option>";
-                            }
-                        }
-                    ?>
-                    </select>
+            <option disabled selected>Select a child</option>
+         <?php
+         require_once('domain/Children.php');
+         foreach ($children as $child) {
+             $id = $child['id'];
+             $name = $child['first_name'] . " " . $child['last_name'];
+             $dob = $child['birth_date'];
+             echo "<option value='$id'>$name </option>"; 
+         }
+     ?>
+        </select>
             <!-- Additional space before next question -->
             <br><br><br>
 
