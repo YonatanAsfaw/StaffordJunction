@@ -202,6 +202,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <label>Age*</label>
         <input type="number" name="age" required>
+        
+        <label>Pants Size</label>
+        <input type="text" name="pants_size">
+
+        <label>Shirt Size</label>
+        <input type="text" name="shirt_size">
+
+        <label>Shoe Size</label>
+        <input type="number" name="shoe_size" min="0">
+
+        <label>Coat Size</label>
+        <input type="text" name="coat_size">
+
+        <label>Underwear Size</label>
+        <input type="text" name="underwear_size">
+
+        <label>Sock Size</label>
+        <input type="text" name="sock_size">
+
 
         <label>Wants*</label>
         <textarea name="wants" required></textarea>

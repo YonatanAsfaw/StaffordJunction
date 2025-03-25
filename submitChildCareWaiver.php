@@ -1,0 +1,40 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+echo "<h1>Form Submission Debug</h1>";
+echo "<pre>Request Method: " . $_SERVER['REQUEST_METHOD'] . "</pre>";
+
+// Ensure form was submitted via POST
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+    echo "<p>This page processes form submissions and should not be accessed directly.</p>";
+    echo "<p>Please <a href='childCareWaiverForm.php'>return to the form</a> and submit it properly.</p>";
+    exit();
+}
+
+// Debugging: Print received POST data
+echo "<pre>POST Data:\n";
+print_r($_POST);
+echo "</pre>";
+
+// Validate Child Name field
+if (!isset($_POST['name']) || empty($_POST['name'])) {
+    die("<pre>ERROR: 'name' field is missing or empty in form submission.</pre>");
+}
+
+// Ensure dbChildCareWaiverForm.php exists and can be loaded
+require_once(__DIR__ . "/database/dbChildCareWaiverForm.php");
+
+// Process form submission
+$result = createOrUpdateChildCareForm($_POST);
+
+if ($result) {
+    echo "Form submitted successfully! Redirecting...";
+    header("refresh:3;url=childCareWaiverForm.php?formSubmitSuccess=1");
+    exit();
+} else {
+    echo "<pre>Form submission failed. Please check errors.</pre>";
+    exit();
+}
+?>

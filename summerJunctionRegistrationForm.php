@@ -131,19 +131,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 <h2>Student Information / Información general del niño</h2><br>      
                 <label for="child-name">Child Name / Nombre del Estudiante*</label><br><br>
                 <select name="child-name" id="child-name" required>
-                    <option disabled selected>Select a child</option>
-                    <?php
-                        require_once('domain/Children.php'); 
-                        foreach ($children as $c){
-                            $id = $c->getID();
-                            if (!isSummerJunctionFormComplete($id)) {
-                                $name = $c->getFirstName() . " " . $c->getLastName();
-                                $value = $id . "_" . $name;
-                                echo "<option value='$value'>$name</option>";
-                            }
-                        }
-                    ?>
-                </select>
+    <option disabled selected>Select a child</option>
+    <?php
+    require_once('domain/Children.php');
+    foreach ($children as $child) {
+        $id = $child['id'];
+        $name = $child['first_name'] . " " . $child['last_name'];
+        $dob = $child['birth_date'];
+        echo "<option value='$id'>$name </option>"; 
+    }
+    ?>
+</select>
                  <script>
                     const children = <?php echo json_encode($children); ?>;
                     document.getElementById("child-name").addEventListener("change", (e) => {

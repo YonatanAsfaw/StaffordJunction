@@ -200,7 +200,12 @@ function getSchoolSuppliesSubmissionsFromFamily($familyId) {
     }
 
     $childrenIds = array_map(function ($child) {
-        return $child->getId();
+        // Check if $child is an object and has a getId method
+        if (is_object($child) && method_exists($child, 'getId')) {
+            return $child->getId();
+        }
+        // Otherwise, assume $child is an associative array
+        return $child['id'];
     }, $children);
 
     if (empty($childrenIds)) {
@@ -210,7 +215,7 @@ function getSchoolSuppliesSubmissionsFromFamily($familyId) {
     $joinedIds = implode(",", $childrenIds);
     $conn = connect();
     
-    $query = "SELECT ssf.*, c.firstName, c.lastName
+    $query = "SELECT ssf.*, c.first_name, c.last_name
               FROM dbSchoolSuppliesForm ssf
               INNER JOIN dbChildren c ON ssf.child_id = c.id
               WHERE ssf.child_id IN ($joinedIds)";

@@ -1,14 +1,18 @@
 <?php
 
 include_once('dbinfo.php');
-include_once(dirname(__FILE__).'/../domain/Children.php');
+include_once(dirname(__FILE__) . '/../domain/Children.php');
+include_once(dirname(__FILE__) . '/../database/dbFamily.php'); // Ensure this file is included only once
 
-function make_a_child($result_row){
+/**
+ * Function to create a child object from a database row
+ */
+function make_a_child_from_database($result_row) {
     $child = new Child (
         $result_row['id'],
-        $result_row['first-name'],
-        $result_row['last-name'],
-        $result_row['birthdate'],
+        $result_row['first_name'], // Fixed column name
+        $result_row['last_name'],  // Fixed column name
+        $result_row['dob'],        // Fixed column name
         $result_row['address'],
         $result_row['neighborhood'],
         $result_row['city'],
@@ -25,41 +29,120 @@ function make_a_child($result_row){
     return $child;
 }
 
-/**Use this function whenever you need to make a child object from a row in the dbChildren database */
-function make_a_child_from_database($result_row){
-    $child = new Child (
-        $result_row['id'],
-        $result_row['first_name'],
-        $result_row['last_name'],
-        $result_row['dob'],
-        $result_row['address'],
-        $result_row['neighborhood'],
-        $result_row['city'],
-        $result_row['state'],
-        $result_row['zip'],
-        $result_row['gender'],
-        $result_row['school'],
-        $result_row['grade'],
-        $result_row['is_hispanic'],
-        $result_row['race'],
-        $result_row['medical_notes'],
-        $result_row['notes']
-    );
-    return $child;
-}
-
-
-function retrieve_children_by_family_id($family_id) {
+/**
+ * Retrieve all children (for admins)
+ */
+function retrieve_all_children() {
     $conn = connect();
+    $query = "SELECT * FROM dbChildren ORDER BY last_name ASC"; 
+    $result = mysqli_query($conn, $query);
 
-    if (!$family_id) {
-        error_log("ERROR: Missing family_id in retrieve_children_by_family_id()");
-        return [];
+    $children = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $children[] = $row;
     }
 
-    $query = "SELECT * FROM dbChildren WHERE family_id = ?";
+    mysqli_close($conn);
+    return $children;
+}
+
+/**
+ * Retrieve a single child by ID
+ */
+function retrieve_child_by_id($id) {
+    $conn = connect();
+    $query = "SELECT * FROM dbChildren WHERE id = ?";
+    
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $family_id); // Use "i" for integer type
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows == 0) {
+        error_log("DEBUG: No child found with ID: " . $id);
+        return null;
+    }
+
+    $row = $result->fetch_assoc();
+    $stmt->close();
+    $conn->close();
+
+    return make_a_child_from_database($row);
+}
+
+/**
+ * Add child to database
+ */
+function add_child($child, $fam_id) {
+    $conn = connect();
+    
+    $query = "INSERT INTO dbChildren (family_id, first_name, last_name, dob, gender, medical_notes, notes, 
+        neighborhood, address, city, state, zip, school, grade, is_hispanic, race) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param(
+        "isssssssssssssis",
+        $fam_id,
+        $child->getFirstName(),
+        $child->getLastName(),
+        $child->getBirthDate(),
+        $child->getGender(),
+        $child->getMedicalNotes(),
+        $child->getNotes(),
+        $child->getNeighborhood(),
+        $child->getAddress(),
+        $child->getCity(),
+        $child->getState(),
+        $child->getZip(),
+        $child->getSchool(),
+        $child->getGrade(),
+        $child->isHispanic(),
+        $child->getRace()
+    );
+
+    $success = $stmt->execute();
+    $stmt->close();
+    $conn->close();
+
+    return $success;
+}
+
+/**
+ * Retrieve children by email
+ */
+function retrieve_children_by_email($email) {
+    $conn = connect();
+    $query = "SELECT dbChildren.* FROM dbChildren 
+              INNER JOIN dbFamily ON dbChildren.family_id = dbFamily.id 
+              WHERE dbFamily.email = ?";
+
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $children = [];
+    while ($row = $result->fetch_assoc()) {
+        $children[] = make_a_child_from_database($row);
+    }
+
+    $stmt->close();
+    $conn->close();
+
+    return empty($children) ? null : $children;
+}
+
+/**
+ * Retrieve children by last name
+ */
+function retrieve_children_by_last_name($last_name) {
+    $conn = connect();
+    $query = "SELECT * FROM dbChildren WHERE last_name LIKE ?";
+
+    $stmt = $conn->prepare($query);
+    $searchTerm = "%{$last_name}%";
+    $stmt->bind_param("s", $searchTerm);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -68,10 +151,116 @@ function retrieve_children_by_family_id($family_id) {
         $children[] = $row;
     }
 
-    if (empty($children)) {
-        error_log("DEBUG: No children found for family ID: " . $family_id);
-    } else {
-        error_log("DEBUG: Retrieved children: " . json_encode($children));
+    $stmt->close();
+    $conn->close();
+
+    return $children;
+}
+
+/**
+ * Retrieve a child by first name, last name, and family ID
+ */
+function retrieve_child_by_firstName_lastName_famID($fn, $ln, $famID) {
+    $conn = connect();
+    $query = "SELECT * FROM dbChildren WHERE first_name = ? AND last_name = ? AND family_id = ?";
+    
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ssi", $fn, $ln, $famID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows == 0) {
+        $stmt->close();
+        $conn->close();
+        return null;
+    }
+
+    $row = $result->fetch_assoc();
+    $stmt->close();
+    $conn->close();
+
+    return $row;
+}
+
+/**
+ * Constructs a Child object from the sign-up form data
+ */
+function make_a_child_from_sign_up($childData) {
+    return new Child(
+        null,
+        $childData['first_name'],
+        $childData['last_name'],
+        $childData['dob'],
+        $childData['address'],
+        $childData['neighborhood'],
+        $childData['city'],
+        $childData['state'],
+        $childData['zip'],
+        $childData['gender'],
+        $childData['school'],
+        $childData['grade'],
+        $childData['is_hispanic'],
+        $childData['race'],
+        $childData['medical_notes'],
+        $childData['notes']
+    );
+}
+
+/**
+ * Finds children based on various criteria
+ */
+function find_children($first_name, $last_name, $gender, $school, $grade, $is_hispanic, $race) {
+    $conn = connect();
+    $query = "SELECT * FROM dbChildren WHERE 1=1";
+    $params = [];
+    $types = "";
+
+    if ($first_name) {
+        $query .= " AND first_name LIKE ?";
+        $params[] = "%" . $first_name . "%";
+        $types .= "s";
+    }
+    if ($last_name) {
+        $query .= " AND last_name LIKE ?";
+        $params[] = "%" . $last_name . "%";
+        $types .= "s";
+    }
+    if ($gender) {
+        $query .= " AND gender = ?";
+        $params[] = $gender;
+        $types .= "s";
+    }
+    if ($school) {
+        $query .= " AND school LIKE ?";
+        $params[] = "%" . $school . "%";
+        $types .= "s";
+    }
+    if ($grade) {
+        $query .= " AND grade = ?";
+        $params[] = $grade;
+        $types .= "s";
+    }
+    if ($is_hispanic !== null) {
+        $query .= " AND is_hispanic = ?";
+        $params[] = $is_hispanic;
+        $types .= "i";
+    }
+    if ($race) {
+        $query .= " AND race LIKE ?";
+        $params[] = "%" . $race . "%";
+        $types .= "s";
+    }
+
+    $stmt = $conn->prepare($query);
+    if ($types) {
+        $stmt->bind_param($types, ...$params);
+    }
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $children = [];
+    while ($row = $result->fetch_assoc()) {
+        $children[] = make_a_child_from_database($row);
     }
 
     $stmt->close();
@@ -79,257 +268,3 @@ function retrieve_children_by_family_id($family_id) {
 
     return $children;
 }
-
-
-
-
-
-//add child to database
-function add_child($child, $fam_id){
-    $conn = connect();
-    mysqli_query($conn, 'INSERT INTO dbChildren (family_id, first_name, last_name, dob, gender, medical_notes, notes, neighborhood, address, city, state, zip,
-        school, grade, is_hispanic, race) VALUES (" ' .
-        $fam_id . '","' .
-        $child->getFirstName() . '","' .
-        $child->getLastName() . '","' .
-        $child->getBirthDate() . '","' .
-        $child->getGender() . '","' .
-        $child->getMedicalNotes() . '","' .
-        $child->getNotes() . '","' .
-        $child->getNeighborhood() . '","' .
-        $child->getAddress() . '","' .
-        $child->getCity() . '","' .
-        $child->getState() . '","' .
-        $child->getZip() . '","' .
-        $child->getSchool() . '","' .
-        $child->getGrade() . '","' .
-        $child->isHispanic() . '","' .
-        $child->getRace() .
-        '");'
-    );
-    mysqli_close($conn);
-
-    return true;
-}
-
-function retrieve_child_by_id($id){
-    $conn = connect();
-    $query = "SELECT * FROM dbChildren WHERE id = '" . $id . "';";
-    $res = mysqli_query($conn, $query);
-    if(mysqli_num_rows($res) < 0 || $res == null){
-        return null;
-    }
-
-    $row = mysqli_fetch_assoc($res);
-
-    $child = make_a_child_from_database($row);
-    mysqli_close($conn);
-
-    return $child;
-}
-  
-function retrieve_children_by_email($email){
-    $conn = connect();
-    $query = "SELECT * FROM dbchildren INNER JOIN dbfamily ON dbchildren.family_id = dbfamily.id WHERE dbfamily.email = '" . $email . "';";
-    $result = mysqli_query($conn, $query);
-
-    if(mysqli_num_rows($result) < 1 || $result == null){
-        echo "User not found";
-        return null;
-    } else {
-        $children = [];
-        $row = mysqli_fetch_assoc($result);
-        while ($row != null) {
-            $acct = make_a_child($row);
-            array_push($children, $acct);
-            $row = mysqli_fetch_assoc($result);
-        }
-        mysqli_close($conn);
-        return $children;
-    }
-
-    return null;
-    
-}
-function retrieve_children_by_last_name($last_name) {
-    $connection = connect();
-    $query = "SELECT * FROM dbChildren WHERE last_name = ?";
-    
-    $stmt = mysqli_prepare($connection, $query);
-    mysqli_stmt_bind_param($stmt, "s", $last_name);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-
-    $children = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $children[] = $row;
-    }
-
-    mysqli_close($connection);
-    return $children;
-}
-
-  
-/**
- * Function that makes a child from the sign up page
- */
-function make_a_child_from_sign_up($result_row){
-    $child = new Child (
-        //$result_row['id'],
-        null,
-        $result_row['first-name'],
-        $result_row['last-name'],
-        $result_row['birthdate'],
-        $result_row['address'],
-        $result_row['neighborhood'],
-        $result_row['city'],
-        $result_row['state'],
-        $result_row['zip'],
-        $result_row['gender'],
-        $result_row['school'],
-        $result_row['grade'],
-        $result_row['is_hispanic'],
-        $result_row['race'],
-        $result_row['last-child_medical_notes_'],
-        $result_row['child_additional_notes_-name']
-    );
-    return $child;
-}
-  
-// Find children gets children based in criteria in parameters, it builds the query based on what is in it and what isn't 
-// More criteria can be added later
-function find_children($last_name, $address, $city, $neighborhood, $school, $grade, $income, $isHispanic, $race) {
-    // Build query
-    $where = 'WHERE ';
-    $first = true;
-    // Add last name
-    if ($last_name) {
-        if (!$first) {
-            $where .= ' AND ';
-        }
-        $where .= "dbChildren.last_name LIKE '%$last_name%'";
-        $first = false;
-    }
-    // Add address
-    if ($address) {
-        if (!$first) {
-            $where .= ' AND ';
-        }
-        $where .= "dbChildren.address LIKE '%$address%'";
-        $first = false;
-    }
-    // Add city
-    if ($city) {
-        if (!$first) {
-            $where .= ' AND ';
-        }
-        $where .= "dbChildren.city LIKE '%$city%'";
-        $first = false;
-    }
-    // Add neighborhood
-    if ($neighborhood) {
-        if (!$first) {
-            $where .= ' AND ';
-        }
-        $where .= "dbChildren.neighborhood LIKE '%$neighborhood%'";
-        $first = false;
-    }
-    // Add school
-    if ($school) {
-        if (!$first) {
-            $where .= ' AND ';
-        }
-        $where .= "school LIKE '%$school%'";
-        $first = false;
-    }
-    // Add city
-    if ($grade) {
-        if (!$first) {
-            $where .= ' AND ';
-        }
-        $where .= "grade LIKE '%$grade%'";
-        $first = false;
-    }
-    // Add income
-    if ($income) {
-        if (!$first) {
-            $where .= ' AND ';
-        }
-        $where .= "(";
-        $last = end($income);
-        // Go through each income in the input
-        foreach ($income as $i) {
-            if ($i != $last) {
-                $where .= "income LIKE '%$i%' OR ";
-            } else {
-                $where .= "income LIKE '%$i%'";
-            }
-        }
-        $where .= ") ";
-        $first = false;
-    }
-    // Add isHispanic
-    if ($isHispanic) {
-        if (!$first) {
-            $where .= ' AND ';
-        }
-        $where .= "dbChildren.is_hispanic=1";
-        $first = false;
-    }
-    // Add race
-    if ($race) {
-        if (!$first) {
-            $where .= ' AND ';
-        }
-        $where .= "(";
-        $last = end($race);
-        // Go through each income in the input
-        foreach ($race as $r) {
-            if ($r != $last) {
-                $where .= "dbChildren.race LIKE '%$r%' OR ";
-            } else {
-                $where .= "dbChildren.race LIKE '%$r%'";
-            }
-        }
-        $where .= ")";
-        $first = false;
-    }
-    if (!$first) {
-        $where .= ' AND ';
-    }
-    $where .= " isArchived='0'";
-    $query = "SELECT dbChildren.* from dbChildren INNER JOIN dbFamily ON dbChildren.family_id = dbFamily.id $where ORDER BY dbChildren.last_name";
-    $connection = connect();
-    // Execute query
-    $result = mysqli_query($connection, $query);
-    if (!$result) {
-        mysqli_close($connection);
-        return [];
-    }
-    // Get family data
-    $raw = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    $children = [];
-    foreach ($raw as $row) {
-        if ($row['id'] == 'vmsroot') {
-            continue;
-        }
-        $children []= make_a_child_from_database($row);
-    }
-    mysqli_close($connection);
-    return $children;
-}
-
-//Function that retrieves a child from dbChildren based on first name, last name, and family id
-function retrieve_child_by_firstName_lastName_famID($fn, $ln, $famID){
-    $conn = connect();
-    $query = "SELECT * FROM dbChildren WHERE first_name = '$fn' AND last_name = '$ln' AND family_id = '$famID';";
-    $res = mysqli_query($conn, $query);
-    if(mysqli_num_rows($res) < 0 || $res == null){
-        mysqli_close($conn);
-        return null;
-    }else{
-        $row = mysqli_fetch_assoc($res);
-        return $row;
-    } 
-}
-?>

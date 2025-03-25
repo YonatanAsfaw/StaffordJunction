@@ -1,6 +1,6 @@
 -- Table for the dbSpringBreakCampForm
 CREATE TABLE dbSpringBreakCampForm (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    spring_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     email TEXT NOT NULL,
     student_name VARCHAR(256) NOT NULL,
     school_choice TEXT NOT NULL,

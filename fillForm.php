@@ -10,6 +10,8 @@ require_once("database/dbForms.php");  // Include database functions
 // Fetch published forms
 $publishedForms = getPublishedForms();
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +62,7 @@ $publishedForms = getPublishedForms();
                 </div>
                 <?php endif; ?>
                 
-                <!-- Spring Break Form -->
+                <!-- Spring Break Camp Form -->
                 <?php if (in_array("Spring Break", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=springBreakForm.php' 

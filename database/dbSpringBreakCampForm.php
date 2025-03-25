@@ -1,4 +1,5 @@
 <?php
+require_once("dbinfo.php");
 
 // Function checks if a child has already completed the form
 function isSpringBreakCampFormComplete($childID) 
@@ -64,23 +65,101 @@ function getSpringBreakCampSubmissions() {
 function getSpringBreakCampSubmissionsFromFamily($familyId) {
     require_once("dbChildren.php");
     $children = retrieve_children_by_family_id($familyId);
-    if (!$children){
+    if (!$children) {
         return [];
     }
-    $childrenIds = array_map(function($child) {
-        return $child->getId();
-    }, $children);
-    $joinedIds = join(",",$childrenIds);
 
+    $childrenIds = array_map(function ($child) {
+        // Check if $child is an object and has a getId method
+        if (is_object($child) && method_exists($child, 'getId')) {
+            return $child->getId();
+        }
+        // Otherwise, assume $child is an associative array
+        return $child['id'];
+    }, $children);
+
+    if (empty($childrenIds)) {
+        return [];
+    }
+
+    $joinedIds = implode(",", $childrenIds);
     $conn = connect();
-    $query = "SELECT * FROM dbSpringBreakCampForm INNER JOIN dbChildren ON dbSpringBreakCampForm.child_id = dbChildren.id WHERE dbSpringBreakCampForm.child_id IN ($joinedIds);";
+    $query = "
+    SELECT 
+        dbSpringBreakCampForm.id AS form_id,
+        dbSpringBreakCampForm.email,
+        dbSpringBreakCampForm.student_name,
+        dbSpringBreakCampForm.school_choice,
+        dbSpringBreakCampForm.isAttending,
+        dbSpringBreakCampForm.waiver_completed,
+        dbSpringBreakCampForm.notes,
+        dbSpringBreakCampForm.child_id,
+        dbChildren.first_name,
+        dbChildren.last_name
+    FROM dbSpringBreakCampForm
+    INNER JOIN dbChildren ON dbSpringBreakCampForm.child_id = dbChildren.id;
+";
+
     $result = mysqli_query($conn, $query);
 
-    if(mysqli_num_rows($result) > 0){
+    if (mysqli_num_rows($result) > 0) {
         $submissions = mysqli_fetch_all($result, MYSQLI_ASSOC);
         mysqli_close($conn);
         return $submissions;
     }
+    mysqli_close($conn);
     return [];
 }
+
+function getSpringBreakById($id) {
+    $conn = connect(); // Ensure `connect()` establishes the database connection.
+
+    $query = "SELECT * FROM dbSpringBreakCampForm WHERE spring_id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    
+    $result = mysqli_stmt_get_result($stmt);
+    $formData = mysqli_fetch_assoc($result);
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+
+    return $formData;
+}
+
+function updateSpringBreakCampForm($submissionId, $updatedData) {
+    $conn = connect();
+    
+    // Sanitize inputs
+    $email = mysqli_real_escape_string($conn, $updatedData["email"]);
+    $student_name = mysqli_real_escape_string($conn, $updatedData["student_name"]);
+    $school_choice = mysqli_real_escape_string($conn, $updatedData["school_choice"]);
+    
+    // Ensure checkboxes are properly interpreted
+    $isAttending = !empty($updatedData["isAttending"]) ? 1 : 0;
+    $waiver_completed = !empty($updatedData["waiver_completed"]) ? 1 : 0;
+
+    $notes = !empty($updatedData["notes"]) ? mysqli_real_escape_string($conn, $updatedData["notes"]) : null;
+
+    // Debugging: Check what values are being received
+    error_log(print_r($updatedData, true));
+
+    // Update query
+    $query = "
+        UPDATE dbSpringBreakCampForm 
+        SET email = ?, student_name = ?, school_choice = ?, isAttending = ?, waiver_completed = ?, notes = ?
+        WHERE spring_id = ?
+    ";
+
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "sssissi", $email, $student_name, $school_choice, $isAttending, $waiver_completed, $notes, $submissionId);
+    $success = mysqli_stmt_execute($stmt);
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+
+    return $success;
+}
+
 ?>
