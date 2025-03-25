@@ -97,7 +97,22 @@ if (isset($_GET['searchByForm'])) {
                                     <td><?php echo htmlspecialchars($column ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
                                 <?php endif; ?>
                             <?php endforeach; ?>
-                            <td><a href="editForm.php?formName=<?php echo urlencode($selectedFormName); ?>&id=<?php echo htmlspecialchars($submission['id'], ENT_QUOTES, 'UTF-8'); ?>&familyAccount=<?php echo htmlspecialchars($familyId, ENT_QUOTES, 'UTF-8'); ?>" class="button">Edit</a></td>
+                            <td>
+                                <?php
+                                    // Grab the correct form ID
+                                    $editId = $submission['form_id'] ?? $submission['id'];
+
+                                    // Determine the correct edit URL
+                                    if ($selectedFormName === "Spring Break Camp Form") {
+                                        $editUrl = "editSpringBreakCampForm.php?id=" . htmlspecialchars($editId, ENT_QUOTES, 'UTF-8');
+                                    } else {
+                                        $editUrl = "editForm.php?formName=" . urlencode($selectedFormName) .
+                                                   "&id=" . htmlspecialchars($editId, ENT_QUOTES, 'UTF-8') .
+                                                   "&familyAccount=" . htmlspecialchars($familyId, ENT_QUOTES, 'UTF-8');
+                                    }
+                                ?>
+                                <a href="<?= $editUrl ?>" class="button">Edit</a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

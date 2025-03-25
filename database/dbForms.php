@@ -3,9 +3,9 @@
 include_once('dbinfo.php');
 
 // constant of all form names
-const SEARCHABLE_FORMS = array("Holiday Meal Bag", "School Supplies", "Spring Break", 
-        "Angel Gifts Wish List", "Child Care Waiver", "Field Trip Waiver",
-        "Program Interest", "Program Review", "Brain Builders Student Registration", "Brain Builders Holiday Party",
+const SEARCHABLE_FORMS = array("Holiday Meal Bag", "School Supplies", "Spring Break Camp Form", 
+        "Angel Gifts Wish List", "Child Care Waiver Form", "Field Trip Waiver Form",
+        "Program Interest Form", "Program Review", "Brain Builders Student Registration", "Brain Builders Holiday Party",
         "Summer Junction", "Bus Monitor Attendance", "Actual Activity"
      );
 
@@ -23,7 +23,7 @@ function getFormSubmissions($formName, $familyId){
             return getSchoolSuppliesSubmissionsFromFamily($familyId);
         }
         return getSchoolSuppliesSubmissions();
-    case "Spring Break":
+    case "Spring Break Camp Form":
         require_once("dbSpringBreakCampForm.php");
         if ($familyId) {
             return getSpringBreakCampSubmissionsFromFamily($familyId);
