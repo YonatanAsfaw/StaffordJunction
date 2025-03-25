@@ -22,6 +22,21 @@ require_once("database/dbFamily.php");
 require_once("domain/Family.php");
 require_once("database/dbChildren.php");
 require_once("domain/Children.php");
+include_once('database/dbChildren.php');
+
+// Example usage
+$first_name = $_GET['first_name'] ?? null;
+$last_name = $_GET['last_name'] ?? null;
+$gender = $_GET['gender'] ?? null;
+$school = $_GET['school'] ?? null;
+$grade = $_GET['grade'] ?? null;
+$is_hispanic = isset($_GET['is_hispanic']) ? (int)$_GET['is_hispanic'] : null;
+$race = $_GET['race'] ?? null;
+
+$children = find_children($first_name, $last_name, $gender, $school, $grade, $is_hispanic, $race);
+
+// Process the $children array as needed
+
 // Get all children if no criteria inputted in search
 $children = find_children($last_name, $address, $city, $neighborhood, $school, $grade, $income, $is_hispanic, $race);
 
@@ -85,11 +100,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
             .general a {
-<<<<<<< HEAD
-                color: #fcdd2b;
-=======
                 color: cyan;
->>>>>>> e9991523d125e3f429247f822060311a1257785d
                 text-decoration: none;
             }
             .general tbody tr:hover {
@@ -245,8 +256,4 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
      
         <a class="button cancel button_style"  href="index.php">Return to Dashboard</a>      
     </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> e9991523d125e3f429247f822060311a1257785d

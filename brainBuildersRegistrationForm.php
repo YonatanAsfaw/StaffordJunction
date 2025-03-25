@@ -26,7 +26,8 @@ if(isset($_SESSION['_id'])){
     $userID = $_SESSION['_id'];
     $family = retrieve_family_by_id($_GET['id'] ?? $userID);
     $children = retrieve_children_by_family_id($_GET['id'] ?? $userID);
-    //data_dump($children);
+    // Debugging: Check if children data is fetched correctly
+    data_dump($children);
     $address = $family->getAddress();
     $city = $family->getCity();
     $phone = $family->getPhone();
@@ -58,6 +59,27 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <!-- Include universal styles formatting -->
     <?php include_once("universal.inc") ?>
     <title>Stafford Junction | Brain Builders Student Registration Form</title>
+    <script>
+        function populateChildInfo(childId) {
+            const childrenData = <?php echo json_encode($children); ?>;
+            const selectedChild = childrenData.find(child => child.id == childId);
+
+            if (selectedChild) {
+                document.getElementById('child-first-name').value = selectedChild.first_name;
+                document.getElementById('child-last-name').value = selectedChild.last_name;
+                document.getElementById('gender').value = selectedChild.gender;
+                document.getElementById('school-name').value = selectedChild.school;
+                document.getElementById('grade').value = selectedChild.grade;
+                document.getElementById('birthdate').value = selectedChild.dob;
+                document.getElementById('child-address').value = selectedChild.address;
+                document.getElementById('child-city').value = selectedChild.city;
+                document.getElementById('child-state').value = selectedChild.state;
+                document.getElementById('child-zip').value = selectedChild.zip;
+                document.getElementById('child-medical-allergies').value = selectedChild.medical_notes;
+                document.getElementById('child-food-avoidances').value = selectedChild.notes;
+            }
+        }
+    </script>
 </head>
     <body>
     <h1>Brain Builders Registration Form 2024-2025</h1>
@@ -67,6 +89,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
             <h2>Student Information</h2><br>
             <form id="brainBuildersStudentRegistrationForm" action="" method="post">             
+                
                 <!--Child First Name-->
                 <!--
                 <label for="child-first-name">Child First Name *</label><br><br>
@@ -80,19 +103,19 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
                 <!-- Child Name -->
                 <label for="name">Child Name / Nombre del Hijo*</label><br><br>
-                <select name="name" id="name" required>
+                <select name="name" id="name" required onchange="populateChildInfo(this.value)">
+                    <option value="" disabled selected>Select Child</option>
                 <?php
                 foreach ($children as $c){ //cycle through each child of family account user
                     $id = $c->getID();
                     // Check if form was already completed for the child
                     if (!isBrainBuildersRegistrationComplete($id)) {
                         $name = $c->getFirstName() . " " . $c->getLastName(); //display name if they don't have a form filled out for them
-                        //$value = $id . "_" . $name;
-                        echo "<option>$name</option>";
+                        echo "<option value=\"$id\">$name</option>";
                     }
                 }
                 ?>
-                </select>
+                </select><br><br>
 
 
                 <!--Gender-->
