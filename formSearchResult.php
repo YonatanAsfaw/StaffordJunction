@@ -25,19 +25,18 @@ $searchingByForm = false;
 $submissions = [];
 $columnNames = [];
 
-// Check if searching by form
 if (isset($_GET['searchByForm'])) {
+    $familyId = isset($_GET['searchByFamily']) ? $familyId : null;
+
     $searchingByForm = true;
     $childName = isset($_GET['childName']) ? trim($_GET['childName']) : '';
 
     if ($selectedFormName === "Child Care Waiver" && !empty($childName)) {
-        // Search for Child Care Waiver forms using Child Name
         $submissions = getChildCareWaiverByChildName($childName);
     } else {
-        // Default form search (by form name & optional family ID)
-        sleep(1); // Small delay to allow database update to process
-        clearstatcache(); // Clears any cached results
-        $submissions = getFormSubmissions($selectedFormName, $familyId);
+        $submissions = getFormSubmissions($selectedFormName, isset($_GET['searchByFamily']) ? $familyId : null);
+       
+
     }
 
     error_log("Fetching form: " . $selectedFormName . " | Family ID: " . $familyId);
@@ -69,7 +68,7 @@ if (isset($_GET['searchByForm'])) {
         <?php endif; ?>
         <span style="margin-left: 10px;">Viewing results for: 
         <?php 
-            echo htmlspecialchars($selectedFormName ?? '', ENT_QUOTES, 'UTF-8');
+            echo htmlspecialchars((string) ($selectedFormName ?? ''), ENT_QUOTES, 'UTF-8');
         ?>
         </span>
     </form>
@@ -82,7 +81,7 @@ if (isset($_GET['searchByForm'])) {
                         <?php
                             foreach ($columnNames as $columnName) {
                                 if (!in_array($columnName, $excludedColumns)) {
-                                    echo '<th>' . htmlspecialchars($columnName ?? '', ENT_QUOTES, 'UTF-8') . '</th>';
+                                    echo '<th>' . htmlspecialchars((string) $columnName, ENT_QUOTES, 'UTF-8') . '</th>';
                                 }
                             }
                         ?>
@@ -94,10 +93,23 @@ if (isset($_GET['searchByForm'])) {
                         <tr>
                             <?php foreach ($submission as $columnName => $column): ?>
                                 <?php if (!in_array($columnName, $excludedColumns)): ?>
-                                    <td><?php echo htmlspecialchars($column ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?php echo htmlspecialchars((string) ($column ?? ''), ENT_QUOTES, 'UTF-8'); ?></td>
                                 <?php endif; ?>
                             <?php endforeach; ?>
-                            <td><a href="editForm.php?formName=<?php echo urlencode($selectedFormName); ?>&id=<?php echo htmlspecialchars($submission['id'], ENT_QUOTES, 'UTF-8'); ?>&familyAccount=<?php echo htmlspecialchars($familyId, ENT_QUOTES, 'UTF-8'); ?>" class="button">Edit</a></td>
+                            <td>
+                                <?php
+                                    $editId = $submission['form_id'] ?? $submission['id'] ?? null;
+
+                                    if ($selectedFormName === "Spring Break Camp Form") {
+                                        $editUrl = "editSpringBreakCampForm.php?id=" . htmlspecialchars((string) $editId, ENT_QUOTES, 'UTF-8');
+                                    } else {
+                                        $editUrl = "editForm.php?formName=" . urlencode((string) $selectedFormName) .
+                                                   "&id=" . htmlspecialchars((string) $editId, ENT_QUOTES, 'UTF-8') .
+                                                   "&familyAccount=" . htmlspecialchars((string) $familyId, ENT_QUOTES, 'UTF-8');
+                                    }
+                                ?>
+                                <a href="<?= $editUrl ?>" class="button">Edit</a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

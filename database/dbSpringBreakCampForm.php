@@ -1,4 +1,5 @@
 <?php
+require_once("dbinfo.php");
 
 // Function checks if a child has already completed the form
 function isSpringBreakCampFormComplete($childID) 
@@ -83,7 +84,22 @@ function getSpringBreakCampSubmissionsFromFamily($familyId) {
 
     $joinedIds = implode(",", $childrenIds);
     $conn = connect();
-    $query = "SELECT * FROM dbSpringBreakCampForm INNER JOIN dbChildren ON dbSpringBreakCampForm.child_id = dbChildren.id WHERE dbSpringBreakCampForm.child_id IN ($joinedIds);";
+    $query = "
+    SELECT 
+        dbSpringBreakCampForm.id AS form_id,
+        dbSpringBreakCampForm.email,
+        dbSpringBreakCampForm.student_name,
+        dbSpringBreakCampForm.school_choice,
+        dbSpringBreakCampForm.isAttending,
+        dbSpringBreakCampForm.waiver_completed,
+        dbSpringBreakCampForm.notes,
+        dbSpringBreakCampForm.child_id,
+        dbChildren.first_name,
+        dbChildren.last_name
+    FROM dbSpringBreakCampForm
+    INNER JOIN dbChildren ON dbSpringBreakCampForm.child_id = dbChildren.id;
+";
+
     $result = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($result) > 0) {

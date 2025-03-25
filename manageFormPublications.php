@@ -7,9 +7,22 @@ if ($_SESSION['access_level'] < 2) {
     exit();
 }
 
+// Normalize names to match DB
+function normalizeFormName($name) {
+    $map = [
+        "Child Care Waiver" => "Child Care Waiver Form",
+        "Field Trip Waiver" => "Field Trip Waiver Form",
+        "Program Interest" => "Program Interest Form",
+        "Spring Break" => "Spring Break Camp Form"
+        // Add more mappings as needed
+    ];
+    return $map[$name] ?? $name;
+}
+
 // Handle form toggle
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $formName = $_POST['form_name'];
+    $rawFormName = trim($_POST['form_name']);
+    $formName = normalizeFormName($rawFormName);
     toggleFormPublication($formName);
     header("Location: manageFormPublications.php");
     exit();
@@ -53,6 +66,7 @@ $formStatuses = getAllFormStatuses();
             </tbody>
         </table>
     </form>    
+
     <a class="button" href="fillForm.php" style="margin-top: 3rem;">Return to Form Page</a>
     <a class="button cancel" href="index.php" style="margin-top: 1rem;">Return to Dashboard</a>
 </body>

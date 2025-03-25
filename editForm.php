@@ -21,6 +21,9 @@ $updateSuccess = false;
 
 // Fetch existing form data
 $formData = getFormSubmissionById($formName, $submissionId);
+error_log("formName received: '$formName'");
+error_log("formData result: " . print_r($formData, true));
+
 
 if (!$formData) {
     die("Form data not found.");
@@ -68,12 +71,15 @@ function getFormSubmissionById($formName, $submissionId) {
         case "Angel Gifts Wish List":
             require_once("database/dbAngelGiftForm.php");
             return getAngelGiftById($submissionId);
-        case "Spring Break":
+        case "Spring Break Camp Form":
             require_once("database/dbSpringBreakCampForm.php");
             return getSpringBreakById($submissionId);
         case "Summer Junction":
             require_once("database/dbSummerJunctionForm.php");
             return getSummerJunctionById($submissionId);
+        case "Program Interest Form":
+            require_once("database/dbProgramInterestForm.php");
+            return getProgramInterestById($submissionId);
         default:
             return null;
     }
@@ -93,12 +99,15 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
         case "Angel Gifts Wish List":
             require_once("database/dbAngelGiftForm.php");
             return updateAngelGiftForm($submissionId, $updatedData);
-        case "Spring Break":
+        case "Spring Break Camp Form":
             require_once("database/dbSpringBreakCampForm.php");
-            return getSpringBreakById($submissionId, $updatedData);
+            return updateSpringBreakCampForm($submissionId, $updatedData);
         case "Summer Junction":
             require_once("database/dbSummerJunctionForm.php");
             return updateSummerJunctionRegistrationForm($submissionId, $updatedData);
+        case "Program Interest Form":
+            require_once("database/dbProgramInterestForm.php");
+            return updatedProgramInterestForm($submissionId);
         default:
             return false;
     }
