@@ -114,7 +114,7 @@ function getSpringBreakCampSubmissionsFromFamily($familyId) {
 function getSpringBreakById($id) {
     $conn = connect(); // Ensure `connect()` establishes the database connection.
 
-    $query = "SELECT * FROM dbSpringBreakCampForm WHERE id = ?";
+    $query = "SELECT * FROM dbSpringBreakCampForm WHERE spring_id = ?";
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
@@ -135,15 +135,21 @@ function updateSpringBreakCampForm($submissionId, $updatedData) {
     $email = mysqli_real_escape_string($conn, $updatedData["email"]);
     $student_name = mysqli_real_escape_string($conn, $updatedData["student_name"]);
     $school_choice = mysqli_real_escape_string($conn, $updatedData["school_choice"]);
-    $isAttending = isset($updatedData["isAttending"]) ? 1 : 0;
-    $waiver_completed = isset($updatedData["waiver_completed"]) ? 1 : 0;
+    
+    // Ensure checkboxes are properly interpreted
+    $isAttending = !empty($updatedData["isAttending"]) ? 1 : 0;
+    $waiver_completed = !empty($updatedData["waiver_completed"]) ? 1 : 0;
+
     $notes = !empty($updatedData["notes"]) ? mysqli_real_escape_string($conn, $updatedData["notes"]) : null;
+
+    // Debugging: Check what values are being received
+    error_log(print_r($updatedData, true));
 
     // Update query
     $query = "
         UPDATE dbSpringBreakCampForm 
         SET email = ?, student_name = ?, school_choice = ?, isAttending = ?, waiver_completed = ?, notes = ?
-        WHERE id = ?
+        WHERE spring_id = ?
     ";
 
     $stmt = mysqli_prepare($conn, $query);
@@ -155,4 +161,5 @@ function updateSpringBreakCampForm($submissionId, $updatedData) {
 
     return $success;
 }
+
 ?>
