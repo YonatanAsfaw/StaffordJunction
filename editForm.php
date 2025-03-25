@@ -68,6 +68,9 @@ function getFormSubmissionById($formName, $submissionId) {
         case "Angel Gifts Wish List":
             require_once("database/dbAngelGiftForm.php");
             return getAngelGiftById($submissionId);
+        case "Spring Break":
+            require_once("database/dbSpringBreakCampForm.php");
+            return getSpringBreakById($submissionId);
         case "Summer Junction":
             require_once("database/dbSummerJunctionForm.php");
             return getSummerJunctionById($submissionId);
@@ -90,6 +93,9 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
         case "Angel Gifts Wish List":
             require_once("database/dbAngelGiftForm.php");
             return updateAngelGiftForm($submissionId, $updatedData);
+        case "Spring Break":
+            require_once("database/dbSpringBreakCampForm.php");
+            return getSpringBreakById($submissionId, $updatedData);
         case "Summer Junction":
             require_once("database/dbSummerJunctionForm.php");
             return updateSummerJunctionRegistrationForm($submissionId, $updatedData);
