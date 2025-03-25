@@ -98,7 +98,7 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
             return updateSummerJunctionRegistrationForm($submissionId, $updatedData);
         case "Program Interest Form":
             require_once("database/dbProgramInterestForm.php");
-            return updatedProgramInterestForm($submissionId);
+            return updateProgramInterestForm($submissionId, $updatedData);
         default:
             return false;
     }
