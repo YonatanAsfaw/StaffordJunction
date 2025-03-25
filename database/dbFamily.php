@@ -6,31 +6,6 @@ include_once('dbChildren.php');
 include_once(dirname(__FILE__) . '/../domain/Children.php');
 
 /**
- * Function to create a child object from a database row
- */
-function make_a_child_from_database($result_row) {
-    $child = new Child (
-        $result_row['id'],
-        $result_row['first_name'], // Fixed column name
-        $result_row['last_name'],  // Fixed column name
-        $result_row['dob'],        // Fixed column name
-        $result_row['address'],
-        $result_row['neighborhood'],
-        $result_row['city'],
-        $result_row['state'],
-        $result_row['zip'],
-        $result_row['gender'],
-        $result_row['school'],
-        $result_row['grade'],
-        $result_row['is_hispanic'],
-        $result_row['race'],
-        $result_row['medical_notes'],
-        $result_row['notes']
-    );
-    return $child;
-}
-
-/**
  * Retrieve children by family ID
  */
 function retrieve_children_by_family_id($family_id) {
@@ -62,8 +37,11 @@ function retrieve_children_by_family_id($family_id) {
     return $children;
 }
 
-session_cache_expire(30);
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_cache_expire(30);
+    session_start();
+}
+
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
@@ -563,196 +541,31 @@ if(isset($_GET['id'])){
 }
 
 // include the header .php files
-if($_SERVER['REQUEST_METHOD'] == "POST"){
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     require_once('include/input-validation.php');
     require_once('database/dbChildren.php');
     require_once('database/dbBrainBuildersRegistration.php');
     $args = sanitize($_POST, null);
-    $n = explode(" ", $args['name']);
-    //data_dump($n);
-    //$childToRegister = retrieve_child_by_firstName_lastName_famID($args['child-first-name'], $args['child-last-name'], $_GET['id']);
-    $childToRegister = retrieve_child_by_firstName_lastName_famID($n[0], $n[1], $_GET['id']);
-    $success = register($args, $childToRegister['id']);
+
+    if (isset($args['name'])) {
+        $n = explode(" ", $args['name']);
+        $firstName = $n[0] ?? null;
+        $lastName = $n[1] ?? null;
+
+        if ($firstName && $lastName && isset($_GET['id'])) {
+            $childToRegister = retrieve_child_by_firstName_lastName_famID($firstName, $lastName, $_GET['id']);
+            $childId = $childToRegister['id'] ?? null;
+
+            if ($childId) {
+                $success = register($args, $childId);
+            } else {
+                error_log("ERROR: Child ID not found.");
+            }
+        } else {
+            error_log("ERROR: Invalid name or family ID.");
+        }
+    } else {
+        error_log("ERROR: Name not provided.");
+    }
 }
 ?>
-
-<html>
-<head>
-    <!-- Include universal styles formatting -->
-    <?php include_once("universal.inc") ?>
-    <title>Stafford Junction | Brain Builders Student Registration Form</title>
-    <script>
-        function populateChildInfo(childId) {
-            const childrenData = <?php echo json_encode($children); ?>;
-            console.log(childrenData); // Debugging: Check if children data is passed correctly
-            const selectedChild = childrenData.find(child => child.id == childId);
-
-            if (selectedChild) {
-                document.getElementById('child-first-name').value = selectedChild.first_name;
-                document.getElementById('child-last-name').value = selectedChild.last_name;
-                document.getElementById('gender').value = selectedChild.gender;
-                document.getElementById('school-name').value = selectedChild.school;
-                document.getElementById('grade').value = selectedChild.grade;
-                document.getElementById('birthdate').value = selectedChild.dob;
-                document.getElementById('child-address').value = selectedChild.address;
-                document.getElementById('child-city').value = selectedChild.city;
-                document.getElementById('child-state').value = selectedChild.state;
-                document.getElementById('child-zip').value = selectedChild.zip;
-                document.getElementById('child-medical-allergies').value = selectedChild.medical_notes;
-                document.getElementById('child-food-avoidances').value = selectedChild.notes;
-            }
-        }
-    </script>
-</head>
-<body>
-    <h1>Brain Builders Registration Form 2024-2025</h1>
-    <div id="formatted_form">
-        <p><b>* Indicates a required field</b></p><br>
-
-        <h2>Student Information</h2><br>
-        <form id="brainBuildersStudentRegistrationForm" action="" method="post">             
-            <!-- Child Name -->
-            <label for="name">Child Name / Nombre del Hijo*</label><br><br>
-            <select name="name" id="name" required onchange="populateChildInfo(this.value)">
-                <option value="" disabled selected>Select Child</option>
-                <?php
-                foreach ($children as $c){ //cycle through each child of family account user
-                    $id = $c['id']; // Use array key instead of method
-                    // Check if form was already completed for the child
-                    if (!isBrainBuildersRegistrationComplete($id)) {
-                        $name = $c['first_name'] . " " . $c['last_name']; // Use array keys instead of methods
-                        echo "<option value=\"$id\">$name</option>";
-                    }
-                }
-                ?>
-            </select><br><br>
-
-            <!--Child First Name-->
-            <label for="child-first-name">Child First Name *</label><br><br>
-            <input type="text" name="child-first-name" id="child-first-name" required placeholder="Child First Name" required><br><br>
-            
-            <!--Child Last Name-->
-            <label for="child-last-name">Child Last Name *</label><br><br>
-            <input type="text" name="child-last-name" id="child-last-name" required placeholder="Child Last Name" required><br><br>
-
-            <!--Gender-->
-            <label for="gender">Gender *</label><br><br>
-            <select id="gender" name="gender" required>
-                <option value="" disabled selected>Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-            </select><br><br>
-
-            <!--School Name-->
-            <label for="school-name">School Name *</label><br><br>
-            <input type="text" name="school-name" id="school-name" required placeholder="School Name" required><br><br>
-
-            <!--Grade-->
-            <label for="grade">Grade *</label><br><br>
-            <input type="text" name="grade" id="grade" required placeholder="Grade/Grado" required><br><br>
-
-            <!--Date of Birth-->
-            <label for="birthdate">Date of Birth *</label><br><br>
-            <input type="date" id="birthdate" name="birthdate" required placeholder="Choose your birthday" max="<?php echo date('Y-m-d'); ?>"><br><br>
-
-            <!--Street Address-->
-            <label for="child-address">Street Address *</label><br><br>
-            <input type="text" id="child-address" name="child-address" required placeholder="Enter your street address"><br><br>
-
-            <!--City-->
-            <label for="child-city">City *</label><br><br>
-            <input type="text" id="child-city" name="child-city" required placeholder="Enter your city"><br><br>
-
-            <!--State-->
-            <label for="child-state">State *</label><br><br>
-            <select id="child-state" name="child-state" required>
-                <option value="AL">Alabama</option>
-                <option value="AK">Alaska</option>
-                <option value="AZ">Arizona</option>
-                <option value="AR">Arkansas</option>
-                <option value="CA">California</option>
-                <option value="CO">Colorado</option>
-                <option value="CT">Connecticut</option>
-                <option value="DE">Delaware</option>
-                <option value="DC">District Of Columbia</option>
-                <option value="FL">Florida</option>
-                <option value="GA">Georgia</option>
-                <option value="HI">Hawaii</option>
-                <option value="ID">Idaho</option>
-                <option value="IL">Illinois</option>
-                <option value="IN">Indiana</option>
-                <option value="IA">Iowa</option>
-                <option value="KS">Kansas</option>
-                <option value="KY">Kentucky</option>
-                <option value="LA">Louisiana</option>
-                <option value="ME">Maine</option>
-                <option value="MD">Maryland</option>
-                <option value="MA">Massachusetts</option>
-                <option value="MI">Michigan</option>
-                <option value="MN">Minnesota</option>
-                <option value="MS">Mississippi</option>
-                <option value="MO">Missouri</option>
-                <option value="MT">Montana</option>
-                <option value="NE">Nebraska</option>
-                <option value="NV">Nevada</option>
-                <option value="NH">New Hampshire</option>
-                <option value="NJ">New Jersey</option>
-                <option value="NM">New Mexico</option>
-                <option value="NY">New York</option>
-                <option value="NC">North Carolina</option>
-                <option value="ND">North Dakota</option>
-                <option value="OH">Ohio</option>
-                <option value="OK">Oklahoma</option>
-                <option value="OR">Oregon</option>
-                <option value="PA">Pennsylvania</option>
-                <option value="RI">Rhode Island</option>
-                <option value="SC">South Carolina</option>
-                <option value="SD">South Dakota</option>
-                <option value="TN">Tennessee</option>
-                <option value="TX">Texas</option>
-                <option value="UT">Utah</option>
-                <option value="VT">Vermont</option>
-                <option value="VA" selected>Virginia</option>
-                <option value="WA">Washington</option>
-                <option value="WV">West Virginia</option>
-                <option value="WI">Wisconsin</option>
-                <option value="WY">Wyoming</option>
-            </select><br><br>
-
-            <!--Zip-->
-            <label for="child-zip" required>Zip Code *</label><br><br>
-            <input type="text" id="child-zip" name="child-zip" pattern="[0-9]{5}" title="5-digit zip code" required placeholder="Enter your 5-digit zip code"><br><br>
-
-            <!--Medical issues or allergies-->
-            <label for="child-medical-allergies" required>Medical issues or allergies</label><br><br>
-            <input type="text" id="child-medical-allergies" name="child-medical-allergies" placeholder="Medical issues or allergies"><br><br>
-
-            <!--Foods to avoid due to religious beliefs-->
-            <label for="child-food-avoidances" required>Foods to avoid due to religious beliefs</label><br><br>
-            <input type="text" id="child-food-avoidances" name="child-food-avoidances" placeholder="Foods to avoid due to religious beliefs"><br><br>
-
-            <!-- Additional form fields... -->
-
-            <button type="submit" id="submit">Submit</button>
-
-            <?php
-                if($_SERVER['REQUEST_METHOD'] == "POST" && $success){
-                    if (isset($_GET['id'])) {
-                        echo '<script>document.location = "fillForm.php?formSubmitSuccess&id=' . $_GET['id'] . '";</script>';
-                    } else {
-                        echo '<script>document.location = "fillForm.php?formSubmitSuccess";</script>';
-                    }
-                } 
-            ?>
-
-            <?php 
-            if (isset($_GET['id'])) {
-                echo '<a class="button cancel" href="fillForm.php?id=' . $_GET['id'] . '" style="margin-top: .5rem">Cancel</a>';
-            } else {
-                echo '<a class="button cancel" href="fillForm.php" style="margin-top: .5rem">Cancel</a>';
-            }
-            ?>
-        </form>
-    </div>
-</body>
-</html>
