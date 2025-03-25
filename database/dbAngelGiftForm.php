@@ -4,9 +4,19 @@
 function createAngelGiftForm($form) {
     $conn = connect();
 
-    $query = "INSERT INTO dbAngelGiftForm (child_id, email, parent_name, phone, child_name, gender, age, 
-        pants_size, shirt_size, shoe_size, coat_size, underwear_size, sock_size, wants, interests, photo_release)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    // Convert empty strings to null for numeric fields
+    $shoe_size = is_numeric($form["shoe_size"]) ? (int)$form["shoe_size"] : null;
+    $pants_size = $form["pants_size"] !== '' ? $form["pants_size"] : null;
+    $shirt_size = $form["shirt_size"] !== '' ? $form["shirt_size"] : null;
+    $coat_size = $form["coat_size"] !== '' ? $form["coat_size"] : null;
+    $underwear_size = $form["underwear_size"] !== '' ? $form["underwear_size"] : null;
+    $sock_size = $form["sock_size"] !== '' ? $form["sock_size"] : null;
+
+    $query = "INSERT INTO dbAngelGiftForm (
+        child_id, email, parent_name, phone, child_name, gender, age, 
+        pants_size, shirt_size, shoe_size, coat_size, underwear_size, sock_size, 
+        wants, interests, photo_release
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($query);
     if (!$stmt) {
@@ -16,13 +26,13 @@ function createAngelGiftForm($form) {
     $stmt->bind_param("isssssisississsi",
         $form["child_id"], $form["email"], $form["parent_name"], $form["phone"], 
         $form["child_name"], $form["gender"], $form["age"], 
-        $form["pants_size"], $form["shirt_size"], $form["shoe_size"], $form["coat_size"], 
-        $form["underwear_size"], $form["sock_size"], $form["wants"], $form["interests"], $form["photo_release"]
+        $pants_size, $shirt_size, $shoe_size, $coat_size, 
+        $underwear_size, $sock_size, $form["wants"], $form["interests"], $form["photo_release"]
     );
 
     $success = $stmt->execute();
     if ($success) {
-        mysqli_commit($conn);  // ✅ Ensure MySQL commits the new data
+        mysqli_commit($conn);
         error_log("DEBUG: Form successfully inserted!");
     } else {
         die("Error: " . $stmt->error);
@@ -30,7 +40,7 @@ function createAngelGiftForm($form) {
 
     $stmt->close();
     mysqli_close($conn);
-    
+
     return $success;
 }
 
