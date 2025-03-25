@@ -2,6 +2,7 @@
 
 include_once('dbinfo.php');
 include_once(dirname(__FILE__) . '/../domain/Children.php');
+include_once(dirname(__FILE__) . '/../database/dbFamily.php'); // Ensure this file is included only once
 
 /**
  * Function to create a child object from a database row
@@ -26,38 +27,6 @@ function make_a_child_from_database($result_row) {
         $result_row['notes']
     );
     return $child;
-}
-
-/**
- * Retrieve children by family ID
- */
-function retrieve_children_by_family_id($family_id) {
-    $conn = connect();
-
-    if (!$family_id || !is_numeric($family_id)) {
-        error_log("ERROR: Invalid family_id in retrieve_children_by_family_id() - received: " . $family_id);
-        return [];
-    }
-
-    $query = "SELECT * FROM dbChildren WHERE family_id = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $family_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $children = [];
-    while ($row = $result->fetch_assoc()) {
-        $children[] = $row;
-    }
-
-    if (empty($children)) {
-        error_log("DEBUG: No children found for family ID: " . $family_id);
-    }
-
-    $stmt->close();
-    $conn->close();
-
-    return $children;
 }
 
 /**
