@@ -107,7 +107,7 @@ function getFormsByFamily($familyId){
 }
 function getPublishedForms() {
     $conn = connect();
-    $query = "SELECT form_name FROM dbFormStatus WHERE is_published = 1";
+    $query = "SELECT form_name FROM dbformstatus WHERE is_published = 1";
     $result = mysqli_query($conn, $query);
 
     $publishedForms = [];

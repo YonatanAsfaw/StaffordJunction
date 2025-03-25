@@ -77,6 +77,9 @@ function getFormSubmissionById($formName, $submissionId) {
         case "Summer Junction":
             require_once("database/dbSummerJunctionForm.php");
             return getSummerJunctionById($submissionId);
+        case "Program Interest Form":
+            require_once("database/dbProgramInterestForm.php");
+            return getProgramInterestById($submissionId);
         default:
             return null;
     }
@@ -102,6 +105,9 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
         case "Summer Junction":
             require_once("database/dbSummerJunctionForm.php");
             return updateSummerJunctionRegistrationForm($submissionId, $updatedData);
+        case "Program Interest Form":
+            require_once("database/dbProgramInterestForm.php");
+            return updatedProgramInterestForm($submissionId);
         default:
             return false;
     }
