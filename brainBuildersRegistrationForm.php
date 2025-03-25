@@ -80,6 +80,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 <input type="text" name="child-last-name" id="child-last-name" required placeholder="Child Last Name" required><br><br>
                 -->
 
+                
                 <!-- Child Name -->
                 <label for="name">Child Name / Nombre del Hijo*</label><br><br>
                 <select name="name" id="name" required onchange="populateChildInfo(this.value)">
