@@ -74,6 +74,7 @@
         $permission_array['addchild.php'] = 1;
         $permission_array['forgotpassword.php'] = 1;
         $permission_array['createvolunteeraccount'] = 1;
+        $permission_array['programInterestForm.php'] = 1;
         //pages only staff can view
         $permission_array['personsearch.php'] = 2;
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
@@ -113,7 +114,7 @@
         $permission_array['overallattendence.php'] = 3;
         $permission_array['volunteerReportForm.php'] = 4;
         $permission_array['overallAttendence.php'] = 4;
-        
+        $permission_array['programInterestForms.php'] = 3;
         $permission_array['manageformpublications.php'] = 2;
 
 

@@ -1,62 +1,74 @@
 <?php
-
 require_once("dbinfo.php");
 require_once("dbFamily.php");
 
+// Session and access control for deletion endpoint
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
-    session_start();
-    $family_id = $_GET['id'] ?? $_SESSION['_id'];
-    if (deleteProgramInterestForm($family_id)) {
-        //redirect to fillForm after successful deletion
-        if (isset($_GET['id'])) {
-            header("Location: fillForm.php?status=deleted&id=" . $_GET['id']);
-        } else {
-            header("Location: fillForm.php?status=deleted");
-        }
-        exit;
-    } else {
-        if (isset($_GET['id'])) {
-            header("Location: fillForm.php?status=errord&id=" . $_GET['id']);
-        } else {
-            header("Location: fillForm.php?error=deleted");
-        }
-        exit;
+    if (session_status() === PHP_SESSION_NONE) {
+        session_cache_expire(30);
+        session_start();
     }
+    if (!isset($_SESSION['_id']) || $_SESSION['access_level'] < 1) {
+        header('Location: login.php');
+        exit();
+    }
+    $family_id = ($_SESSION['access_level'] == 1) ? $_SESSION['_id'] : (int) $_GET['id'];
+    if (deleteProgramInterestForm($family_id)) {
+        $redirect = "fillForm.php?status=deleted" . (isset($_GET['id']) ? "&id=" . $family_id : "");
+        header("Location: $redirect");
+    } else {
+        $redirect = "programInterestForm.php?status=errordelete" . (isset($_GET['id']) ? "&id=" . $family_id : "");
+        header("Location: $redirect");
+    }
+    exit();
 }
-
 
 function deleteProgramInterestForm($family_id) {
     $connection = connect();
     mysqli_begin_transaction($connection);
 
     try {
-        // Get the form ID for the family
-        $formQuery = "SELECT id FROM dbProgramInterestForm WHERE family_id = $family_id";
-        $formResult = mysqli_query($connection, $formQuery);
+        $formQuery = "SELECT id FROM dbProgramInterestForm WHERE family_id = ?";
+        $stmt = mysqli_prepare($connection, $formQuery);
+        mysqli_stmt_bind_param($stmt, "i", $family_id);
+        mysqli_stmt_execute($stmt);
+        $formResult = mysqli_stmt_get_result($stmt);
         if (!$formResult || mysqli_num_rows($formResult) <= 0) {
             throw new Exception("Form not found for family ID: $family_id");
         }
         $formRow = mysqli_fetch_assoc($formResult);
         $form_id = $formRow['id'];
+        mysqli_stmt_close($stmt);
 
-        // Delete from related tables
-        $deleteProgramInterests = "DELETE FROM dbProgramInterestsForm_ProgramInterests WHERE form_id = $form_id";
-        $deleteTopicInterests = "DELETE FROM dbProgramInterestsForm_TopicInterests WHERE form_id = $form_id";
-        $deleteAvailability = "DELETE FROM dbAvailability WHERE form_id = $form_id";
+        $deleteProgramInterests = "DELETE FROM dbProgramInterestsForm_ProgramInterests WHERE form_id = ?";
+        $stmt = mysqli_prepare($connection, $deleteProgramInterests);
+        mysqli_stmt_bind_param($stmt, "i", $form_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
 
-        mysqli_query($connection, $deleteProgramInterests);
-        mysqli_query($connection, $deleteTopicInterests);
-        mysqli_query($connection, $deleteAvailability);
+        $deleteTopicInterests = "DELETE FROM dbProgramInterestsForm_TopicInterests WHERE form_id = ?";
+        $stmt = mysqli_prepare($connection, $deleteTopicInterests);
+        mysqli_stmt_bind_param($stmt, "i", $form_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
 
-        // Delete the main form record
-        $deleteForm = "DELETE FROM dbProgramInterestForm WHERE id = $form_id";
-        mysqli_query($connection, $deleteForm);
+        $deleteAvailability = "DELETE FROM dbAvailability WHERE form_id = ?";
+        $stmt = mysqli_prepare($connection, $deleteAvailability);
+        mysqli_stmt_bind_param($stmt, "i", $form_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
 
-        // Commit the transaction
+        $deleteForm = "DELETE FROM dbProgramInterestForm WHERE id = ?";
+        $stmt = mysqli_prepare($connection, $deleteForm);
+        mysqli_stmt_bind_param($stmt, "i", $form_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
         mysqli_commit($connection);
+        error_log("Form deleted for family_id: $family_id");
         return true;
     } catch (Exception $e) {
-        // Rollback if any query fails
+        error_log("Delete failed: " . $e->getMessage());
         mysqli_rollback($connection);
         return false;
     } finally {
@@ -64,246 +76,366 @@ function deleteProgramInterestForm($family_id) {
     }
 }
 
-function createProgramInterestForm($form) {
+function createProgramInterestForm($form, $family_id) {
     $connection = connect();
-
-    $family_id = $_GET['id'] ?? $_SESSION['_id'];
-    $first_name = $form["first_name"];
-    $last_name = $form["last_name"];
-    $address = $form["address"];
-	$city = $form["city"];
-    $neighborhood = $form["neighborhood"];
-    $state = $form["state"];
-    $zip = $form["zip"];
-    $cell_phone = $form["cell_phone"];
-    $home_phone = $form["home_phone"];
-    $email = $form["email"];
-    $child_num = $form["child_num"];
-    $child_ages = $form["child_ages"];
-    $adult_num = $form["adult_num"];
-	$id = null;
-
-    // Begin transaction so if there are any errors with any queries, they are all rolled back and no data is inserted into database
-    // This is done so if one query is succesful and another isn't, it doesn't just insert the successful one which would result in incomplete data in the database
     mysqli_begin_transaction($connection);
+
+    $first_name = $form["first_name"] ?? '';
+    $last_name = $form["last_name"] ?? '';
+    $address = $form["address"] ?? '';
+    $city = $form["city"] ?? '';
+    $neighborhood = $form["neighborhood"] ?? '';
+    $state = $form["state"] ?? '';
+    $zip = $form["zip"] ?? '';
+    $cell_phone = $form["cell_phone"] ?? '';
+    $home_phone = $form["home_phone"] ?? '';
+    $email = $form["email"] ?? '';
+    $child_num = $form["child_num"] ?? 0;
+    $child_ages = $form["child_ages"] ?? '';
+    $adult_num = $form["adult_num"] ?? 0;
+
     try {
-        // First query inserts basic information in dbProgramInterestForm
         $query = "
-            INSERT INTO dbProgramInterestForm (family_id, first_name, last_name, address, city, neighborhood, state, zip, cell_phone, home_phone, email, child_num, 
-            child_ages, adult_num)
-            values ('$family_id', '$first_name', '$last_name', '$address', '$city', '$neighborhood', '$state', '$zip', '$cell_phone', '$home_phone', '$email', '$child_num', 
-            '$child_ages', '$adult_num');
+            INSERT INTO dbProgramInterestForm (family_id, first_name, last_name, address, city, neighborhood, state, zip, cell_phone, home_phone, email, child_num, child_ages, adult_num)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ";
-        $result = mysqli_query($connection, $query);
-        if (!$result) {
-            return null;
+        $stmt = mysqli_prepare($connection, $query);
+        mysqli_stmt_bind_param($stmt, "issssssssssiss", $family_id, $first_name, $last_name, $address, $city, $neighborhood, $state, $zip, $cell_phone, $home_phone, $email, $child_num, $child_ages, $adult_num);
+        if (!mysqli_stmt_execute($stmt)) {
+            throw new Exception("Failed to insert form data: " . mysqli_error($connection));
         }
         $id = mysqli_insert_id($connection);
+        mysqli_stmt_close($stmt);
 
-        // Insert program interests
-        if (isset($form['programs'])) {
-            $programs = $form['programs'];
-            insertProgramInterests($programs, $id, $connection);
+        if (isset($form['programs']) && !empty($form['programs'])) {
+            insertProgramInterests($form['programs'], $id, $connection);
         }
-        // Insert topic interests
-        if (isset($form['topics'])) {
-            $topics = $form['topics'];
-            insertTopicInterests($topics, $id, $connection);
+        if (isset($form['topics']) && !empty($form['topics'])) {
+            insertTopicInterests($form['topics'], $id, $connection);
         }
-        // insert availability
-        $days = $form['days'];
-        insertAvailability($days, $id, $connection);
-        // Commit transaction if there were no problems inserting data
+        if (isset($form['days']) && !empty($form['days'])) {
+            insertAvailability($form['days'], $id, $connection);
+        }
+
         mysqli_commit($connection);
+        error_log("Form inserted with ID: $id for family_id: $family_id");
+        return $id;
     } catch (Exception $e) {
-        // If there was a problem inserting data roll back and return null
+        error_log("Insert failed: " . $e->getMessage());
         mysqli_rollback($connection);
-        return null;
+        return false;
+    } finally {
+        mysqli_close($connection);
     }
-    mysqli_close($connection);
-    return $id;
 }
 
 function insertProgramInterests($programs, $form_id, $connection) {
-    // Second query inserts ids in dbProgramInterestsForm_ProgramInterests junction table
-    $query = "INSERT INTO dbProgramInterestsForm_ProgramInterests (form_id, interest_id) values ";
-    $last = end($programs);
-    foreach ($programs as $program) {
-        // Add value to query
-        $query .= "($form_id, (SELECT id FROM dbProgramInterests WHERE interest = '$program'))";
-        if ($program != $last) {
-            $query .= ", ";
-        } else {
-            $query .= ";";
-        }
+    $query = "INSERT INTO dbProgramInterestsForm_ProgramInterests (form_id, interest_id) VALUES ";
+    $placeholders = array_fill(0, count($programs), "($form_id, (SELECT id FROM dbProgramInterests WHERE interest = ?))");
+    $query .= implode(", ", $placeholders);
+    $stmt = mysqli_prepare($connection, $query);
+    
+    // Create reference variables for binding
+    $refs = [];
+    foreach ($programs as $key => $program) {
+        $refs[$key] = &$programs[$key]; // Use reference to original array element
     }
-    $result = mysqli_query($connection, $query);
-    if (!$result) {
-        return null;
+    $params = array_merge([$stmt, str_repeat('s', count($programs))], $refs);
+    call_user_func_array('mysqli_stmt_bind_param', $params);
+    
+    if (!mysqli_stmt_execute($stmt)) {
+        throw new Exception("Failed to insert program interests: " . mysqli_error($connection));
     }
-    $id = mysqli_insert_id($connection);
-    return $id;
+    mysqli_stmt_close($stmt);
 }
 
 function insertTopicInterests($topics, $form_id, $connection) {
-    // Third query inserts ids in dbProgramInterestsForm_TopicInterests junction table
-    $query = "INSERT INTO dbProgramInterestsForm_TopicInterests (form_id, interest_id) values ";
-    $last = end($topics);
     foreach ($topics as $topic) {
-        // Check if topic exists in database, if not then insert new topic in dbTopicInterests
-        $result = mysqli_query($connection, "SELECT * FROM dbTopicInterests WHERE interest = '$topic';");
+        $result = mysqli_query($connection, "SELECT * FROM dbTopicInterests WHERE interest = '" . mysqli_real_escape_string($connection, $topic) . "'");
         if (mysqli_num_rows($result) <= 0) {
-            mysqli_query($connection, "INSERT INTO dbTopicInterests (interest) values ('$topic');");
-        }
-        // Add value to query
-        $query .= "($form_id, (SELECT id FROM dbTopicInterests WHERE interest = '$topic'))";
-        if ($topic != $last) {
-            $query .= ", ";
-        } else {
-            $query .= ";";
+            $insertTopicQuery = "INSERT INTO dbTopicInterests (interest) VALUES (?)";
+            $stmt = mysqli_prepare($connection, $insertTopicQuery);
+            mysqli_stmt_bind_param($stmt, "s", $topic);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
         }
     }
-    $result = mysqli_query($connection, $query);
-    if (!$result) {
-        return null;
+
+    $query = "INSERT INTO dbProgramInterestsForm_TopicInterests (form_id, interest_id) VALUES ";
+    $placeholders = array_fill(0, count($topics), "($form_id, (SELECT id FROM dbTopicInterests WHERE interest = ?))");
+    $query .= implode(", ", $placeholders);
+    $stmt = mysqli_prepare($connection, $query);
+    
+    // Create reference variables for binding
+    $refs = [];
+    foreach ($topics as $key => $topic) {
+        $refs[$key] = &$topics[$key]; // Use reference to original array element
     }
-    $id = mysqli_insert_id($connection);
-    return $id;
+    $params = array_merge([$stmt, str_repeat('s', count($topics))], $refs);
+    call_user_func_array('mysqli_stmt_bind_param', $params);
+    
+    if (!mysqli_stmt_execute($stmt)) {
+        throw new Exception("Failed to insert topic interests: " . mysqli_error($connection));
+    }
+    mysqli_stmt_close($stmt);
 }
 
 function insertAvailability($days, $form_id, $connection) {
-    // Third query inserts family availability data in dbAvalability
-    $query = "INSERT INTO dbAvailability (form_id, day, morning, afternoon, evening, specific_time) values ";
-    $last = array_key_last($days);
-    // Go through days array
+    $query = "INSERT INTO dbAvailability (form_id, day, morning, afternoon, evening, specific_time) VALUES ";
+    $values = [];
+    $types = "";
+    $params = [];
     foreach ($days as $key => $val) {
-        // Get values from day
         $day_name = $key;
-        $morning = (int) $val["morning"];
-        $afternoon = (int) $val["afternoon"];
-        $evening = (int) $val["evening"];
-        $specific_time = $val["specific_time"];
-        // If there was no input for specific time, set as N/A
-        if (strlen($specific_time) <= 0) {
-            $specific_time = "";
-        }
-        // Add values to query
-        $query .= "('$form_id', '$day_name', '$morning', '$afternoon', '$evening', '$specific_time')";
-        if ($key != $last) {
-            $query .= ", ";
-        } else {
-            $query .= ";";
-        }
+        $morning = (int) ($val["morning"] ?? 0);
+        $afternoon = (int) ($val["afternoon"] ?? 0);
+        $evening = (int) ($val["evening"] ?? 0);
+        $specific_time = $val["specific_time"] ?? "";
+        $values[] = "(?, ?, ?, ?, ?, ?)";
+        $types .= "isiiis";
+        $params[] = $form_id;
+        $params[] = $day_name;
+        $params[] = $morning;
+        $params[] = $afternoon;
+        $params[] = $evening;
+        $params[] = $specific_time;
     }
-    $result = mysqli_query($connection, $query);
-    if (!$result) {
-        return null;
+    $query .= implode(", ", $values);
+    $stmt = mysqli_prepare($connection, $query);
+    
+    // Create reference variables for binding
+    $refs = [];
+    foreach ($params as $key => $value) {
+        $refs[$key] = &$params[$key]; // Use reference to original array element
     }
-    $id = mysqli_insert_id($connection);
-    return $id;
+    $bind_params = array_merge([$stmt, $types], $refs);
+    call_user_func_array('mysqli_stmt_bind_param', $bind_params);
+    
+    if (!mysqli_stmt_execute($stmt)) {
+        throw new Exception("Failed to insert availability: " . mysqli_error($connection));
+    }
+    mysqli_stmt_close($stmt);
 }
 
-// Function that gets the program interest form data from a family
-function getProgramInterestFormData($family_id){
+function getProgramInterestFormData($family_id) {
     $conn = connect();
-    $query = "SELECT dbProgramInterestForm.* FROM dbFamily INNER JOIN dbProgramInterestForm ON dbFamily.id = dbProgramInterestForm.family_id WHERE dbFamily.id = $family_id";
-    $res = mysqli_query($conn, $query);
+    $query = "SELECT dbProgramInterestForm.* FROM dbFamily INNER JOIN dbProgramInterestForm ON dbFamily.id = dbProgramInterestForm.family_id WHERE dbFamily.id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $family_id);
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
     mysqli_close($conn);
-    if(mysqli_num_rows($res) <= 0 || $res == null){
-        return null;
-    } else {
-        $row = mysqli_fetch_assoc($res);
-        return $row;
+    return (mysqli_num_rows($res) > 0) ? mysqli_fetch_assoc($res) : null;
+}
+function getProgramInterestFormById($id) {
+    $conn = connect(); // Ensure `connect()` establishes the database connection.
+
+    $query = "SELECT * FROM dbProgramInterestForm WHERE id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+    $formData = mysqli_fetch_assoc($result);
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+
+    return $formData;
+}
+function updateProgramInterestForm($submissionId, $updatedData) {
+    $connection = connect(); // Assuming connect() is defined in dbinfo.php
+
+    if (!$connection) {
+        die("ERROR: Database connection is NULL in updateProgramInterestForm.");
+    }
+
+    error_log("updateProgramInterestForm called for ID: " . $submissionId . " with data: " . json_encode($updatedData));
+
+    // Begin transaction to ensure atomic updates
+    mysqli_begin_transaction($connection);
+
+    try {
+        // Update main form data in dbProgramInterestForm
+        $query = "
+            UPDATE dbProgramInterestForm SET
+                family_id = ?,
+                first_name = ?,
+                last_name = ?,
+                address = ?,
+                city = ?,
+                neighborhood = ?,
+                state = ?,
+                zip = ?,
+                cell_phone = ?,
+                home_phone = ?,
+                email = ?,
+                child_num = ?,
+                child_ages = ?,
+                adult_num = ?
+            WHERE id = ?
+        ";
+
+        $stmt = mysqli_prepare($connection, $query);
+        if (!$stmt) {
+            throw new Exception("Database prepare() failed: " . mysqli_error($connection));
+        }
+
+        // Ensure NULL values are properly handled
+        $family_id = isset($updatedData['family_id']) ? (int)$updatedData['family_id'] : null;
+        $child_num = isset($updatedData['child_num']) ? (int)$updatedData['child_num'] : null;
+        $adult_num = isset($updatedData['adult_num']) ? (int)$updatedData['adult_num'] : null;
+
+        // Bind parameters for main form update
+        mysqli_stmt_bind_param(
+            $stmt,
+            "issssssssssissi",
+            $family_id,
+            $updatedData['first_name'] ?? '',
+            $updatedData['last_name'] ?? '',
+            $updatedData['address'] ?? '',
+            $updatedData['city'] ?? '',
+            $updatedData['neighborhood'] ?? '',
+            $updatedData['state'] ?? '',
+            $updatedData['zip'] ?? '',
+            $updatedData['cell_phone'] ?? '',
+            $updatedData['home_phone'] ?? '',
+            $updatedData['email'] ?? '',
+            $child_num,
+            $updatedData['child_ages'] ?? '',
+            $adult_num,
+            $submissionId
+        );
+
+        if (!mysqli_stmt_execute($stmt)) {
+            throw new Exception("Execute failed for main form update: " . mysqli_stmt_error($stmt));
+        }
+        mysqli_stmt_close($stmt);
+
+        // Update program interests (delete existing and re-insert)
+        if (isset($updatedData['programs']) && !empty($updatedData['programs'])) {
+            $deleteQuery = "DELETE FROM dbProgramInterestsForm_ProgramInterests WHERE form_id = ?";
+            $stmt = mysqli_prepare($connection, $deleteQuery);
+            mysqli_stmt_bind_param($stmt, "i", $submissionId);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+
+            insertProgramInterests($updatedData['programs'], $submissionId, $connection);
+        }
+
+        // Update topic interests (delete existing and re-insert)
+        if (isset($updatedData['topics']) && !empty($updatedData['topics'])) {
+            $deleteQuery = "DELETE FROM dbProgramInterestsForm_TopicInterests WHERE form_id = ?";
+            $stmt = mysqli_prepare($connection, $deleteQuery);
+            mysqli_stmt_bind_param($stmt, "i", $submissionId);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+
+            insertTopicInterests($updatedData['topics'], $submissionId, $connection);
+        }
+
+        // Update availability (delete existing and re-insert)
+        if (isset($updatedData['days']) && !empty($updatedData['days'])) {
+            $deleteQuery = "DELETE FROM dbAvailability WHERE form_id = ?";
+            $stmt = mysqli_prepare($connection, $deleteQuery);
+            mysqli_stmt_bind_param($stmt, "i", $submissionId);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+
+            insertAvailability($updatedData['days'], $submissionId, $connection);
+        }
+
+        // Commit transaction
+        mysqli_commit($connection);
+        error_log("Program Interest Form updated successfully for ID: $submissionId");
+        return true;
+    } catch (Exception $e) {
+        error_log("Update failed: " . $e->getMessage());
+        mysqli_rollback($connection);
+        return false;
+    } finally {
+        mysqli_close($connection);
     }
 }
-
-// Function that gets the program interest data from a family
 function getProgramInterestData($family_id) {
     $conn = connect();
     $query = "SELECT dbProgramInterests.interest FROM dbProgramInterests INNER JOIN dbProgramInterestsForm_ProgramInterests ON 
         dbProgramInterests.id = dbProgramInterestsForm_ProgramInterests.interest_id INNER JOIN dbProgramInterestForm ON 
-        dbProgramInterestsForm_ProgramInterests.form_id = dbProgramInterestForm.id WHERE dbProgramInterestForm.family_id = $family_id";
-    $result = mysqli_query($conn, $query);
-    if (!$result) {
-        return null;
-    }
+        dbProgramInterestsForm_ProgramInterests.form_id = dbProgramInterestForm.id WHERE dbProgramInterestForm.family_id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $family_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
     $programs = [];
-    foreach ($result as $row) {
+    while ($row = mysqli_fetch_assoc($result)) {
         $programs[] = $row['interest'];
     }
     mysqli_close($conn);
     return $programs;
 }
 
-// Function that gets the topic interest data from a family
 function getTopicInterestData($family_id) {
     $conn = connect();
     $query = "SELECT dbTopicInterests.interest FROM dbTopicInterests INNER JOIN dbProgramInterestsForm_TopicInterests ON 
         dbTopicInterests.id = dbProgramInterestsForm_TopicInterests.interest_id INNER JOIN dbProgramInterestForm ON 
-        dbProgramInterestsForm_TopicInterests.form_id = dbProgramInterestForm.id WHERE dbProgramInterestForm.family_id = $family_id";
-    $result = mysqli_query($conn, $query);
-    if (!$result) {
-        return null;
-    }
+        dbProgramInterestsForm_TopicInterests.form_id = dbProgramInterestForm.id WHERE dbProgramInterestForm.family_id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $family_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
     $topics = [];
-    foreach ($result as $row) {
+    while ($row = mysqli_fetch_assoc($result)) {
         $topics[] = $row['interest'];
     }
     mysqli_close($conn);
     return $topics;
 }
 
-// Get any topics that a family entered in the other topics section as an array
 function getOtherTopicInterestData($topics) {
     $other_topics = [];
     $ignore_topics = ["Legal Services", "Finance", "Tenant Rights", "Health/Wellness/Nutrition", "Continuing Education", "Parenting", "Mental Health",
-            "Job/Career Guidance", "Citizenship Classes"];
-    $size = sizeof($topics);
-    for ($i = 0; $i < $size; $i++) {
-        if (!in_array($topics[$i], $ignore_topics)) {
-            $other_topics[] = $topics[$i];
+        "Job/Career Guidance", "Citizenship Classes"];
+    foreach ($topics as $topic) {
+        if (!in_array($topic, $ignore_topics)) {
+            $other_topics[] = $topic;
         }
     }
     return $other_topics;
 }
 
-// Function that gets availability data from a familt
 function getAvailabilityData($family_id) {
     $conn = connect();
     $query = "SELECT dbAvailability.* FROM dbAvailability INNER JOIN dbProgramInterestForm ON 
-        dbAvailability.form_id = dbProgramInterestForm.id WHERE dbProgramInterestForm.family_id = $family_id";
-    $result = mysqli_query($conn, $query);
-    if (!$result ||  mysqli_num_rows($result) <= 0) {
-        return null;
-    }
+        dbAvailability.form_id = dbProgramInterestForm.id WHERE dbProgramInterestForm.family_id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $family_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
     $availabilities = [];
-    foreach ($result as $row) {
-        $availabilities[$row['day']] = array(
+    while ($row = mysqli_fetch_assoc($result)) {
+        $availabilities[$row['day']] = [
             "morning" => $row["morning"],
             "afternoon" => $row["afternoon"],
             "evening" => $row["evening"],
             "specific_time" => $row["specific_time"],
-        );
+        ];
     }
     mysqli_close($conn);
     return $availabilities;
 }
 
-// Autofills text fields in the form, disables them if form was already filled and is being viewed
 function showProgramInterestData($data, $value) {
-    // If family hasn't filled form, set field to the value
-    if (!isset($data)) {
-        echo "value=\"$value\"";
+    $value = $value ?? '';
+    $data = $data ?? '';
+    if ($data === '') {
+        echo "value=\"" . htmlspecialchars($value) . "\"";
     } else {
-        // Else, set it to the data the user entered when filling the form and disable
-        echo "disabled style='background-color: yellow; color: black;' value=\"$data\"";
+        echo "disabled style='background-color: yellow; color: black;' value=\"" . htmlspecialchars($data) . "\"";
     }
 }
 
-// Checks any checkboxes that the family pressed when filling form
 function showProgramInterestCheckbox($data, $value) {
     if ($data != null) {
-        // If value in topic array is same as the checkbox value, set it to checked
         if (in_array($value, $data)) {
             echo "style='pointer-events: none;' checked";
         } else {
@@ -312,18 +444,14 @@ function showProgramInterestCheckbox($data, $value) {
     }
 }
 
-// Checks any checkboxes in the availability section that the family pressed when filling form
 function showAvailabilityCheckbox($data) {
-    // If available, set it to checked
     if ($data == 1) {
         echo "style='pointer-events: none;' checked";
     } else if ($data != null) {
         echo "disabled";
     }
 }
-?>
 
-<?php
 function getProgramInterestSubmissions() {
     $conn = connect();
     $query = "SELECT 
@@ -331,20 +459,14 @@ function getProgramInterestSubmissions() {
         GROUP_CONCAT(DISTINCT dbProgramInterests.interest) as program_interests,
         GROUP_CONCAT(DISTINCT dbTopicInterests.interest) as topic_interests
     FROM dbProgramInterestForm
-    -- handles program interests
     LEFT JOIN dbProgramInterestsForm_ProgramInterests ON dbProgramInterestForm.id = dbProgramInterestsForm_ProgramInterests.form_id
     LEFT JOIN dbProgramInterests ON dbProgramInterestsForm_ProgramInterests.interest_id = dbProgramInterests.id
-    -- handles topic interests
     LEFT JOIN dbProgramInterestsForm_TopicInterests ON dbProgramInterestForm.id = dbProgramInterestsForm_TopicInterests.form_id
     LEFT JOIN dbTopicInterests ON dbProgramInterestsForm_TopicInterests.interest_id = dbTopicInterests.id";
     $result = mysqli_query($conn, $query);
-
-    if(mysqli_num_rows($result) > 0){
-        $submissions = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        mysqli_close($conn);
-        return $submissions;
-    }
-    return [];
+    $submissions = (mysqli_num_rows($result) > 0) ? mysqli_fetch_all($result, MYSQLI_ASSOC) : [];
+    mysqli_close($conn);
+    return $submissions;
 }
 
 function getProgramInterestSubmissionsFromFamily($familyId) {
@@ -354,19 +476,17 @@ function getProgramInterestSubmissionsFromFamily($familyId) {
         GROUP_CONCAT(DISTINCT dbProgramInterests.interest) as program_interests,
         GROUP_CONCAT(DISTINCT dbTopicInterests.interest) as topic_interests
     FROM dbProgramInterestForm
-    -- handles program interests
     LEFT JOIN dbProgramInterestsForm_ProgramInterests ON dbProgramInterestForm.id = dbProgramInterestsForm_ProgramInterests.form_id
     LEFT JOIN dbProgramInterests ON dbProgramInterestsForm_ProgramInterests.interest_id = dbProgramInterests.id
-    -- handles topic interests
     LEFT JOIN dbProgramInterestsForm_TopicInterests ON dbProgramInterestForm.id = dbProgramInterestsForm_TopicInterests.form_id
     LEFT JOIN dbTopicInterests ON dbProgramInterestsForm_TopicInterests.interest_id = dbTopicInterests.id
-    WHERE dbProgramInterestForm.family_id = $familyId";
-    $result = mysqli_query($conn, $query);
-    if(mysqli_num_rows($result) > 0){
-        $submissions = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        mysqli_close($conn);
-        return $submissions;
-    }
-    return [];
+    WHERE dbProgramInterestForm.family_id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $familyId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $submissions = (mysqli_num_rows($result) > 0) ? mysqli_fetch_all($result, MYSQLI_ASSOC) : [];
+    mysqli_close($conn);
+    return $submissions;
 }
 ?>
