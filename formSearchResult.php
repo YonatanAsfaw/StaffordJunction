@@ -88,7 +88,9 @@ if (isset($_GET['searchByForm'])) {
                         <?php
                             foreach ($columnNames as $columnName) {
                                 if (!in_array($columnName, $excludedColumns)) {
-                                    echo '<th>' . htmlspecialchars((string) $columnName, ENT_QUOTES, 'UTF-8') . '</th>';
+                                    // Replace underscores with spaces and capitalize the first letter of each word
+                                    $formattedColumnName = ucwords(str_replace('_', ' ', $columnName));
+                                    echo '<th>' . htmlspecialchars($formattedColumnName, ENT_QUOTES, 'UTF-8') . '</th>';
                                 }
                             }
                         ?>
