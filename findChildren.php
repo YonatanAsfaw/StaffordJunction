@@ -100,7 +100,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
             .general a {
-                color: cyan;
+                color: white;
                 text-decoration: none;
             }
             .general tbody tr:hover {
