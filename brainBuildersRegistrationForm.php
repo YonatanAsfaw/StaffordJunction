@@ -85,14 +85,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 <label for="name">Child Name / Nombre del Hijo*</label><br><br>
                 <select name="name" id="name" required onchange="populateChildInfo(this.value)">
                     <option value="" disabled selected>Select Child</option>
-                <?php
-                foreach ($children as $c){ //cycle through each child of family account user
-                    $id = $c->getID();
-                    // Check if form was already completed for the child
-                    $name = $c->getFirstName() . " " . $c->getLastName(); //display name if they don't have a form filled out for them
-                    echo "<option value=\"$id\">$name</option>";
-                }
-                ?>
+                    <?php
+    require_once('domain/Children.php');
+    foreach ($children as $child) {
+        $id = $child['id'];
+        $name = $child['first_name'] . " " . $child['last_name'];
+        $dob = $child['birth_date'];
+        echo "<option value='$id'>$name </option>"; 
+    }
+    ?>
                 </select><br><br>
 
 
