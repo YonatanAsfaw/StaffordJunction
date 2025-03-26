@@ -172,16 +172,7 @@ function createChildCareForm($form) {
     $guardian_signature = $form["guardian_signature"] ?? '';
     $signature_date = $form["signature_date"] ?? '';
 
-    // Debug output
-    echo "<pre>DEBUG: Preparing SQL Query</pre>";
-
-    // Let's print the actual values for debugging
-    echo "<pre>DEBUG: Values to be inserted:
-    child_id = $child_id
-    child_name = $child_name
-    parent1_zip_code = $parent1_zip_code
-    parent2_zip_code = $parent2_zip_code
-    </pre>";
+    
 
     $query = "INSERT INTO dbChildCareWaiverForm (
         child_id, child_name, birth_date, gender, child_address, child_city, child_state, child_zip, 
@@ -197,7 +188,7 @@ function createChildCareForm($form) {
         die("ERROR: SQL preparation failed - " . mysqli_error($connection));
     }
     $types = "isssssssssssssssssssssssssssss";
-    echo "Type string length: " . strlen($types);
+    
 
 
 
@@ -214,7 +205,7 @@ function createChildCareForm($form) {
         die("Insert failed: " . mysqli_error($connection));
     }
 
-    echo "<pre>✅ SUCCESS: Form inserted!</pre>";
+   
 
     $id = mysqli_insert_id($connection);
     mysqli_commit($connection);
@@ -302,6 +293,44 @@ function updateChildCareWaiverForm($id, $updatedData) {
 
     return $success;
 }
+function getChildCareWaiverSubmissionsFromFamily($familyId) {
+    $conn = connect(); // assuming you already have this
+
+    $query = "SELECT w.* FROM dbChildCareWaiverForm w
+              JOIN dbChildren c ON w.child_id = c.id
+              WHERE c.family_id = ?";
+              
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $familyId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    $forms = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $forms[] = $row;
+    }
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+
+    return $forms;
+}
+
+function getChildCareWaiverSubmissions() {
+    $conn = connect(); // Use your DB connection function
+
+    $query = "SELECT * FROM dbChildCareWaiverForm ORDER BY id DESC";
+    $result = mysqli_query($conn, $query);
+
+    $forms = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $forms[] = $row;
+    }
+
+    mysqli_close($conn);
+    return $forms;
+}
+
 
 
 

@@ -1,8 +1,11 @@
 <?php
 session_cache_expire(30);
+ini_set('display_startup_errors', 1);
 session_start();
+ini_set('error_log', __DIR__ . '/php-error.log'); // Log to a local file
 ini_set("display_errors",1);
 error_reporting(E_ALL);
+error_log("🔥 Loaded formSearchResult.php");
 
 if (!isset($_SESSION['_id'])) {
     header('Location: login.php');
@@ -101,17 +104,26 @@ if (isset($_GET['searchByForm'])) {
                                     // Grab the correct form ID
                                     $editId = $submission['form_id'] ?? $submission['id'];
 
-                
+                                    
+                                    
+                                    error_log("Selected Form Name: " . $selectedFormName);
+
                                     // Determine the edit ID and URL based on the form type.
-                                    if ($selectedFormName === "Spring Break Camp Form") {
+                                   if ($selectedFormName === "Spring Break Camp Form") {
                                         // For Spring Break, use spring_id
                                         $editId = $submission['spring_id'] ?? $submission['form_id'] ?? '';
                                         $editUrl = "editSpringBreakCampForm.php?id=" . htmlspecialchars($editId, ENT_QUOTES, 'UTF-8');
+                                    }
+                                    elseif (stripos(trim($selectedFormName), "child care waiver") !== false) {
+                                        $editId = $submission['form_id'] ?? $submission['id'];
+                                        $editUrl = "editChildCareWaiverForm.php?form_id=" . htmlspecialchars($editId, ENT_QUOTES, 'UTF-8');
+                                    }
+                                    
                                     // } elseif ($selectedFormName === "Summer Junction") {
                                     //     // For Summer Junction, use summer_id
                                     //     $editId = $submission['summer_id'] ?? $submission['form_id'] ?? '';
                                     //     $editUrl = "editSummerJunctionForm.php?id=" . htmlspecialchars($editId, ENT_QUOTES, 'UTF-8');
-                                    } else {
+                                    else {
                                         // For other forms, fall back to the default form_id and URL pattern.
                                         $editId = $submission['form_id'] ?? $submission['id'];
                                         $familyIdSanitized = htmlspecialchars($familyId ?? '', ENT_QUOTES, 'UTF-8'); // Ensure $familyId isn't null

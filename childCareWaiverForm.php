@@ -33,9 +33,7 @@ if ($accessLevel > 1) {
         die("ERROR: Invalid Family ID. Expected an integer but received: " . $userID);
     }
     $family_id = (int) $userID;
-    echo "<pre>DEBUG: SESSION DATA\n";
-    print_r($_SESSION);
-    echo "</pre>";
+    
 
     $children = retrieve_children_by_family_id($family_id);
     $family = retrieve_family_by_id($family_id);
