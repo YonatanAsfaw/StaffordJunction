@@ -166,9 +166,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-
 <h2>Angel Gifts Wish Form</h2>
-
 <div class="form-container">
     <form method="POST">
         <label>Email*</label>

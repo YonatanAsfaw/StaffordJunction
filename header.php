@@ -75,6 +75,10 @@
         $permission_array['forgotpassword.php'] = 1;
         $permission_array['createvolunteeraccount'] = 1;
         $permission_array['programInterestForm.php'] = 1;
+        $permission_array['programreviewform.php'] = 1;
+        $permission_array['summerjunctionregistrationform.php'] = 1;
+        $permission_array['springbreakform.php'] = 1;
+        $permission_array['angelgiftform.php'] = 1;
         //pages only staff can view
         $permission_array['personsearch.php'] = 2;
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
@@ -116,7 +120,11 @@
         $permission_array['overallAttendence.php'] = 4;
         $permission_array['programInterestForms.php'] = 3;
         $permission_array['manageformpublications.php'] = 2;
-
+        $permission_array['programreviewform.php'] = 3;
+        $permission_array['programinterestform.php'] = 3;
+        $permission_array['summerjunctionregistrationform.php'] = 3;
+        $permission_array['springbreakform.php'] = 3;
+        $permission_array['angelgiftform.php'] = 3;
 
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));

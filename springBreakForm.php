@@ -53,6 +53,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     </head>
 
     <body>
+    <?php require('header.php'); ?>
 
         <!-- Main heading of the page, informing about the Spring Break Camp -->
         <h1>Stafford Junction Spring Break Camp 2024 / Campamento de Vacaciones de Primavera de Stafford Junction</h1>

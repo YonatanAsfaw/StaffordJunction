@@ -94,6 +94,7 @@ require_once('database/dbProgramReviewForm.php');
     </style>
 </head>
 <body>
+<?php require('header.php'); ?>
     <h1>Program Review Form</h1>
     <div id="formatted_form">
         <!--last name field-->

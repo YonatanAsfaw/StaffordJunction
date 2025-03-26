@@ -82,6 +82,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <title>Stafford Junction | Summer Junction Registration Form</title>
 </head>
     <body>
+    <?php require('header.php'); ?>
     <?php //If the user is an admin or staff, the message should appear at index.php
         if(isset($successMessage) && $accessLevel > 1){
             echo '<script>document.location = "fillForm.php?formSubmitSuccess&id=' . $_GET['id'] . '";</script>';

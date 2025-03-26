@@ -146,6 +146,7 @@ if ($data) {
         </style>
     </head>
     <body>
+    <?php require('header.php'); ?>
         <h1>Program Interest Form / formulario de interés del programa</h1>
         <?php 
         if (isset($_GET['formSubmitFail'])) {
