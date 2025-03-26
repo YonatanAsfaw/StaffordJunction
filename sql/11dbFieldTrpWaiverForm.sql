@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS `dbFieldTripWaiverForm`;
 -- Table for the `dbFieldTripWaiverForm`
 --
 CREATE TABLE `dbFieldTripWaiverForm` (
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `field_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `child_id` INT NOT NULL,
     `child_name` varchar(256) NOT NULL,
     `gender` VARCHAR(6) NOT NULL,

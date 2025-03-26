@@ -128,6 +128,7 @@ if (!empty($missingFields)) {
     <title>Stafford Junction | Field Trip Waiver Form <?php echo date("Y"); ?></title>
 </head>
 <body>
+<?php require('header.php'); ?>
 
     <!--Please fill out error message pop up -->
     <?php if (!empty($errors)): ?>
@@ -155,16 +156,14 @@ if (!empty($missingFields)) {
     <select name="child_name" id="child_name" required>
         <option disabled selected>Select a child</option>
         <?php
-            require_once('domain/Children.php');
-            foreach ($children as $c) {
-                $id = $c->getID();
-                if (!isFieldTripWaiverFormComplete($id)) {
-                    $name = $c->getFirstName() . " " . $c->getLastName();
-                    $value = $id . "_" . $name;
-                    echo "<option value='$value'>$name</option>";
-                }
-            }
-        ?>
+    require_once('domain/Children.php');
+    foreach ($children as $child) {
+        $id = $child['id'];
+        $name = $child['first_name'] . " " . $child['last_name'];
+        $dob = $child['birth_date'];
+        echo "<option value='$id'>$name </option>"; 
+    }
+    ?>
     </select>
     <script>
         const children = <?php echo json_encode($children); ?>;
