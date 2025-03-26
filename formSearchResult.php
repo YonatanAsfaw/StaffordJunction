@@ -42,6 +42,10 @@ if (isset($_GET['searchByForm'])) {
 
     }
 
+    if($_GET['formName'] == "Program Review"){
+        header('location: viewFeedback.php');
+    }
+
     error_log("Fetching form: " . $selectedFormName . " | Family ID: " . $familyId);
     error_log("Database Query Result: " . json_encode($submissions));
 

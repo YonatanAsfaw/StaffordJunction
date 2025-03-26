@@ -1,4 +1,5 @@
 <?php
+//include_once(dirname(__FILE__).'/../domain/Family.php');
 
 session_cache_expire(30);
 session_start();
@@ -11,6 +12,7 @@ $userID = null;
 // Search criteria variables
 $last_name = null;
 $email = null;
+$event = null;
 //$neighborhood = null;
 //$address = null;
 //$city = null;
@@ -24,7 +26,6 @@ require_once("domain/Family.php");
 require_once("database/dbProgramReviewForm.php");
 // Get all families if no criteria inputted in search
 //$family = find_families($last_name, $email, $neighborhood, $address, $city, $zip, $income, $assistance, $is_archived);
-$review = find_reviews(null, null);
 
 if (isset($_SESSION['_id'])) {
     $loggedIn = true;
@@ -38,11 +39,11 @@ if ($accessLevel < 2) {
     die();
 }
 
-/*if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['notification'])){
+if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['notification'])){
     header('Location: deleteFeedback.php');
     die();
-}*/
-/*if($_SERVER['REQUEST_METHOD'] == "POST"){
+}
+if($_SERVER['REQUEST_METHOD'] == "POST"){
     require_once("include/input-validation.php");
     $args = sanitize($_POST, null);
     // Get criteria if set
@@ -52,7 +53,10 @@ if ($accessLevel < 2) {
     if (isset($args['email'])) {
         $email = $args['email'];
     }
-    if (isset($args['neighborhood'])) {
+    if(isset($args['event'])){
+        $event = $args['event'];
+    }
+    /*if (isset($args['neighborhood'])) {
         $neighborhood = $args['neighborhood'];
     }
     if (isset($args['address'])) {
@@ -76,8 +80,9 @@ if ($accessLevel < 2) {
         $is_archived = $args['is-archived'];
     }
     // Find families based on set criteria
-    $family = find_families($last_name, $email, $neighborhood, $address, $city, $zip, $income, $assistance, $is_archived);
-}*/
+    $family = find_families($last_name, $email, $neighborhood, $address, $city, $zip, $income, $assistance, $is_archived);*/
+}
+$review = find_reviews($last_name, $email, $event);
 
 ?>
 
@@ -101,14 +106,14 @@ if ($accessLevel < 2) {
             }
         </style>
     </head>
-    <body>
-        <?php require_once('header.php') ?>
+    <?php require_once('header.php') ?>
+        <body>
         <h1>View Feedback</h1>
 
         <form id="formatted_form" method="POST">
         <label>Select any criteria to search for feedback</label>
-            <!-- Search Criteria Fields -->
-            <!--<div class="search-container">
+             <!--Search Criteria Fields-->
+            <div class="search-container">
                 <div class="search-label">
                 <label>Last Name:</label>
                 </div>
@@ -125,6 +130,14 @@ if ($accessLevel < 2) {
                 </div>
             </div>
             <div class="search-container">
+                <div class="search-label">
+                    <label>Event:</label>
+                </div>
+                <div>
+                    <input type="text" id="event" name='event'>
+                </div>
+            </div>
+            <!--<div class="search-container">
                 <div class="search-label">
                 <label>Neighborhood:</label>
                 </div>
@@ -187,7 +200,8 @@ if ($accessLevel < 2) {
                 </div>
             </div>-->
             
-            <!--<button type="submit" class="button_style">Search</button>-->
+            <button type="submit" class="button_style">Search</button>
+        </form>
 
             <?php 
             //if (isset($family)) {
@@ -210,7 +224,9 @@ if ($accessLevel < 2) {
                     <table class = "general">
                         <thead>
                             <tr>
-                                <th>Family ID</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Program</th>
                                 <th>Feedback</th>
                                 <th>Delete</th>
                             </tr>
@@ -235,13 +251,17 @@ if ($accessLevel < 2) {
                     
                     foreach ($review as $msg) {
                         $id = $msg->getID();
+                        $family = retrieve_family_by_id($msg->getFamily());
                         //echo "<tr onclick=\"window.location.href='familyView.php?id=$id'\" style='cursor: pointer;'>";
                         echo '<tr>';
-                        echo '<td>' . $msg->getFamily() . '</td>';
+                        echo '<td>' . $family->getLastName() . '</td>';
+                        echo '<td>' . $family->getEmail() . '</td>';
+                        echo '<td>' . $msg->getProgram() . '</td>';
                         echo '<td>' . $msg->getFeedback() . '</td>';
                         echo '<td><form action="deleteFeedback.php" method="post">';
-                        echo '<input type="hidden" name="family" value=' . $msg->getFamily() . '" />';
+                        echo '<input type="hidden" name="family" value=' . $msg->getFamily() . ' />';
                         echo '<input type="hidden" name="feedback" value="' . $msg->getFeedback() . '" />';
+                        echo '<input type="hidden" name="program" value="' . $msg->getProgram() . '" />';
                         echo '<input type="hidden" name="id" value="' . $id . '" />';
                         echo '<button type="submit" name="notification">Delete</button>';
                         //echo '<input type="submit" value="delete" />';
@@ -264,7 +284,7 @@ if ($accessLevel < 2) {
                 </div>';
             //}
             ?>
-        </form>
+        <!--</form>-->
      
         <a class="button cancel button_style"  href="index.php"">Return to Dashboard</a>
      

@@ -22,22 +22,29 @@ if (isset($_SESSION['_id'])) {
     die();
 }
 
+$family = null;
+
+if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])){
+    $family = $_GET['id'];
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['programReviewForm'])) {
     // Retrieve data from the form
-    $family = $_POST['family'];
+    $family_id = $_POST['family'];
+    $event_name = $_POST['programName'];
     $reviewText = $_POST['reviewText'];
 
     // Connect to the database
     $connection = connect(); 
 
     // Fetch route_id based on route_direction and neighborhood
-    $query = "SELECT id FROM dbFamily WHERE lastName = ? OR lastName2 = ?";
-    $stmt = $connection->prepare($query);
-    $stmt->bind_param("ss", $family, $family);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    //$query = "SELECT id FROM dbFamily WHERE lastName = ? OR lastName2 = ?";
+    //$stmt = $connection->prepare($query);
+    //$stmt->bind_param("ss", $family, $family);
+    //$stmt->execute();
+    //$result = $stmt->get_result();
     
-    if ($result->num_rows === 0) {
+    /*if ($result->num_rows === 0) {
         // No families with the last name found
         $stmt->close();
         $connection->close();
@@ -48,11 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['programReviewForm']))
     $row = $result->fetch_assoc();
     $family_id = $row['id'];
     $stmt->close();
-
+*/
     //insert into dbProgramReviewForm
-    $insertQuery = "INSERT INTO dbProgramReviewForm (family_id, reviewText) VALUES (?, ?)";
+    $insertQuery = "INSERT INTO dbProgramReviewForm (family_id, event_name, reviewText) VALUES (?, ?, ?)";
     $stmt = $connection->prepare($insertQuery);
-    $stmt->bind_param("is", $family_id, $reviewText);
+    $stmt->bind_param("iss", $family_id, $event_name, $reviewText);
 
     if ($stmt->execute()) {
         // Success
@@ -89,10 +96,15 @@ require_once('database/dbProgramReviewForm.php');
 <body>
     <h1>Program Review Form</h1>
     <div id="formatted_form">
-        <!--last name field -->
+        <!--last name field-->
         <form action="" method="post">
-            <label for="family">Last Name:</label>
+            <!--<label for="family">Last Name:</label>
             <input type="text" id="family" name="family">
+            <br><br>-->
+            <!--program name field-->
+            <?php echo '<input type="hidden" id="family" name="family" value="' . $family . '">'; ?>
+            <label for="programName">Program Name:</label>
+            <input type="text" id="programName" name="programName">
             <br><br>
             <!--feedback field-->
             <label for="reviewText">Comments:</label>
@@ -119,8 +131,8 @@ require_once('database/dbProgramReviewForm.php');
             <br><br>
             <button type="submit" name="programReviewForm">Submit Feedback</button>
         </form>
-        <br>
         <a href="fillForm.php" style="text-decoration: none;">
+            <br>
         <button style="padding: 10px 20px; font-size: 16px;">Cancel</button>
     </a>
 </body>
