@@ -33,8 +33,10 @@ $excludedColumns = array(
     // Newly added values
     "parent_email", "emgcy_contact_name_1", "emgcy_contact1_rship", "emgcy_contact1_phone", 
     "emgcy_contact_name_2", "emgcy_contact2_rship", "emgcy_contact2_phone", "medical_insurance_company", 
-    "policy_number", "photo_waiver_signature", "photo_waiver_date", "field_id", "child_name", "medical_notes", "notes", "address", "city", "state",
-    "zip", "is_hispanic"
+    "policy_number", "photo_waiver_signature", "photo_waiver_date", "field_id", "", "medical_notes", "notes", "address", "city", "state",
+    "zip", "is_hispanic", "student_name", "spring_id", "email", "gender", "parent1_zip_code", "parent2_zip_code",
+    "photo_release", "pants_size", "age", "shoe_size", "coat_size", "underwear_size", "sock_size", "wants",
+    "interests", "phone", "parent_name", "dob", "birth_date", "birthdate"
 );
 
 
@@ -45,6 +47,16 @@ $noResults = true;
 $searchingByForm = false;
 $submissions = [];
 $columnNames = [];
+
+$columnNames = !$noResults ? array_keys($submissions[0]) : [];
+
+// Remove 'child_name' ONLY for 'Angels Gift'
+if ($selectedFormName === "Angel Gifts Wish List") {
+    $excludedColumns[] = "child_name";
+}
+if ($selectedFormName === "Field Trip Waiver Form") {
+    $excludedColumns[] = "child_name";
+}
 
 if (isset($_GET['searchByForm'])) {
     $familyId = isset($_GET['searchByFamily']) ? $familyId : null;
