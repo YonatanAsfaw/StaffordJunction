@@ -53,7 +53,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
 
                 <!-- School Supplies Form -->
-                <?php if (in_array("School Supplies Form", $publishedForms)): ?>
+                <?php if (in_array("School Supplies", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=SchoolSuppliesForm.php' 
                 : 'schoolSuppliesForm.php'; ?>">
@@ -63,7 +63,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
                 
                 <!-- Spring Break Camp Form -->
-                <?php if (in_array("Spring Break Form", $publishedForms)): ?>
+                <?php if (in_array("Spring Break", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=springBreakForm.php' 
                 : 'springBreakForm.php'; ?>">
@@ -83,7 +83,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
 
                 <!-- Child Care Waiver Form -->
-                <?php if (in_array("Child Care Waiver Form", $publishedForms)): ?>
+                <?php if (in_array("Child Care Waiver", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=childCareWaiverForm.php' 
                 : 'childCareWaiverForm.php'; ?>">
@@ -93,7 +93,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
 
                 <!-- Field Trip Waiver Form -->
-                <?php if (in_array("Field Trip Waiver Form", $publishedForms)): ?>
+                <?php if (in_array("Field Trip Waiver", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=fieldTripWaiver.php' 
                 : 'fieldTripWaiver.php'; ?>">
@@ -103,7 +103,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
 
                 <!-- Program Interest Form -->
-                <?php if (in_array("Program Interest Form", $publishedForms)): ?>
+                <?php if (in_array("Program Interest", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=programInterestForm.php' 
                 : 'programInterestForm.php'; ?>">
@@ -113,7 +113,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
 
                 <!-- Program Review Form -->
-                <?php if (in_array("Program Review Form", $publishedForms)): ?>
+                <?php if (in_array("Program Review", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=programReviewForm.php' 
                 : 'programReviewForm.php'; ?>">
@@ -123,7 +123,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
 
                 <!-- Brain Builders Registration Form -->
-                <?php if (in_array("Brain Builders Student Registration Form", $publishedForms)): ?>
+                <?php if (in_array("Brain Builders Student Registration", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=brainBuildersRegistrationForm.php' 
                 : 'brainBuildersRegistrationForm.php'; ?>">
@@ -133,7 +133,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
 
                 <!-- Brain Builders Holiday Party Form -->
-                <?php if (in_array("Brain Builders Holiday Party Form", $publishedForms)): ?>
+                <?php if (in_array("Brain Builders Holiday Party", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=holidayPartyForm.php' 
                 : 'holidayPartyForm.php'; ?>">
@@ -143,7 +143,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
 
                 <!-- Summer Junction Registration Form -->
-                <?php if (in_array("Summer Junction Registration Form", $publishedForms)): ?>
+                <?php if (in_array("Summer Junction Registration", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=summerJunctionRegistrationForm.php' 
                 : 'summerJunctionRegistrationForm.php'; ?>">

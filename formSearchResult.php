@@ -18,7 +18,25 @@ require_once("database/dbFamily.php");
 require_once("domain/Family.php");
 
 $families = find_all_families();
-$excludedColumns = array("id", "steam", "family_id", "securityQuestion", "securityAnswer", "password", "child_id", "form_id", "id", "neighborhood", "shirt_size", "child_address", "child_city", "child_state", "child_zip", "child_medical_allergies", "child_food_avoidances", "parent1_first_name", "parent1_last_name", "parent1_address", "parent1_city", "parent1_state", "parent1_zip", "parent1_email", "parent1_cell_phone", "parent1_home_phone", "parent1_work_phone", "parent2_first_name", "parent2_last_name", "parent2_address", "parent2_city", "parent2_state", "parent2_zip", "parent2_email", "parent2_cell_phone", "parent2_home_phone", "parent2_work_phone", "emergency_contact1_name", "emergency_contact1_relationship", "emergency_contact1_phone", "emergency_contact2_name", "emergency_contact2_relationship", "emergency_contact2_phone", "primary_language", "hispanic_latino_spanish", "race", "num_unemployed", "num_retired", "num_unemployed_students", "num_employed_fulltime", "num_employed_parttime", "num_employed_students", "income", "other_programs", "lunch", "insurance", "policy_num", "signature", "signature_date");
+$excludedColumns = array(
+    "id", "steam", "family_id", "securityQuestion", "securityAnswer", "password", "child_id", "form_id", "id", 
+    "neighborhood", "shirt_size", "child_address", "child_city", "child_state", "child_zip", "child_medical_allergies", 
+    "child_food_avoidances", "parent1_first_name", "parent1_last_name", "parent1_address", "parent1_city", 
+    "parent1_state", "parent1_zip", "parent1_email", "parent1_cell_phone", "parent1_home_phone", 
+    "parent1_work_phone", "parent2_first_name", "parent2_last_name", "parent2_address", "parent2_city", 
+    "parent2_state", "parent2_zip", "parent2_email", "parent2_cell_phone", "parent2_home_phone", 
+    "parent2_work_phone", "emergency_contact1_name", "emergency_contact1_relationship", "emergency_contact1_phone", 
+    "emergency_contact2_name", "emergency_contact2_relationship", "emergency_contact2_phone", "primary_language", 
+    "hispanic_latino_spanish", "race", "num_unemployed", "num_retired", "num_unemployed_students", 
+    "num_employed_fulltime", "num_employed_parttime", "num_employed_students", "income", "other_programs", 
+    "lunch", "insurance", "policy_num", "signature", "signature_date",
+    // Newly added values
+    "parent_email", "emgcy_contact_name_1", "emgcy_contact1_rship", "emgcy_contact1_phone", 
+    "emgcy_contact_name_2", "emgcy_contact2_rship", "emgcy_contact2_phone", "medical_insurance_company", 
+    "policy_number", "photo_waiver_signature", "photo_waiver_date", "field_id", "child_name", "medical_notes", "notes", "address", "city", "state",
+    "zip", "is_hispanic"
+);
+
 
 $hasSearched = isset($_GET['searchByForm']) || isset($_GET['searchByFamily']);
 $selectedFormName = $hasSearched ? ($_GET['formName'] ?? '') : '';
