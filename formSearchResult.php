@@ -88,6 +88,39 @@ if (isset($_GET['searchByForm'])) {
     $formNames = getFormsByFamily($familyId);
     $noResults = empty($formNames);
 }
+
+// Handle CSV Export
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csv_export'])) {
+    if (empty($selectedFormName)) {
+        die("Error: No form selected.");
+    }
+
+    // Retrieve form data
+    $familyId = $_GET['familyId'] ?? null;
+    $formData = getFormSubmissions($selectedFormName, $familyId);
+
+    if (empty($formData)) {
+        die("No data available for download.");
+    }
+
+    // Set CSV headers
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="form_submissions.csv"');
+
+    // Open output stream
+    $output = fopen('php://output', 'w');
+
+    // Write headers (assuming first row contains column names) and data
+    fputcsv($output, array_keys($formData[0]));
+
+    foreach ($formData as $row) {
+        fputcsv($output, $row);
+    }
+
+    fclose($output);
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -101,7 +134,7 @@ if (isset($_GET['searchByForm'])) {
     <form class="form-search-result-subheader" method="post">
         <a class="button cancel" href="formSearch.php">Back to Search</a>
         <?php if (!$noResults && $searchingByForm): ?>
-            <button class="button" id="downloadButton">Download Results (.csv)</button>
+            <button class="button" name="csv_export" value="1">Download Results (.csv)</button>
         <?php endif; ?>
         <span style="margin-left: 10px;">Viewing results for: 
         <?php 
