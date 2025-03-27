@@ -155,7 +155,11 @@ function getFieldTripWaiverSubmissionsFromFamily($familyId) {
 
     $joinedIds = implode(",", $childrenIds);
     $conn = connect();
-    $query = "SELECT * FROM dbFieldTripWaiverForm JOIN dbChildren ON dbFieldTripWaiverForm.child_id = dbChildren.id WHERE dbFieldTripWaiverForm.child_id IN ($joinedIds)";
+    $query = "SELECT dbFieldTripWaiverForm.*, dbChildren.*, dbFieldTripWaiverForm.field_id AS form_id 
+          FROM dbFieldTripWaiverForm 
+          JOIN dbChildren ON dbFieldTripWaiverForm.child_id = dbChildren.id 
+          WHERE dbFieldTripWaiverForm.child_id IN ($joinedIds)";
+
     $result = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($result) > 0) {
@@ -223,7 +227,7 @@ function updateFieldTripWaiverForm($submissionId, $updatedData) {
     }
 
     $stmt->bind_param(
-        "sssssssssssssssssssi",
+        "ssssssssssssssssssssi",  // <== This is the type definition string
         $updatedData["child_name"],
         $updatedData["child_gender"],
         $updatedData["child_birthdate"],
@@ -246,6 +250,7 @@ function updateFieldTripWaiverForm($submissionId, $updatedData) {
         $updatedData["signature_date"],
         $submissionId
     );
+    
 
     $result = $stmt->execute();
     

@@ -118,11 +118,13 @@ if (isset($_GET['searchByForm'])) {
                                     $editId = $submission['spring_id'] ?? $submission['form_id'] ?? '';
                                     $editUrl = "editSpringBreakCampForm.php?id=" . htmlspecialchars($editId, ENT_QUOTES, 'UTF-8');
                                     } elseif ($selectedFormName === "Field Trip Waiver Form") {
-                                    // For Field Trip Waiver, use field_id
-                                    $editId = $submission['field_id'] ?? $submission['form_id'] ?? '';
-                                    $familyIdSanitized = htmlspecialchars($familyId ?? '', ENT_QUOTES, 'UTF-8'); // Ensure $familyId isn't null
-                                    $editUrl = "editFieldTripWaiverForm.php?id=" . htmlspecialchars($editId, ENT_QUOTES, 'UTF-8') .
-                                    "&familyAccount=" . $familyIdSanitized;
+                                        //  Use `form_id` in URL to avoid ID conflict
+                                        $editId = $submission['field_id'] ?? $submission['form_id'] ?? ''?? $submission['id'];
+                                        $familyIdSanitized = htmlspecialchars($familyId ?? '', ENT_QUOTES, 'UTF-8');
+                                        $editUrl = "editFieldTripWaiverForm.php?form_id=" . htmlspecialchars($editId, ENT_QUOTES, 'UTF-8') .
+                                                   "&familyAccount=" . $familyIdSanitized;
+                                    
+                                    
                                     }
                                     elseif (stripos(trim($selectedFormName), "child care waiver") !== false) {
                                         $editId = $submission['form_id'] ?? $submission['id'];
@@ -138,6 +140,8 @@ if (isset($_GET['searchByForm'])) {
                                                    "&familyAccount=" . $familyIdSanitized;
                                     }
                                 ?>
+                                <?php error_log("➡️  Edit URL: " . $editUrl); ?>
+
                                 <a href="<?= $editUrl ?>" class="button">Edit</a>
                             </td>
                         </tr>
