@@ -18,7 +18,7 @@ require_once("database/dbFamily.php");
 require_once("domain/Family.php");
 
 $families = find_all_families();
-$excludedColumns = array("steam", "family_id", "securityQuestion", "securityAnswer", "password", "child_id", "form_id", "id", "neighborhood", "shirt_size", "child_address", "child_city", "child_state", "child_zip", "child_medical_allergies", "child_food_avoidances", "parent1_first_name", "parent1_last_name", "parent1_address", "parent1_city", "parent1_state", "parent1_zip", "parent1_email", "parent1_cell_phone", "parent1_home_phone", "parent1_work_phone", "parent2_first_name", "parent2_last_name", "parent2_address", "parent2_city", "parent2_state", "parent2_zip", "parent2_email", "parent2_cell_phone", "parent2_home_phone", "parent2_work_phone", "emergency_contact1_name", "emergency_contact1_relationship", "emergency_contact1_phone", "emergency_contact2_name", "emergency_contact2_relationship", "emergency_contact2_phone", "primary_language", "hispanic_latino_spanish", "race", "num_unemployed", "num_retired", "num_unemployed_students", "num_employed_fulltime", "num_employed_parttime", "num_employed_students", "income", "other_programs", "lunch", "insurance", "policy_num", "signature", "signature_date");
+$excludedColumns = array("id", "steam", "family_id", "securityQuestion", "securityAnswer", "password", "child_id", "form_id", "id", "neighborhood", "shirt_size", "child_address", "child_city", "child_state", "child_zip", "child_medical_allergies", "child_food_avoidances", "parent1_first_name", "parent1_last_name", "parent1_address", "parent1_city", "parent1_state", "parent1_zip", "parent1_email", "parent1_cell_phone", "parent1_home_phone", "parent1_work_phone", "parent2_first_name", "parent2_last_name", "parent2_address", "parent2_city", "parent2_state", "parent2_zip", "parent2_email", "parent2_cell_phone", "parent2_home_phone", "parent2_work_phone", "emergency_contact1_name", "emergency_contact1_relationship", "emergency_contact1_phone", "emergency_contact2_name", "emergency_contact2_relationship", "emergency_contact2_phone", "primary_language", "hispanic_latino_spanish", "race", "num_unemployed", "num_retired", "num_unemployed_students", "num_employed_fulltime", "num_employed_parttime", "num_employed_students", "income", "other_programs", "lunch", "insurance", "policy_num", "signature", "signature_date");
 
 $hasSearched = isset($_GET['searchByForm']) || isset($_GET['searchByFamily']);
 $selectedFormName = $hasSearched ? ($_GET['formName'] ?? '') : '';
@@ -110,26 +110,26 @@ if (isset($_GET['searchByForm'])) {
                                     // Grab the correct form ID
                                     $editId = $submission['form_id'] ?? $submission['id'];
 
-                                    
-                                    
                                     error_log("Selected Form Name: " . $selectedFormName);
 
-                                    // Determine the edit ID and URL based on the form type.
-                                   if ($selectedFormName === "Spring Break Camp Form") {
-                                        // For Spring Break, use spring_id
-                                        $editId = $submission['spring_id'] ?? $submission['form_id'] ?? '';
-                                        $editUrl = "editSpringBreakCampForm.php?id=" . htmlspecialchars($editId, ENT_QUOTES, 'UTF-8');
+                                  // Determine the edit ID and URL based on the form type.
+                                    if ($selectedFormName === "Spring Break Camp Form") {
+                                    // For Spring Break, use spring_id
+                                    $editId = $submission['spring_id'] ?? $submission['form_id'] ?? '';
+                                    $editUrl = "editSpringBreakCampForm.php?id=" . htmlspecialchars($editId, ENT_QUOTES, 'UTF-8');
+                                    } elseif ($selectedFormName === "Field Trip Waiver Form") {
+                                    // For Field Trip Waiver, use field_id
+                                    $editId = $submission['field_id'] ?? $submission['form_id'] ?? '';
+                                    $familyIdSanitized = htmlspecialchars($familyId ?? '', ENT_QUOTES, 'UTF-8'); // Ensure $familyId isn't null
+                                    $editUrl = "editFieldTripWaiverForm.php?id=" . htmlspecialchars($editId, ENT_QUOTES, 'UTF-8') .
+                                    "&familyAccount=" . $familyIdSanitized;
                                     }
                                     elseif (stripos(trim($selectedFormName), "child care waiver") !== false) {
                                         $editId = $submission['form_id'] ?? $submission['id'];
                                         $editUrl = "editChildCareWaiverForm.php?form_id=" . htmlspecialchars($editId, ENT_QUOTES, 'UTF-8');
                                     }
                                     
-                                    // } elseif ($selectedFormName === "Summer Junction") {
-                                    //     // For Summer Junction, use summer_id
-                                    //     $editId = $submission['summer_id'] ?? $submission['form_id'] ?? '';
-                                    //     $editUrl = "editSummerJunctionForm.php?id=" . htmlspecialchars($editId, ENT_QUOTES, 'UTF-8');
-                                    else {
+                              else {
                                         // For other forms, fall back to the default form_id and URL pattern.
                                         $editId = $submission['form_id'] ?? $submission['id'];
                                         $familyIdSanitized = htmlspecialchars($familyId ?? '', ENT_QUOTES, 'UTF-8'); // Ensure $familyId isn't null
