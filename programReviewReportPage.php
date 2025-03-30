@@ -189,10 +189,18 @@
         <main class="report">
 	   <div class="intro">
             <?php
+                require_once("database/dbFamily.php");
+                require_once("domain/Family.php");
                 for($i = 0; $i < sizeof($reviews); $i++){
+                    $family = retrieve_family_by_id($reviews[$i][1]);
+                    
                     echo '<div>';
-                    echo '<label>Family ID:</label>';
-                    echo '<span>' . $reviews[$i][1] . '</span>';
+                    echo '<label>Family Last Name:</label>';
+                    echo '<span>' . $family->getLastName() . '</span>';
+                    echo '<label>Email:</label>';
+                    echo '<span>' . $family->getEmail() . '</span>';
+                    echo '<label>Address:</label>';
+                    echo '<span>' . $family->getAddress() . '</span>';
                     echo '<label>Feedback:</label>';
                     echo '<span>' . $reviews[$i][3] . '</span>';
                     echo '</div>';
