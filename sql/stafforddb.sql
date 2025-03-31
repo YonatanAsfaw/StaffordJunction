@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 26, 2025 at 05:13 PM
+-- Generation Time: Mar 31, 2025 at 05:55 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -534,7 +534,7 @@ INSERT INTO `dbFamily_Languages` (`id`, `family_id`, `language_id`) VALUES
 --
 
 CREATE TABLE `dbFieldTripWaiverForm` (
-  `id` int(11) NOT NULL,
+  `field_id` int(11) NOT NULL,
   `child_id` int(11) NOT NULL,
   `child_name` varchar(256) NOT NULL,
   `gender` varchar(6) NOT NULL,
@@ -867,6 +867,19 @@ CREATE TABLE `dbProgramInterestsForm_TopicInterests` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `dbProgramReviewForm`
+--
+
+CREATE TABLE `dbProgramReviewForm` (
+  `id` int(11) NOT NULL,
+  `family_id` int(11) NOT NULL,
+  `event_name` varchar(100) DEFAULT NULL,
+  `reviewText` varchar(1000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `dbPrograms`
 --
 
@@ -1000,7 +1013,7 @@ CREATE TABLE `dbServicesNEW` (
 --
 
 CREATE TABLE `dbSpringBreakCampForm` (
-  `id` int(11) NOT NULL,
+  `spring_id` int(11) NOT NULL,
   `email` text NOT NULL,
   `student_name` varchar(256) NOT NULL,
   `school_choice` text NOT NULL,
@@ -1370,7 +1383,7 @@ ALTER TABLE `dbFamily_Languages`
 -- Indexes for table `dbFieldTripWaiverForm`
 --
 ALTER TABLE `dbFieldTripWaiverForm`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`field_id`),
   ADD KEY `FK_field_trip_child_id` (`child_id`);
 
 --
@@ -1467,6 +1480,12 @@ ALTER TABLE `dbProgramInterestsForm_TopicInterests`
   ADD KEY `FKtopicInterest_programInterestForm` (`interest_id`);
 
 --
+-- Indexes for table `dbProgramReviewForm`
+--
+ALTER TABLE `dbProgramReviewForm`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `dbPrograms`
 --
 ALTER TABLE `dbPrograms`
@@ -1529,7 +1548,7 @@ ALTER TABLE `dbServicesNEW`
 -- Indexes for table `dbSpringBreakCampForm`
 --
 ALTER TABLE `dbSpringBreakCampForm`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`spring_id`),
   ADD KEY `FK_child_id` (`child_id`);
 
 --
@@ -1681,7 +1700,7 @@ ALTER TABLE `dbFamily_Languages`
 -- AUTO_INCREMENT for table `dbFieldTripWaiverForm`
 --
 ALTER TABLE `dbFieldTripWaiverForm`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `field_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dbformstatus`
@@ -1750,6 +1769,12 @@ ALTER TABLE `dbProgramInterestsForm_TopicInterests`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `dbProgramReviewForm`
+--
+ALTER TABLE `dbProgramReviewForm`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `dbPrograms`
 --
 ALTER TABLE `dbPrograms`
@@ -1789,7 +1814,7 @@ ALTER TABLE `dbServicesNEW`
 -- AUTO_INCREMENT for table `dbSpringBreakCampForm`
 --
 ALTER TABLE `dbSpringBreakCampForm`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `spring_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dbStaff`
