@@ -153,7 +153,7 @@ $publishedForms = getPublishedForms();
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=actualActivityForm.php' 
                 : 'actualActivityForm.php'; ?>">
-                <img src="images/activity.svg"> <!-- Update with appropriate image -->
+                <img src="images/activity-svgrepo-com.svg"> <!-- Update with appropriate image -->
                 <span>Actual Activity Form</span>
                 </div>
                 <?php endif; ?>
