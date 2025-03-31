@@ -51,7 +51,7 @@ $publishedForms = getPublishedForms();
                 <!-- School Supplies Form - Fixed string to match array -->
                 <?php if (in_array("School Supplies Form", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
-                ? 'selectFamily.php?redirect=SchoolSuppliesForm.php' 
+                ? 'selectFamily.php?redirect=schoolSuppliesForm.php' 
                 : 'schoolSuppliesForm.php'; ?>">
                 <img src="images/school-supplies-svgrepo-com.svg">
                 <span>School Supplies Form</span>
