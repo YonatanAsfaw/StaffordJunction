@@ -155,7 +155,11 @@ function getFieldTripWaiverSubmissionsFromFamily($familyId) {
 
     $joinedIds = implode(",", $childrenIds);
     $conn = connect();
-    $query = "SELECT * FROM dbFieldTripWaiverForm JOIN dbChildren ON dbFieldTripWaiverForm.child_id = dbChildren.id WHERE dbFieldTripWaiverForm.child_id IN ($joinedIds)";
+    $query = "SELECT dbFieldTripWaiverForm.*, dbChildren.*, dbFieldTripWaiverForm.field_id AS form_id 
+          FROM dbFieldTripWaiverForm 
+          JOIN dbChildren ON dbFieldTripWaiverForm.child_id = dbChildren.id 
+          WHERE dbFieldTripWaiverForm.child_id IN ($joinedIds)";
+
     $result = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($result) > 0) {
@@ -166,5 +170,98 @@ function getFieldTripWaiverSubmissionsFromFamily($familyId) {
     mysqli_close($conn);
     return [];
 }
+
+function getFieldTripWaiverById($id) {
+    $conn = connect(); // Ensure `connect()` establishes the database connection.
+
+    $query = "SELECT * FROM dbFieldTripWaiverForm WHERE field_id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    
+    $result = mysqli_stmt_get_result($stmt);
+    $formData = mysqli_fetch_assoc($result);
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+
+    return $formData;
+}
+
+function updateFieldTripWaiverForm($submissionId, $updatedData) {
+    $conn = connect(); // Ensure we're using the global database connection
+
+    if (!$conn) {
+        die("ERROR: Database connection is NULL in updateFieldTripWaiverForm.");
+    }
+
+    error_log("updateFieldTripWaiverForm called for ID: " . $submissionId . " with data: " . json_encode($updatedData));
+    
+    $query = "UPDATE dbFieldTripWaiverForm SET 
+                child_name = ?,
+                gender = ?,
+                birth_date = ?,
+                neighborhood = ?,
+                school = ?,
+                child_address = ?,
+                child_city = ?,
+                child_state = ?,
+                child_zip = ?,
+                parent_email = ?,
+                emgcy_contact_name_1 = ?,
+                emgcy_contact1_rship = ?,
+                emgcy_contact1_phone = ?,
+                emgcy_contact_name_2 = ?,
+                emgcy_contact2_rship = ?,
+                emgcy_contact2_phone = ?,
+                medical_insurance_company = ?,
+                policy_number = ?,
+                photo_waiver_signature = ?,
+                photo_waiver_date = ?
+              WHERE field_id = ?";
+
+    $stmt = $conn->prepare($query);
+    
+    if (!$stmt) {
+        die("Database prepare() failed: " . $conn->error);
+    }
+
+    $stmt->bind_param(
+        "ssssssssssssssssssssi",  // <== This is the type definition string
+        $updatedData["child_name"],
+        $updatedData["child_gender"],
+        $updatedData["child_birthdate"],
+        $updatedData["child_neighborhood"],
+        $updatedData["child_school"],
+        $updatedData["child_address"],
+        $updatedData["child_city"],
+        $updatedData["child_state"],
+        $updatedData["child_zip"],
+        $updatedData["parent_email"],
+        $updatedData["emergency_contact_name_1"],
+        $updatedData["emergency_contact_relationship_1"],
+        $updatedData["emergency_contact_phone_1"],
+        $updatedData["emergency_contact_name_2"],
+        $updatedData["emergency_contact_relationship_2"],
+        $updatedData["emergency_contact_phone_2"],
+        $updatedData["insurance_company"],
+        $updatedData["policy_number"],
+        $updatedData["parent_signature"],
+        $updatedData["signature_date"],
+        $submissionId
+    );
+    
+
+    $result = $stmt->execute();
+    
+    if (!$result) {
+        die("Execution failed: " . $stmt->error);
+    }
+
+    $stmt->close();
+    mysqli_close($conn);
+    return $result;
+}
+
 ?>
 

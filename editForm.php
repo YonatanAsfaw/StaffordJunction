@@ -65,9 +65,9 @@ function getFormSubmissionById($formName, $submissionId) {
         case "Holiday Meal Bag":
             require_once("database/dbHolidayMealBag.php");
             return getHolidayMealBagById($submissionId);
-        case "School Supplies":
-            require_once("database/dbSchoolSuppliesForm.php");
-            return getSchoolSuppliesById($submissionId);
+        // case "School Supplies":
+        //     require_once("database/dbSchoolSuppliesForm.php");
+        //     return getSchoolSuppliesById($submissionId);
         case "Angel Gifts Wish List":
             require_once("database/dbAngelGiftForm.php");
             return getAngelGiftById($submissionId);
@@ -77,9 +77,12 @@ function getFormSubmissionById($formName, $submissionId) {
         case "Summer Junction":
             require_once("database/dbSummerJunctionForm.php");
             return getSummerJunctionById($submissionId);
-        case "Program Interest Form":
-            require_once("database/dbProgramInterestForm.php");
-            return getProgramInterestById($submissionId);
+        // case "Program Interest Form":
+        //     require_once("database/dbProgramInterestForm.php");
+        //     return getProgramInterestById($submissionId);
+        case "Field Trip Waiver Form":
+            require_once("database/dbFieldTripWaiverForm.php");
+            return getFieldTripWaiverById($submissionId);
         default:
             return null;
     }
@@ -105,9 +108,12 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
         case "Summer Junction":
             require_once("database/dbSummerJunctionForm.php");
             return updateSummerJunctionRegistrationForm($submissionId, $updatedData);
-        case "Program Interest Form":
-            require_once("database/dbProgramInterestForm.php");
-            return updatedProgramInterestForm($submissionId);
+        // case "Program Interest Form":
+        //     require_once("database/dbProgramInterestForm.php");
+        //     return updatedProgramInterestForm($submissionId);
+        case "Field Trip Waiver Form":
+            require_once("database/dbFieldTripWaiverForm.php");
+            return updateFieldTripWaiverForm($submissionId, $updatedData);
         default:
             return false;
     }

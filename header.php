@@ -79,6 +79,7 @@
         $permission_array['summerjunctionregistrationform.php'] = 1;
         $permission_array['springbreakform.php'] = 1;
         $permission_array['angelgiftform.php'] = 1;
+        $permission_array['fieldtripwaiver.php'] = 1;
         //pages only staff can view
         $permission_array['personsearch.php'] = 2;
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
@@ -125,6 +126,7 @@
         $permission_array['summerjunctionregistrationform.php'] = 3;
         $permission_array['springbreakform.php'] = 3;
         $permission_array['angelgiftform.php'] = 3;
+        $permission_array['fieldtripwaiver.php'] = 3;
 
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));

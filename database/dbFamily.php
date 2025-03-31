@@ -517,7 +517,7 @@ function getChildren($familyId) {
     return $children;
 }
 
-if(isset($_GET['id'])){
+if(isset($_GET['id']) && in_array(basename($_SERVER['PHP_SELF']), ['familyView.php', 'childrenView.php', 'familyEdit.php'])){
     require_once("database/dbFamily.php");
     require_once("database/dbChildren.php");
     require_once('database/dbBrainBuildersRegistration.php');

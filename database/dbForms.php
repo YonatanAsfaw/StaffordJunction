@@ -42,7 +42,7 @@ function getFormSubmissions($formName, $familyId){
             return getChildCareWaiverSubmissionsFromFamily($familyId);
         }
         return getChildCareWaiverSubmissions();
-    case "Field Trip Waiver":
+    case "Field Trip Waiver Form":
         require_once("dbFieldTripWaiverForm.php");
         if ($familyId) {
             return getFieldTripWaiverSubmissionsFromFamily($familyId);

@@ -53,7 +53,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
 
                 <!-- School Supplies Form -->
-                <?php if (in_array("School Supplies Form", $publishedForms)): ?>
+                <?php if (in_array("School Supplies", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=SchoolSuppliesForm.php' 
                 : 'schoolSuppliesForm.php'; ?>">
