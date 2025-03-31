@@ -1,19 +1,18 @@
 <?php
+require_once("dbinfo.php");
 
-require_once("dbinfo.php"); 
-
-// ✅ Ensure database connection
+// Ensure database connection
 global $conn;
 if (!$conn) {
     die("Database connection failed in dbSchoolSuppliesForm.php");
 }
 
-// ✅ Function to create a new School Supplies form submission
+// Function to create a new School Supplies form submission
 function createBackToSchoolForm($form) {
     $conn = connect();
 
     $child_data = explode("_", $form['name']);
-    $child_id = $child_data[0];
+    $child_id = (int)$child_data[0];
     $child_name = $child_data[1];
     $email = $form["email"];
     $grade = $form["grade"];
@@ -21,15 +20,23 @@ function createBackToSchoolForm($form) {
     $bag_pickup_method = $form["community"];
     $need_backpack = ($form["need_backpack"] === "need_backpack") ? 1 : 0;
 
-    // ✅ Use prepared statements
     $query = "INSERT INTO dbSchoolSuppliesForm (child_id, email, child_name, grade, school, bag_pickup_method, need_backpack)
               VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($query);
+    if (!$stmt) {
+        echo "Prepare failed: " . $conn->error . "<br>";
+        $conn->close();
+        return null;
+    }
+
     $stmt->bind_param("isssssi", $child_id, $email, $child_name, $grade, $school, $bag_pickup_method, $need_backpack);
     $result = $stmt->execute();
 
     if (!$result) {
+        echo "Execute failed: " . $stmt->error . "<br>";
+        $stmt->close();
+        $conn->close();
         return null;
     }
 
@@ -40,7 +47,7 @@ function createBackToSchoolForm($form) {
     return $id;
 }
 
-// ✅ Check if the Back-to-School form has already been completed for the child
+// Check if the Back-to-School form has already been completed for the child
 function isBackToSchoolFormComplete($childID) {
     $conn = connect();
     $query = "SELECT * FROM dbSchoolSuppliesForm WHERE child_id = ?";
@@ -58,7 +65,7 @@ function isBackToSchoolFormComplete($childID) {
     return $complete;
 }
 
-// ✅ Retrieve a School Supplies form by ID
+// Retrieve a School Supplies form by ID
 function getSchoolSuppliesFormById($form_id) {
     $conn = connect();
     $query = "SELECT * FROM dbSchoolSuppliesForm WHERE id = ?";
@@ -76,7 +83,7 @@ function getSchoolSuppliesFormById($form_id) {
     return $form_data;
 }
 
-// ✅ Retrieve all School Supplies form submissions for a specific family
+// Retrieve all School Supplies form submissions for a specific family
 function get_school_supplies_form_by_family_id($familyID) {
     $conn = connect();
     $query = "
@@ -102,7 +109,7 @@ function get_school_supplies_form_by_family_id($familyID) {
     return $forms;
 }
 
-// ✅ Update School Supplies form submission
+// Update School Supplies form submission (aligned with create function)
 function updateSchoolSuppliesForm($submissionId, $updatedData) {
     $conn = connect();
 
@@ -111,14 +118,12 @@ function updateSchoolSuppliesForm($submissionId, $updatedData) {
     }
 
     $query = "UPDATE dbSchoolSuppliesForm SET 
-                student_name = ?, 
+                email = ?, 
+                child_name = ?, 
                 grade = ?, 
                 school = ?, 
-                parent_name = ?, 
-                address = ?, 
-                phone = ?, 
-                need_backpack = ?, 
-                bag_pickup_method = ? 
+                bag_pickup_method = ?, 
+                need_backpack = ?
               WHERE id = ?";
 
     $stmt = $conn->prepare($query);
@@ -127,35 +132,31 @@ function updateSchoolSuppliesForm($submissionId, $updatedData) {
         die("Database prepare() failed: " . $conn->error);
     }
 
-    // Assign values before binding
-    $studentName = $updatedData["student_name"];
+    $email = $updatedData["email"];
+    $child_name = $updatedData["child_name"];
     $grade = $updatedData["grade"];
     $school = $updatedData["school"];
-    $parentName = $updatedData["parent_name"];
-    $address = $updatedData["address"];
-    $phone = $updatedData["phone"];
-    $needBackpack = $updatedData["need_backpack"];
-    $bagPickupMethod = $updatedData["bag_pickup_method"];
+    $bag_pickup_method = $updatedData["bag_pickup_method"];
+    $need_backpack = (int)$updatedData["need_backpack"];
     $id = (int)$submissionId;
 
-    $stmt->bind_param(
-        "ssssssssi", 
-        $studentName, $grade, $school, $parentName, $address, $phone, $needBackpack, $bagPickupMethod, $id
-    );
-
+    $stmt->bind_param("sssssii", $email, $child_name, $grade, $school, $bag_pickup_method, $need_backpack, $id);
     $result = $stmt->execute();
     
     if (!$result) {
-        die("Execution failed: " . $stmt->error);
+        echo "Execute failed: " . $stmt->error . "<br>";
+        $stmt->close();
+        $conn->close();
+        return false;
     }
 
     $stmt->close();
     $conn->close();
     
-    return $result;
+    return true;
 }
 
-// ✅ Delete a specific school supplies form
+// Delete a specific school supplies form
 function deleteSchoolSuppliesForm($form_id) {
     $conn = connect();
 
@@ -170,12 +171,12 @@ function deleteSchoolSuppliesForm($form_id) {
     return $result;
 }
 
-// ✅ Retrieve all School Supplies form submissions
+// Retrieve all School Supplies form submissions
 function getSchoolSuppliesSubmissions() {
     $conn = connect();
-    $query = "SELECT ssf.*, c.firstName, c.lastName
+    $query = "SELECT ssf.*, c.first_name, c.last_name
               FROM dbSchoolSuppliesForm ssf
-              INNER JOIN dbChildren c ON c.id = ssf.child_id;";
+              INNER JOIN dbChildren c ON c.id = ssf.child_id";
     
     $result = $conn->query($query);
     $submissions = [];
@@ -190,7 +191,7 @@ function getSchoolSuppliesSubmissions() {
     return $submissions;
 }
 
-// ✅ Retrieve School Supplies form submissions for a specific family
+// Retrieve School Supplies form submissions for a specific family
 function getSchoolSuppliesSubmissionsFromFamily($familyId) {
     require_once("dbChildren.php");
     
@@ -200,11 +201,6 @@ function getSchoolSuppliesSubmissionsFromFamily($familyId) {
     }
 
     $childrenIds = array_map(function ($child) {
-        // Check if $child is an object and has a getId method
-        if (is_object($child) && method_exists($child, 'getId')) {
-            return $child->getId();
-        }
-        // Otherwise, assume $child is an associative array
         return $child['id'];
     }, $children);
 

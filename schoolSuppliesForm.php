@@ -18,7 +18,21 @@ include_once("database/dbFamily.php");
 include_once("database/dbChildren.php");
 require_once('database/dbSchoolSuppliesForm.php');
 
-// ✅ Ensure `familyID` is correctly retrieved
+// Handle delete action
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action']) && $_POST['action'] == 'delete') {
+    $form_id = intval($_POST['form_id']);
+    if ($form_id > 0) {
+        $delete_success = deleteSchoolSuppliesForm($form_id);
+        if ($delete_success) {
+            header("Location: index.php"); // Always redirect to admin dashboard
+            exit();
+        } else {
+            $error_message = "Failed to delete form.";
+        }
+    }
+}
+
+// Retrieve familyID
 if (isset($_GET['id']) && ctype_digit($_GET['id'])) {
     $familyID = (int)$_GET['id'];
 } elseif (isset($userID) && is_numeric($userID)) {
@@ -37,31 +51,42 @@ $family_email = $family->getEmail();
 $children = retrieve_children_by_family_id($familyID);
 
 // Handle form submission
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] == "POST" && !isset($_POST['action'])) {
+    echo "POST request detected<br>"; // Debug
     require_once('include/input-validation.php');
-    
-    // Sanitize the form input
+    echo "<pre>POST Data: "; var_dump($_POST); echo "</pre>"; // Debug POST contents
     $args = sanitize($_POST, null);
     $required = array("email", "name", "grade", "school", "community", "need_backpack");
 
     if (!wereRequiredFieldsSubmitted($args, $required)) {
         $error_message = "Not all fields complete";
+        echo "Missing required fields: " . implode(", ", array_diff($required, array_keys($args))) . "<br>"; // Debug
     } else {
         $community = ($_POST['community'] == 'other') ? $_POST['community_other'] : $_POST['community'];
         $args['community'] = $community;
+        echo "Calling createBackToSchoolForm with: "; var_dump($args); echo "<br>"; // Debug
         $success = createBackToSchoolForm($args);
-        
         if ($success) {
-            $successMessage = "Form submitted successfully";
+            echo "Success ID: $success<br>"; // Debug (won’t be seen due to redirect)
+            header("Location: index.php?success=1"); // Redirect to admin dashboard with success flag
+            exit();
+        } else {
+            $error_message = "Failed to submit form. Please try again.";
+            echo "Insert failed<br>"; // Debug
         }
     }
 }
 
-// ✅ Retrieve existing form data if form_id is provided
+// Retrieve existing form data
 $form_data = null;
 if (isset($_GET['form_id']) && ctype_digit($_GET['form_id'])) {
     $form_id = intval($_GET['form_id']);
     $form_data = getSchoolSuppliesFormById($form_id);
+}
+
+// Check for success message from redirect (optional, not needed here since we redirect)
+if (isset($_GET['success']) && $_GET['success'] == 1) {
+    $successMessage = "Form submitted successfully";
 }
 
 ?>
@@ -80,9 +105,7 @@ if (isset($_GET['form_id']) && ctype_digit($_GET['form_id'])) {
 
 <div id="formatted_form">
     <p>Stafford Junction is holding a Back-to-School Community Day on August 10. This form will guarantee that your child will have a premade
-       backpack before Community Day that can be picked up during the event. Please submit a form for each child.
-    </p>
-
+       backpack before Community Day that can be picked up during the event. Please submit a form for each child.</p>
     <p>Stafford Junction llevará a cabo un Día de la Comunidad de Regreso a la Escuela el 10 de agosto. Este formulario garantizará que su hijo tendrá una mochila con 
        útiles escolares antes del Día de la Comunidad que se puede recoger durante el evento. Por favor, envíe un formulario para cada niño.</p>
 
@@ -100,14 +123,17 @@ if (isset($_GET['form_id']) && ctype_digit($_GET['form_id'])) {
         <select name="name" id="name" required <?php if ($form_data) echo 'disabled'; ?>>
             <option disabled selected>Select a child</option>
             <?php
-                require_once('domain/Children.php'); 
-                foreach ($children as $c) {
-                    $id = $c->getID();
-                    if (!isBackToSchoolFormComplete($id)) {
-                        $name = $c->getFirstName() . " " . $c->getLastName();
-                        $value = $id . "_" . $name;
-                        $selected = ($form_data && $form_data['child_name'] == $name) ? 'selected' : '';
-                        echo "<option value='$value' $selected>$name</option>";
+                if (!is_array($children) || empty($children)) {
+                    echo "<option disabled>No children available</option>";
+                } else {
+                    foreach ($children as $c) {
+                        $id = $c['id'];
+                        if (!isBackToSchoolFormComplete($id)) {
+                            $name = $c['first_name'] . " " . $c['last_name'];
+                            $value = $id . "_" . $name;
+                            $selected = ($form_data && $form_data['child_name'] == $name) ? 'selected' : '';
+                            echo "<option value='$value' $selected>$name</option>";
+                        }
                     }
                 }
             ?>
@@ -120,41 +146,44 @@ if (isset($_GET['form_id']) && ctype_digit($_GET['form_id'])) {
         <input type="text" name="school" id="school" required value="<?php echo htmlspecialchars($form_data['school'] ?? ''); ?>" <?php if ($form_data) echo 'disabled'; ?>><br><br>
 
         <label>5. Will you pick up the bag during Community Day?</label><br><br>
-        <input type="radio" id="choice_1" name="community" value="pick_up" required>
+        <input type="radio" id="choice_1" name="community" value="pick_up" required <?php if ($form_data && $form_data['community'] == 'pick_up') echo 'checked'; ?>>
         <label for="choice_1">I will pick up the bag on Community day (August 10).</label><br><br>
 
-        <input type="radio" id="choice_2" name="community" value="no_pick_up" required>
+        <input type="radio" id="choice_2" name="community" value="no_pick_up" required <?php if ($form_data && $form_data['community'] == 'no_pick_up') echo 'checked'; ?>>
         <label for="choice_2">I will need the bag brought to me.</label><br><br>
 
-        <input type="radio" id="choice_3" name="community" value="other" required>
+        <input type="radio" id="choice_3" name="community" value="other" required <?php if ($form_data && !in_array($form_data['community'], ['pick_up', 'no_pick_up'])) echo 'checked'; ?>>
         <label for="choice_3">Other</label>
-        <input type="text" name="community_other" id="other" disabled><br><br>
-
-        <script>
-            document.getElementById("choice_3").addEventListener("change", () => {
-                document.getElementById("other").disabled = !document.getElementById("choice_3").checked;
-            });
-        </script>
+        <input type="text" name="community_other" id="other" value="<?php echo ($form_data && !in_array($form_data['community'], ['pick_up', 'no_pick_up'])) ? htmlspecialchars($form_data['community']) : ''; ?>" <?php if (!$form_data || in_array($form_data['community'], ['pick_up', 'no_pick_up'])) echo 'disabled'; ?>><br><br>
 
         <label>6. Will you need a backpack?*</label><br><br>
-        <input type="radio" id="choice_a" name="need_backpack" value="have_backpack_already">
+        <input type="radio" id="choice_a" name="need_backpack" value="have_backpack_already" required <?php if ($form_data && $form_data['need_backpack'] == 'have_backpack_already') echo 'checked'; ?>>
         <label for="choice_a">I already have a backpack.</label><br><br>
 
-        <input type="radio" id="choice_b" name="need_backpack" value="need_backpack">
+        <input type="radio" id="choice_b" name="need_backpack" value="need_backpack" required <?php if ($form_data && $form_data['need_backpack'] == 'need_backpack') echo 'checked'; ?>>
         <label for="choice_b">I need a backpack.</label><br><br>
 
         <?php if (!$form_data): ?>
             <button type="submit">Submit</button>
             <a class="button cancel" href="fillForm.php?id=<?php echo $familyID; ?>">Cancel</a>
         <?php else: ?>
-            <form method="POST" action="database/dbSchoolSuppliesForm.php">
+            <form method="POST" action="">
                 <input type="hidden" name="action" value="delete">
                 <input type="hidden" name="form_id" value="<?php echo $form_data['id']; ?>">
                 <button type="submit" name="deleteForm">Delete</button>
             </form>
-            <a class="button cancel" href="<?php echo $accessLevel > 1 ? 'index.php' : 'familyAccountDashboard.php'; ?>">Return to Dashboard</a>
+            <a class="button cancel" href="index.php">Return to Dashboard</a> <!-- Always admin dashboard -->
         <?php endif; ?>
     </form>
+
+    <script>
+        document.getElementById("choice_3").addEventListener("change", () => {
+            document.getElementById("other").disabled = !document.getElementById("choice_3").checked;
+        });
+        <?php if ($form_data && !in_array($form_data['community'], ['pick_up', 'no_pick_up'])): ?>
+            document.getElementById("other").disabled = false;
+        <?php endif; ?>
+    </script>
 </div>
 
 </body>

@@ -1,5 +1,4 @@
 <?php
-
 session_cache_expire(30);
 session_start();
 ini_set("display_errors", 1);
@@ -9,8 +8,6 @@ require_once("database/dbForms.php");  // Include database functions
 
 // Fetch published forms
 $publishedForms = getPublishedForms();
-
-
 
 ?>
 
@@ -39,7 +36,6 @@ $publishedForms = getPublishedForms();
             }
         ?>
 
-
         <main class='dashboard'>
             <div id="dashboard">
                 <!-- Holiday Meal Bag Form -->
@@ -52,8 +48,8 @@ $publishedForms = getPublishedForms();
                 </div>
                 <?php endif; ?>
 
-                <!-- School Supplies Form -->
-                <?php if (in_array("School Supplies", $publishedForms)): ?>
+                <!-- School Supplies Form - Fixed string to match array -->
+                <?php if (in_array("School Supplies Form", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=SchoolSuppliesForm.php' 
                 : 'schoolSuppliesForm.php'; ?>">
@@ -61,7 +57,7 @@ $publishedForms = getPublishedForms();
                 <span>School Supplies Form</span>
                 </div>
                 <?php endif; ?>
-                
+
                 <!-- Spring Break Camp Form -->
                 <?php if (in_array("Spring Break", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
@@ -152,7 +148,15 @@ $publishedForms = getPublishedForms();
                 </div>
                 <?php endif; ?>
 
-                <!--need to also do for actual activity form-->
+                <!-- Actual Activity Form (added based on array) -->
+                <?php if (in_array("Actual Activity", $publishedForms)): ?>
+                <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
+                ? 'selectFamily.php?redirect=actualActivityForm.php' 
+                : 'actualActivityForm.php'; ?>">
+                <img src="images/activity.svg"> <!-- Update with appropriate image -->
+                <span>Actual Activity Form</span>
+                </div>
+                <?php endif; ?>
 
             </div>
 

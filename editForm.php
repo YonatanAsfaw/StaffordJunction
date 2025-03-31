@@ -24,9 +24,8 @@ $formData = getFormSubmissionById($formName, $submissionId);
 error_log("formName received: '$formName'");
 error_log("formData result: " . print_r($formData, true));
 
-
 if (!$formData) {
-    die("Form data not found.");
+    die("Form data not found for ID: " . htmlspecialchars($submissionId));
 }
 
 // Convert all NULL values to empty strings before displaying
@@ -46,14 +45,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (updateFormSubmission($formName, $submissionId, $updatedData)) {
         $updateSuccess = true;
-        // Refresh form data after update without reloading the page
+        // Refresh form data after update
         $formData = getFormSubmissionById($formName, $submissionId);
-        // Convert NULL values again after update
         foreach ($formData as $key => $value) {
             $formData[$key] = $value ?? '';
         }
+        // Redirect to admin dashboard (index.php) after success
+        header("Location: index.php?success=1");
+        exit();
     } else {
-        // echo "<p>Error updating form. Please try again.</p>";
+        echo "<p style='color:red;'>Error updating form. Please try again.</p>";
     }
 }
 
@@ -65,9 +66,9 @@ function getFormSubmissionById($formName, $submissionId) {
         case "Holiday Meal Bag":
             require_once("database/dbHolidayMealBag.php");
             return getHolidayMealBagById($submissionId);
-        // case "School Supplies":
-        //     require_once("database/dbSchoolSuppliesForm.php");
-        //     return getSchoolSuppliesById($submissionId);
+        case "School Supplies":
+            require_once("database/dbSchoolSuppliesForm.php");
+            return getSchoolSuppliesFormById($submissionId); // Fixed function name
         case "Angel Gifts Wish List":
             require_once("database/dbAngelGiftForm.php");
             return getAngelGiftById($submissionId);
@@ -77,12 +78,9 @@ function getFormSubmissionById($formName, $submissionId) {
         case "Summer Junction":
             require_once("database/dbSummerJunctionForm.php");
             return getSummerJunctionById($submissionId);
-        // case "Program Interest Form":
-        //     require_once("database/dbProgramInterestForm.php");
-        //     return getProgramInterestById($submissionId);
-        case "Field Trip Waiver Form":
-            require_once("database/dbFieldTripWaiverForm.php");
-            return getFieldTripWaiverById($submissionId);
+        case "Program Interest Form":
+            require_once("database/dbProgramInterestForm.php");
+            return getProgramInterestFormById($submissionId);
         default:
             return null;
     }
@@ -108,12 +106,9 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
         case "Summer Junction":
             require_once("database/dbSummerJunctionForm.php");
             return updateSummerJunctionRegistrationForm($submissionId, $updatedData);
-        // case "Program Interest Form":
-        //     require_once("database/dbProgramInterestForm.php");
-        //     return updatedProgramInterestForm($submissionId);
-        case "Field Trip Waiver Form":
-            require_once("database/dbFieldTripWaiverForm.php");
-            return updateFieldTripWaiverForm($submissionId, $updatedData);
+        case "Program Interest Form":
+            require_once("database/dbProgramInterestForm.php");
+            return updateProgramInterestForm($submissionId, $updatedData);
         default:
             return false;
     }
@@ -127,28 +122,27 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Form - <?php echo htmlspecialchars($formName); ?></title>
     <style>
- body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f3f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto; /* Change this from 100vh to auto */
-    margin: 0;
-    flex-direction: column;
-    overflow: auto; /* Allow scrolling if needed */
-}
-
-.container {
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    width: 450px;
-    text-align: center;
-    border-top: 5px solid #7b1416;
-    position: relative;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f3f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            margin: 0;
+            flex-direction: column;
+            overflow: auto;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 450px;
+            text-align: center;
+            border-top: 5px solid #7b1416;
+            position: relative;
+        }
         h2 {
             color: #7b1416;
             font-size: 24px;
@@ -230,15 +224,20 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
 
         <form method="post" id="editForm">
             <?php foreach ($formData as $key => $value): ?>
-                <?php if ($key !== 'id' && $key !== 'form_id'): ?>
+                <?php if ($key !== 'id' && $key !== 'form_id' && $key !== 'child_id'): // Exclude IDs ?>
                     <label><?php echo ucwords(str_replace("_", " ", $key)); ?>:</label>
-                    <?php if ($key === 'wants' || $key === 'interests'): ?>
-                        <textarea name="<?php echo $key; ?>"><?php echo htmlspecialchars($value); ?></textarea>
-                    <?php elseif ($key === 'photo_release'): ?>
+                    <?php if ($key === 'need_backpack'): ?>
                         <select name="<?php echo $key; ?>">
-                            <option value="1" <?php if ($value == '1' || $value == 'Yes') echo "selected"; ?>>Yes</option>
-                            <option value="0" <?php if ($value == '0' || $value == 'No') echo "selected"; ?>>No</option>
+                            <option value="0" <?php if ($value == '0') echo "selected"; ?>>No</option>
+                            <option value="1" <?php if ($value == '1') echo "selected"; ?>>Yes</option>
                         </select>
+                    <?php elseif ($key === 'bag_pickup_method'): ?>
+                        <select name="<?php echo $key; ?>">
+                            <option value="pick_up" <?php if ($value == 'pick_up') echo "selected"; ?>>Pick Up</option>
+                            <option value="no_pick_up" <?php if ($value == 'no_pick_up') echo "selected"; ?>>No Pick Up</option>
+                            <option value="other" <?php if (!in_array($value, ['pick_up', 'no_pick_up'])) echo "selected"; ?>>Other</option>
+                        </select>
+                        <input type="text" name="bag_pickup_method_other" value="<?php echo !in_array($value, ['pick_up', 'no_pick_up']) ? htmlspecialchars($value) : ''; ?>" <?php if (in_array($value, ['pick_up', 'no_pick_up'])) echo 'disabled'; ?>>
                     <?php else: ?>
                         <input type="text" name="<?php echo $key; ?>" value="<?php echo htmlspecialchars($value); ?>">
                     <?php endif; ?>
@@ -252,28 +251,20 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
 
     <script>
         document.getElementById("editForm").addEventListener("submit", function(event) {
-            // Prevent default form submission behavior
             event.preventDefault();
-            
-            // Show success message instantly
             document.getElementById("successMessage").style.display = "block";
-            
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: "smooth" });
-
-            // Submit the form after a short delay (prevents scrolling issues)
             setTimeout(() => {
                 event.target.submit();
-            }, 500); // Delay submission slightly so the user sees the success message
+            }, 500);
         });
 
         <?php if ($updateSuccess): ?>
-        // If the update was successful, show the success message
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("successMessage").style.display = "block";
             setTimeout(function() {
                 document.getElementById("successMessage").style.display = "none";
-            }, 3000); // Hide after 3 seconds
+            }, 3000);
         });
         <?php endif; ?>
     </script>
