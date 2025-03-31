@@ -86,7 +86,7 @@ function getSpringBreakCampSubmissionsFromFamily($familyId) {
     $conn = connect();
     $query = "
     SELECT 
-        dbSpringBreakCampForm.id AS form_id,
+        dbSpringBreakCampForm.spring_id AS form_id,
         dbSpringBreakCampForm.email,
         dbSpringBreakCampForm.student_name,
         dbSpringBreakCampForm.school_choice,
