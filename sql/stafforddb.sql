@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 31, 2025 at 05:51 PM
+-- Generation Time: Mar 31, 2025 at 05:55 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -534,7 +534,7 @@ INSERT INTO `dbFamily_Languages` (`id`, `family_id`, `language_id`) VALUES
 --
 
 CREATE TABLE `dbFieldTripWaiverForm` (
-  `id` int(11) NOT NULL,
+  `field_id` int(11) NOT NULL,
   `child_id` int(11) NOT NULL,
   `child_name` varchar(256) NOT NULL,
   `gender` varchar(6) NOT NULL,
@@ -1383,7 +1383,7 @@ ALTER TABLE `dbFamily_Languages`
 -- Indexes for table `dbFieldTripWaiverForm`
 --
 ALTER TABLE `dbFieldTripWaiverForm`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`field_id`),
   ADD KEY `FK_field_trip_child_id` (`child_id`);
 
 --
@@ -1700,7 +1700,7 @@ ALTER TABLE `dbFamily_Languages`
 -- AUTO_INCREMENT for table `dbFieldTripWaiverForm`
 --
 ALTER TABLE `dbFieldTripWaiverForm`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `field_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dbformstatus`
