@@ -127,6 +127,8 @@
         $permission_array['springbreakform.php'] = 3;
         $permission_array['angelgiftform.php'] = 3;
         $permission_array['fieldtripwaiver.php'] = 3;
+        $permission_array['programreviewreport.php'] = 2;
+        $permission_array['programreviewreportpage.php'] = 2;
 
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));
