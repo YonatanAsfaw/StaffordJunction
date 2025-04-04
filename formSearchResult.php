@@ -65,6 +65,9 @@ if ($selectedFormName === "Angel Gifts Wish List") {
 if ($selectedFormName === "Field Trip Waiver Form") {
     $excludedColumns[] = "child_name";
 }
+if ($selectedFormName === "School Supplies") {
+    $excludedColumns[] = "child_name";
+}
 if ($selectedFormName === "Actual Activity") {
     $excludedColumns[] = array("start_mile",
     "end_mile",

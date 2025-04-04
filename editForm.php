@@ -225,7 +225,7 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
 <body>
 
     <!-- Success Message -->
-    <!-- <div id="successMessage" class="success-message">Update Successful!</div> -->
+    <div id="successMessage" class="success-message">Update Successful!</div>
 
     <div class="container">
         <h2>Edit <?php echo htmlspecialchars($formName); ?> Form</h2>
