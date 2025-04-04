@@ -4,6 +4,8 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 require_once("database/dbFieldTripWaiverForm.php");
+require('universal.inc');
+require_once('header.php');
 
 if (!isset($_SESSION['_id'])) {
     header('Location: login.php');
@@ -60,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html>
 <head>
     <title>Edit Field Trip Waiver Form</title>
-    <style>
+    <!-- <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f3f0;
@@ -127,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         .return-btn:hover {
             background-color: #580f11;
         }
-    </style>
+    </style> -->
 </head>
 <body>
     <div class="container">
@@ -206,7 +208,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <button type="submit" class="submit-btn">Save Changes</button>
             
 
-            <a class="return-btn" href="index.php">Return to Dashboard</a>
+            <a class="button cancel button_style" href="index.php">Return to Dashboard</a>
         </form>
     </div>
 </body>

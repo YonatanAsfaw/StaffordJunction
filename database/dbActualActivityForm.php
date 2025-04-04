@@ -222,3 +222,78 @@ function get_volunteer_details_per_event() {
 
     return ['volunteers' => $volunteerData, 'totals' => $totalHoursPerEvent];
 }
+
+function getActualActivityById($id) {
+    $conn = connect(); // Make sure `connect()` connects to your DB properly.
+
+    $query = "SELECT * FROM dbActualActivityForm WHERE id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    
+    $result = mysqli_stmt_get_result($stmt);
+    $formData = mysqli_fetch_assoc($result);
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+
+    return $formData;
+}
+
+function updateActualActivityForm($submissionId, $updatedData) {
+    $conn = connect();
+    if (!$conn) {
+        die("ERROR: Database connection is NULL in updateActualActivityForm.");
+    }
+
+    $query = "
+        UPDATE dbActualActivityForm SET
+            activity = ?,
+            date = ?,
+            program = ?,
+            start_time = ?,
+            end_time = ?,
+            start_mile = ?,
+            end_mile = ?,
+            address = ?,
+            attend_num = ?,
+            volstaff_num = ?,
+            materials_used = ?,
+            meal_info = ?,
+            act_costs = ?,
+            act_benefits = ?
+        WHERE id = ?
+    ";
+
+    $stmt = mysqli_prepare($conn, $query);
+    if (!$stmt) {
+        die("Database prepare() failed: " . mysqli_error($conn));
+    }
+
+    mysqli_stmt_bind_param(
+        $stmt,
+        "ssssssdissssssi",
+        $updatedData["activity"],
+        $updatedData["date"],
+        $updatedData["program"],
+        $updatedData["start_time"],
+        $updatedData["end_time"],
+        $updatedData["start_mile"],
+        $updatedData["end_mile"],
+        $updatedData["address"],
+        $updatedData["attend_num"],
+        $updatedData["volstaff_num"],
+        $updatedData["materials_used"],
+        $updatedData["meal_info"],
+        $updatedData["act_costs"],
+        $updatedData["act_benefits"],
+        $submissionId
+    );
+
+    if (!mysqli_stmt_execute($stmt)) {
+        die("Execute failed: " . mysqli_stmt_error($stmt));
+    }
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+}

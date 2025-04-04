@@ -4,6 +4,7 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 require_once("database/dbForms.php");
+require_once('header.php');
 
 if (!isset($_SESSION['_id'])) {
     header('Location: login.php');
@@ -54,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         header("Location: index.php?success=1");
         exit();
     } else {
-        echo "<p style='color:red;'>Error updating form. Please try again.</p>";
+        //echo "<p style='color:red;'>Error updating form. Please try again.</p>";
     }
 }
 
@@ -81,6 +82,9 @@ function getFormSubmissionById($formName, $submissionId) {
         case "Program Interest Form":
             require_once("database/dbProgramInterestForm.php");
             return getProgramInterestFormById($submissionId);
+        case "Actual Activity":
+            require_once("database/dbActualActivityForm.php");
+            return getActualActivityById($submissionId);
         default:
             return null;
     }
@@ -109,6 +113,9 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
         case "Program Interest Form":
             require_once("database/dbProgramInterestForm.php");
             return updateProgramInterestForm($submissionId, $updatedData);
+        case "Actual Activity":
+            require_once("database/dbActualActivityForm.php");
+            return updateActualActivityForm($submissionId, $updatedData);
         default:
             return false;
     }
@@ -120,8 +127,9 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php require('universal.inc'); ?>
     <title>Edit Form - <?php echo htmlspecialchars($formName); ?></title>
-    <style>
+    <!-- <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f3f0;
@@ -212,12 +220,12 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
             min-height: 100px;
             resize: vertical;
         }
-    </style>
+    </style> -->
 </head>
 <body>
 
     <!-- Success Message -->
-    <div id="successMessage" class="success-message">Update Successful!</div>
+    <!-- <div id="successMessage" class="success-message">Update Successful!</div> -->
 
     <div class="container">
         <h2>Edit <?php echo htmlspecialchars($formName); ?> Form</h2>
@@ -245,7 +253,8 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
             <?php endforeach; ?>
 
             <button type="submit" class="submit-btn">Save Changes</button>
-            <a class="dashboard" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a>
+<a class="button cancel button_style" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a>
+
         </form>
     </div>
 
