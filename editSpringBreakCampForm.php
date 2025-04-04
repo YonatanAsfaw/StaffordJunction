@@ -4,6 +4,7 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 require_once("database/dbSpringBreakCampForm.php");
+require_once('header.php');
 
 if (!isset($_SESSION['_id'])) {
     header('Location: login.php');
@@ -44,8 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <!DOCTYPE html>
 <html>
 <head>
+<?php require('universal.inc'); ?>
     <title>Edit Spring Break Camp Form</title>
-    <style>
+    <!-- <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f3f0;
@@ -119,8 +121,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
          .return-btn:hover {
             background-color: #580f11;
-}
-    </style>
+} -->
+    <!-- </style> -->
 </head>
 <body>
     <div class="container">
@@ -155,7 +157,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <button type="submit" class="submit-btn">Save Changes</button>
 
-            <a class="dashboard return-btn" href="index.php">Return to Dashboard</a>
+            <a class="button cancel button_style" href="index.php">Return to Dashboard</a>
+
         </form>
     </div>
 </body>
