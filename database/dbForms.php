@@ -128,7 +128,7 @@ function getPublishedForms() {
 function getAllFormStatuses() {
     $conn = connect();
     $query = "SELECT form_name, is_published FROM dbformstatus";
-    $result = mysqli_query($conn, $query)
+    $result = mysqli_query($conn, $query);
 
     $formStatuses = [];
     while ($row = mysqli_fetch_assoc($result)) {
