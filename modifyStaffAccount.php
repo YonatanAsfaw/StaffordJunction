@@ -7,8 +7,7 @@ error_reporting(E_ALL);
 $loggedIn = false;
 $accessLevel = 0;
 $userID = null;
-$success = false;
-$deleteSuccess = isset($_GET['deleteSuccess']);
+$updateSuccess = isset($_GET['updateSuccess']);
 
 if (isset($_SESSION['_id'])) {
     require_once('include/input-validation.php');
@@ -28,18 +27,15 @@ if ($accessLevel < 2) {
 }
 
 $staffList = [];
-
 $itemsPerPage = 5;
 $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
 $offset = ($page - 1) * $itemsPerPage;
 
-// Sorting setup
 $sortColumn = $_GET['sort'] ?? 'lastName';
 $sortOrder = $_GET['order'] ?? 'asc';
 $totalStaff = count_all_staff();
 $totalPages = ceil($totalStaff / $itemsPerPage);
 
-// Fetch all staff sorted by last name, paginated
 $staffList = retrieve_all_staff_paginated($sortColumn, $sortOrder, $itemsPerPage, $offset);
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -52,10 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (!empty($args['last-name'])) {
         $searchFilters['last_name'] = $args['last-name'];
     }
+
     $totalStaff = count_all_staff($searchFilters);
     $totalPages = ceil($totalStaff / $itemsPerPage);
-
-    // Fetch filtered staff list instead of a single staff member
     $staffList = retrieve_all_staff_paginated($sortColumn, $sortOrder, $itemsPerPage, $offset, $searchFilters);
 
     if (empty($staffList)) {
@@ -63,37 +58,39 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <?php require_once('universal.inc') ?>
-    <title>Search Staff Account</title>
+    <title>Modify Staff Account</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/base.css">
     <style>
         .general tbody tr:hover {
-            background-color: #cccccc; /* Light grey color */
+	    background-color: #cccccc;
 	}
         .general thead a {
             color: white;
             text-decoration: none;
         }
+
         .general thead a:hover {
             text-decoration: underline;
             color: #ddd; /* optional hover effect */
         }
     </style>
 </head>
-    <?php if ($deleteSuccess): ?>
-        <p style="color: green; text-align: center;">Staff Member Removed Successfully.</p>
-    <?php endif; ?>
 <body>
     <?php require_once('header.php') ?>
-    <h1>Search Staff Account</h1>
+    <h1>Modify Staff Account</h1>
+
+    <?php if ($updateSuccess): ?>
+        <p style="color: green; text-align: center;">Staff Member Updated Successfully.</p>
+    <?php endif; ?>
+
     <form id="search_form" method="POST">
         <label>Enter first and last name to filter staff accounts:</label>
         <div class="search-container">
@@ -113,7 +110,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         </div>
     </form>
 
-    <!-- Account Summary List -->
     <h3>Account Summary</h3>
     <div class="table-wrapper">
         <table class="general">
@@ -128,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </thead>
             <tbody class="standout">
                 <?php foreach ($staffList as $s): ?>
-                    <tr onclick="window.location.href='staffAccount.php?first-name=<?= urlencode($s->getFirstName()) ?>&last-name=<?= urlencode($s->getLastName()) ?>'" style="cursor: pointer;">
+                    <tr onclick="window.location.href='editStaffAccount.php?first-name=<?= urlencode($s->getFirstName()) ?>&last-name=<?= urlencode($s->getLastName()) ?>'" style="cursor: pointer;">
                         <td><?= htmlspecialchars($s->getFirstName() . " " . $s->getLastName()) ?></td>
                         <td><?= htmlspecialchars($s->getBirthdate()) ?></td>
                         <td><?= htmlspecialchars($s->getJobTitle()) ?></td>
@@ -137,7 +133,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     </tr>
                 <?php endforeach; ?>
             </tbody>
-	</table>
+        </table>
+
         <?php if (isset($noResults) && $noResults): ?>
             <p style="color: red; font-weight: bold; text-align: center;">
                 Sorry, no staff member found with that name! Please double-check your search input and try again.
@@ -145,7 +142,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <?php endif; ?>
     </div>
 
-    <!-- Pagination Controls -->
     <div class="pagination" style="text-align: center; margin-top: 10px;">
         <?php if ($page > 1): ?>
             <a href="?page=<?= $page - 1 ?>&sort=<?= urlencode($sortColumn) ?>&order=<?= urlencode($sortOrder) ?>" class="button_style">Previous</a>
