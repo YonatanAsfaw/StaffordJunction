@@ -4,6 +4,8 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 require_once("database/dbChildCareWaiverForm.php");
+require('universal.inc');
+require_once('header.php');
 
 // Redirect if not logged in
 if (!isset($_SESSION['_id'])) {
@@ -28,7 +30,7 @@ if (!$form) {
 <html>
 <head>
     <title>Edit Child Care Waiver</title>
-    <style>
+    <!-- <style>
     body {
         font-family: Arial, sans-serif;
         background-color: #f8f3f0;
@@ -98,7 +100,7 @@ if (!$form) {
         margin-top: 25px;
         color: #7b1416;
     }
-</style>
+</style> -->
 
 </head>
 <body>
@@ -197,7 +199,8 @@ if (!$form) {
         <button type="submit">Update Form</button>
     </form>
 
-    <a href="formSearch.php" class="back">← Back to Search Results</a>
+    <a class="button cancel button_style" href="formSearch.php">← Back to Search Results</a>
+
 </div>
 </body>
 </html>

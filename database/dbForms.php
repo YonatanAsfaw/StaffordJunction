@@ -61,6 +61,10 @@ function getFormSubmissions($formName, $familyId){
             return getSummerJunctionSubmissionsFromFamily($familyId);
         }
         return getSummerJunctionSubmissions();
+
+    case "Actual Activity":
+        require_once("dbActualActivityForm.php");
+        return getActualActivitySubmissions();
     
 
     // These need completed backends first
@@ -123,7 +127,7 @@ function getPublishedForms() {
 
 function getAllFormStatuses() {
     $conn = connect();
-    $query = "SELECT form_name, is_published FROM dbFormStatus";
+    $query = "SELECT form_name, is_published FROM dbformstatus";
     $result = mysqli_query($conn, $query);
 
     $formStatuses = [];
@@ -140,7 +144,7 @@ function toggleFormPublication($formName) {
     $conn = connect();
 
     // Check if the form exists before updating
-    $checkQuery = "SELECT is_published FROM dbFormStatus WHERE form_name = ?";
+    $checkQuery = "SELECT is_published FROM dbformstatus WHERE form_name = ?";
     $stmtCheck = mysqli_prepare($conn, $checkQuery);
     mysqli_stmt_bind_param($stmtCheck, "s", $formName);
     mysqli_stmt_execute($stmtCheck);
@@ -149,7 +153,7 @@ function toggleFormPublication($formName) {
     if ($row = mysqli_fetch_assoc($result)) {
         // Toggle publication status
         $newStatus = $row['is_published'] == 1 ? 0 : 1;
-        $updateQuery = "UPDATE dbFormStatus SET is_published = ? WHERE form_name = ?";
+        $updateQuery = "UPDATE dbformstatus SET is_published = ? WHERE form_name = ?";
         
         $stmtUpdate = mysqli_prepare($conn, $updateQuery);
         mysqli_stmt_bind_param($stmtUpdate, "is", $newStatus, $formName);
@@ -162,7 +166,7 @@ function toggleFormPublication($formName) {
         mysqli_stmt_close($stmtUpdate);
     } else {
         // If form doesn't exist, insert it with default status
-        $insertQuery = "INSERT INTO dbFormStatus (form_name, is_published) VALUES (?, 1)";
+        $insertQuery = "INSERT INTO dbformstatus (form_name, is_published) VALUES (?, 1)";
         $stmtInsert = mysqli_prepare($conn, $insertQuery);
         mysqli_stmt_bind_param($stmtInsert, "s", $formName);
         mysqli_stmt_execute($stmtInsert);

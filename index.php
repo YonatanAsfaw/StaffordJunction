@@ -166,6 +166,10 @@
                     <img src="images/search.svg">
                     <span>View Feedback</span>
                 </div>
+                <div class="dashboard-item" data-link="programReviewReport.php">
+                    <img src="images/volunteer-history.svg">
+                    <span>Review Reports</span>
+                </div>
 
                 <?php endif ?>
 

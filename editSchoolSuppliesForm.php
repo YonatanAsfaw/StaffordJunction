@@ -2,6 +2,8 @@
 session_start();
 require_once("database/dbSchoolSuppliesForm.php");
 require_once("database/dbForms.php");
+require('universal.inc');
+require_once('header.php');
 
 // Ensure the user is logged in
 if (!isset($_SESSION['_id'])) {
@@ -35,7 +37,7 @@ if (!$isAdmin && $_SESSION['_id'] != $formData['user_id']) {
 // Handle form submission (saving edits)
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $updatedData = [
-        "household_size" => $_POST["household_size"],
+        // "household_size" => $_POST["household_size"],
         "child_name" => $_POST["name"],
         "grade" => $_POST["grade"],
         "school" => $_POST["school"],
@@ -78,7 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <option value="0" <?php if($formData['need_backpack'] == "0") echo "selected"; ?>>No</option>
         </select><br>
 
-        <input type="submit" value="Save Changes">
+
+
         <a href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Cancel</a>
     </form>
 </body>
