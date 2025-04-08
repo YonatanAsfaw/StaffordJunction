@@ -78,6 +78,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <style>
         .general tbody tr:hover {
             background-color: #cccccc;
+	}
+        .general thead a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .general thead a:hover {
+            text-decoration: underline;
+            color: #ddd; /* optional hover effect */
         }
     </style>
 </head>
@@ -110,7 +119,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <tr>
                     <th><a href="?sort=firstName&order=<?= ($sortColumn === 'firstName' && $sortOrder === 'asc') ? 'desc' : 'asc' ?>">Name</a></th>
                     <th>Date of Birth</th>
-                    <th><a href="?sort=email&order=<?= ($sortColumn === 'email' && $sortOrder === 'asc') ? 'desc' : 'asc' ?>">Email</a></th>
+		    <th><a href="?sort=email&order=<?= ($sortColumn === 'email' && $sortOrder === 'asc') ? 'desc' : 'asc' ?>">Email</a></th>
+                    <th><a href="?sort=phone&order=<?= ($sortColumn === 'phone' && $sortOrder === 'asc') ? 'desc' : 'asc' ?>">Phone</a></th>
                 </tr>
             </thead>
             <tbody class="standout">
@@ -118,7 +128,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <tr onclick="window.location.href='volunteerAccount.php?first-name=<?= urlencode($v->getFirstName()) ?>&last-name=<?= urlencode($v->getLastName()) ?>'" style="cursor: pointer;">
                         <td><?= htmlspecialchars($v->getFirstName() . " " . $v->getLastName()) ?></td>
                         <td><?= htmlspecialchars($v->getBirthdate()) ?></td>
-                        <td><?= htmlspecialchars($v->getEmail()) ?></td>
+			<td><?= htmlspecialchars($v->getEmail()) ?></td>
+                        <td><?= htmlspecialchars($v->getCellPhone()) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
