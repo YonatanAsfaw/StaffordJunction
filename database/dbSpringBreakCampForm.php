@@ -115,7 +115,7 @@ function getSpringBreakCampSubmissionsFromFamily($familyId) {
 function getSpringBreakById($id) {
     $conn = connect(); // Ensure `connect()` establishes the database connection.
 
-    $query = "SELECT * FROM dbSpringBreakCampForm WHERE id = ?";
+    $query = "SELECT * FROM dbSpringBreakCampForm WHERE spring_id = ?";
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
@@ -151,7 +151,7 @@ function updateSpringBreakCampForm($submissionId, $updatedData) {
     $query = "
         UPDATE dbSpringBreakCampForm 
         SET email = ?, student_name = ?, school_choice = ?, isAttending = ?, waiver_completed = ?, notes = ?
-        WHERE id = ?
+        WHERE spring_id = ?
     ";
 
     $stmt = mysqli_prepare($conn, $query);
