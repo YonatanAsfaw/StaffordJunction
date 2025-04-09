@@ -82,6 +82,9 @@
         $permission_array['fieldtripwaiver.php'] = 1;
         $permission_array['holidaymealbagform.php'] = 1;
         $permission_array['childcarewaiverform.php'] = 1;
+        $permission_array['holidaypartyform.php'] = 1;
+        $permission_array['brainbuildersregistrationform.php'] = 1;
+        $permission_array['selectfamily.php'] = 1;
         //pages only staff can view
         $permission_array['personsearch.php'] = 2;
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
@@ -138,6 +141,9 @@
         $permission_array['schoolsuppliesform.php'] = 3;
         $permission_array['holidaymealbagform.php'] = 3;
         $permission_array['childcarewaiverform.php'] = 3;
+        $permission_array['holidaypartyform.php'] = 3;
+        $permission_array['brainbuildersregistrationform.php'] = 3;
+        $permission_array['selectfamily.php'] = 3;
 
         $permission_array['editform.php'] = 1;
         $permission_array['programreviewreport.php'] = 2;
