@@ -13,6 +13,8 @@ error_reporting(E_ALL);
 require_once('database/dbChildren.php');
 require_once('database/dbFamily.php');
 require_once('database/dbChildCareWaiverForm.php');
+require_once('header.php');
+require('universal.inc');
 
 if (!isset($_SESSION['_id']) || empty($_SESSION['_id'])) {
     die("ERROR: No User ID Found. Please log in.");
@@ -57,7 +59,7 @@ $existingForm = $child_id ? getChildCareWaiverData($child_id) : null;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Child Care Waiver Form</title>
 
-    <style>
+    <!-- <style>
         .message-box {
             text-align: center;
             width: 90%;
@@ -138,7 +140,7 @@ $existingForm = $child_id ? getChildCareWaiverData($child_id) : null;
         .return-button:hover {
             background-color: #218838;
         }
-    </style>
+    </style> -->
 </head>
 <body>
 
@@ -270,5 +272,5 @@ $existingForm = $child_id ? getChildCareWaiverData($child_id) : null;
         <button type="submit">Submit</button>
     </form>
 
-    <a href="index.php" class="return-button">Return to Dashboard</a>
+    <a class="button cancel" href="index.php">Return to Dashboard</a>
 </div>

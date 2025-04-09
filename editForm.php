@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 require_once("database/dbForms.php");
 require_once('header.php');
 
+
 if (!isset($_SESSION['_id'])) {
     header('Location: login.php');
     die();
