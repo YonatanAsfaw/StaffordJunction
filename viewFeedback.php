@@ -39,10 +39,16 @@ if ($accessLevel < 2) {
     die();
 }
 
-if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['notification'])){
+if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])){
     header('Location: deleteFeedback.php');
     die();
 }
+
+if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['edit'])){
+    header('Location: editFeedback.php');
+    die();
+}
+
 if($_SERVER['REQUEST_METHOD'] == "POST"){
     require_once("include/input-validation.php");
     $args = sanitize($_POST, null);
@@ -228,6 +234,7 @@ $review = find_reviews($last_name, $email, $event);
                                 <th>Email</th>
                                 <th>Program</th>
                                 <th>Feedback</th>
+                                <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
@@ -262,12 +269,19 @@ $review = find_reviews($last_name, $email, $event);
                         echo '<td>' . $family->getEmail() . '</td>';
                         echo '<td>' . $msg->getProgram() . '</td>';
                         echo '<td>' . $msg->getFeedback() . '</td>';
+                        echo '<td><form action="editFeedback.php" method="post"';
+                        echo '<input type="hidden" name="family" value=' . $msg->getFamily() . ' />';
+                        echo '<input type="hidden" name="feedback" value="' . $msg->getFeedback() . '" />';
+                        echo '<input type="hidden" name="program" value="' . $msg->getProgram() . '" />';
+                        echo '<input type="hidden" name="id" value="' . $id . '" />';
+                        echo '<button type="submit" name="edit">Edit</button>';
+                        echo '</form></td>';
                         echo '<td><form action="deleteFeedback.php" method="post">';
                         echo '<input type="hidden" name="family" value=' . $msg->getFamily() . ' />';
                         echo '<input type="hidden" name="feedback" value="' . $msg->getFeedback() . '" />';
                         echo '<input type="hidden" name="program" value="' . $msg->getProgram() . '" />';
                         echo '<input type="hidden" name="id" value="' . $id . '" />';
-                        echo '<button type="submit" name="notification">Delete</button>';
+                        echo '<button type="submit" name="delete">Delete</button>';
                         //echo '<input type="submit" value="delete" />';
                         echo '</form></td>';
                         //echo "<td><a href='deleteFeedback.php?family=" . $msg->getFamily() . "&feedback=" . $msg->getFeedback() . "&id=" . $id . "'>delete</a></td>";
