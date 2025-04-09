@@ -17,6 +17,8 @@ if(isset($_SESSION['_id'])){
     $loggedIn = false;
     header("Location: login.php");
 }
+require_once('header.php');
+require('universal.inc');
 
 require_once("database/dbFamily.php");
 require_once("database/dbChildren.php");
