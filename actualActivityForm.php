@@ -17,7 +17,8 @@ if(isset($_SESSION['_id'])){
     header('Location: login.php');
     die();
 }
-
+require_once('header.php');
+require('universal.inc');
 require_once('database/dbActualActivityForm.php');
 
 if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -213,8 +214,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
             <br><hr>
 
                 <button type="submit" id="submit">Submit</button>
-                <a class="button cancel" href="fillFormStaff.php" style="margin-top: .5rem">Cancel</a>
-        
+                <!-- <a class="button cancel" href="fillFormStaff.php" style="margin-top: .5rem">Cancel</a> -->
+                <a class="button cancel" href="index.php">Return to Dashboard</a>
             </form>
         </div>
         <?php

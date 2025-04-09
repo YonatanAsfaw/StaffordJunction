@@ -84,6 +84,7 @@
         $permission_array['childcarewaiverform.php'] = 1;
         $permission_array['holidaypartyform.php'] = 1;
         $permission_array['brainbuildersregistrationform.php'] = 1;
+        $permission_array['actualactivityform.php'] = 1;
         $permission_array['selectfamily.php'] = 1;
         //pages only staff can view
         $permission_array['personsearch.php'] = 2;
@@ -144,6 +145,7 @@
         $permission_array['holidaypartyform.php'] = 3;
         $permission_array['brainbuildersregistrationform.php'] = 3;
         $permission_array['selectfamily.php'] = 3;
+        $permission_array['actualactivityform.php'] = 3;
 
         $permission_array['editform.php'] = 1;
         $permission_array['programreviewreport.php'] = 2;
