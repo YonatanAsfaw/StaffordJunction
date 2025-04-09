@@ -5,6 +5,8 @@ error_reporting(E_ALL);
 
 require_once("database/dbFieldTripWaiverForm.php");
 
+
+
 if (!isset($_SESSION['_id'])) {
     header('Location: login.php');
     exit();
@@ -17,6 +19,14 @@ if ($formId === null || !is_numeric($formId)) {
 }
 
 $formId = intval($formId);
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["delete"])) {
+    if (deleteFieldTripWaiverForm($formId)) {
+        header("Location: index.php?deleted=1");
+        exit();
+    } else {
+        $error = "Failed to delete the form.";
+    }
+}
 $formData = getFieldTripWaiverById($formId);
 
 if (!$formData) {
@@ -54,6 +64,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $formData = getFieldTripWaiverById($formId);
     }
 }
+    // Handle delete
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["delete"])) {
+        if (deleteFieldTripWaiverForm($formId)) {
+            header("Location: formSearchResult.php?formName=Field+Trip+Waiver+Form&searchByForm=searchByForm");
+            exit();
+        } else {
+            $deleteError = "Failed to delete the form.";
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -205,7 +224,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <button type="submit" class="submit-btn">Save Changes</button>
             
-
+            <div style="margin-top: 15px;">
+    <form method="post" onsubmit="return confirm('Are you sure you want to delete this form?');">
+        <button type="submit" name="delete" class="submit-btn delete-btn">Delete Form</button>
+    </form>
+</div>
             <a class="return-btn" href="index.php">Return to Dashboard</a>
         </form>
     </div>

@@ -181,8 +181,10 @@ function retrieve_family_by_id($id) {
     $result = $stmt->get_result();
 
     if ($result->num_rows < 1) {
-        die("ERROR: No family found with ID: " . htmlspecialchars($id));
+        error_log("⚠️ No family found with ID: " . $id); // Logs instead of printing
+        return null;
     }
+    
 
     $row = $result->fetch_assoc();
     $stmt->close();

@@ -105,6 +105,18 @@ function isFieldTripWaiverFormComplete($childID) {
         return true; // Entry found, form is complete
     }
 }
+function deleteFieldTripWaiverForm($formId) {
+    $conn = connect();
+    $query = "DELETE FROM dbFieldTripWaiverForm WHERE field_id = ?"; 
+
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $formId);
+    $success = $stmt->execute();
+    $stmt->close();
+    $conn->close();
+    return $success;
+}
+
 
 //Function that retrieves the data from the field trip waiver for children on the family
 function getFielTripWaiverData($id){

@@ -20,7 +20,7 @@ require_once("domain/Family.php");
 $families = find_all_families();
 $excludedColumns = array(
     "id", "steam", "family_id", "securityQuestion", "securityAnswer", "password", "child_id", "form_id", "id", 
-    "neighborhood", "shirt_size", "child_address", "child_city", "child_state", "child_zip", "child_medical_allergies", 
+    "neighborhood", "shirt_size", "child_city", "child_state", "child_zip", "child_medical_allergies", 
     "child_food_avoidances", "parent1_first_name", "parent1_last_name", "parent1_address", "parent1_city", 
     "parent1_state", "parent1_zip", "parent1_email", "parent1_cell_phone", "parent1_home_phone", 
     "parent1_work_phone", "parent2_first_name", "parent2_last_name", "parent2_address", "parent2_city", 
@@ -178,8 +178,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csv_export'])) {
                                   // Determine the edit ID and URL based on the form type.
                                     if ($selectedFormName === "Spring Break Camp Form") {
                                     // For Spring Break, use spring_id
-                                    $editId = $submission['spring_id'] ?? $submission['form_id'] ?? '';
-                                    $editUrl = "editSpringBreakCampForm.php?id=" . htmlspecialchars($editId, ENT_QUOTES, 'UTF-8');
+                                    $editId = $submission['id'] ?? $submission['form_id'] ?? null;
+
+                                    if ($editId === null) {
+                                        error_log("❌ Missing edit ID for submission: " . print_r($submission, true));
+                                        continue; // Skip this row
+                                    }
+
+                                    $editUrl = "editSpringBreakCampForm.php?id=" . htmlspecialchars((string)$editId, ENT_QUOTES, 'UTF-8');
+
                                     } elseif ($selectedFormName === "Field Trip Waiver Form") {
                                         //  Use `form_id` in URL to avoid ID conflict
                                         $editId = $submission['field_id'] ?? $submission['form_id'] ?? ''?? $submission['id'];

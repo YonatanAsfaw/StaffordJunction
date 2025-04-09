@@ -15,7 +15,9 @@ if (!isset($_GET['id'])) {
 }
 
 $id = intval($_GET['id']);
+error_log("🛠 Edit page loading. ID from URL: " . $id);
 $formData = getSpringBreakById($id);
+
 
 if (!$formData) {
     die("Spring Break Camp form not found.");
@@ -154,6 +156,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <textarea name="notes"><?= htmlspecialchars($formData['notes']) ?></textarea>
 
             <button type="submit" class="submit-btn">Save Changes</button>
+
+            <a class="dashboard return-btn" href="formSearchResult.php?searchByForm=searchByForm&formName=Spring%20Break%20Camp%20Form">Return to Search Results</a>
+            
+
 
             <a class="dashboard return-btn" href="index.php">Return to Dashboard</a>
         </form>

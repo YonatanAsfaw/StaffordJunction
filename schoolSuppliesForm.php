@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action']) && $_POST['a
     if ($form_id > 0) {
         $delete_success = deleteSchoolSuppliesForm($form_id);
         if ($delete_success) {
-            header("Location: index.php"); // Always redirect to admin dashboard
+            header("Location: index.php");
             exit();
         } else {
             $error_message = "Failed to delete form.";
@@ -52,27 +52,21 @@ $children = retrieve_children_by_family_id($familyID);
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == "POST" && !isset($_POST['action'])) {
-    echo "POST request detected<br>"; // Debug
     require_once('include/input-validation.php');
-    echo "<pre>POST Data: "; var_dump($_POST); echo "</pre>"; // Debug POST contents
     $args = sanitize($_POST, null);
     $required = array("email", "name", "grade", "school", "community", "need_backpack");
 
     if (!wereRequiredFieldsSubmitted($args, $required)) {
         $error_message = "Not all fields complete";
-        echo "Missing required fields: " . implode(", ", array_diff($required, array_keys($args))) . "<br>"; // Debug
     } else {
         $community = ($_POST['community'] == 'other') ? $_POST['community_other'] : $_POST['community'];
         $args['community'] = $community;
-        echo "Calling createBackToSchoolForm with: "; var_dump($args); echo "<br>"; // Debug
         $success = createBackToSchoolForm($args);
         if ($success) {
-            echo "Success ID: $success<br>"; // Debug (won’t be seen due to redirect)
-            header("Location: index.php?success=1"); // Redirect to admin dashboard with success flag
+            header("Location: index.php?success=1");
             exit();
         } else {
             $error_message = "Failed to submit form. Please try again.";
-            echo "Insert failed<br>"; // Debug
         }
     }
 }
@@ -84,11 +78,9 @@ if (isset($_GET['form_id']) && ctype_digit($_GET['form_id'])) {
     $form_data = getSchoolSuppliesFormById($form_id);
 }
 
-// Check for success message from redirect (optional, not needed here since we redirect)
 if (isset($_GET['success']) && $_GET['success'] == 1) {
     $successMessage = "Form submitted successfully";
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -128,12 +120,10 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
                 } else {
                     foreach ($children as $c) {
                         $id = $c['id'];
-                        if (!isBackToSchoolFormComplete($id)) {
-                            $name = $c['first_name'] . " " . $c['last_name'];
-                            $value = $id . "_" . $name;
-                            $selected = ($form_data && $form_data['child_name'] == $name) ? 'selected' : '';
-                            echo "<option value='$value' $selected>$name</option>";
-                        }
+                        $name = $c['first_name'] . " " . $c['last_name'];
+                        $value = $id . "_" . $name;
+                        $selected = ($form_data && $form_data['child_name'] == $name) ? 'selected' : '';
+                        echo "<option value='$value' $selected>$name</option>";
                     }
                 }
             ?>
@@ -172,7 +162,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
                 <input type="hidden" name="form_id" value="<?php echo $form_data['id']; ?>">
                 <button type="submit" name="deleteForm">Delete</button>
             </form>
-            <a class="button cancel" href="index.php">Return to Dashboard</a> <!-- Always admin dashboard -->
+            <a class="button cancel" href="index.php">Return to Dashboard</a>
         <?php endif; ?>
     </form>
 

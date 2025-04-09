@@ -50,9 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         foreach ($formData as $key => $value) {
             $formData[$key] = $value ?? '';
         }
-        // Redirect to admin dashboard (index.php) after success
-        header("Location: index.php?success=1");
-        exit();
+        
     } else {
         echo "<p style='color:red;'>Error updating form. Please try again.</p>";
     }

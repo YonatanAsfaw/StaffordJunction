@@ -252,6 +252,10 @@ $review = find_reviews($last_name, $email, $event);
                     foreach ($review as $msg) {
                         $id = $msg->getID();
                         $family = retrieve_family_by_id($msg->getFamily());
+                        if (!$family) {
+                            
+                            continue;
+                        }
                         //echo "<tr onclick=\"window.location.href='familyView.php?id=$id'\" style='cursor: pointer;'>";
                         echo '<tr>';
                         echo '<td>' . $family->getLastName() . '</td>';

@@ -85,8 +85,8 @@ function getSpringBreakCampSubmissionsFromFamily($familyId) {
     $joinedIds = implode(",", $childrenIds);
     $conn = connect();
     $query = "
-    SELECT 
-        dbSpringBreakCampForm.spring_id AS form_id,
+        SELECT 
+        dbSpringBreakCampForm.id AS form_id,
         dbSpringBreakCampForm.email,
         dbSpringBreakCampForm.student_name,
         dbSpringBreakCampForm.school_choice,
@@ -97,7 +97,8 @@ function getSpringBreakCampSubmissionsFromFamily($familyId) {
         dbChildren.first_name,
         dbChildren.last_name
     FROM dbSpringBreakCampForm
-    INNER JOIN dbChildren ON dbSpringBreakCampForm.child_id = dbChildren.id;
+    INNER JOIN dbChildren ON dbSpringBreakCampForm.child_id = dbChildren.id
+    WHERE dbSpringBreakCampForm.child_id IN ($joinedIds);
 ";
 
     $result = mysqli_query($conn, $query);
@@ -114,13 +115,14 @@ function getSpringBreakCampSubmissionsFromFamily($familyId) {
 function getSpringBreakById($id) {
     $conn = connect(); // Ensure `connect()` establishes the database connection.
 
-    $query = "SELECT * FROM dbSpringBreakCampForm WHERE spring_id = ?";
+    $query = "SELECT * FROM dbSpringBreakCampForm WHERE id = ?";
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
     
     $result = mysqli_stmt_get_result($stmt);
     $formData = mysqli_fetch_assoc($result);
+    error_log("🪵 getSpringBreakById($id) result: " . print_r($formData, true)); // 👈 debug output
 
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
@@ -149,7 +151,7 @@ function updateSpringBreakCampForm($submissionId, $updatedData) {
     $query = "
         UPDATE dbSpringBreakCampForm 
         SET email = ?, student_name = ?, school_choice = ?, isAttending = ?, waiver_completed = ?, notes = ?
-        WHERE spring_id = ?
+        WHERE id = ?
     ";
 
     $stmt = mysqli_prepare($conn, $query);
