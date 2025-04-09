@@ -229,6 +229,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <button type="submit" name="delete" class="submit-btn delete-btn">Delete Form</button>
     </form>
 </div>
+<a class="button cancel button_style" href="formSearch.php">Back to Search Results</a>
+<!-- <a class="button cancel button_style" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a> -->
 <a class="button cancel" href="index.php">Return to Dashboard</a>
         </form>
     </div>
