@@ -3,6 +3,8 @@ session_cache_expire(30);
 session_start();
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
+require('universal.inc');
+require_once('header.php');
 
 if (!isset($_SESSION['_id'])) {
     header('Location: login.php');
