@@ -252,7 +252,7 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
 
             <button type="submit" class="submit-btn">Save Changes</button>
 <a class="button cancel button_style" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a>
-
+<a class="button cancel" href="index.php">Return to Dashboard</a>
         </form>
     </div>
 

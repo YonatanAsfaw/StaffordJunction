@@ -103,6 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
         <a href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Cancel</a>
+        <a class="button cancel" href="index.php">Return to Dashboard</a>
     </form>
 </body>
 </html>
