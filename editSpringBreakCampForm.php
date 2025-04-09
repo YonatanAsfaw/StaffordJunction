@@ -159,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <button type="submit" class="submit-btn">Save Changes</button>
 
-            <a class="button cancel button_style" href="index.php">Return to Dashboard</a>
+            <a class="button cancel" href="index.php">Return to Dashboard</a>
 
         </form>
     </div>
