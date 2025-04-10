@@ -68,7 +68,7 @@ if (isset($_GET['error'])) {
 
             <!-- Cancel -->
             <div class="dashboard-item" data-link="busMonitorAttendanceForm.php">
-                <span>Cancel</span>
+                <span>Return to Bus Monitor Form</span>
             </div>
             </div>
     </main>
