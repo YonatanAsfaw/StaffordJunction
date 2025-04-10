@@ -559,6 +559,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $childId = $childToRegister['id'] ?? null;
 
             if ($childId) {
+                if (isset($args['name'])) {
+                    $args['child-first-name'] = $firstName;
+                    $args['child-last-name'] = $lastName;
+                    unset($args['name']);
+                }
+                $args = array_merge(
+                    [
+                        'child-first-name' => $args['child-first-name'],
+                        'child-last-name' => $args['child-last-name']
+                    ],
+                    $args
+                );
                 $success = register($args, $childId);
             } else {
                 error_log("ERROR: Child ID not found.");

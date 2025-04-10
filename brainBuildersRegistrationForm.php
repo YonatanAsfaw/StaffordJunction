@@ -38,7 +38,6 @@ if(isset($_SESSION['_id'])){
     $emergency_contact_name = $family->getEContactFirstName() . " " . $family->getEContactLastName();
     $econtactRelation = $family->getEContactRelation();
     $econtactPhone = $family->getEContactPhone();
-    
     $parent2Name = null;
 }
 
@@ -48,11 +47,25 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     require_once('database/dbChildren.php');
     require_once('database/dbBrainBuildersRegistration.php');
     $args = sanitize($_POST, null);
-    $n = explode(" ", $args['name']);
-    //data_dump($n);
-    //$childToRegister = retrieve_child_by_firstName_lastName_famID($args['child-first-name'], $args['child-last-name'], $_GET['id'] ?? $userID);
-    $childToRegister = retrieve_child_by_firstName_lastName_famID($n[0], $n[1], $_GET['id'] ?? $userID);
-    $success = register($args, $childToRegister['id']);
+    if (isset($args['name'])) {
+        $n = explode(" ", $args['name']);
+        $firstName = $n[0] ?? null;
+        $lastName = $n[1] ?? null;
+        $args['child-first-name'] = $firstName;
+        $args['child-last-name'] = $lastName;
+        unset($args['name']);
+    }
+    $args = array_merge(
+        [
+            'child-first-name' => $args['child-first-name'],
+            'child-last-name' => $args['child-last-name']
+        ],
+        $args
+    );
+    $childToRegister = retrieve_child_by_firstName_lastName_famID($args['child-first-name'], $args['child-last-name'], $_GET['id'] ?? $userID);
+    
+    //already runs from dbFamily.php
+    //$success = register($args, $childToRegister['id']);
 }
 ?>
 
@@ -91,9 +104,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     require_once('domain/Children.php');
     foreach ($children as $child) {
         $id = $child['id'];
-        $name = $child['first_name'] . " " . $child['last_name'];
+        $name = $child['first_name'] . ' ' . $child['last_name'];
         $dob = $child['birth_date'];
-        echo "<option value='$id'>$name </option>"; 
+        echo "<option value='$name'>$name</option>"; 
     }
     ?>
                 </select><br><br>
