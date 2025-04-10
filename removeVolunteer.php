@@ -41,7 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['removeSelected'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include_once("universal.inc"); ?>
+    <?php 
+    //include_once("universal.inc"); 
+    require_once('header.php');
+    require('universal.inc');?>
     <title>Remove Volunteers from Routes</title>
     <link rel="stylesheet" href="base.css">
     <style>

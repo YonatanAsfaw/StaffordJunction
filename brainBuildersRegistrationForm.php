@@ -1,9 +1,9 @@
 <?php
-require_once('header.php');
-require('universal.inc');
+// require_once('header.php');
+// require('universal.inc');
 
-//session_cache_expire(30);
-//session_start();
+session_cache_expire(30);
+session_start();
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
@@ -72,7 +72,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 <html>
 <head>
     <!-- Include universal styles formatting -->
-    <?php include_once("universal.inc") ?>
+    <?php 
+    //include_once("universal.inc"); 
+    require_once('header.php');
+    require('universal.inc');?>
     <title>Stafford Junction | Brain Builders Student Registration Form</title>
 </head>
     <body>

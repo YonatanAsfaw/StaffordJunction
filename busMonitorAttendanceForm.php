@@ -1,7 +1,10 @@
 <?php
 
-session_cache_expire(30);
-session_start();
+require_once('header.php');
+require('universal.inc'); 
+
+//session_cache_expire(30);
+//session_start();
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
@@ -139,7 +142,10 @@ if (isset($_GET['error'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include_once("universal.inc"); ?>
+    <?php 
+    //include_once("universal.inc"); 
+    require_once('header.php');
+    require('universal.inc');?>
     <title>Bus Monitor Attendance Form</title>
     <link rel="stylesheet" href="base.css">
     <style>

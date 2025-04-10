@@ -86,6 +86,11 @@
         $permission_array['brainbuildersregistrationform.php'] = 1;
         $permission_array['actualactivityform.php'] = 1;
         $permission_array['selectfamily.php'] = 1;
+        $permission_array['busmonitorattendanceform.php'] = 1;
+        $permission_array['addroutevolunteer.php'] = 1;
+        $permission_array['removevolunteer.php'] = 1;
+        $permission_array['addattendee.php'] = 1;
+        $permission_array['removeattendee.php'] = 1;
         //pages only staff can view
         $permission_array['personsearch.php'] = 2;
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
@@ -146,6 +151,11 @@
         $permission_array['brainbuildersregistrationform.php'] = 3;
         $permission_array['selectfamily.php'] = 3;
         $permission_array['actualactivityform.php'] = 3;
+        $permission_array['busmonitorattendanceform.php'] = 3;
+        $permission_array['addroutevolunteer.php'] = 3;
+        $permission_array['removevolunteer.php'] = 3;
+        $permission_array['addattendee.php'] = 3;
+        $permission_array['removeattendee.php'] = 3;
 
         $permission_array['editform.php'] = 1;
         $permission_array['programreviewreport.php'] = 2;
