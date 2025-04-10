@@ -2,8 +2,8 @@
 require_once('header.php');
 require('universal.inc');
 
-session_cache_expire(30);
-session_start();
+//session_cache_expire(30);
+//session_start();
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
@@ -377,7 +377,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
                 <!--Email-->
                 <label for="parent2-email" required>Email</label><br><br>
-                <input type="text" id="parent2-email" name="parent2-email" placeholder="Enter your city" value="<?php echo htmlspecialchars($family->getEmail2()); ?>"><br><br>
+                <input type="text" id="parent2-email" name="parent2-email" placeholder="Enter your email" value="<?php echo htmlspecialchars($family->getEmail2()); ?>"><br><br>
 
                 <!--Alternate Phone-->
                 <label for="parent2-altPhone" required>Alternate Phone Number</label><br><br>
