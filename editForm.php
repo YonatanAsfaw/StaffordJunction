@@ -215,12 +215,6 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
             <?php endforeach; ?>
 
             <button type="submit" class="submit-btn">Save Changes</button>
-<<<<<<< Updated upstream
-            <a class="button cancel button_style" href="formSearch.php">Back to Search Results</a>
-<!-- <a class="button cancel button_style" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a> -->
-<a class="button cancel" href="index.php">Return to Dashboard</a>
-        </form>
-=======
             
             <!-- Separate delete form to avoid conflicts with regular submission -->
             </form>
@@ -232,7 +226,6 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
             </form>
 
             <a class="button cancel button_style" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a>
->>>>>>> Stashed changes
     </div>
 
     <script>
