@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['removeSelected'])) {
         $volunteers = getVolunteersForLocation($location);
         if (!empty($volunteers)) {
             foreach ($volunteers as $volunteer) {
-                echo "<label><input type='checkbox' name='volunteers_to_remove[]' value='{$volunteer['id']}' data-route-id='6'> {$volunteer['fullName']}</label><br>";
+                echo "<label><input type='checkbox' name='volunteers_to_remove[]' value='{$volunteer['id']}' data-route-id='1'> {$volunteer['fullName']}</label><br>";
             }
         } else {
             echo "<p>No volunteers found for $location.</p>";
@@ -104,10 +104,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['removeSelected'])) {
             <div id="southLocations" class="location-section" style="display: none;">
                 <?php
         $southNeighborhoods = [
-            'Meadows' => 7,
-            'Jefferson Place' => 8,
-            'Olde Forge' => 9,
-            'England Run' => 10
+            'Meadows' => 2,
+            'Jefferson Place' => 3,
+            'Olde Forge' => 4,
+            'England Run' => 5
         ];
 
         foreach ($southNeighborhoods as $location => $route_id) {
