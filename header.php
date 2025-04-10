@@ -91,6 +91,7 @@
         $permission_array['removevolunteer.php'] = 1;
         $permission_array['addattendee.php'] = 1;
         $permission_array['removeattendee.php'] = 1;
+        $permission_array['editbusmonitordata.php'] = 1;
         //pages only staff can view
         $permission_array['personsearch.php'] = 2;
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
@@ -156,6 +157,7 @@
         $permission_array['removevolunteer.php'] = 3;
         $permission_array['addattendee.php'] = 3;
         $permission_array['removeattendee.php'] = 3;
+        $permission_array['editbusmonitordata.php'] = 3;
 
         $permission_array['editform.php'] = 1;
         $permission_array['programreviewreport.php'] = 2;
