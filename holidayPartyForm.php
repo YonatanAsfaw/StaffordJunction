@@ -1,6 +1,4 @@
 <?php
-// require_once('header.php');
-// require('universal.inc');
 session_cache_expire(30);
 session_start();
 ini_set("display_errors", 1);
@@ -69,10 +67,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
 <head>
     <!-- Include universal styles, scripts, or configurations via external file -->
-    <?php 
-    //include_once("universal.inc"); 
-    require_once('header.php');
-    require('universal.inc');?>
+    <?php include_once("universal.inc") ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stafford Junction | Holiday Party Form</title>
