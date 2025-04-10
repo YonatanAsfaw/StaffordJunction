@@ -20,6 +20,56 @@ if (!isset($_GET['id']) || !isset($_GET['formName'])) {
 $submissionId = $_GET['id'];
 $formName = $_GET['formName'];
 $updateSuccess = false;
+$deleteSuccess = false;
+$deleteError = false;
+
+// Handle DELETE action first
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['delete'])) {
+    // Load the appropriate database functions based on form name
+    switch ($formName) {
+        case "Holiday Meal Bag":
+            require_once("database/dbHolidayMealBag.php");
+            
+            // First get the current form data to extract family_id
+            $currentData = getHolidayMealBagById($submissionId);
+            
+            if ($currentData && isset($currentData['family_id'])) {
+                $familyId = $currentData['family_id'];
+                
+                // Try to delete by family_id
+                error_log("Attempting to delete Holiday Meal Bag record with family_id: $familyId");
+                if (deleteHolidayMealBagForm($familyId)) {
+                    error_log("Successfully deleted Holiday Meal Bag record");
+                    $deleteSuccess = true;
+                    header("Location: formSearchResult.php?searchByForm=searchByForm&formName=" . urlencode($formName) . "&deleted=1");
+                    exit();
+                } else {
+                    error_log("Failed to delete Holiday Meal Bag record with family_id: $familyId");
+                    $deleteError = true;
+                }
+            } else {
+                error_log("Could not retrieve family_id for Holiday Meal Bag submission: $submissionId");
+                $deleteError = true;
+            }
+            break;
+            
+        // Add cases for other form types as needed
+        // case "Another Form Type":
+        //     require_once("database/dbAnotherForm.php");
+        //     if (deleteAnotherForm($submissionId)) {
+        //         $deleteSuccess = true;
+        //         header("Location: formSearchResult.php?searchByForm=searchByForm&formName=" . urlencode($formName) . "&deleted=1");
+        //         exit();
+        //     } else {
+        //         $deleteError = true;
+        //     }
+        //     break;
+            
+        default:
+            error_log("No delete handler for form type: $formName");
+            $deleteError = true;
+    }
+}
 
 // Fetch existing form data
 $formData = getFormSubmissionById($formName, $submissionId);
@@ -35,8 +85,8 @@ foreach ($formData as $key => $value) {
     $formData[$key] = $value ?? '';
 }
 
-// Handle form submission (saving edits)
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+// Handle UPDATE (after DELETE since we want DELETE to take precedence)
+if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST['delete'])) {
     $updatedData = [];
 
     foreach ($formData as $key => $value) {
@@ -52,9 +102,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         foreach ($formData as $key => $value) {
             $formData[$key] = $value ?? '';
         }
-        
     } else {
-        //echo "<p style='color:red;'>Error updating form. Please try again.</p>";
+        error_log("Failed to update form: $formName, ID: $submissionId");
     }
 }
 
@@ -68,7 +117,7 @@ function getFormSubmissionById($formName, $submissionId) {
             return getHolidayMealBagById($submissionId);
         case "School Supplies":
             require_once("database/dbSchoolSuppliesForm.php");
-            return getSchoolSuppliesFormById($submissionId); // Fixed function name
+            return getSchoolSuppliesFormById($submissionId);
         case "Angel Gifts Wish List":
             require_once("database/dbAngelGiftForm.php");
             return getAngelGiftById($submissionId);
@@ -128,103 +177,17 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require('universal.inc'); ?>
     <title>Edit Form - <?php echo htmlspecialchars($formName); ?></title>
-    <!-- <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f3f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: auto;
-            margin: 0;
-            flex-direction: column;
-            overflow: auto;
-        }
-        .container {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            width: 450px;
-            text-align: center;
-            border-top: 5px solid #7b1416;
-            position: relative;
-        }
-        h2 {
-            color: #7b1416;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        label {
-            font-weight: bold;
-            display: block;
-            text-align: left;
-            margin: 10px 0 5px;
-            color: #333;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-        button, .dashboard {
-            display: block;
-            width: 90%;
-            padding: 12px;
-            border-radius: 5px;
-            font-size: 16px;
-            text-align: center;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .submit-btn {
-            background-color: #7b1416;
-            color: white;
-            border: none;
-        }
-        .submit-btn:hover {
-            background-color: #580f11;
-        }
-        .dashboard {
-            background-color: white;
-            border: 2px solid #4CAF50;
-            color: #4CAF50;
-            text-decoration: none;
-            font-weight: bold;
-            line-height: 40px;
-        }
-        .dashboard:hover {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .success-message {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            display: none;
-            position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            width: 80%;
-            text-align: center;
-        }
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-    </style> -->
 </head>
 <body>
 
     <!-- Success Message -->
     <div id="successMessage" class="success-message">Update Successful!</div>
+    
+    <?php if ($deleteError): ?>
+    <div class="error-message" style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
+        Error deleting form. Please try again.
+    </div>
+    <?php endif; ?>
 
     <div class="container">
         <h2>Edit <?php echo htmlspecialchars($formName); ?> Form</h2>
@@ -252,10 +215,24 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
             <?php endforeach; ?>
 
             <button type="submit" class="submit-btn">Save Changes</button>
+<<<<<<< Updated upstream
             <a class="button cancel button_style" href="formSearch.php">Back to Search Results</a>
 <!-- <a class="button cancel button_style" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a> -->
 <a class="button cancel" href="index.php">Return to Dashboard</a>
         </form>
+=======
+            
+            <!-- Separate delete form to avoid conflicts with regular submission -->
+            </form>
+            <form method="post" id="deleteForm">
+                <input type="hidden" name="delete" value="1">
+                <button type="submit" class="submit-btn" style="background-color: #aa0000;" onclick="return confirm('Are you sure you want to unenroll? This action cannot be undone.');">
+                    Unenroll
+                </button>
+            </form>
+
+            <a class="button cancel button_style" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a>
+>>>>>>> Stashed changes
     </div>
 
     <script>

@@ -42,7 +42,26 @@ function deleteHolidayMealBagForm($family_id) {
 
     $stmt->close();
     return $result;
+}// Add this function to dbHolidayMealBag.php:
+
+function deleteHolidayMealBagFormById($id) {
+    global $conn;
+
+    $query = "DELETE FROM dbHolidayMealBagForm WHERE id=?";
+    $stmt = $conn->prepare($query);
+    if (!$stmt) {
+        die("Database error: " . $conn->error);
+    }
+
+    $stmt->bind_param("i", $id);
+    $result = $stmt->execute();
+
+    $stmt->close();
+    return $result;
 }
+
+
+
 
 // Retrieve all Holiday Meal Bag submissions
 function getHolidayMealBagSubmissions() {
