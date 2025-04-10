@@ -2,6 +2,8 @@
 session_start();
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
+require_once('header.php');
+require('universal.inc');
 
 require_once("database/dbinfo.php");
 require_once("database/dbFamily.php");
@@ -87,7 +89,7 @@ $forms = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Holiday Meal Bag Form</title>
-    <style>
+    <!-- <style>
         body {
             background-color: #800020; /* Burgundy */
             color: white;
@@ -172,7 +174,7 @@ $forms = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
             background-color: #5a0014; /* Darker Burgundy */
 }
 
-    </style>
+    </style> -->
 </head>
 <body>
 
@@ -217,13 +219,13 @@ $forms = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 
         <button type="submit">Submit Form</button>
         <div style="text-align: center; margin-top: 15px;">
-        <a href="index.php" class="dashboard-btn">Return to Dashboard</a>
+        <a class="button cancel" href="index.php">Return to Dashboard</a>
     </div>
     </form>
 </div>
 
 <!-- Display last 10 submitted forms -->
-<div class="container">
+<!-- <div class="container">
     <h3>Last 10 Submitted Forms</h3>
     <table>
         <tr>
@@ -241,7 +243,7 @@ $forms = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
             </tr>
         <?php endforeach; ?>
     </table>
-</div>
+</div> -->
 
 </body>
 </html>

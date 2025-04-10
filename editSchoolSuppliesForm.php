@@ -46,8 +46,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     ];
 
     if (updateSchoolSuppliesForm($submissionId, $updatedData)) {
-        echo "<script>alert('Form updated successfully!'); window.location.href='formSearchResult.php?searchByForm=searchByForm&formName=$formName';</script>";
+        echo "<script>
+            alert('Form updated successfully!');
+            window.location.href = 'formSearchResult.php?searchByForm=searchByForm&formName=" . urlencode($formName) . "';
+        </script>";
         exit;
+
+        
     } else {
         echo "<p>Error updating form. Please try again.</p>";
     }
@@ -58,6 +63,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html>
 <head>
     <title>Edit Form - <?php echo htmlspecialchars($formName); ?></title>
+    <style>
+.button.cancel {
+    background-color: #7b1416;
+    color: white;
+    padding: 10px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 10px;
+}
+.button.cancel:hover {
+    background-color: #580f11;
+}
+</style>
+
 </head>
 <body>
     <h2>Edit <?php echo htmlspecialchars($formName); ?> Form</h2>
@@ -83,6 +103,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
         <a href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Cancel</a>
+        <a class="button cancel button_style" href="formSearch.php">Back to Search Results</a>
+        <!-- <a class="button cancel button_style" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a> -->
+        <a class="button cancel" href="index.php">Return to Dashboard</a>
     </form>
 </body>
 </html>

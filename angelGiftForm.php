@@ -4,6 +4,8 @@ ini_set('display_errors', 1);
 
 require_once('database/dbinfo.php'); // Include dbinfo.php to access the connect() function
 require_once('database/dbAngelGiftForm.php'); // Include database functions
+require_once('header.php');
+require('universal.inc');
 
 // Connect to the database and fetch the children for family_id = 4
 $conn = connect();
@@ -106,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Angel Gift Form</title>
-    <style>
+    <!-- <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #800020;
@@ -163,7 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             width: 100%;
             margin-top: 15px;
         }
-    </style>
+    </style> -->
 </head>
 <body>
 <h2>Angel Gifts Wish Form</h2>
@@ -233,7 +235,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <button type="submit">Submit</button>
-        <a href="index.php" class="dashboard-button">Return to Dashboard</a>
+        <a class="button cancel" href="index.php">Return to Dashboard</a>
     </form>
 </div>
 

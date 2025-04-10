@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 require_once("database/dbForms.php");
 require_once('header.php');
 
+
 if (!isset($_SESSION['_id'])) {
     header('Location: login.php');
     die();
@@ -51,9 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         foreach ($formData as $key => $value) {
             $formData[$key] = $value ?? '';
         }
-        // Redirect to admin dashboard (index.php) after success
-        header("Location: index.php?success=1");
-        exit();
+        
     } else {
         //echo "<p style='color:red;'>Error updating form. Please try again.</p>";
     }
@@ -253,8 +252,9 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
             <?php endforeach; ?>
 
             <button type="submit" class="submit-btn">Save Changes</button>
-<a class="button cancel button_style" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a>
-
+            <a class="button cancel button_style" href="formSearch.php">Back to Search Results</a>
+<!-- <a class="button cancel button_style" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a> -->
+<a class="button cancel" href="index.php">Return to Dashboard</a>
         </form>
     </div>
 

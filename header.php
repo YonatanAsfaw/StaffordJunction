@@ -80,6 +80,12 @@
         $permission_array['springbreakform.php'] = 1;
         $permission_array['angelgiftform.php'] = 1;
         $permission_array['fieldtripwaiver.php'] = 1;
+        $permission_array['holidaymealbagform.php'] = 1;
+        $permission_array['childcarewaiverform.php'] = 1;
+        $permission_array['holidaypartyform.php'] = 1;
+        $permission_array['brainbuildersregistrationform.php'] = 1;
+        $permission_array['actualactivityform.php'] = 1;
+        $permission_array['selectfamily.php'] = 1;
         //pages only staff can view
         $permission_array['personsearch.php'] = 2;
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
@@ -110,8 +116,10 @@
         $permission_array['modify_staff_account.php'] = 2;
         //pages only admin can view
         $permission_array['createstaffaccount.php'] = 3;
-	    $permission_array['removestaffaccount.php'] = 3;
-	    $permission_array['staffaccount.php'] = 3;
+	$permission_array['removestaffaccount.php'] = 3;
+	$permission_array['staffaccount.php'] = 3;
+	$permission_array['editstaffaccount.php'] = 3;
+	$permission_array['modifystaffaccount.php'] = 3;
         $permission_array['createvolunteeraccount.php'] = 3;
         $permission_array['removevolunteeraccount.php'] = 3;
         $permission_array['staffaccount.php'] = 3;
@@ -132,10 +140,17 @@
         $permission_array['editfieldtripwaiverform.php'] = 3;
         $permission_array['editschoolsuppliesform.php'] = 3;
         $permission_array['schoolsuppliesform.php'] = 3;
+        $permission_array['holidaymealbagform.php'] = 3;
+        $permission_array['childcarewaiverform.php'] = 3;
+        $permission_array['holidaypartyform.php'] = 3;
+        $permission_array['brainbuildersregistrationform.php'] = 3;
+        $permission_array['selectfamily.php'] = 3;
+        $permission_array['actualactivityform.php'] = 3;
 
         $permission_array['editform.php'] = 1;
         $permission_array['programreviewreport.php'] = 2;
         $permission_array['programreviewreportpage.php'] = 2;
+        $permission_array['editfeedback.php'] = 2;
 
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));
@@ -185,7 +200,7 @@
                     echo('<a class="dropdown-item" href="' . $path . 'createStaffAccount.php">Create Staff Account</a>');
                     echo('<a class="dropdown-item" href="' . $path . 'removeStaffAccount.php">Remove Staff Account</a>');
                     //echo('<a class="dropdown-item" href="' . $path . 'testrma.php">Remove Staff Account</a>');
-                    echo('<a class="dropdown-item" href="' . $path . 'modify_staff_account.php">Modify Staff Account</a>');
+                    echo('<a class="dropdown-item" href="' . $path . 'modifyStaffAccount.php">Modify Staff Account</a>');
                 }
                 echo('</div>');
                 echo('</li>');

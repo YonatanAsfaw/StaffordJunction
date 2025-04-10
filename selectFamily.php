@@ -4,6 +4,8 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 require_once("database/dbFamily.php");
+require_once('header.php');
+require('universal.inc');
 
 if (!isset($_SESSION["_id"]) || $_SESSION["access_level"] < 2) {
     die("Access Denied. Only admins and staff can select a family.");
