@@ -65,3 +65,7 @@ CREATE TABLE `dbBrainBuildersRegistrationForm` (
     `waiver_signature` VARCHAR(100) NOT NULL,
     `waiver_date` DATE NOT NULL
 );
+
+ALTER TABLE dbBrainBuildersRegistrationForm
+ADD COLUMN child_id INT;
+
