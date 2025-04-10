@@ -142,7 +142,7 @@ if ($selectedRouteId) {
 
         <br>
         <a href="editBusMonitorData.php" style="text-decoration: none;">
-            <button style="padding: 10px 20px; font-size: 16px;">Cancel</button>
+            <button style="padding: 10px 20px; font-size: 16px;">Return to Bus Monitor Form</button>
         </a>
     </div>
 </body>

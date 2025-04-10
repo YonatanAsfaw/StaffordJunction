@@ -3,8 +3,8 @@
 // require_once('header.php');
 // require('universal.inc'); 
 
-//session_cache_expire(30);
-//session_start();
+session_cache_expire(30);
+session_start();
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
@@ -249,7 +249,7 @@ if (isset($_GET['error'])) {
         <!-- Cancel Button -->
         <br>
         <button type="button" style="padding: 10px 20px; font-size: 16px;"
-            onclick="location.href='fillFormStaff.php'">Cancel</button>
+            onclick="location.href='fillFormStaff.php'">Return to Staff Forms</button>
     </div>
 
     <script>

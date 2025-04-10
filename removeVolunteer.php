@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['removeSelected'])) {
         </form>
         <br>
         <a href="editBusMonitorData.php" style="text-decoration: none;">
-            <button style="padding: 10px 20px; font-size: 16px;">Cancel</button>
+            <button style="padding: 10px 20px; font-size: 16px;">Return to Bus Monitor Form</button>
         </a>
         <script>
         function showLocations(route) {
