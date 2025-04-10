@@ -35,7 +35,10 @@ if (isset($_GET['error'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <?php require('universal.inc'); ?>
+<?php 
+    //include_once("universal.inc"); 
+    require_once('header.php');
+    require('universal.inc');?>
     <title>Stafford Junction | Forms</title>
 </head>
 <body>
