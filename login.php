@@ -162,7 +162,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <?php require_once('universal.inc') ?>
+    <?php require('universal.inc'); 
+    require('header.php');?>
         <title>Stafford Junction | Log In</title>
     </head>
     <body>

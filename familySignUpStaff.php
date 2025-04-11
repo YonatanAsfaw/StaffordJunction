@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //need to retrieve the family we just inserted because we need the family id primary key via getID()
         $fam = retrieve_family($args);
         // Insert family languages
-        insert_family_languages($args['languages'], $fam->getId());
+        // insert_family_languages($args['languages'], $fam->getId());
         // Insert current assistance if any were added
         if (isset($args['assistance'])) {
             insert_family_assistance($args['assistance'], $fam->getId());
@@ -553,16 +553,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <option value="$35,000 - $49,999">60,001 - 80,000</option>
                     <option value="$100,000 and above">Over 80,000</option>
                 </select>
-                <br><br>
+                <!-- <br><br> -->
 
                 <!-- Household Languages -->
-                <fieldset style="border: none;">
+                <!-- <fieldset style="border: none;">
                     <label for="languages" required>* Languages Spoken in Household</label>
                     <input type="text" id="languages[]" name="languages[]" required placeholder="Enter Language">
-                    <div id="language-container"></div>
-                    <button type="button" onclick="addLanguageForm()">+ Add Language</button>
-                </fieldset>
-                <script>
+                    <div id="language-container"></div> -->
+                    <!-- <button type="button" onclick="addLanguageForm()">+ Add Language</button> -->
+                <!-- </fieldset> -->
+                <!-- <script>
                     let languageCount = 0;
 
                     function addLanguageForm() {
@@ -573,14 +573,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         languageDiv.className = 'language-form';
                         languageDiv.id = `language-form-${languageCount}`;
 
-                        languageDiv.innerHTML = `
-                                <div style="display: flex; flex: 1;">
-                                <div><input type="text" id="other_language" name="languages[]" required placeholder="Enter Language" style="width: 57.8rem;"></div>
-                                <div><button type="button" onclick="removeLanguageForm(${languageCount})" style="height: 2.55rem;">Remove</button></div>
-                                </div>
-                            `;
+                        // languageDiv.innerHTML = `
+                        //         <div style="display: flex; flex: 1;">
+                        //         <div><input type="text" id="other_language" name="languages[]" required placeholder="Enter Language" style="width: 57.8rem;"></div>
+                        //         <div><button type="button" onclick="removeLanguageForm(${languageCount})" style="height: 2.55rem;">Remove</button></div>
+                        //         </div>
+                        //     `;
 
-                        container.appendChild(languageDiv);
+                        // container.appendChild(languageDiv);
                     }
 
                     function removeLanguageForm(languageId) {
@@ -591,15 +591,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             languageCount--;
                         }
                     }
-                </script>
-                <br>
+                </script> -->
+                <!-- <br> -->
 
                 <!-- Current Assistance -->
-                <fieldset style="border: none;">
+                <!-- <fieldset style="border: none;"> -->
                     <label for="languages" required>Do You Currently Receive Any Assistance? (WIC, SNAP, SSI, SSD, etc.)<label>
                             <div id="assistance-container"></div>
                             <button type="button" onclick="addAssistanceForm()">+ Add Assistance</button>
-                </fieldset>
+                <!-- </fieldset> -->
                 <script>
                     let assistanceCount = 0;
 
@@ -630,7 +630,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         }
                     }
                 </script>
-            </fieldset>
+            <!-- </fieldset> -->
             <br><br>
 
             <h3>Login Credentials</h3>

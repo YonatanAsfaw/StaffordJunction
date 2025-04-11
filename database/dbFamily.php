@@ -199,54 +199,85 @@ function retrieve_family_by_id($id) {
 function add_family($family) {
     $conn = connect();
 
-    $query = "INSERT INTO dbFamily (firstName, lastName, birthdate, address, neighborhood, city, state, zip, email, phone, phoneType, secondaryPhone, secondaryPhoneType, isHispanic, race, income, firstName2, lastName2, birthdate2, address2, neighborhood2, city2, state2, zip2, email2, phone2, phoneType2, secondaryPhone2, secondaryPhoneType2, isHispanic2, race2, econtactFirstName, econtactLastName, econtactPhone, econtactRelation, password, securityQuestion, securityAnswer, isArchived) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+    $query = "INSERT INTO dbFamily (
+        firstName, lastName, birthdate, address, neighborhood, city, state, zip,
+        email, phone, phoneType, secondaryPhone, secondaryPhoneType,
+        isHispanic, race, income,
+        firstName2, lastName2, birthdate2, address2, neighborhood2, city2, state2, zip2,
+        email2, phone2, phoneType2, secondaryPhone2, secondaryPhoneType2,
+        isHispanic2, race2,
+        econtactFirstName, econtactLastName, econtactPhone, econtactRelation,
+        password, securityQuestion, securityAnswer,
+        isArchived
+    ) VALUES (
+        ?, ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?,
+        ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?,
+        ?, ?,
+        ?, ?, ?, ?,
+        ?, ?, ?,
+        0
+    )";
 
     $stmt = $conn->prepare($query);
-
     if (!$stmt) {
         die("ERROR: Query preparation failed - " . $conn->error);
     }
 
+    $firstName = $family->getFirstName();
+    $lastName = $family->getLastName();
+    $birthdate = $family->getBirthdate();
+    $address = $family->getAddress();
+    $neighborhood = $family->getNeighborhood();
+    $city = $family->getCity();
+    $state = $family->getState();
+    $zip = $family->getZip();
+    $email = $family->getEmail();
+    $phone = $family->getPhone();
+    $phoneType = $family->getPhoneType();
+    $secondaryPhone = $family->getSecondaryPhone();
+    $secondaryPhoneType = $family->getSecondaryPhoneType();
+    $isHispanic = $family->isHispanic();
+    $race = $family->getRace();
+    $income = $family->getIncome();
+
+    $firstName2 = $family->getFirstName2();
+    $lastName2 = $family->getLastName2();
+    $birthdate2 = $family->getBirthdate2();
+    $address2 = $family->getAddress2();
+    $neighborhood2 = $family->getNeighborhood2();
+    $city2 = $family->getCity2();
+    $state2 = $family->getState2();
+    $zip2 = $family->getZip2();
+    $email2 = $family->getEmail2();
+    $phone2 = $family->getPhone2();
+    $phoneType2 = $family->getPhoneType2();
+    $secondaryPhone2 = $family->getSecondaryPhone2();
+    $secondaryPhoneType2 = $family->getSecondaryPhoneType2();
+    $isHispanic2 = $family->isHispanic2();
+    $race2 = $family->getRace2();
+
+    $econtactFirstName = $family->getEcontactFirstName();
+    $econtactLastName = $family->getEcontactLastName();
+    $econtactPhone = $family->getEcontactPhone();
+    $econtactRelation = $family->getEcontactRelation();
+
+    $password = $family->getPassword();
+    $securityQuestion = $family->getSecurityQuestion();
+    $securityAnswer = $family->getSecurityAnswer();
+
     $stmt->bind_param(
-        "ssssssssssssssssssssssssssssssssssss",
-        $family->getFirstName(),
-        $family->getLastName(),
-        $family->getBirthdate(),
-        $family->getAddress(),
-        $family->getNeighborhood(),
-        $family->getCity(),
-        $family->getState(),
-        $family->getZip(),
-        $family->getEmail(),
-        $family->getPhone(),
-        $family->getPhoneType(),
-        $family->getSecondaryPhone(),
-        $family->getSecondaryPhoneType(),
-        $family->getIsHispanic(),
-        $family->getRace(),
-        $family->getIncome(),
-        $family->getFirstName2(),
-        $family->getLastName2(),
-        $family->getBirthdate2(),
-        $family->getAddress2(),
-        $family->getNeighborhood2(),
-        $family->getCity2(),
-        $family->getState2(),
-        $family->getZip2(),
-        $family->getEmail2(),
-        $family->getPhone2(),
-        $family->getPhoneType2(),
-        $family->getSecondaryPhone2(),
-        $family->getSecondaryPhoneType2(),
-        $family->getIsHispanic2(),
-        $family->getRace2(),
-        $family->getEcontactFirstName(),
-        $family->getEcontactLastName(),
-        $family->getEcontactPhone(),
-        $family->getEcontactRelation(),
-        $family->getPassword(),
-        $family->getSecurityQuestion(),
-        $family->getSecurityAnswer()
+        "ssssssssssssssssssssssssssssssssssssss",
+        $firstName, $lastName, $birthdate, $address, $neighborhood, $city, $state, $zip,
+        $email, $phone, $phoneType, $secondaryPhone, $secondaryPhoneType,
+        $isHispanic, $race, $income,
+        $firstName2, $lastName2, $birthdate2, $address2, $neighborhood2, $city2, $state2, $zip2,
+        $email2, $phone2, $phoneType2, $secondaryPhone2, $secondaryPhoneType2,
+        $isHispanic2, $race2,
+        $econtactFirstName, $econtactLastName, $econtactPhone, $econtactRelation,
+        $password, $securityQuestion, $securityAnswer
     );
 
     $result = $stmt->execute();
@@ -256,6 +287,8 @@ function add_family($family) {
 
     return $result;
 }
+
+
 
 function retrieve_family($args) {
     $conn = connect();

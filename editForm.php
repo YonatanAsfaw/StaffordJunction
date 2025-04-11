@@ -1,10 +1,10 @@
 <?php
+session_cache_expire(30);
 session_start();
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 require_once("database/dbForms.php");
-require_once('header.php');
 
 
 if (!isset($_SESSION['_id'])) {
@@ -175,7 +175,8 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php require('universal.inc'); ?>
+    <?php require('universal.inc'); 
+    require('header.php');?>
     <title>Edit Form - <?php echo htmlspecialchars($formName); ?></title>
 </head>
 <body>

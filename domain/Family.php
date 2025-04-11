@@ -95,6 +95,14 @@ class Family {
         return $this->id;
     }
 
+    // public function getIsHispanic() {
+    //     return $this->$isHispanic;
+    // }
+
+    // public function getIsHispanic2() {
+    //     return $this->$isHispanic2;
+    // }
+
     public function getFirstName(){
         return $this->firstName;
     }
