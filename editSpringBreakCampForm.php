@@ -156,10 +156,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <label>Notes:</label>
             <textarea name="notes"><?= htmlspecialchars($formData['notes']) ?></textarea>
 
-            <button type="submit" class="submit-btn">Save Changes</button>
-            <a class="button cancel button_style" href="formSearch.php">Back to Search Results</a>
-            <!-- <a class="button cancel button_style" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a> -->
-            <a class="button cancel" href="index.php">Return to Dashboard</a>
+            <button type="submit">Save Changes</button>
+    </form>
+
+    <a class="button cancel button_style" href="formSearch.php">Back to Search Results</a>
 
         </form>
     </div>

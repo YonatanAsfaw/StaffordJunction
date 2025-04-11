@@ -196,12 +196,12 @@ if (!$form) {
         <label>Signature Date *</label>
         <input type="date" name="signature_date" value="<?= $form['signature_date'] ?>" required>
 
-        <button type="submit">Update Form</button>
+        <button type="submit">Save Changes</button>
     </form>
 
     <a class="button cancel button_style" href="formSearch.php">Back to Search Results</a>
 
-    <a class="button cancel" href="index.php">Return to Dashboard</a>
+    <!-- <a class="button cancel" href="index.php">Return to Dashboard</a> -->
 </div>
 </body>
 </html>

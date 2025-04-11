@@ -220,7 +220,9 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
             </form>
             <form method="post" id="deleteForm">
                 <input type="hidden" name="delete" value="1">
-                <button type="submit" class="submit-btn" style="background-color: #aa0000;" onclick="return confirm('Are you sure you want to unenroll? This action cannot be undone.');">
+                <div style="margin-top: 20px;"></div> <!-- Adds vertical space -->
+
+                <button type="submit" class="submit-btn"  onclick="return confirm('Are you sure you want to unenroll? This action cannot be undone.');">
                     Unenroll
                 </button>
             </form>

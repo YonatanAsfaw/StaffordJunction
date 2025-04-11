@@ -226,12 +226,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             
             <div style="margin-top: 15px;">
     <form method="post" onsubmit="return confirm('Are you sure you want to delete this form?');">
-        <button type="submit" name="delete" class="submit-btn delete-btn">UnEnroll</button>
+        <button type="submit" name="delete" class="submit-btn delete-btn">Unenroll</button>
     </form>
 </div>
 <a class="button cancel button_style" href="formSearch.php">Back to Search Results</a>
 <!-- <a class="button cancel button_style" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a> -->
-<a class="button cancel" href="index.php">Return to Dashboard</a>
+<!-- <a class="button cancel" href="index.php">Return to Dashboard</a> -->
         </form>
     </div>
 </body>

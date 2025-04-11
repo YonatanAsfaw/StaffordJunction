@@ -102,10 +102,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
 
-        <a href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Cancel</a>
-        <a class="button cancel button_style" href="formSearch.php">Back to Search Results</a>
-        <!-- <a class="button cancel button_style" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a> -->
-        <a class="button cancel" href="index.php">Return to Dashboard</a>
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <a class="button cancel button_style" href="formSearch.php">Back to Search Results</a>
     </form>
 </body>
 </html>
