@@ -128,16 +128,16 @@
                     $badLogin = true;
                 }
             } else if ($args['account'] == 'volunteer') {
-                echo "Attempting volunteer login for: $username<br>";
+                // echo "Attempting volunteer login for: $username<br>";
                 $user = retrieve_volunteer_by_email($username);
                 if (!$user) {
-                    echo "Volunteer not found<br>";
+                    // echo "Volunteer not found<br>";
                     $badLogin = true;
                 } else {
-                    echo "Volunteer found, stored password: " . $user->getPassword() . "<br>";
-                    echo "Input password: " . $password . "<br>";
+                    // echo "Volunteer found, stored password: " . $user->getPassword() . "<br>";
+                    // echo "Input password: " . $password . "<br>";
                     if (password_verify($password, $user->getPassword())) {
-                        echo "Password verified, logging in<br>";
+                        // echo "Password verified, logging in<br>";
                         $_SESSION['logged_in'] = true;
                         $_SESSION['access_level'] = 4; // Already set to 1
                         $_SESSION['_id'] = $user->getId();
@@ -148,7 +148,7 @@
                         header('Location: index.php');
                         die();
                     } else {
-                        echo "Password verification failed<br>";
+                        // echo "Password verification failed<br>";
                         $badLogin = true;
                     }
                 }
@@ -162,12 +162,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <?php require('universal.inc'); 
-    require('header.php');?>
+    <?php 
+    require('universal.inc'); 
+    require('header.php');
+    ?>
         <title>Stafford Junction | Log In</title>
     </head>
     <body>
-        <?php require_once('header.php') ?>
         <main class="login">
             <h1>Stafford Junction Login</h1>
             <?php if (isset($_GET['registerSuccess'])): ?>
