@@ -7,60 +7,60 @@ error_reporting(E_ALL);
 $loggedIn = false;
 $accessLevel = 0;
 $userID = null;
+$success = null;
+$errorMessage = null;
 
-if(isset($_SESSION['_id'])){
+if (isset($_SESSION['_id'])) {
     $loggedIn = true;
     $accessLevel = $_SESSION['access_level'];
     $userID = $_SESSION['_id'];
-}else {
+} else {
     $loggedIn = false;
     header("Location: login.php");
+    exit;
 }
+
 require_once('header.php');
 require('universal.inc');
-
 require_once("database/dbFamily.php");
 require_once("database/dbChildren.php");
 require_once("database/dbHolidayPartyForm.php");
 
-//retrieve family and children of family by userID
-$family = retrieve_family_by_id($_GET['id'] ?? $userID); //If GET variable is set, that means the staff account is filling in info on behalf of the family whose id is stored in GET, othwerise userID will be the family id
+// Retrieve family and children of family by userID
+$family = retrieve_family_by_id($_GET['id'] ?? $userID);
 $children = retrieve_children_by_family_id($family->getId());
 
-// include the header .php file s
-if($_SERVER['REQUEST_METHOD'] == "POST"){
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     require_once('include/input-validation.php');
 
     $args = sanitize($_POST, null);
 
-    $required = array(
-        'email',
-        'name',
-        'isAttending',
-        'transportation',
-        'neighborhood',
-        'question_comments',
-    );
-    
-    if(!wereRequiredFieldsSubmitted($args, $required)){
-        echo "Not all fields complete";
-        die();
-    }else {
-        //args['name'] will look like this ('John Doe'), exploding it on " " will create and array -> ['John', 'Doe']
-        $childName = explode(" ", $args['name']);
-        //retrieves child specified in form
-        $row = retrieve_child_by_firstName_lastName_famID($childName[0], $childName[1], $family->getId());
-        $success = insert_into_dbHolidayPartyForm($args, $row['id']); //Add to database form submitted data and the child's id to link back to dbChildren
+    $required = ['email', 'name', 'isAttending', 'transportation', 'neighborhood', 'question_comments'];
 
-        //If the child was successfully inserted into db, create success message
-        if($success){
+    if (!wereRequiredFieldsSubmitted($args, $required)) {
+        $errorMessage = "Please complete all required fields.";
+    } elseif (!filter_var($args['email'], FILTER_VALIDATE_EMAIL)) {
+        $errorMessage = "Invalid email format.";
+    } else {
+        $childName = explode(" ", $args['name']);
+        $row = retrieve_child_by_firstName_lastName_famID($childName[0], $childName[1], $family->getId());
+        $success = insert_into_dbHolidayPartyForm($args, $row['id']);
+
+        if ($success) {
             $successMessage = "Form submitted successfully!";
-        }else { //otherwise, create fail message
-            $failMessage = "Failed to add child. Child Account Already enrolled";
+        } else {
+            $errorMessage = "Failed to submit the form. The child may already be registered.";
         }
     }
 }
+?>
 
+<html>
+<head>
+    <?php include_once("universal.inc"); ?>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stafford Junction | Holiday Party Form</title>
 ?>
 
 <html>

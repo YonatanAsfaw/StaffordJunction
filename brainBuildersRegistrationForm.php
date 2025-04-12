@@ -1,6 +1,14 @@
 <?php
-// require_once('header.php');
-// require('universal.inc');
+require_once('header.php');
+require('universal.inc');
+?>
+<html>
+<head>
+<title>Stafford Junction | Brain Builders Student Registration Form</title>
+</head>
+<body>
+<h1>Brain Builders Registration Form 2024-2025</h1>
+<?php
 
 session_cache_expire(30);
 session_start();
@@ -69,17 +77,16 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 }
 ?>
 
-<html>
-<head>
+<!-- <html>
+<head> -->
     <!-- Include universal styles formatting -->
     <?php 
     //include_once("universal.inc"); 
-    require_once('header.php');
-    require('universal.inc');?>
-    <title>Stafford Junction | Brain Builders Student Registration Form</title>
-</head>
-    <body>
-    <h1>Brain Builders Registration Form 2024-2025</h1>
+    // require_once('header.php');
+    // require('universal.inc');
+    ?>
+    <!-- <title>Stafford Junction | Brain Builders Student Registration Form</title>
+</head> -->
         <div id="formatted_form">
             
             <p><b>* Indicates a required field</b></p><br>
@@ -87,31 +94,31 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             <h2>Student Information</h2><br>
             <form id="brainBuildersStudentRegistrationForm" action="" method="post">             
                 
-                <!--Child First Name-->
-                <!--
-                <label for="child-first-name">Child First Name *</label><br><br>
-                <input type="text" name="child-first-name" id="child-first-name" required placeholder="Child First Name" required><br><br>
-                -->
-                <!--Child Last Name-->
-                <!--
-                <label for="child-last-name">Child Last Name *</label><br><br>
-                <input type="text" name="child-last-name" id="child-last-name" required placeholder="Child Last Name" required><br><br>
-                -->
+            <!--Child First Name-->
+            <!--
+            <label for="child-first-name">Child First Name *</label><br><br>
+            <input type="text" name="child-first-name" id="child-first-name" required placeholder="Child First Name" required><br><br>
+            -->
+            <!--Child Last Name-->
+            <!--
+            <label for="child-last-name">Child Last Name *</label><br><br>
+            <input type="text" name="child-last-name" id="child-last-name" required placeholder="Child Last Name" required><br><br>
+            -->
 
-                
-                <!-- Child Name -->
-                <label for="name">Child Name / Nombre del Hijo*</label><br><br>
-                <select name="name" id="name" required onchange="populateChildInfo(this.value)">
-                    <option value="" disabled selected>Select Child</option>
-                    <?php
-    require_once('domain/Children.php');
-    foreach ($children as $child) {
-        $id = $child['id'];
-        $name = $child['first_name'] . ' ' . $child['last_name'];
-        $dob = $child['birth_date'];
-        echo "<option value='$name'>$name</option>"; 
-    }
-    ?>
+            
+            <!-- Child Name -->
+            <label for="name">Child Name / Nombre del Hijo*</label><br><br>
+            <select name="name" id="name" required onchange="populateChildInfo(this.value)">
+            <option value="" disabled selected>Select Child</option>    
+            <?php
+            require_once('domain/Children.php');
+            foreach ($children as $child) {
+                $id = $child['id'];
+                $name = $child['first_name'] . ' ' . $child['last_name'];
+                $dob = $child['birth_date'];
+                echo "<option value='$name'>$name</option>"; 
+            }
+            ?>
                 </select><br><br>
 
 
