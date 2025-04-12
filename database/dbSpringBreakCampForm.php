@@ -86,7 +86,7 @@ function getSpringBreakCampSubmissionsFromFamily($familyId) {
     $conn = connect();
     $query = "
         SELECT 
-        dbSpringBreakCampForm.id AS form_id,
+        dbSpringBreakCampForm.spring_id AS form_id,
         dbSpringBreakCampForm.email,
         dbSpringBreakCampForm.student_name,
         dbSpringBreakCampForm.school_choice,
@@ -95,8 +95,7 @@ function getSpringBreakCampSubmissionsFromFamily($familyId) {
         dbSpringBreakCampForm.notes,
         dbSpringBreakCampForm.child_id,
         dbChildren.first_name,
-        dbChildren.last_name,
-        dbChildren.birth_date 
+        dbChildren.last_name
     FROM dbSpringBreakCampForm
     INNER JOIN dbChildren ON dbSpringBreakCampForm.child_id = dbChildren.id
     WHERE dbSpringBreakCampForm.child_id IN ($joinedIds);

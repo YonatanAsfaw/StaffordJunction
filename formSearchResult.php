@@ -36,7 +36,11 @@ $excludedColumns = array(
     "policy_number", "photo_waiver_signature", "photo_waiver_date", "field_id", "", "medical_notes", "notes", "address", "city", "state",
     "zip", "is_hispanic", "student_name", "spring_id", "email", "gender", "parent1_zip_code", "parent2_zip_code",
     "photo_release", "pants_size", "age", "shoe_size", "coat_size", "underwear_size", "sock_size", "wants",
-    "interests", "phone", "parent_name", "dob", "birth_date", "birthdate"
+    "interests", "phone", "parent_name", "dob", "birth_date", "birthdate", "start_time", "end_time", "start_mile", "end_mile", "attend_num", "volstaff_num",
+    "materials_used",
+    "mealinfo",
+    "act_costs",
+    "act_benefits"
 );
 
 $hasSearched = isset($_GET['searchByForm']) || isset($_GET['searchByFamily']);

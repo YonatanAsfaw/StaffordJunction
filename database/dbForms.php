@@ -83,14 +83,14 @@ function getFormSubmissions($formName, $familyId){
     // case "Actual Activity":
     //     require_once("dbActualActivityForm.php");
     //     return getActualActivitySubmissions();
-    case "Program Review":
-        require_once("dbProgramReviewForm.php");
-        if ($familyId) {
-            return getProgramReviewSubmissionsFromFamily($familyId);
-       }
-        return getProgramReviewSubmissions();
+    // case "Program Review":
+    //     require_once("dbProgramReviewForm.php");
+    //     if ($familyId) {
+    //         return getProgramReviewSubmissionsFromFamily($familyId);
+    //    }
+    //     return getProgramReviewSubmissions();
     default:
-    
+        return null;
     }
 }
 

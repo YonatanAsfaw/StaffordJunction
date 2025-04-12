@@ -69,6 +69,18 @@
 
                 <input type="submit" value="Search">
                 <a class="button cancel" href="index.php">Return to Dashboard</a>
+                <script>
+    document.getElementById("formSearch").addEventListener("submit", function (e) {
+        const searchByForm = document.getElementById("searchByForm").checked;
+        const searchByFamily = document.getElementById("searchByFamily").checked;
+
+        if (!searchByForm && searchByFamily) {
+            alert("You must select a form name if you're searching by family.");
+            e.preventDefault(); // Stop the form from submitting
+        }
+    });
+</script>
+
             </form>
 
             <script>
