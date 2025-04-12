@@ -71,9 +71,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $args
     );
     $childToRegister = retrieve_child_by_firstName_lastName_famID($args['child-first-name'], $args['child-last-name'], $_GET['id'] ?? $userID);
-    
-    //already runs from dbFamily.php
-    //$success = register($args, $childToRegister['id']);
+    $success = register($args, $childToRegister['id']);
 }
 ?>
 
@@ -114,9 +112,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             require_once('domain/Children.php');
             foreach ($children as $child) {
                 $id = $child['id'];
-                $name = $child['first_name'] . ' ' . $child['last_name'];
-                $dob = $child['birth_date'];
-                echo "<option value='$name'>$name</option>"; 
+                if (!isBrainBuildersRegistrationComplete($id)) {
+                    $name = $child['first_name'] . ' ' . $child['last_name'];
+                    $dob = $child['birth_date'];
+                    echo "<option value='$name'>$name</option>"; 
+                }
             }
             ?>
                 </select><br><br>

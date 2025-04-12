@@ -44,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     } else {
         $childName = explode(" ", $args['name']);
         $row = retrieve_child_by_firstName_lastName_famID($childName[0], $childName[1], $family->getId());
+        $args['family_id'] = $_GET['id'] ?? $family->getId();
         $success = insert_into_dbHolidayPartyForm($args, $row['id']);
 
         if ($success) {
@@ -61,7 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stafford Junction | Holiday Party Form</title>
-?>
 
 <html>
 
@@ -121,17 +121,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <!-- Child Name -->
             <label for="name">Registered Brain Builder Student Name / Nombre del Estudiante*</label><br><br>
             <select name="name" id="name" required>
-            <?php
-            foreach ($children as $c){ //cycle through each child of family account user
-                $id = $c->getID();
-                // Check if form was already completed for the child
-                if (!isHolidayPartyFormComplete($id)) {
-                    $name = $c->getFirstName() . " " . $c->getLastName(); //display name if they don't have a form filled out for them
-                    //$value = $id . "_" . $name;
-                    echo "<option>$name</option>";
+                <option value="" disabled selected>Select Child</option>    
+                <?php
+                require_once('domain/Children.php');
+                require_once('database/dbBrainBuildersRegistration.php');
+                foreach ($children as $child) {
+                    $id = $child['id'];
+                    if (!isHolidayPartyFormComplete($id) && isBrainBuildersRegistrationComplete($id)) {
+                        $name = $child['first_name'] . ' ' . $child['last_name'];
+                        $dob = $child['birth_date'];
+                        echo "<option value='$name'>$name</option>"; 
+                    }
                 }
-            }
-            ?>
+                ?>
             </select>
 
             <br><br>
@@ -207,7 +209,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 }
             ?>
         </div>
-            
             <?php //If the user is an admin or staff, the message should appear at index.php
             if($_SERVER['REQUEST_METHOD'] == "POST" && $success){
                 if (isset($_GET['id'])) {

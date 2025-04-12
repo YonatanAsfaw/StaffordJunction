@@ -604,7 +604,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     ],
                     $args
                 );
-                $success = register($args, $childId);
+                //$success = register($args, $childId);
             } else {
                 error_log("ERROR: Child ID not found.");
             }

@@ -203,7 +203,7 @@ function register($args, $childID) {
         $stmt->close();
         mysqli_close($conn);
         return true;
-    } else {
+    } else if ($res->num_rows > 0) {
         // Child already exists, do not insert
         echo '<div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Error: ' . $args['child-first-name'] . ' ' . $args['child-last-name'] . ' is already registered.</div>';
         mysqli_close($conn);
