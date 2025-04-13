@@ -37,8 +37,7 @@ function register($args, $childID) {
     $res = $stmt->get_result(); 
     $stmt->errno;
     //data_dump($stmt);
-    echo 'num_rows: ' . $res->num_rows . '<br>';
-    if ($res == null || $res->num_rows >= 0) {
+    if ($res == null || $res->num_rows == 0) {
         // Insert new record using prepared statements
         $query = "INSERT INTO dbBrainBuildersRegistrationForm (
             child_id, #1
@@ -204,10 +203,14 @@ function register($args, $childID) {
         $stmt->close();
         mysqli_close($conn);
         return true;
+    } else if ($res->num_rows > 0) {
+        // Child already exists, do not insert
+        echo '<div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Error: ' . $args['child-first-name'] . ' ' . $args['child-last-name'] . ' is already registered.</div>';
+        mysqli_close($conn);
+        return false;
     }
     
     mysqli_close($conn);
-    echo 'num_rows: ' . $res->num_rows . '<br>';
     return false;
 }
 
