@@ -130,7 +130,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csv_export'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <?php require_once('universal.inc') ?>
+<?php 
+    require_once('header.php');
+    require('universal.inc');?>
     <title>Stafford Junction | View Form Submissions</title>
 </head>
 <body>
