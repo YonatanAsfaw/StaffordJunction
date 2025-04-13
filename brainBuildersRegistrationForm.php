@@ -79,9 +79,8 @@ require('universal.inc');
     <!-- Include universal styles formatting -->
     <?php 
     //include_once("universal.inc"); 
-    // require_once('header.php');
-    // require('universal.inc');
-    ?>
+    require_once('header.php');
+    require('universal.inc');?>
     <!-- <title>Stafford Junction | Brain Builders Student Registration Form</title>
 </head> -->
         <div id="formatted_form">
