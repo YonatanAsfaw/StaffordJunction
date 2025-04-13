@@ -31,7 +31,7 @@ if(isset($_SESSION['_id'])){
     $accessLevel = $_SESSION['access_level'];
     $userID = $_SESSION['_id'];
     $family = retrieve_family_by_id($_GET['id'] ?? $userID);
-    $children = retrieve_children_by_family_id($_GET['id'] ?? $userID);
+    //$children = retrieve_children_by_family_id($_GET['id'] ?? $userID);
     // Debugging: Check if children data is fetched correctly
     //data_dump($children);
     $address = $family->getAddress();
@@ -89,18 +89,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
             <h2>Student Information</h2><br>
             <form id="brainBuildersStudentRegistrationForm" action="" method="post">             
-                
-            <!--Child First Name-->
-            <!--
-            <label for="child-first-name">Child First Name *</label><br><br>
-            <input type="text" name="child-first-name" id="child-first-name" required placeholder="Child First Name" required><br><br>
-            -->
-            <!--Child Last Name-->
-            <!--
-            <label for="child-last-name">Child Last Name *</label><br><br>
-            <input type="text" name="child-last-name" id="child-last-name" required placeholder="Child Last Name" required><br><br>
-            -->
-
             
             <!-- Child Name -->
             <label for="name">Child Name / Nombre del Hijo*</label><br><br>
@@ -108,6 +96,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             <option value="" disabled selected>Select Child</option>    
             <?php
             require_once('domain/Children.php');
+            require_once("database/dbFamily.php");
+            require_once('database/dbBrainBuildersRegistration.php');
+            $children = retrieve_children_by_family_id($_GET['id'] ?? $userID);
             foreach ($children as $child) {
                 $id = $child['id'];
                 if (!isBrainBuildersRegistrationComplete($id)) {
