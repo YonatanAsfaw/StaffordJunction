@@ -70,8 +70,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $success = register($args, $childToRegister['id']);
 }
 
-require_once('header.php');
-require('universal.inc');
+// require_once('header.php');
+// require('universal.inc');
 ?>
 
 <!-- <html>
