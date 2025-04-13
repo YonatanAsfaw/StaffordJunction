@@ -25,27 +25,26 @@ function data_dump($val){
     die();
 }
 
-if(isset($_SESSION['_id']) || isset($_GET['id'])) {
-    require_once("database/dbFamily.php");
-    require_once("database/dbChildren.php");
-    require_once('database/dbBrainBuildersRegistration.php');
+require_once("database/dbFamily.php");
+require_once("database/dbChildren.php");
+require_once('database/dbBrainBuildersRegistration.php');
+
+if (isset($_SESSION['_id'])) {
     $loggedIn = true;
-    if (isset($_SESSION['_id'])) {
-        $userID = $_SESSION['_id'];
-        $accessLevel = $_SESSION['access_level'];
-    }
-    $family = retrieve_family_by_id($_GET['id'] ?? $userID);
-    $children = retrieve_children_by_family_id($_GET['id'] ?? $userID);
-    $address = $family->getAddress();
-    $city = $family->getCity();
-    $phone = $family->getPhone();
-    $zip = $family->getZip();
-    $email = $family->getEmail();
-    $emergency_contact_name = $family->getEContactFirstName() . " " . $family->getEContactLastName();
-    $econtactRelation = $family->getEContactRelation();
-    $econtactPhone = $family->getEContactPhone();
-    $parent2Name = null;
+    $userID = $_SESSION['_id'];
+    $accessLevel = $_SESSION['access_level'];
 }
+$family = retrieve_family_by_id($_GET['id'] ?? $userID);
+$children = retrieve_children_by_family_id($_GET['id'] ?? $userID);
+$address = $family->getAddress();
+$city = $family->getCity();
+$phone = $family->getPhone();
+$zip = $family->getZip();
+$email = $family->getEmail();
+$emergency_contact_name = $family->getEContactFirstName() . " " . $family->getEContactLastName();
+$econtactRelation = $family->getEContactRelation();
+$econtactPhone = $family->getEContactPhone();
+$parent2Name = null;
 
 // include the header .php files
 if($_SERVER['REQUEST_METHOD'] == "POST"){
