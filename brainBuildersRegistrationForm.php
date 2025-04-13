@@ -629,16 +629,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 <button type="submit" id="submit">Submit</button>
 
                 <?php
-                    if($_SERVER['REQUEST_METHOD'] == "POST" && $success){
-                        if (isset($_GET['id'])) {
-                            echo '<script>document.location = "fillForm.php?formSubmitSuccess&id=' . $_GET['id'] . '";</script>';
-                        } else {
-                            echo '<script>document.location = "fillForm.php?formSubmitSuccess";</script>';
-                        }
-                    } 
-                ?>
-
-                <?php 
+                if($_SERVER['REQUEST_METHOD'] == "POST" && $success){
+                    if (isset($_GET['id'])) {
+                        echo '<script>document.location = "fillForm.php?formSubmitSuccess&id=' . $_GET['id'] . '";</script>';
+                    } else {
+                        echo '<script>document.location = "fillForm.php?formSubmitSuccess";</script>';
+                    }
+                } 
                 if (isset($_GET['id'])) {
                     echo '<a class="button cancel" href="fillForm.php?id=' . $_GET['id'] . '" style="margin-top: .5rem">Cancel</a>';
                 } else {

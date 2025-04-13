@@ -40,7 +40,12 @@ $excludedColumns = array(
     "materials_used",
     "mealinfo",
     "act_costs",
-    "act_benefits"
+    "act_benefits",
+    "school_name","grade", "parent1_name", "parent1_phone", "parent1_altPhone", "parent2_name", "parent2_phone", "parent2_altPhone", "emergency_name1", 
+    "emergency_relationship1", "emergency_phone1", "emergency_name2", "emergency_relationship2", "emergency_phone2", "authorized_pu", "not_authorized_pu", 
+    "num_unemployed_student", "num_employed_student", "needs_transportation", "participation", "parent_initials", "waiver_child_name", "waiver_dob", 
+    "waiver_parent_name", "waiver_provider_name", "waiver_provider_address", "waiver_phone_and_fax", "waiver_signature", "waiver_date",
+    "isAttending", "transportation", "comments"
 );
 
 $hasSearched = isset($_GET['searchByForm']) || isset($_GET['searchByFamily']);
@@ -129,7 +134,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csv_export'])) {
     <title>Stafford Junction | View Form Submissions</title>
 </head>
 <body>
-    <?php require_once('header.php') ?>
+    <?php require_once('header.php');
+    if (isset($_GET['formUpdateSuccess'])) {
+        echo '<div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Form Successfully Updated!</div>';
+    }
+    ?>
     <form class="form-search-result-subheader" method="post">
         <a class="button cancel" href="formSearch.php">Back to Search</a>
         <?php if (!$noResults && $searchingByForm): ?>

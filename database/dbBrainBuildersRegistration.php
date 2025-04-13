@@ -223,3 +223,197 @@ function isBrainBuildersRegistrationComplete($childId){
     mysqli_close($conn);
     return $complete;
 }
+
+function getBrainBuildersRegistrationSubmissions() {
+    $conn = connect();
+    $query = "SELECT * FROM dbBrainBuildersRegistrationForm;";
+    $result = mysqli_query($conn, $query);
+
+    if(mysqli_num_rows($result) > 0){
+        $submissions = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        mysqli_close($conn);
+        return $submissions;
+    }
+    return [];
+}
+
+function getBrainBuildersRegistrationSubmissionsFromFamily($familyId) {
+    $conn = connect();
+    $query = "SELECT * FROM dbBrainBuildersRegistrationForm WHERE child_id IN (SELECT id FROM dbChildren WHERE family_id = $familyId)";
+    $result = mysqli_query($conn, $query);
+    if(mysqli_num_rows($result) > 0){
+        $submissions = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        mysqli_close($conn);
+        return $submissions;
+    }
+    return [];
+}
+
+function getBrainBuildersRegistrationById($id) {
+    $conn = connect(); // Make sure `connect()` connects to your DB properly.
+
+    $query = "SELECT * FROM dbBrainBuildersRegistrationForm WHERE id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    
+    $result = mysqli_stmt_get_result($stmt);
+    $formData = mysqli_fetch_assoc($result);
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+
+    return $formData;
+}
+
+function updateBrainBuildersRegistration($submissionId, $updatedData) {
+    $conn = connect();
+    if (!$conn) {
+        die("ERROR: Database connection is NULL in updateBrainBuildersRegistration.");
+    }
+
+    $query = "
+        UPDATE dbBrainBuildersRegistrationForm SET
+            child_first_name = ?,
+            child_last_name = ?,
+            gender = ?,
+            school_name = ?,
+            grade = ?,
+            birthdate = ?,
+            child_address = ?,
+            child_city = ?,
+            child_state = ?,
+            child_zip = ?,
+            child_medical_allergies = ?,
+            child_food_avoidances = ?,
+            parent1_name = ?,
+            parent1_phone = ?,
+            parent1_address = ?,
+            parent1_city = ?,
+            parent1_state = ?,
+            parent1_zip = ?,
+            parent1_email = ?,
+            parent1_altPhone = ?,
+            parent2_name = ?,
+            parent2_phone = ?,
+            parent2_address = ?,
+            parent2_city = ?,
+            parent2_state = ?,
+            parent2_zip = ?,
+            parent2_email = ?,
+            parent2_altPhone = ?,
+            emergency_name1 = ?,
+            emergency_relationship1 = ?,
+            emergency_phone1 = ?,
+            emergency_name2 = ?,
+            emergency_relationship2 = ?,
+            emergency_phone2 = ?,
+            authorized_pu = ?,
+            not_authorized_pu = ?,
+            primary_language = ?,
+            hispanic_latino_spanish = ?,
+            race = ?,
+            num_unemployed = ?,
+            num_retired = ?,
+            num_unemployed_student = ?,
+            num_employed_fulltime = ?,
+            num_employed_parttime = ?,
+            num_employed_student = ?,
+            income = ?,
+            other_programs = ?,
+            lunch = ?,
+            needs_transportation = ?,
+            participation = ?,
+            parent_initials = ?,
+            signature = ?,
+            signature_date = ?,
+            waiver_child_name = ?,
+            waiver_dob = ?,
+            waiver_parent_name = ?,
+            waiver_provider_name = ?,
+            waiver_provider_address = ?,
+            waiver_phone_and_fax = ?,
+            waiver_signature = ?,
+            waiver_date = ?
+        WHERE id = ?
+    ";
+
+    $stmt = mysqli_prepare($conn, $query);
+    if (!$stmt) {
+        die("Database prepare() failed: " . mysqli_error($conn));
+    }
+
+    mysqli_stmt_bind_param(
+        $stmt,
+        "ssssssssssssssssssssssssssssssssssssssssssssssssssssssi",
+        $updatedData["child_first_name"],
+        $updatedData["child_last_name"],
+        $updatedData["gender"],
+        $updatedData["school_name"],
+        $updatedData["grade"],
+        $updatedData["birthdate"],
+        $updatedData["child_address"],
+        $updatedData["child_city"],
+        $updatedData["child_state"],
+        $updatedData["child_zip"],
+        $updatedData["child_medical_allergies"],
+        $updatedData["child_food_avoidances"],
+        $updatedData["parent1_name"],
+        $updatedData["parent1_phone"],
+        $updatedData["parent1_address"],
+        $updatedData["parent1_city"],
+        $updatedData["parent1_state"],
+        $updatedData["parent1_zip"],
+        $updatedData["parent1_email"],
+        $updatedData["parent1_altPhone"],
+        $updatedData["parent2_name"],
+        $updatedData["parent2_phone"],
+        $updatedData["parent2_address"],
+        $updatedData["parent2_city"],
+        $updatedData["parent2_state"],
+        $updatedData["parent2_zip"],
+        $updatedData["parent2_email"],
+        $updatedData["parent2_altPhone"],
+        $updatedData["emergency_name1"],
+        $updatedData["emergency_relationship1"],
+        $updatedData["emergency_phone1"],
+        $updatedData["emergency_name2"],
+        $updatedData["emergency_relationship2"],
+        $updatedData["emergency_phone2"],
+        $updatedData["authorized_pu"],
+        $updatedData["not_authorized_pu"],
+        $updatedData["primary_language"],
+        $updatedData["hispanic_latino_spanish"],
+        $updatedData["race"],
+        $updatedData["num_unemployed"],
+        $updatedData["num_retired"],
+        $updatedData["num_unemployed_student"],
+        $updatedData["num_employed_fulltime"],
+        $updatedData["num_employed_parttime"],
+        $updatedData["num_employed_student"],
+        $updatedData["income"],
+        $updatedData["other_programs"],
+        $updatedData["lunch"],
+        $updatedData["needs_transportation"],
+        $updatedData["participation"],
+        $updatedData["parent_initials"],
+        $updatedData["signature"],
+        $updatedData["signature_date"],
+        $updatedData["waiver_child_name"],
+        $updatedData["waiver_dob"],
+        $updatedData["waiver_parent_name"],
+        $updatedData["waiver_provider_name"],
+        $updatedData["waiver_provider_address"],
+        $updatedData["waiver_phone_and_fax"],
+        $updatedData["waiver_signature"],
+        $updatedData["waiver_date"],
+        $submissionId
+    );
+
+    if (!mysqli_stmt_execute($stmt)) {
+        die("Execute failed: " . mysqli_stmt_error($stmt));
+    }
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+}

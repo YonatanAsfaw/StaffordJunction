@@ -133,6 +133,12 @@ function getFormSubmissionById($formName, $submissionId) {
         case "Actual Activity":
             require_once("database/dbActualActivityForm.php");
             return getActualActivityById($submissionId);
+        case "Brain Builders Student Registration":
+            require_once("database/dbBrainBuildersRegistration.php");
+            return getBrainBuildersRegistrationById($submissionId);
+        case "Brain Builders Holiday Party":
+            require_once("database/dbHolidayPartyForm.php");
+            return getHolidayPartyById($submissionId);
         default:
             return null;
     }
@@ -164,6 +170,12 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
         case "Actual Activity":
             require_once("database/dbActualActivityForm.php");
             return updateActualActivityForm($submissionId, $updatedData);
+        case "Brain Builders Student Registration":
+            require_once("database/dbBrainBuildersRegistration.php");
+            return updateBrainBuildersRegistration($submissionId, $updatedData);
+        case "Brain Builders Holiday Party":
+            require_once("database/dbHolidayPartyForm.php");
+            return updateHolidayPartyForm($submissionId, $updatedData);
         default:
             return false;
     }
@@ -182,8 +194,6 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
 <body>
 
     <!-- Success Message -->
-    <div id="successMessage" class="success-message">Update Successful!</div>
-    
     <?php if ($deleteError): ?>
     <div class="error-message" style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
         Error deleting form. Please try again.
@@ -217,6 +227,19 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
 
             <button type="submit" class="submit-btn">Save Changes</button>
             
+            <?php if($_SERVER['REQUEST_METHOD'] == "POST" && $updateSuccess){
+                if (isset($_GET['id'])) {
+                    echo '<script>document.location = "formSearchResult.php?formUpdateSuccess&id=' . $_GET['id'] . '";</script>';
+                } else {
+                    echo '<script>document.location = "formSearchResult.php?formUpdateSuccess";</script>';
+                }
+            } 
+            if (isset($_GET['id'])) {
+                echo '<a class="button cancel" href="formSearchResult.php?id=' . $_GET['id'] . '" style="margin-top: .5rem">Cancel</a>';
+            } else {
+                echo '<a class="button cancel" href="formSearchResult.php" style="margin-top: .5rem">Cancel</a>';
+            } ?>
+
             <!-- Separate delete form to avoid conflicts with regular submission -->
             </form>
             <form method="post" id="deleteForm">
@@ -233,12 +256,9 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
 
     <script>
         document.getElementById("editForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+            // Remove event.preventDefault() to allow normal form submission
             document.getElementById("successMessage").style.display = "block";
             window.scrollTo({ top: 0, behavior: "smooth" });
-            setTimeout(() => {
-                event.target.submit();
-            }, 500);
         });
 
         <?php if ($updateSuccess): ?>
