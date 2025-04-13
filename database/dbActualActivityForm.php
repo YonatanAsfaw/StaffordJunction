@@ -129,6 +129,18 @@ function getActualActivitySubmissions() {
     return [];
 }
 
+function getActualActivitySubmissionsFromFamily($familyId) {
+    $conn = connect();
+    $query = "SELECT * FROM dbActualActivityForm WHERE child_id IN (SELECT id FROM dbChildren WHERE family_id = $familyId)";
+    $result = mysqli_query($conn, $query);
+    if(mysqli_num_rows($result) > 0){
+        $submissions = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        mysqli_close($conn);
+        return $submissions;
+    }
+    return [];
+}
+
 function get_attendance_trends() {
     $connection = connect();
     
@@ -294,6 +306,10 @@ function updateActualActivityForm($submissionId, $updatedData) {
         die("Execute failed: " . mysqli_stmt_error($stmt));
     }
 
+    $success = mysqli_stmt_execute($stmt);
+    
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
+
+    return $success;
 }

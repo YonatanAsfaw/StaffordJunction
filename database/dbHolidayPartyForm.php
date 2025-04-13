@@ -46,3 +46,93 @@ function isHolidayPartyFormComplete($childId){
     mysqli_close($conn);
     return $complete;
 }
+
+function getHolidayPartySubmissions() {
+    $conn = connect();
+    $query = "SELECT * FROM dbBrainBuildersHolidayPartyForm;";
+    $result = mysqli_query($conn, $query);
+
+    if(mysqli_num_rows($result) > 0){
+        $submissions = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        mysqli_close($conn);
+        return $submissions;
+    }
+    return [];
+}
+
+function getHolidayPartySubmissionsFromFamily($familyId) {
+    $conn = connect();
+    $query = "SELECT * FROM dbBrainBuildersHolidayPartyForm WHERE child_id IN (SELECT id FROM dbChildren WHERE family_id = $familyId)";
+    $result = mysqli_query($conn, $query);
+    if(mysqli_num_rows($result) > 0){
+        $submissions = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        mysqli_close($conn);
+        return $submissions;
+    }
+    return [];
+}
+
+function getHolidayPartyById($id) {
+    $conn = connect(); // Make sure `connect()` connects to your DB properly.
+
+    $query = "SELECT * FROM dbBrainBuildersHolidayPartyForm WHERE id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    
+    $result = mysqli_stmt_get_result($stmt);
+    $formData = mysqli_fetch_assoc($result);
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+
+    return $formData;
+}
+
+function updateHolidayPartyForm($submissionId, $updatedData) {
+    $conn = connect();
+    if (!$conn) {
+        die("ERROR: Database connection is NULL in updateHolidayPartyForm.");
+    }
+
+    $query = "
+        UPDATE dbBrainBuildersHolidayPartyForm SET
+            child_first_name = ?,
+            child_last_name = ?,
+            email = ?,
+            transportation = ?,
+            neighborhood = ?,
+            comments = ?,
+            isAttending = ?
+        WHERE id = ?
+    ";
+
+    $stmt = mysqli_prepare($conn, $query);
+    if (!$stmt) {
+        die("Database prepare() failed: " . mysqli_error($conn));
+    }
+
+    mysqli_stmt_bind_param(
+        $stmt,
+        "ssssssii",
+        $updatedData["child_first_name"],
+        $updatedData["child_last_name"],
+        $updatedData["email"],
+        $updatedData["transportation"],
+        $updatedData["neighborhood"],
+        $updatedData["comments"],
+        $updatedData["isAttending"],
+        $submissionId
+    );
+
+    if (!mysqli_stmt_execute($stmt)) {
+        die("Execute failed: " . mysqli_stmt_error($stmt));
+    }
+
+    $success = mysqli_stmt_execute($stmt);
+    
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+
+    return $success;
+}

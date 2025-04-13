@@ -64,25 +64,28 @@ function getFormSubmissions($formName, $familyId){
 
     case "Actual Activity":
         require_once("dbActualActivityForm.php");
+        if ($familyId) {
+            return getActualActivitySubmissionsFromFamily($familyId);
+        }
         return getActualActivitySubmissions();
     
+    case "Brain Builders Student Registration":
+        require_once("dbBrainBuildersRegistration.php");
+        if ($familyId) {
+            return getBrainBuildersRegistrationSubmissionsFromFamily($familyId);
+        }
+        return getBrainBuildersRegistrationSubmissions();
 
-    // These need completed backends first
-    // case "Brain Builders Student Registration":
-    //     require_once(".php");
-    //     return getSubmissions();
-    // case "Brain Builders Holiday Party":
-    //     require_once(".php");
-    //     return getSubmissions();
-    // case "Summer Junction Registration":
-    //     require_once(".php");
-    //     return getSubmissions();
+    case "Brain Builders Holiday Party":
+        require_once("dbHolidayPartyForm.php");
+        if ($familyId) {
+            return getHolidayPartySubmissionsFromFamily($familyId);
+        }
+        return getHolidayPartySubmissions();
+
     // case "Bus Monitor Attendance":
     //     require_once(".php");
     //     return getSubmissions();
-    // case "Actual Activity":
-    //     require_once("dbActualActivityForm.php");
-    //     return getActualActivitySubmissions();
     // case "Program Review":
     //     require_once("dbProgramReviewForm.php");
     //     if ($familyId) {

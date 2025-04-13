@@ -107,6 +107,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST['delete'])) {
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === "POST" && $updateSuccess) {
+    if (isset($_GET['id'])) {
+        header('Location: formSearch.php?formUpdateSuccess&id=' . $_GET['id']);
+        exit();
+    } else {
+        header('Location: formSearch.php?formUpdateSuccess');
+        exit();
+    }
+}
+
 function getFormSubmissionById($formName, $submissionId) {
     switch ($formName) {
         case "Child Care Waiver":
@@ -133,6 +143,12 @@ function getFormSubmissionById($formName, $submissionId) {
         case "Actual Activity":
             require_once("database/dbActualActivityForm.php");
             return getActualActivityById($submissionId);
+        case "Brain Builders Student Registration":
+            require_once("database/dbBrainBuildersRegistration.php");
+            return getBrainBuildersRegistrationById($submissionId);
+        case "Brain Builders Holiday Party":
+            require_once("database/dbHolidayPartyForm.php");
+            return getHolidayPartyById($submissionId);
         default:
             return null;
     }
@@ -164,6 +180,12 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
         case "Actual Activity":
             require_once("database/dbActualActivityForm.php");
             return updateActualActivityForm($submissionId, $updatedData);
+        case "Brain Builders Student Registration":
+            require_once("database/dbBrainBuildersRegistration.php");
+            return updateBrainBuildersRegistration($submissionId, $updatedData);
+        case "Brain Builders Holiday Party":
+            require_once("database/dbHolidayPartyForm.php");
+            return updateHolidayPartyForm($submissionId, $updatedData);
         default:
             return false;
     }
@@ -182,8 +204,6 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
 <body>
 
     <!-- Success Message -->
-    <div id="successMessage" class="success-message">Update Successful!</div>
-    
     <?php if ($deleteError): ?>
     <div class="error-message" style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
         Error deleting form. Please try again.
@@ -193,9 +213,9 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
     <div class="container">
         <h2>Edit <?php echo htmlspecialchars($formName); ?> Form</h2>
 
-        <form method="post" id="editForm">
+        <form method="post" action="" id="editForm">
             <?php foreach ($formData as $key => $value): ?>
-                <?php if ($key !== 'id' && $key !== 'form_id' && $key !== 'child_id'): // Exclude IDs ?>
+                <?php if ($key !== 'id' && $key !== 'form_id' && $key !== 'child_id' && $key !== 'family_id'): // Exclude IDs ?>
                     <label><?php echo ucwords(str_replace("_", " ", $key)); ?>:</label>
                     <?php if ($key === 'need_backpack'): ?>
                         <select name="<?php echo $key; ?>">
@@ -216,40 +236,19 @@ function updateFormSubmission($formName, $submissionId, $updatedData) {
             <?php endforeach; ?>
 
             <button type="submit" class="submit-btn">Save Changes</button>
-            
-            <!-- Separate delete form to avoid conflicts with regular submission -->
-            </form>
-            <form method="post" id="deleteForm">
-                <input type="hidden" name="delete" value="1">
-                <div style="margin-top: 20px;"></div> <!-- Adds vertical space -->
+        </form>
 
-                <button type="submit" class="submit-btn"  onclick="return confirm('Are you sure you want to unenroll? This action cannot be undone.');">
-                    Unenroll
-                </button>
-            </form>
+        <!-- Separate delete form to avoid conflicts with regular submission -->
+        <form method="post" action="" id="deleteForm">
+            <input type="hidden" name="delete" value="1">
+            <div style="margin-top: 20px;"></div> <!-- Adds vertical space -->
 
-            <a class="button cancel button_style" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a>
+            <button type="submit" class="submit-btn"  onclick="return confirm('Are you sure you want to unenroll? This action cannot be undone.');">
+                Unenroll
+            </button>
+        </form>
+
+        <a class="button cancel button_style" href="formSearchResult.php?searchByForm=searchByForm&formName=<?php echo urlencode($formName); ?>">Back to Search Results</a>
     </div>
-
-    <script>
-        document.getElementById("editForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            document.getElementById("successMessage").style.display = "block";
-            window.scrollTo({ top: 0, behavior: "smooth" });
-            setTimeout(() => {
-                event.target.submit();
-            }, 500);
-        });
-
-        <?php if ($updateSuccess): ?>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("successMessage").style.display = "block";
-            setTimeout(function() {
-                document.getElementById("successMessage").style.display = "none";
-            }, 3000);
-        });
-        <?php endif; ?>
-    </script>
-
 </body>
 </html>
