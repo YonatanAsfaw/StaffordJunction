@@ -345,7 +345,7 @@ function updateBrainBuildersRegistration($submissionId, $updatedData) {
 
     mysqli_stmt_bind_param(
         $stmt,
-        "sssssssssssssssssssssssssssssssssssssssiiiiiissssssssssssssssi",
+        "sssssssssssssssssssssssssssssssssssssssiiiiiissssssssssssssss2`i",
         $updatedData["child_first_name"],
         $updatedData["child_last_name"],
         $updatedData["gender"],
