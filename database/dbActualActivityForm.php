@@ -306,6 +306,10 @@ function updateActualActivityForm($submissionId, $updatedData) {
         die("Execute failed: " . mysqli_stmt_error($stmt));
     }
 
+    $success = mysqli_stmt_execute($stmt);
+    
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
+
+    return $success;
 }

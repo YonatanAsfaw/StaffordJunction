@@ -134,11 +134,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csv_export'])) {
     <title>Stafford Junction | View Form Submissions</title>
 </head>
 <body>
-    <?php require_once('header.php');
-    if (isset($_GET['formUpdateSuccess'])) {
-        echo '<div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Form Successfully Updated!</div>';
-    }
-    ?>
     <form class="form-search-result-subheader" method="post">
         <a class="button cancel" href="formSearch.php">Back to Search</a>
         <?php if (!$noResults && $searchingByForm): ?>

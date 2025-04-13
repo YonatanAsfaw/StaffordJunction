@@ -345,7 +345,7 @@ function updateBrainBuildersRegistration($submissionId, $updatedData) {
 
     mysqli_stmt_bind_param(
         $stmt,
-        "ssssssssssssssssssssssssssssssssssssssssssssssssssssssi",
+        "sssssssssssssssssssssssssssssssssssssssiiiiiissssssssssssssssi",
         $updatedData["child_first_name"],
         $updatedData["child_last_name"],
         $updatedData["gender"],
@@ -407,13 +407,17 @@ function updateBrainBuildersRegistration($submissionId, $updatedData) {
         $updatedData["waiver_phone_and_fax"],
         $updatedData["waiver_signature"],
         $updatedData["waiver_date"],
-        $submissionId
+        $submissionId // Ensure this matches the last placeholder
     );
 
     if (!mysqli_stmt_execute($stmt)) {
         die("Execute failed: " . mysqli_stmt_error($stmt));
     }
 
+    $success = mysqli_stmt_execute($stmt);
+    
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
+
+    return $success;
 }

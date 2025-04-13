@@ -1,7 +1,3 @@
-<?php
-require_once('header.php');
-require('universal.inc');
-?>
 <html>
 <head>
 <title>Stafford Junction | Brain Builders Student Registration Form</title>
@@ -73,6 +69,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $childToRegister = retrieve_child_by_firstName_lastName_famID($args['child-first-name'], $args['child-last-name'], $_GET['id'] ?? $userID);
     $success = register($args, $childToRegister['id']);
 }
+
+require_once('header.php');
+require('universal.inc');
 ?>
 
 <!-- <html>

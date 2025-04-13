@@ -33,6 +33,11 @@
     <body>
         <?php require_once('header.php') ?>
         <h1>View Form Submissions</h1>
+        <?php require_once('header.php');
+        if (isset($_GET['formUpdateSuccess'])) {
+            echo '<div class="happy-toast" style="margin-right: 30rem; margin-left: 30rem; text-align: center;">Form Successfully Updated!</div>';
+        }
+        ?>
         <div class="formSearch">
             <p>Search for a specific form, a specific family, or both</p>
             <form id="formSearch" method="get" action="formSearchResult.php">
