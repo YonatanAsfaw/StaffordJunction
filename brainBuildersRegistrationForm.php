@@ -1,16 +1,18 @@
+<?php
+session_cache_expire(30);
+session_start();
+ini_set("display_errors", 1);
+error_reporting(E_ALL);
+?>
+
 <html>
 <head>
 <title>Stafford Junction | Brain Builders Student Registration Form</title>
 </head>
 <body>
 <h1>Brain Builders Registration Form 2024-2025</h1>
+
 <?php
-
-session_cache_expire(30);
-session_start();
-ini_set("display_errors", 1);
-error_reporting(E_ALL);
-
 $loggedIn = false;
 $accessLevel = 0;
 $userID = null;
@@ -23,17 +25,17 @@ function data_dump($val){
     die();
 }
 
-if(isset($_SESSION['_id'])){
+if(isset($_SESSION['_id']) || isset($_GET['id'])) {
     require_once("database/dbFamily.php");
     require_once("database/dbChildren.php");
     require_once('database/dbBrainBuildersRegistration.php');
     $loggedIn = true;
-    $accessLevel = $_SESSION['access_level'];
-    $userID = $_SESSION['_id'];
+    if (isset($_SESSION['_id'])) {
+        $userID = $_SESSION['_id'];
+        $accessLevel = $_SESSION['access_level'];
+    }
     $family = retrieve_family_by_id($_GET['id'] ?? $userID);
-    //$children = retrieve_children_by_family_id($_GET['id'] ?? $userID);
-    // Debugging: Check if children data is fetched correctly
-    //data_dump($children);
+    $children = retrieve_children_by_family_id($_GET['id'] ?? $userID);
     $address = $family->getAddress();
     $city = $family->getCity();
     $phone = $family->getPhone();
@@ -78,7 +80,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 <head> -->
     <!-- Include universal styles formatting -->
     <?php 
-    //include_once("universal.inc"); 
     require_once('header.php');
     require('universal.inc');?>
     <!-- <title>Stafford Junction | Brain Builders Student Registration Form</title>
@@ -96,9 +97,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             <option value="" disabled selected>Select Child</option>    
             <?php
             require_once('domain/Children.php');
-            require_once("database/dbFamily.php");
-            require_once('database/dbBrainBuildersRegistration.php');
-            $children = retrieve_children_by_family_id($_GET['id'] ?? $userID);
             foreach ($children as $child) {
                 $id = $child['id'];
                 if (!isBrainBuildersRegistrationComplete($id)) {
