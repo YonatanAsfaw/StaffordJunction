@@ -39,10 +39,10 @@ function insert_into_dbHolidayPartyForm($args, $child_id){
 //Function that checks to see if the form was completed for a specific child or not
 function isHolidayPartyFormComplete($childId){
     $conn = connect();
-    $query = "SELECT * FROM dbBrainBuildersHolidayPartyForm where child_id = $childId";
+    $query = "SELECT * FROM dbBrainBuildersHolidayPartyForm where child_id = " . $childId . ";";
     $res = mysqli_query($conn, $query);
-
     $complete = $res && mysqli_num_rows($res) > 0;
+    
     mysqli_close($conn);
     return $complete;
 }

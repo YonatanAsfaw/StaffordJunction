@@ -74,7 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 
 <body>
-
     <!-- Main heading of the page -->
     <h1>Stafford Junction Brain Builders Holiday - Party Celebración de días festivos</h1>
 

@@ -1,7 +1,5 @@
 <?php
 
-use function PHPSTORM_META\type;
-
 include_once('dbinfo.php');
 
 function register($args, $childID) {
@@ -214,12 +212,12 @@ function register($args, $childID) {
     return false;
 }
 
-function isBrainBuildersRegistrationComplete($childId){
+function isBrainBuildersRegistrationComplete($childId) {
     $conn = connect();
-    $query = "SELECT * FROM dbBrainBuildersRegistrationForm where child_id = $childId";
+    $query = "SELECT * FROM dbBrainBuildersRegistrationForm where child_id = " . $childId . ";";
     $res = mysqli_query($conn, $query);
-
     $complete = $res && mysqli_num_rows($res) > 0;
+
     mysqli_close($conn);
     return $complete;
 }
