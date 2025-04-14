@@ -88,7 +88,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
 
                 <!-- Field Trip Waiver Form -->
-                <?php if (in_array("Field Trip", $publishedForms)): ?>
+                <?php if (in_array("Field Trip Waiver", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=fieldTripWaiver.php' 
                 : 'fieldTripWaiver.php'; ?>">
