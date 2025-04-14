@@ -41,7 +41,7 @@ $id = null;
     }
 }*/
 
-if($_SERVER['REQUEST_METHOD'] == "POST"){
+if($_SERVER['REQUEST_METHOD'] == "POST" && !isset($_POST['deleteFeedback'])){
     $family = $_POST['family'];
     $program = $_POST['program'];
     $feedback = $_POST['feedback'];
@@ -54,7 +54,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['deleteFeedback'])){
 }
 
 function deleteFeedback($id){
-    $connection = mysqli_connect("localhost", "stafforddb", "stafforddb", "stafforddb"); //this will break if you abbreviate it to connect() and I don't know why
+    $connection = mysqli_connect("localhost", "u8sj1xg2scpnb", "362z7x6hkngw", "dbvswbwbmfnmrx"); //this will break if you abbreviate it to connect() and I don't know why
     //var_dump($id);
     $query = "DELETE FROM dbProgramReviewForm WHERE id=?";
     //var_dump($query);

@@ -34,7 +34,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit'])){
     //$family = $_POST['family'];
     $event_name = $_POST['program'];
     $id = $_POST['id'];
-}   $feedback = $_POST['feedback'];
+   $feedback = $_POST['feedback'];}
  
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editFeedback'])) {
