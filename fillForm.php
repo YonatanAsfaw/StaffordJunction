@@ -49,7 +49,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
 
                 <!-- School Supplies Form - Fixed string to match array -->
-                <?php if (in_array("School Supplies", $publishedForms)): ?>
+                <?php if (in_array("School Supplies Form", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=schoolSuppliesForm.php' 
                 : 'schoolSuppliesForm.php'; ?>">
@@ -59,7 +59,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
 
                 <!-- Spring Break Camp Form -->
-                <?php if (in_array("Spring Break Camp Form", $publishedForms)): ?>
+                <?php if (in_array("Spring Break", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=springBreakForm.php' 
                 : 'springBreakForm.php'; ?>">
@@ -78,7 +78,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
 
                 <!-- Child Care Waiver Form -->
-                <?php if (in_array("Child Care Waiver Form", $publishedForms)): ?>
+                <?php if (in_array("Child Care Waiver", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=childCareWaiverForm.php' 
                 : 'childCareWaiverForm.php'; ?>">
@@ -98,7 +98,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
 
                 <!-- Program Interest Form -->
-                <?php if (in_array("Program Interest Form", $publishedForms)): ?>
+                <?php if (in_array("Program Interest", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=programInterestForm.php' 
                 : 'programInterestForm.php'; ?>">
@@ -148,7 +148,7 @@ $publishedForms = getPublishedForms();
                 <?php endif; ?>
 
                 <!-- Actual Activity Form (added based on array)
-                <?php if (in_array("Actual Activity Form", $publishedForms)): ?>
+                <?php if (in_array("Actual Activity", $publishedForms)): ?>
                 <div class="dashboard-item" data-link="<?= ($_SESSION['access_level'] > 1) 
                 ? 'selectFamily.php?redirect=actualActivityForm.php' 
                 : 'actualActivityForm.php'; ?>">
