@@ -127,7 +127,9 @@
 	$permission_array['editstaffaccount.php'] = 3;
 	$permission_array['modifystaffaccount.php'] = 3;
         $permission_array['createvolunteeraccount.php'] = 3;
-        $permission_array['removevolunteeraccount.php'] = 3;
+	$permission_array['removevolunteeraccount.php'] = 3;
+	$permission_array['modifyvolunteeraccount.php'] = 3;
+	$permission_array['editvolunteeraccount.php'] = 3;
         $permission_array['staffaccount.php'] = 3;
         $permission_array['volunteeraccount.php'] = 3;
         $permission_array['overallattendence.php'] = 3;

@@ -31,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'], $_POST['sta
     if ($staff) {
         $staff->setFirstName(trim($_POST['first-name']));
         $staff->setLastName(trim($_POST['last-name']));
-        $staff->setBirthdate(trim($_POST['birthdate']));
         $staff->setAddress(trim($_POST['address']));
         $staff->setEmail(trim($_POST['email']));
         $staff->setPhone(trim($_POST['phone']));
@@ -73,7 +72,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'], $_POST['sta
 
         <label>First Name: <input type="text" name="first-name" value="<?= htmlspecialchars($staff->getFirstName()) ?>" required></label>
         <label>Last Name: <input type="text" name="last-name" value="<?= htmlspecialchars($staff->getLastName()) ?>" required></label>
-        <!--<label>Birthdate: <input type="date" name="birthdate" value="<?= htmlspecialchars($staff->getBirthdate()) ?>" required></label>--!>
         <label>Address: <input type="text" name="address" value="<?= htmlspecialchars($staff->getAddress()) ?>" required></label>
         <label>Email: <input type="email" name="email" value="<?= htmlspecialchars($staff->getEmail()) ?>" required></label>
         <label>Phone: <input type="text" name="phone" value="<?= htmlspecialchars($staff->getPhone()) ?>" required></label>
