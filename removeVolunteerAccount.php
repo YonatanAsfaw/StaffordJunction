@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 <body>
     <?php require_once('header.php') ?>
-    <h1>Search Volunteer Account</h1>
+    <h1>Remove Volunteer Account</h1>
     <form id="search_form" method="POST">
         <label>Enter first and last name to filter volunteer accounts:</label>
         <div class="search-container">

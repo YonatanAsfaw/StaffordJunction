@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <?php endif; ?>
 <body>
     <?php require_once('header.php') ?>
-    <h1>Search Staff Account</h1>
+    <h1>Remove Staff Account</h1>
     <form id="search_form" method="POST">
         <label>Enter first and last name to filter staff accounts:</label>
         <div class="search-container">
