@@ -236,4 +236,25 @@ function getHolidayMealBagById($id) {
     return $formData;
 }
 
+function getHolidayMealBagSubmissionsFromFamily($familyId) {
+    require_once("dbChildren.php");
+    $children = retrieve_children_by_family_id($familyId);
+    if (!$children) {
+        return [];
+    }
+
+    $childrenIds = array_map(function ($child) {
+        // Check if $child is an object and has a getId method
+        if (is_object($child) && method_exists($child, 'getId')) {
+            return $child->getId();
+        }
+        // Otherwise, assume $child is an associative array
+        return $child['id'];
+    }, $children);
+
+    if (empty($childrenIds)) {
+        return [];
+    }
+}
+
 ?>
