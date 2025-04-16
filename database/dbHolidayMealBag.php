@@ -237,24 +237,38 @@ function getHolidayMealBagById($id) {
 }
 
 function getHolidayMealBagSubmissionsFromFamily($familyId) {
-    require_once("dbChildren.php");
-    $children = retrieve_children_by_family_id($familyId);
-    if (!$children) {
+    global $conn;
+
+    if (!$conn) {
+        die("Database connection failed in getHolidayMealBagSubmissionsFromFamily.");
+    }
+
+    $query = "SELECT hmb.*, CONCAT(f.firstName, ' ', f.lastName) AS family_name 
+              FROM dbHolidayMealBagForm hmb
+              LEFT JOIN dbFamily f ON f.id = hmb.family_id
+              WHERE hmb.family_id = ?";
+
+    $stmt = $conn->prepare($query);
+
+    if (!$stmt) {
+        die("Database error: " . $conn->error);
+    }
+
+    $stmt->bind_param("i", $familyId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if (!$result) {
+        error_log("Query execution failed: " . $stmt->error);
         return [];
     }
 
-    $childrenIds = array_map(function ($child) {
-        // Check if $child is an object and has a getId method
-        if (is_object($child) && method_exists($child, 'getId')) {
-            return $child->getId();
-        }
-        // Otherwise, assume $child is an associative array
-        return $child['id'];
-    }, $children);
+    $submissions = $result->fetch_all(MYSQLI_ASSOC);
 
-    if (empty($childrenIds)) {
-        return [];
-    }
+    $stmt->close();
+
+    return $submissions;
 }
+
 
 ?>
