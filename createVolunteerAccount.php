@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $args['dateAvailable'] = null;
     $args['minHours'] = 0;
     $args['maxHours'] = 0;
+    $args['access_level'] = (int)$args['access_level'];
     $volunteer = make_volunteer_from_signup($args);
     $success = add_volunteer($volunteer);
 }
@@ -135,6 +136,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <option value="Latex Allergy">Latex Allergy</option>
                 <option value="None">None</option>
             </select>
+            <!-- Access Level -->
+            <h3>Volunteer Access Level *</h3>
+            <label>
+                <input type="radio" name="access_level" value="4" required> Low Level
+            </label>
+            <label>
+                <input type="radio" name="access_level" value="5"> High Level
+            </label>
             <!-- Login Credentials -->
             <h3>Login Credentials</h3>
             <fieldset>
