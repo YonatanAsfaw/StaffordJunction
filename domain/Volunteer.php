@@ -44,9 +44,10 @@ class Volunteer
     private $dateAvailable;
     private $minHours;
     private $maxHours;
+    private $accessLevel;
 
     public function __construct(
-        $id, $email, $password, $securityQuestion, $securityAnswer, $firstName, $middleInitial, $lastName, $address, $city, $state, $zip, $homePhone, $cellPhone, $age, $birthDate, $hasDriversLicense, $transportation, $emergencyContact1Name, $emergencyContact1Relation, $emergencyContact1Phone, $emergencyContact2Name, $emergencyContact2Relation, $emergencyContact2Phone, $allergies, $sunStart, $sunEnd, $monStart, $monEnd, $tueStart, $tueEnd, $wedStart, $wedEnd, $thurStart, $thurEnd, $friStart, $friEnd, $satStart, $satEnd, $dateAvailable, $minHours, $maxHours
+        $id, $email, $password, $securityQuestion, $securityAnswer, $firstName, $middleInitial, $lastName, $address, $city, $state, $zip, $homePhone, $cellPhone, $age, $birthDate, $hasDriversLicense, $transportation, $emergencyContact1Name, $emergencyContact1Relation, $emergencyContact1Phone, $emergencyContact2Name, $emergencyContact2Relation, $emergencyContact2Phone, $allergies, $sunStart, $sunEnd, $monStart, $monEnd, $tueStart, $tueEnd, $wedStart, $wedEnd, $thurStart, $thurEnd, $friStart, $friEnd, $satStart, $satEnd, $dateAvailable, $minHours, $maxHours, $accessLevel
     )
     {
         $this->id = $id;
@@ -91,6 +92,7 @@ class Volunteer
         $this->dateAvailable = $dateAvailable;
         $this->minHours = $minHours;
         $this->maxHours = $maxHours;
+        $this->accessLevel = $accessLevel;
     }
 
     public function getId()
@@ -507,4 +509,11 @@ class Volunteer
     {
         $this->maxHours = $maxHours;
     }
-}
+    public function getAccessLevel() {
+        return $this->accessLevel;
+    }
+
+    public function setAccessLevel($accessLevel) {
+        $this->accessLevel = (int)$accessLevel;
+    }
+} 

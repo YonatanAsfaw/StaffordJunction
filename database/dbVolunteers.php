@@ -45,7 +45,8 @@ function make_volunteer_from_signup($result_row) {
         $result_row['satEnd'],
         $result_row['dateAvailable'],
         $result_row['minHours'],
-        $result_row['maxHours']
+        $result_row['maxHours'],
+        $result_row['access_level'],
     );
     return $volunteer;
 }
@@ -93,7 +94,8 @@ function create_volunteer_from_db($result_row) {
         $result_row['satEnd'],
         $result_row['dateAvailable'],
         $result_row['minHours'],
-        $result_row['maxHours']
+        $result_row['maxHours'],
+        $result_row['access_level'],
     );
 }
 
@@ -113,8 +115,8 @@ function add_volunteer($volunteer) {
             transportation, emergencyContact1Name, emergencyContact1Relation, emergencyContact1Phone, 
             emergencyContact2Name, emergencyContact2Relation, emergencyContact2Phone, allergies, 
             sunStart, sunEnd, monStart, monEnd, tueStart, tueEnd, wedStart, wedEnd, thurStart, 
-            thurEnd, friStart, friEnd, satStart, satEnd, dateAvailable, minHours, maxHours
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            thurEnd, friStart, friEnd, satStart, satEnd, dateAvailable, minHours, maxHours, access_level
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $conn->prepare($query);
         if (!$stmt) {
@@ -162,17 +164,21 @@ function add_volunteer($volunteer) {
         $dateAvailable = $volunteer->getDateAvailable();
         $minHours = $volunteer->getMinHours();
         $maxHours = $volunteer->getMaxHours();
+        $accessLevel = $volunteer->getAccessLevel();
 
         $stmt->bind_param(
-            "sssssssssssisisssssssssssssssssssssssiiii",
+            "sssssssssssisisssssssssssssssssssssssiiiii",
             $email, $password, $securityQuestion, $securityAnswer, $firstName, $middleInitial, $lastName,
             $address, $city, $state, $zip, $homePhone, $cellPhone, $age, $birthDate, $hasDriversLicense,
             $transportation, $emergencyContact1Name, $emergencyContact1Relation, $emergencyContact1Phone,
             $emergencyContact2Name, $emergencyContact2Relation, $emergencyContact2Phone, $allergies,
             $sunStart, $sunEnd, $monStart, $monEnd, $tueStart, $tueEnd, $wedStart, $wedEnd, $thurStart,
-            $thurEnd, $friStart, $friEnd, $satStart, $satEnd, $dateAvailable, $minHours, $maxHours
+            $thurEnd, $friStart, $friEnd, $satStart, $satEnd, $dateAvailable, $minHours, $maxHours, $accessLevel
         );
-        $stmt->execute();
+        $result = $stmt->execute();
+        if (!$result) {
+            die("Execute failed: " . $stmt->error);
+        }
         $stmt->close();
         $conn->close();
         return true;
@@ -315,7 +321,8 @@ function update_volunteer($volunteer) {
         satEnd = '" . $volunteer->getSatEnd() . "',
         dateAvailable = '" . $volunteer->getDateAvailable() . "',
         minHours = '" . $volunteer->getMinHours() . "',
-        maxHours = '" . $volunteer->getMaxHours() . "'
+        maxHours = '" . $volunteer->getMaxHours() . "',
+        accessLevel = '" . $volunteer->getAccessLevel() . "'
         WHERE id = '" . $volunteer->getId() . "'";
 
     $result = mysqli_query($conn, $query);

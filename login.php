@@ -145,7 +145,13 @@
                         $_SESSION['l_name'] = $user->getLastName();
                         $_SESSION['account_type'] = "volunteer"; // Critical
                         $_SESSION['venue'] = "-";
+                        $accessLevel = $user->getAccessLevel();
+                        $_SESSION['access_level'] = $accessLevel;
+                        #if ($accessLevel == 5) {
+                        #    header('Location: highLevelVolunteerDashboard.php');
+                       # } else {
                         header('Location: index.php');
+                        #}
                         die();
                     } else {
                         // echo "Password verification failed<br>";

@@ -134,7 +134,7 @@
         $permission_array['volunteeraccount.php'] = 3;
         $permission_array['overallattendence.php'] = 3;
         $permission_array['volunteerReportForm.php'] = 4;
-        $permission_array['overallAttendence.php'] = 4;
+        $permission_array['overallAttendence.php'] = 5;
         $permission_array['programInterestForms.php'] = 3;
         $permission_array['manageformpublications.php'] = 2;
         $permission_array['programreviewform.php'] = 3;
@@ -160,7 +160,7 @@
         $permission_array['addattendee.php'] = 3;
         $permission_array['removeattendee.php'] = 3;
         $permission_array['editbusmonitordata.php'] = 3;
-
+        $permission_array['highlevelvolunteerdashboard.php'] = 5;
         $permission_array['editform.php'] = 1;
         $permission_array['programreviewreport.php'] = 2;
         $permission_array['programreviewreportpage.php'] = 2;
@@ -237,7 +237,9 @@
                 echo('<li class="nav-item dropdown">');
                 echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Others</a>');
                 echo('<div class="dropdown-menu">');
-                echo('<a class="dropdown-item" href="' . $path . 'overallAttendence.php">View Overall Attendence</a>');
+                #if ($_SESSION['access_level'] >= 5) {
+                 #   echo('<a class="dropdown-item" href="' . $path . 'overallAttendence.php">View Overall Attendence</a>');
+              #  }
                 echo('<a class="dropdown-item" href="' . $path . 'changePassword.php">Change Password</a>');
 
                 echo('</div>');
@@ -295,12 +297,16 @@
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'changePassword.php">Change Password</a></li>');
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Log out</a></li>');
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'calendar.php">Calendar</a></li>');
-
-                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'overallAttendence.php">View Overall Attendance</a></li>');
+                if ($_SESSION['access_level'] >= 5) {
+                    echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'overallAttendence.php">View Overall Attendance</a></li>');
+                }
 
 		echo('</div></li>');
 
-		echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'volunteerReportForm.php">Log Hours</a></li>');
+		#echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'volunteerReportForm.php">Log Hours</a></li>');
+       # if ($_SESSION['access_level'] >= 5) {
+       #     echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'overallAttendence.php">View Overall Attendance</a></li>');
+       # }
                 echo('</ul></nav>');
             }
         }
