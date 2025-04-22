@@ -41,7 +41,7 @@ CREATE TABLE `dbVolunteers` (
     `dateAvailable` date,
     `minHours` int NOT NULL,
     `maxHours` int NOT NULL,
-    `access_level` int NOT NULL DEFAULT 0
+    `access_level` int NOT NULL DEFAULT 4
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `dbVolunteers` (
@@ -72,5 +72,5 @@ VALUES (
     '1112223333',
     '10',
     '20',
-    0
+    4
 );
