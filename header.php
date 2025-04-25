@@ -164,7 +164,7 @@
         $permission_array['editform.php'] = 1;
         $permission_array['programreviewreport.php'] = 2;
         $permission_array['programreviewreportpage.php'] = 2;
-        $permission_array['editfeedback.php'] = 2;
+	$permission_array['editfeedback.php'] = 2;
 
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));
@@ -213,7 +213,6 @@
                     echo('<div class="dropdown-menu" aria-labelledby="navbarDropdown">');
                     echo('<a class="dropdown-item" href="' . $path . 'createStaffAccount.php">Create Staff Account</a>');
                     echo('<a class="dropdown-item" href="' . $path . 'removeStaffAccount.php">Remove Staff Account</a>');
-                    //echo('<a class="dropdown-item" href="' . $path . 'testrma.php">Remove Staff Account</a>');
                     echo('<a class="dropdown-item" href="' . $path . 'modifyStaffAccount.php">Modify Staff Account</a>');
                 }
                 echo('</div>');
@@ -237,9 +236,9 @@
                 echo('<li class="nav-item dropdown">');
                 echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Others</a>');
                 echo('<div class="dropdown-menu">');
-                #if ($_SESSION['access_level'] >= 5) {
-                 #   echo('<a class="dropdown-item" href="' . $path . 'overallAttendence.php">View Overall Attendence</a>');
-              #  }
+             
+                echo('<a class="dropdown-item" href="' . $path . 'overallAttendence.php">View Overall Attendence</a>');
+              
                 echo('<a class="dropdown-item" href="' . $path . 'changePassword.php">Change Password</a>');
 
                 echo('</div>');
@@ -289,18 +288,17 @@
                 echo('<a class="navbar-brand" id="vms-logo"></a></span><img id="menu-toggle" src="images/menu.png"></span>');
                 echo('<ul>');
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'index.php">Home</a></li>');
-                echo('<li class="nav-item dropdown">');
-                echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tasks</a>');
-                echo('<div class="dropdown-menu" aria-labelledby="navbarDropdown">');
-                echo('<a class="dropdown-item" href="' . $path . 'volunteerTask.php">View Volunteer Tasks</a>');
+                #echo('<li class="nav-item dropdown">');
+                #echo('<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tasks</a>');
+                #echo('<div class="dropdown-menu" aria-labelledby="navbarDropdown">');
+                #echo('<a class="dropdown-item" href="' . $path . 'volunteerTask.php">View Volunteer Tasks</a>');
                 echo('</div></li>');
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'changePassword.php">Change Password</a></li>');
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Log out</a></li>');
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'calendar.php">Calendar</a></li>');
-                if ($_SESSION['access_level'] >= 5) {
+                if ($_SESSION['access_level'] == 5) {
                     echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'overallAttendence.php">View Overall Attendance</a></li>');
                 }
-
 		echo('</div></li>');
 
 		#echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'volunteerReportForm.php">Log Hours</a></li>');
