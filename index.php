@@ -105,7 +105,7 @@
                 </div>
                 <?php endif ?>
               
-                <?php if($_SESSION['access_level'] >= 2 && $_SESSION['access_level'] < 4): ?>
+                <?php if(($_SESSION['access_level'] >= 2 && $_SESSION['access_level'] < 4) || ($_SESSION['account_type'] == 'volunteer' && $_SESSION['access_level'] == 5)): ?>
                 <div class="dashboard-item" data-link="fillFormStaff.php">
                     <img src="images/form-dropdown-svgrepo-com.svg">
                     <span>Fill Out Attendance Forms</span>
