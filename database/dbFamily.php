@@ -367,25 +367,109 @@ function retrieve_family_by_lastName($lastName) {
 /**
  * Retrieves all families
  */
-function find_all_families() {
+function find_all_families($first_name = null, $last_name = null, $email = null, $neighborhood = null, $address = null, $city = null, $zip = null, $income = null, $assistance = null, $phone = null, $language = null, $is_archived = 0) {
     $conn = connect();
-    $query = "SELECT * FROM dbFamily ORDER BY lastName";
-
-    $result = $conn->query($query);
     
-    if (!$result) {
-        $conn->close();
-        return [];
+    $query = "SELECT * FROM dbFamily WHERE 1=1";
+    $params = [];
+    $types = "";
+
+    if (!empty($first_name)) {
+        $query .= " AND firstName LIKE ?";
+        $params[] = "%$first_name%";
+        $types .= "s";
     }
+
+    if (!empty($last_name)) {
+        $query .= " AND lastName LIKE ?";
+        $params[] = "%$last_name%";
+        $types .= "s";
+    }
+
+    if (!empty($email)) {
+        $query .= " AND email LIKE ?";
+        $params[] = "%$email%";
+        $types .= "s";
+    }
+
+    if (!empty($neighborhood)) {
+        $query .= " AND neighborhood LIKE ?";
+        $params[] = "%$neighborhood%";
+        $types .= "s";
+    }
+
+    if (!empty($address)) {
+        $query .= " AND address LIKE ?";
+        $params[] = "%$address%";
+        $types .= "s";
+    }
+
+    if (!empty($city)) {
+        $query .= " AND city LIKE ?";
+        $params[] = "%$city%";
+        $types .= "s";
+    }
+
+    if (!empty($zip)) {
+        $query .= " AND zip = ?";
+        $params[] = $zip;
+        $types .= "s";
+    }
+
+    if (!empty($income) && is_array($income)) {
+        $placeholders = implode(',', array_fill(0, count($income), '?'));
+        $query .= " AND income IN ($placeholders)";
+        $params = array_merge($params, $income);
+        $types .= str_repeat("s", count($income));
+    }
+
+    if (!empty($assistance) && is_array($assistance)) {
+        foreach ($assistance as $assist) {
+            $query .= " AND currentAssistance LIKE ?";
+            $params[] = "%$assist%";
+            $types .= "s";
+        }
+    }
+
+    if (!empty($phone)) {
+        $query .= " AND phone LIKE ?";
+        $params[] = "%$phone%";
+        $types .= "s";
+    }
+
+    if (!empty($language)) {
+        $query .= " AND language LIKE ?";
+        $params[] = "%$language%";
+        $types .= "s";
+    }
+
+    if ($is_archived === "1" || $is_archived === 1) {
+        $query .= " AND isArchived = 1";
+    } else {
+        $query .= " AND isArchived = 0";
+    }
+
+    $query .= " ORDER BY lastName";
+
+    $stmt = $conn->prepare($query);
+    if ($params) {
+        $stmt->bind_param($types, ...$params);
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     $families = [];
     while ($row = $result->fetch_assoc()) {
         $families[] = make_a_family2($row);
     }
 
+    $stmt->close();
     $conn->close();
+
     return $families;
 }
+
 
 /**
  * Archives a family
