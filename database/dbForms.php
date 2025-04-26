@@ -64,9 +64,9 @@ function getFormSubmissions($formName, $familyId){
 
     case "Actual Activity":
         require_once("dbActualActivityForm.php");
-        if ($familyId) {
-            return getActualActivitySubmissionsFromFamily($familyId);
-        }
+        //if ($familyId) {
+        //    return getActualActivitySubmissionsFromFamily($familyId);
+        //}
         return getActualActivitySubmissions();
     
     case "Brain Builders Student Registration":
