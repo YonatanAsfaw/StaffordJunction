@@ -395,7 +395,7 @@ function fetch_events_in_date_range_as_array($start_date, $end_date) {
 
 function get_volunteer($id) {
     $connection = connect();
-    $query = "select * from dbvolunteers
+    $query = "select * from dbVolunteers
               where id='$id'";
     $result = mysqli_query($connection, $query);
     if (!$result) {
