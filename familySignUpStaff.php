@@ -528,7 +528,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </script>
 
             <h3>Emergency Contact</h3>
-            <fieldset>
+           
                 <p>Please provide us with someone to contact on your behalf in case of an emergency.</p>
                 <label for="econtact-first-name" required>* Contact First Name</label>
                 <input type="text" id="econtact-first-name" name="econtact-first-name" required placeholder="Enter emergency contact first name">
@@ -541,10 +541,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <label for="econtact-name" required> Contact Relation to You</label>
                 <input type="text" id="econtact-relation" name="econtact-relation" required placeholder="Ex. Spouse, Mother, Father, Sister, Brother, Friend">
-            </fieldset>
+            
 
             <h3>Household Information</h3>
-            <fieldset>
                 <label for="income" required>* Estimated Household Income</label>
                 <select id="income" name="income" required>
                     <option value="Under $15,0000">Under 20,000</option>
