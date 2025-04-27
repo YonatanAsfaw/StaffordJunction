@@ -1,5 +1,4 @@
 <?php
-
 session_cache_expire(30);
 session_start();
 ini_set("display_errors", 1);
@@ -9,7 +8,6 @@ require_once('database/dbProgramReviewForm.php');
 $loggedIn = false;
 $accessLevel = 0;
 $userID = null;
-$success = false;
 
 // Ensure user is logged in
 if (isset($_SESSION['_id'])) {
@@ -23,7 +21,6 @@ if (isset($_SESSION['_id'])) {
 }
 
 $family = null;
-
 if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])){
     $family = $_GET['id'];
 }
@@ -37,46 +34,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['programReviewForm']))
     // Connect to the database
     $connection = connect(); 
 
-    // Fetch route_id based on route_direction and neighborhood
-    //$query = "SELECT id FROM dbFamily WHERE lastName = ? OR lastName2 = ?";
-    //$stmt = $connection->prepare($query);
-    //$stmt->bind_param("ss", $family, $family);
-    //$stmt->execute();
-    //$result = $stmt->get_result();
-    
-    /*if ($result->num_rows === 0) {
-        // No families with the last name found
-        $stmt->close();
-        $connection->close();
-        die("Error: No family with that name. Please make a family account with us before proceeding.");
-    }
-
-    //get the family id
-    $row = $result->fetch_assoc();
-    $family_id = $row['id'];
-    $stmt->close();
-*/
-    //insert into dbProgramReviewForm
+    // Insert into dbProgramReviewForm
     $insertQuery = "INSERT INTO dbProgramReviewForm (family_id, event_name, reviewText) VALUES (?, ?, ?)";
     $stmt = $connection->prepare($insertQuery);
     $stmt->bind_param("iss", $family_id, $event_name, $reviewText);
 
     if ($stmt->execute()) {
-        // Success
         $stmt->close();
-        $connection->close();        
-        header("Location: fillForm.php");
+        $connection->close();
+        header("Location: fillForm.php?formSubmitSuccess=1&id=$family_id");
         exit();
     } else {
-        // Error
         $error_message = $stmt->error;
         $stmt->close();
         $connection->close();
-        die("Error: Failed to submit feedback. " . $error_message);
+        header("Location: fillForm.php?formSubmitFail=1&id=$family_id");
+        exit();
     }
 }
-
-require_once('database/dbProgramReviewForm.php'); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,52 +64,43 @@ require_once('database/dbProgramReviewForm.php');
     <style>
     .location-section {
         display: none;
-        /* Hide sections by default */
     }
     </style>
 </head>
 <body>
 <?php require('header.php'); ?>
     <h1>Program Review Form</h1>
-    <div id="formatted_form">
-        <!--last name field-->
-        <form action="" method="post">
-            <!--<label for="family">Last Name:</label>
-            <input type="text" id="family" name="family">
-            <br><br>-->
-            <!--program name field-->
-            <?php echo '<input type="hidden" id="family" name="family" value="' . $family . '">'; ?>
-            <label for="programName">Program Name:</label>
-            <input type="text" id="programName" name="programName">
-            <br><br>
-            <!--feedback field-->
-            <label for="reviewText">Comments:</label>
-            <textarea id="reviewText" name="reviewText" rows="6" cols="80">Type feedback here.</textarea>
-            <br><br>
-            <script>
 
-            <?php //If the user is an admin or staff, the message should appear at index.php
-                if($_SERVER['REQUEST_METHOD'] == "POST" && $success){
-                    if (isset($_GET['id'])) {
-                        echo '<script>document.location = "fillForm.php?formSubmitSuccess&id=' . $_GET['id'] . '";</script>';
-                    } else {
-                        echo '<script>document.location = "fillForm.php?formSubmitSuccess";</script>';
-                    }
-                } else if ($_SERVER['REQUEST_METHOD'] == "POST" && !$success) {
-                    if (isset($_GET['id'])) {
-                        echo '<script>document.location = "fillForm.php?formSubmitFail&id=' . $_GET['id'] . '";</script>';
-                    } else {
-                        echo '<script>document.location = "fillForm.php?formSubmitFail";</script>';
-                    }  
-                }
+    <?php
+    if (isset($_GET['formSubmitSuccess'])) {
+        echo "<p style='color: green; font-weight: bold;'>Feedback submitted successfully!</p>";
+    } elseif (isset($_GET['formSubmitFail'])) {
+        echo "<p style='color: red; font-weight: bold;'>Error submitting feedback. Please try again.</p>";
+    }
+    ?>
+
+    <div id="formatted_form">
+        <form action="" method="post">
+            <?php
+            if ($family !== null) {
+                echo '<input type="hidden" id="family" name="family" value="' . htmlspecialchars($family) . '">';
+            }
             ?>
-            </script>
+            <label for="programName">Program Name:</label>
+            <input type="text" id="programName" name="programName" required>
             <br><br>
+
+            <label for="reviewText">Comments:</label>
+            <textarea id="reviewText" name="reviewText" rows="6" cols="80" required>Type feedback here.</textarea>
+            <br><br>
+
             <button type="submit" name="programReviewForm">Submit Feedback</button>
         </form>
+
         <a href="fillForm.php" style="text-decoration: none;">
             <br>
-        <button style="padding: 10px 20px; font-size: 16px;">Cancel</button>
-    </a>
+            <button style="padding: 10px 20px; font-size: 16px;">Cancel</button>
+        </a>
+    </div>
 </body>
 </html>
