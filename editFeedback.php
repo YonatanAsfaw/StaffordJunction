@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editFeedback'])) {
         // Success
         $stmt->close();
         $connection->close();        
-        header("Location: fillForm.php");
+        header("Location: viewFeedback.php?formSubmitSuccess=1"); // send success flag
         exit();
     } else {
         // Error
@@ -84,6 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editFeedback'])) {
         $connection->close();
         die("Error: Failed to edit feedback. " . $error_message);
     }
+    
 }
 
 require_once('database/dbProgramReviewForm.php'); 
@@ -129,18 +130,25 @@ require_once('database/dbProgramReviewForm.php');
             <br><br>
             <script>
 
+<?php
+if (isset($_GET['formSubmitSuccess'])) {
+    echo "<p style='color: green;'>Feedback updated successfully!</p>";
+}
+?>
+
+
             <?php //If the user is an admin or staff, the message should appear at index.php
                 if($_SERVER['REQUEST_METHOD'] == "POST" && $success){
                     if (isset($_GET['id'])) {
-                        echo '<script>document.location = "fillForm.php?formSubmitSuccess&id=' . $_GET['id'] . '";</script>';
+                        echo '<script>document.location = "viewFeedback.php?formSubmitSuccess&id=' . $_GET['id'] . '";</script>';
                     } else {
-                        echo '<script>document.location = "fillForm.php?formSubmitSuccess";</script>';
+                        echo '<script>document.location = "viewFeedback.php?formSubmitSuccess";</script>';
                     }
                 } else if ($_SERVER['REQUEST_METHOD'] == "POST" && !$success) {
                     if (isset($_GET['id'])) {
-                        echo '<script>document.location = "fillForm.php?formSubmitFail&id=' . $_GET['id'] . '";</script>';
+                        echo '<script>document.location = "viewFeedback.php?formSubmitFail&id=' . $_GET['id'] . '";</script>';
                     } else {
-                        echo '<script>document.location = "fillForm.php?formSubmitFail";</script>';
+                        echo '<script>document.location = "viewFeedback.php?formSubmitFail";</script>';
                     }  
                 }
             ?>
@@ -148,7 +156,7 @@ require_once('database/dbProgramReviewForm.php');
             <br><br>
             <button type="submit" name="editFeedback">Edit Feedback</button>
         </form>
-        <a href="fillForm.php" style="text-decoration: none;">
+        <a href="viewFeedback.php" style="text-decoration: none;">
             <br>
         <button style="padding: 10px 20px; font-size: 16px;">Cancel</button>
     </a>
