@@ -185,7 +185,7 @@ function retrieve_child_by_firstName_lastName_famID($fn, $ln, $famID) {
 /**
  * Constructs a Child object from the sign-up form data
  */
-function make_a_child_from_sign_up($childData) {
+function make_a_child_from_sign_up($childData, $family_id) {
     return new Child(
         null,
         $childData['first_name'],
@@ -202,7 +202,8 @@ function make_a_child_from_sign_up($childData) {
         $childData['is_hispanic'],
         $childData['race'],
         $childData['medical_notes'],
-        $childData['notes']
+        $childData['notes'],
+        $family_id // Add this
     );
 }
 

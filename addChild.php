@@ -16,21 +16,33 @@ if (isset($_SESSION['_id'])) {
 }else {
     header("Location: login.php");
 }
+$userID = $_SESSION['_id'];
 
+var_dump($userID);
 
-if($_SERVER['REQUEST_METHOD'] == "POST"){
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     require_once("database/dbFamily.php");
     require_once("database/dbChildren.php");
-    
-    //retreive all the children in POST variable
-    $children = $_POST['children'];
 
-    //cycle through each child, creating a new child object and adding that child to the database
-    foreach($children as $child){
-        $newChild = make_a_child_from_sign_up($child);
-        $success = add_child($newChild, $userID); //success is a boolean; it will remain true so long as children are being added correctly to the database
+    $children = $_POST['children'];
+    //var_dump($children); // DEBUG
+    $userID = $_SESSION['_id'];
+
+    foreach($children as $child) {
+        $userID = $_SESSION['_id'];
+        //var_dump($child); // This should be an array!
+        var_dump($userID); // Check if it becomes null here
+
+        if (!is_array($child)) {
+            error_log("Child data is not an array. Value: " . var_export($child, true));
+            continue; // Skip invalid input
+        }
+
+        $newChild = make_a_child_from_sign_up($child, $userID); //hardcode
+        $success = add_child($newChild, $userID); //hardcode
     }
 }
+
 
 ?>
 
@@ -72,13 +84,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                         <h4>Child ${children.length + 1}</h4>
 
                         <label for="child_name_${childCount}">Child's First Name</label>
-                        <input type="text" id="child_name_${childCount}" name="children[${childCount}][first-name]" required placeholder="Enter child's first name">
+                        <input type="text" id="child_name_${childCount}" name="children[${childCount}][first_name]" required placeholder="Enter child's first name">
 
                         <label for="child_last_name_${childCount}">Child's Last Name</label>
-                        <input type="text" id="child_last_name_${childCount}" name="children[${childCount}][last-name]" required placeholder="Enter child's last name">
+                        <input type="text" id="child_last_name_${childCount}" name="children[${childCount}][last_name]" required placeholder="Enter child's last name">
 
                         <label for="child_birthdate_${childCount}">Child's Date of Birth</label>
-                        <input type="date" id="child_birthdate_${childCount}" name="children[${childCount}][birthdate]" required>
+                        <input type="date" id="child_birthdate_${childCount}" name="children[${childCount}][dob]" required>
 
                                                     <label for="neighborhood" required>Child's Neighborhood</label>
                             <input type="text" id="child_neighborhood_${childCount}" name="children[${childCount}][neighborhood]" required placeholder="Enter child's neighborhood">
@@ -196,10 +208,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                             </select>
 
                         <label for="child_medical_notes_${childCount}">Medical Notes</label>
-                        <input type="text" id="child_medical_notes_${childCount}" name="children[${childCount}][last-child_medical_notes_]" required placeholder="Allergies, medications, etc.">
+                        <input type="text" id="child_medical_notes_${childCount}" name="children[${childCount}][medical_notes]" required placeholder="Allergies, medications, etc.">
 
                         <label for="child_additional_notes_${childCount}">Additional Notes</label>
-                        <input type="text" id="child_additional_notes_${childCount}" name="children[${childCount}][child_additional_notes_-name]" required placeholder="Anything else we should know?">
+                        <input type="text" id="child_additional_notes_${childCount}" name="children[${childCount}][notes]" required placeholder="Anything else we should know?">
 
                         <button type="button" style="background-color: red"; onclick="removeChildForm(${childCount})">Remove Child</button>
 

@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($children != null) {
             foreach ($children as $child) {
                 $child = sanitize($child); // Sanitize each child input
-                $child_obj = make_a_child_from_sign_up($child); //construct child object from form data
+                //$child_obj = make_a_child_from_sign_up($child); //construct child object from form data
 
                 //insert child into dbChildren, passing in family id that which will be the foreign key for dbChildren
                 add_child($child_obj, $fam->getId());
@@ -338,14 +338,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="radio" id="secondary-phone-type-work2" name="secondary-phone-type2" value="work"><label for="secondary-phone-type-work2">Work</label>
                 </div>
 
-            </fieldset>
-
-            <h3>Children</h3>
-            <fieldset>
-                <p>Add child details below. Click "+ Add Child" to add more children.</p>
-                <div id="children-container"></div>
-                <button type="button" onclick="addChildForm()">+ Add Child</button>
-            </fieldset>
+           
 
             <script>
                 let childCount = 0;

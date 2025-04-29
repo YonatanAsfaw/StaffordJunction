@@ -81,6 +81,7 @@
         $permission_array['angelgiftform.php'] = 1;
         $permission_array['fieldtripwaiver.php'] = 1;
         $permission_array['holidaymealbagform.php'] = 1;
+        $permission_array['holidaymealbag.php'] = 1;
         $permission_array['childcarewaiverform.php'] = 1;
         $permission_array['holidaypartyform.php'] = 1;
         $permission_array['brainbuildersregistrationform.php'] = 1;
@@ -92,6 +93,7 @@
         $permission_array['addattendee.php'] = 1;
         $permission_array['removeattendee.php'] = 1;
         $permission_array['editbusmonitordata.php'] = 1;
+        $permission_array['editfamilyprofile.php'] = 1;
         //pages only staff can view
         $permission_array['personsearch.php'] = 2;
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
@@ -256,7 +258,7 @@
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'familyAccountDashboard.php">Home</a></li>');
 
                 //view account
-                echo('<li><a class="nav-link" aria-current="page" href="' . $path . 'familyView.php">View Account</a></li>');
+echo('<li><a class="nav-link" aria-current="page" href="' . $path . 'familyView.php?id=' . $userID . '">View Account</a></li>');
 
                 //view and add children to account
                 echo('<li class="nav-item dropdown">');

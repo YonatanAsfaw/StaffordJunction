@@ -87,7 +87,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 <!DOCTYPE html>
 <html>
     <head>
-        <?php require_once('universal.inc') ?>
+        <?php require_once('universal.inc');
+        require_once('header.php'); ?>
         <title>Stafford Junction | Edit Profile</title>
     </head>
     <body>

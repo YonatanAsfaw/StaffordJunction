@@ -15,7 +15,7 @@ if (isset($_SESSION['_id'])) {
 
 require_once("domain/Children.php");
 require_once("database/dbFamily.php");
-
+ $userID = $_SESSION['_id'];
 //grabs all the children associated with account and puts it into an array
 $children = getChildren($userID);
 
