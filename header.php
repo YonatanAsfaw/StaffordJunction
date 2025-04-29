@@ -7,6 +7,7 @@
  * (see <http://www.gnu.org/licenses/ for more information).
  * 
  */
+ 
 ?>
 
 <head>
@@ -258,7 +259,7 @@
                 echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'familyAccountDashboard.php">Home</a></li>');
 
                 //view account
-echo('<li><a class="nav-link" aria-current="page" href="' . $path . 'familyView.php?id=' . $userID . '">View Account</a></li>');
+
 
                 //view and add children to account
                 echo('<li class="nav-item dropdown">');
