@@ -82,7 +82,7 @@
         $permission_array['angelgiftform.php'] = 1;
         $permission_array['fieldtripwaiver.php'] = 1;
         $permission_array['holidaymealbagform.php'] = 1;
-        $permission_array['holidaymealbag.php'] = 1;
+        //$permission_array['holidaymealbag.php'] = 1;
         $permission_array['childcarewaiverform.php'] = 1;
         $permission_array['holidaypartyform.php'] = 1;
         $permission_array['brainbuildersregistrationform.php'] = 1;
@@ -123,6 +123,8 @@
         $permission_array['viewfeedback.php'] = 2;
         $perission_array['deletefeedback.php'] = 2;
         $permission_array['modify_staff_account.php'] = 2;
+         $permission_array['actualactivityform.php'] = 2;
+        $permission_array['busmonitorattendanceform.php'] = 2;
         //pages only admin can view
         $permission_array['createstaffaccount.php'] = 3;
 	$permission_array['removestaffaccount.php'] = 3;
@@ -140,24 +142,24 @@
         $permission_array['overallAttendence.php'] = 5;
         $permission_array['programInterestForms.php'] = 3;
         $permission_array['manageformpublications.php'] = 2;
-        $permission_array['programreviewform.php'] = 3;
-        $permission_array['programinterestform.php'] = 3;
-        $permission_array['summerjunctionregistrationform.php'] = 3;
-        $permission_array['springbreakform.php'] = 3;
-        $permission_array['angelgiftform.php'] = 3;
-        $permission_array['fieldtripwaiver.php'] = 3;
+        // $permission_array['programreviewform.php'] = 3;
+        // $permission_array['programinterestform.php'] = 3;
+        // $permission_array['summerjunctionregistrationform.php'] = 3;
+        // $permission_array['springbreakform.php'] = 3;
+        // $permission_array['angelgiftform.php'] = 3;
+        // $permission_array['fieldtripwaiver.php'] = 3;
         $permission_array['editspringbreakcampform.php'] = 3;
         $permission_array['editchildcarewaiverform.php'] = 3;
         $permission_array['editfieldtripwaiverform.php'] = 3;
         $permission_array['editschoolsuppliesform.php'] = 3;
-        $permission_array['schoolsuppliesform.php'] = 3;
-        $permission_array['holidaymealbagform.php'] = 3;
-        $permission_array['childcarewaiverform.php'] = 3;
-        $permission_array['holidaypartyform.php'] = 3;
-        $permission_array['brainbuildersregistrationform.php'] = 3;
+        // $permission_array['schoolsuppliesform.php'] = 3;
+        // $permission_array['holidaymealbagform.php'] = 3;
+        // $permission_array['childcarewaiverform.php'] = 3;
+        // $permission_array['holidaypartyform.php'] = 3;
+        // $permission_array['brainbuildersregistrationform.php'] = 3;
         $permission_array['selectfamily.php'] = 3;
-        $permission_array['actualactivityform.php'] = 3;
-        $permission_array['busmonitorattendanceform.php'] = 3;
+        // $permission_array['actualactivityform.php'] = 3;
+        // $permission_array['busmonitorattendanceform.php'] = 3;
         $permission_array['addroutevolunteer.php'] = 3;
         $permission_array['removevolunteer.php'] = 3;
         $permission_array['addattendee.php'] = 3;
@@ -167,7 +169,7 @@
         $permission_array['editform.php'] = 1;
         $permission_array['programreviewreport.php'] = 2;
         $permission_array['programreviewreportpage.php'] = 2;
-	$permission_array['editfeedback.php'] = 2;
+	    $permission_array['editfeedback.php'] = 2;
 
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));

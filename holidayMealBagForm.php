@@ -2,7 +2,7 @@
 session_start();
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
-require_once('header.php');
+// require_once('header.php');
 require('universal.inc');
 
 require_once("database/dbinfo.php");
@@ -23,7 +23,6 @@ $familyID = $_GET['id'] ?? ($_SESSION['account_type'] === "admin" ? null : $_SES
 if (!$familyID) {
     die("ERROR: No family ID provided.");
 }
-
 // Retrieve family data
 $family = retrieve_family_by_id($familyID);
 if (!$family) {
@@ -89,92 +88,6 @@ $forms = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Holiday Meal Bag Form</title>
-    <!-- <style>
-        body {
-            background-color: #800020; /* Burgundy */
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            color: black;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        label {
-            font-weight: bold;
-            text-align: left;
-            display: block;
-        }
-
-        input, select, button {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #800020;
-            width: 100%;
-        }
-
-        button {
-            background-color: #800020;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #5a0014;
-        }
-
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 10px;
-            border: 1px solid black;
-            text-align: center;
-        }
-
-        th {
-            background-color: #800020;
-            color: white;
-            
-        } 
-        .dashboard-btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            margin-top: 15px;
-            text-align: center;
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-            background-color: #800020; /* Burgundy */
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-}
-
-        .dashboard-btn:hover {
-            background-color: #5a0014; /* Darker Burgundy */
-}
-
-    </style> -->
 </head>
 <body>
 
@@ -219,31 +132,17 @@ $forms = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 
         <button type="submit">Submit Form</button>
         <div style="text-align: center; margin-top: 15px;">
-        <a class="button cancel" href="index.php">Return to Dashboard</a>
+        <?php if($_SESSION['access_level'] == 1): ?> 
+    <a class="button cancel" href="familyAccountDashboard.php" style="margin-top: 3rem;">Return to Dashboard</a>
+<?php endif; ?>
+
+<?php if($_SESSION['access_level'] > 1): ?>
+    <a class="button cancel" href="index.php" style="margin-top: 3rem;">Return to Dashboard</a>
+<?php endif; ?>
+
     </div>
     </form>
 </div>
-
-<!-- Display last 10 submitted forms -->
-<!-- <div class="container">
-    <h3>Last 10 Submitted Forms</h3>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Family Name</th>
-            <th>Email</th>
-            <th>Household Size</th>
-        </tr>
-        <?php foreach ($forms as $form): ?>
-            <tr>
-                <td><?= htmlspecialchars($form["id"]); ?></td>
-                <td><?= htmlspecialchars($form["family_name"]); ?></td>
-                <td><?= htmlspecialchars($form["email"]); ?></td>
-                <td><?= htmlspecialchars($form["household_size"]); ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-</div> -->
 
 </body>
 </html>
