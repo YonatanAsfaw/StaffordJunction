@@ -54,6 +54,7 @@
                 $errors .= '<p>Your request was missing arguments.</p>';
             }
             if (!$errors) {
+                $args['completed'] = "no";
                 $success = update_event($id, $args);
                 if (!$success){
                     echo "Oopsy!";

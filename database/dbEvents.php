@@ -299,7 +299,6 @@ function update_event($eventID, $eventDetails) {
     $description = $eventDetails["description"];
     $location = $eventDetails["location"];
     $services = $eventDetails["service"];
-    
     $completed = $eventDetails["completed"];
     $query = "
         update dbEvents set name='$name', abbrevName='$abbrevName', date='$date', startTime='$startTime', description='$description', locationID='$location', completed='$completed'
