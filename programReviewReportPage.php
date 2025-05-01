@@ -37,7 +37,14 @@ $reviews = [];
 if ($selected_event_name) {
     $connection = connect();
     $safe_event_name = mysqli_real_escape_string($connection, $selected_event_name);
-    $query = "SELECT * FROM dbProgramReviewForm WHERE event_name = '$safe_event_name'";
+   $query = "
+    SELECT prf.*, f.firstName, f.lastName 
+    FROM dbProgramReviewForm prf
+    JOIN dbFamily f ON prf.family_id = f.id
+    WHERE prf.event_name = '$safe_event_name'
+";
+
+
     $result = mysqli_query($connection, $query);
 
     if ($result) {
@@ -123,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csv_export'])) {
     <h1 style="text-align: center;">Program Review Report</h1>
 
     <form method="post" class="center_b">
-        <a class="button cancel" href="report-menu.php">Back to Report Menu</a>
+        <a class="button cancel" href="programReviewReport.php">Back to Report Menu</a>
         <?php if (!empty($reviews)): ?>
             <button class="button" name="csv_export" value="1">Download Results (.csv)</button>
         <?php endif; ?>
